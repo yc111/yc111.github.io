@@ -239,6 +239,148 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/07/如何通过NPM安装私有模块/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ChampYin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChampYin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/07/如何通过NPM安装私有模块/" itemprop="url">如何通过NPM安装私有模块</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-07T03:35:01+08:00">
+                2018-06-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/06/07/如何通过NPM安装私有模块/" class="leancloud_visitors" data-flag-title="如何通过NPM安装私有模块">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="如何通过NPM安装私有模块"><a href="#如何通过NPM安装私有模块" class="headerlink" title="如何通过NPM安装私有模块"></a>如何通过NPM安装私有模块</h1><h2 id="方案一：购买npm付费账号"><a href="#方案一：购买npm付费账号" class="headerlink" title="方案一：购买npm付费账号"></a>方案一：购买npm付费账号</h2><p>根据npm的价格方案，只要是付费用户，不论是哪一种，都可以下载和发布不限量的私有模块。所有的私有模块都是scoped package。scope是npm的新特性。如果一个模块的名字以 <code>@</code> 开头，那它就是一个scoped package:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@scope/project-name</span><br></pre></td></tr></table></figure></p>
+<p>每一个npm用户都有拥有一个自己的scope：当前用户名username。</p>
+<h3 id="初始化一个scoped-package"><a href="#初始化一个scoped-package" class="headerlink" title="初始化一个scoped-package"></a>初始化一个scoped-package</h3><p>通过在包名字前添加scope：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;name&quot;: &quot;@usernane/project-name&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>也可以使用 <code>npm init</code> 命令自定义 <code>--scope</code> 选项来设置scope：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init --scope=username</span><br></pre></td></tr></table></figure></p>
+<p>如果你在大多数时候使用的scope都是相同的，可以设置一个默认的scope，这样每次初始化的时候会自动使用该scope：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config set scope &lt;your_scope&gt;</span><br></pre></td></tr></table></figure></p>
+<p>发布scoped模块跟发布普通模块一样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm publish</span><br></pre></td></tr></table></figure></p>
+<p>默认状态下scoped package包是私有的。然而，你可以把scoped package免费的发布为共有包。只需要在发布时配置 <code>--access</code> 选项即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm publish --access=public</span><br></pre></td></tr></table></figure></p>
+<h2 id="方案二：自建npm私服"><a href="#方案二：自建npm私服" class="headerlink" title="方案二：自建npm私服"></a>方案二：自建npm私服</h2><p>如果连仓库都是私有的，模块自然是私有的。这个方案好处就是可以建在自己公司内部，访问速度自然是杠杠的，而且想怎么定制就怎么定制。不过构建成本也是有的，而且需要服务器。一般稍微大规模的团队和公司会采取这种办法。</p>
+<h2 id="方案三：利用npm安装机制和git仓库"><a href="#方案三：利用npm安装机制和git仓库" class="headerlink" title="方案三：利用npm安装机制和git仓库"></a>方案三：利用npm安装机制和git仓库</h2><p>这个方案最经济实惠。<br>首先，<code>npm install</code> 支持 <code>npm install &lt;git remote url&gt;</code> ，其中 <code>git remote url</code> 的格式是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;protocol&gt;://[&lt;user&gt;[:&lt;password&gt;]@]&lt;hostname&gt;[:&lt;port&gt;][:/]&lt;path&gt;[#&lt;commit-ish&gt;]</span><br></pre></td></tr></table></figure></p>
+<p>即，如果你的代码托管在bitbucket中，可以通过如下命令安装模块：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install git+ssh://git@bitbucket.org/用户名／项目名.git#版本号</span><br></pre></td></tr></table></figure></p>
+<p>这种方式唯一的不足的地方就是，你必须要确保安装这个私有模块的机器由访问这个私有模块git仓库的权限。也就是说这台机器的公钥必须添加到git仓库中。<br>如果你嫌添加公钥麻烦，也可以通过：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install git+https:username:password@bitbucket.org/用户名／项目名.git#版本号</span><br></pre></td></tr></table></figure></p>
+<p>不过密码就暴露出来了。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/04/软件版本命名规范/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1574,139 +1716,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/06/node-widows/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ChampYin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ChampYin's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/06/node-widows/" itemprop="url">node-widows</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-06T13:19:02+08:00">
-                2018-04-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/04/06/node-widows/" class="leancloud_visitors" data-flag-title="node-widows">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="使用node-windows-将node服务变成windows服务进行管理"><a href="#使用node-windows-将node服务变成windows服务进行管理" class="headerlink" title="使用node-windows 将node服务变成windows服务进行管理"></a>使用node-windows 将node服务变成windows服务进行管理</h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1754,7 +1770,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

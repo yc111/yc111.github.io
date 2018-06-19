@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="配置SSH key配置ssh秘钥，以及使用git协议，每次pull、push可以免去输入账号密码的麻烦。 生成秘钥对1ssh-keygen -t rsa -C &amp;quot;lovecoding@163.com&amp;quot; 提示输入文件，直接回车。提示输入密码，直接回车。得到公钥文件id_rsa.pub 设置远程仓库上的秘钥查看公钥1cat ~/.ssh/id_rsa 复制公钥内容，进入github">
+<meta name="description" content="如何通过NPM安装私有模块方案一：购买npm付费账号根据npm的价格方案，只要是付费用户，不论是哪一种，都可以下载和发布不限量的私有模块。所有的私有模块都是scoped package。scope是npm的新特性。如果一个模块的名字以 @ 开头，那它就是一个scoped package:1@scope/project-name 每一个npm用户都有拥有一个自己的scope：当前用户名usernam">
 <meta property="og:type" content="article">
-<meta property="og:title" content="配置git环境之设置SSH key">
-<meta property="og:url" content="http://yoursite.com/2018/04/07/配置git环境之设置SSH-key/index.html">
+<meta property="og:title" content="如何通过NPM安装私有模块">
+<meta property="og:url" content="http://yoursite.com/2018/06/07/如何通过NPM安装私有模块/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="配置SSH key配置ssh秘钥，以及使用git协议，每次pull、push可以免去输入账号密码的麻烦。 生成秘钥对1ssh-keygen -t rsa -C &amp;quot;lovecoding@163.com&amp;quot; 提示输入文件，直接回车。提示输入密码，直接回车。得到公钥文件id_rsa.pub 设置远程仓库上的秘钥查看公钥1cat ~/.ssh/id_rsa 复制公钥内容，进入github">
+<meta property="og:description" content="如何通过NPM安装私有模块方案一：购买npm付费账号根据npm的价格方案，只要是付费用户，不论是哪一种，都可以下载和发布不限量的私有模块。所有的私有模块都是scoped package。scope是npm的新特性。如果一个模块的名字以 @ 开头，那它就是一个scoped package:1@scope/project-name 每一个npm用户都有拥有一个自己的scope：当前用户名usernam">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-04-07T12:13:02.000Z">
+<meta property="og:updated_time" content="2018-06-19T16:02:08.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="配置git环境之设置SSH key">
-<meta name="twitter:description" content="配置SSH key配置ssh秘钥，以及使用git协议，每次pull、push可以免去输入账号密码的麻烦。 生成秘钥对1ssh-keygen -t rsa -C &amp;quot;lovecoding@163.com&amp;quot; 提示输入文件，直接回车。提示输入密码，直接回车。得到公钥文件id_rsa.pub 设置远程仓库上的秘钥查看公钥1cat ~/.ssh/id_rsa 复制公钥内容，进入github">
+<meta name="twitter:title" content="如何通过NPM安装私有模块">
+<meta name="twitter:description" content="如何通过NPM安装私有模块方案一：购买npm付费账号根据npm的价格方案，只要是付费用户，不论是哪一种，都可以下载和发布不限量的私有模块。所有的私有模块都是scoped package。scope是npm的新特性。如果一个模块的名字以 @ 开头，那它就是一个scoped package:1@scope/project-name 每一个npm用户都有拥有一个自己的scope：当前用户名usernam">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/07/配置git环境之设置SSH-key/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/06/07/如何通过NPM安装私有模块/"/>
 
 
 
 
 
-  <title>配置git环境之设置SSH key | ChampYin's Blog</title>
+  <title>如何通过NPM安装私有模块 | ChampYin's Blog</title>
   
 
 
@@ -242,7 +242,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/07/配置git环境之设置SSH-key/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/07/如何通过NPM安装私有模块/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ChampYin">
@@ -259,7 +259,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">配置git环境之设置SSH key</h1>
+          <h1 class="post-title" itemprop="name headline">如何通过NPM安装私有模块</h1>
         
 
         <div class="post-meta">
@@ -271,8 +271,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-07T20:07:24+08:00">
-                2018-04-07
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-07T03:35:01+08:00">
+                2018-06-07
               </time>
             
 
@@ -289,7 +289,7 @@
 
           
           
-             <span id="/2018/04/07/配置git环境之设置SSH-key/" class="leancloud_visitors" data-flag-title="配置git环境之设置SSH key">
+             <span id="/2018/06/07/如何通过NPM安装私有模块/" class="leancloud_visitors" data-flag-title="如何通过NPM安装私有模块">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -320,12 +320,18 @@
       
 
       
-        <h2 id="配置SSH-key"><a href="#配置SSH-key" class="headerlink" title="配置SSH key"></a>配置SSH key</h2><p>配置ssh秘钥，以及使用git协议，每次pull、push可以免去输入账号密码的麻烦。</p>
-<h3 id="生成秘钥对"><a href="#生成秘钥对" class="headerlink" title="生成秘钥对"></a>生成秘钥对</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;lovecoding@163.com&quot;</span><br></pre></td></tr></table></figure>
-<p>提示输入文件，直接回车。<br>提示输入密码，直接回车。<br>得到公钥文件id_rsa.pub</p>
-<h3 id="设置远程仓库上的秘钥"><a href="#设置远程仓库上的秘钥" class="headerlink" title="设置远程仓库上的秘钥"></a>设置远程仓库上的秘钥</h3><p>查看公钥<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure></p>
-<p>复制公钥内容，进入github，在setting里，新建SHH key，将公钥内容填进去。<br>验证key是否正常工作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></p>
-<p>如果看到”Hi lovecoding！ you’ve successfully authenticated, but GitHub does not provide shell access.说明设置成功。</p>
+        <h1 id="如何通过NPM安装私有模块"><a href="#如何通过NPM安装私有模块" class="headerlink" title="如何通过NPM安装私有模块"></a>如何通过NPM安装私有模块</h1><h2 id="方案一：购买npm付费账号"><a href="#方案一：购买npm付费账号" class="headerlink" title="方案一：购买npm付费账号"></a>方案一：购买npm付费账号</h2><p>根据npm的价格方案，只要是付费用户，不论是哪一种，都可以下载和发布不限量的私有模块。所有的私有模块都是scoped package。scope是npm的新特性。如果一个模块的名字以 <code>@</code> 开头，那它就是一个scoped package:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@scope/project-name</span><br></pre></td></tr></table></figure></p>
+<p>每一个npm用户都有拥有一个自己的scope：当前用户名username。</p>
+<h3 id="初始化一个scoped-package"><a href="#初始化一个scoped-package" class="headerlink" title="初始化一个scoped-package"></a>初始化一个scoped-package</h3><p>通过在包名字前添加scope：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;name&quot;: &quot;@usernane/project-name&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>也可以使用 <code>npm init</code> 命令自定义 <code>--scope</code> 选项来设置scope：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init --scope=username</span><br></pre></td></tr></table></figure></p>
+<p>如果你在大多数时候使用的scope都是相同的，可以设置一个默认的scope，这样每次初始化的时候会自动使用该scope：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config set scope &lt;your_scope&gt;</span><br></pre></td></tr></table></figure></p>
+<p>发布scoped模块跟发布普通模块一样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm publish</span><br></pre></td></tr></table></figure></p>
+<p>默认状态下scoped package包是私有的。然而，你可以把scoped package免费的发布为共有包。只需要在发布时配置 <code>--access</code> 选项即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm publish --access=public</span><br></pre></td></tr></table></figure></p>
+<h2 id="方案二：自建npm私服"><a href="#方案二：自建npm私服" class="headerlink" title="方案二：自建npm私服"></a>方案二：自建npm私服</h2><p>如果连仓库都是私有的，模块自然是私有的。这个方案好处就是可以建在自己公司内部，访问速度自然是杠杠的，而且想怎么定制就怎么定制。不过构建成本也是有的，而且需要服务器。一般稍微大规模的团队和公司会采取这种办法。</p>
+<h2 id="方案三：利用npm安装机制和git仓库"><a href="#方案三：利用npm安装机制和git仓库" class="headerlink" title="方案三：利用npm安装机制和git仓库"></a>方案三：利用npm安装机制和git仓库</h2><p>这个方案最经济实惠。<br>首先，<code>npm install</code> 支持 <code>npm install &lt;git remote url&gt;</code> ，其中 <code>git remote url</code> 的格式是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;protocol&gt;://[&lt;user&gt;[:&lt;password&gt;]@]&lt;hostname&gt;[:&lt;port&gt;][:/]&lt;path&gt;[#&lt;commit-ish&gt;]</span><br></pre></td></tr></table></figure></p>
+<p>即，如果你的代码托管在bitbucket中，可以通过如下命令安装模块：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install git+ssh://git@bitbucket.org/用户名／项目名.git#版本号</span><br></pre></td></tr></table></figure></p>
+<p>这种方式唯一的不足的地方就是，你必须要确保安装这个私有模块的机器由访问这个私有模块git仓库的权限。也就是说这台机器的公钥必须添加到git仓库中。<br>如果你嫌添加公钥麻烦，也可以通过：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install git+https:username:password@bitbucket.org/用户名／项目名.git#版本号</span><br></pre></td></tr></table></figure></p>
+<p>不过密码就暴露出来了。</p>
 
       
     </div>
@@ -350,8 +356,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/07/配置git环境之设置remote-url的传输协议/" rel="next" title="配置git环境之设置remote url的传输协议">
-                <i class="fa fa-chevron-left"></i> 配置git环境之设置remote url的传输协议
+              <a href="/2018/06/04/软件版本命名规范/" rel="next" title="软件版本命名规范">
+                <i class="fa fa-chevron-left"></i> 软件版本命名规范
               </a>
             
           </div>
@@ -359,10 +365,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/25/git常用命令/" rel="prev" title="git常用命令">
-                git常用命令 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -480,7 +482,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置SSH-key"><span class="nav-number">1.</span> <span class="nav-text">配置SSH key</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成秘钥对"><span class="nav-number">1.1.</span> <span class="nav-text">生成秘钥对</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置远程仓库上的秘钥"><span class="nav-number">1.2.</span> <span class="nav-text">设置远程仓库上的秘钥</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#如何通过NPM安装私有模块"><span class="nav-number">1.</span> <span class="nav-text">如何通过NPM安装私有模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#方案一：购买npm付费账号"><span class="nav-number">1.1.</span> <span class="nav-text">方案一：购买npm付费账号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化一个scoped-package"><span class="nav-number">1.1.1.</span> <span class="nav-text">初始化一个scoped-package</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方案二：自建npm私服"><span class="nav-number">1.2.</span> <span class="nav-text">方案二：自建npm私服</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方案三：利用npm安装机制和git仓库"><span class="nav-number">1.3.</span> <span class="nav-text">方案三：利用npm安装机制和git仓库</span></a></li></ol></li></ol></div>
             
 
           </div>
