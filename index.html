@@ -459,7 +459,7 @@
         
           
             <h2 id="列出当前目录下每个文件的大小以及当前目录文件下所有文件大小总和。"><a href="#列出当前目录下每个文件的大小以及当前目录文件下所有文件大小总和。" class="headerlink" title="列出当前目录下每个文件的大小以及当前目录文件下所有文件大小总和。"></a>列出当前目录下每个文件的大小以及当前目录文件下所有文件大小总和。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lht</span><br></pre></td></tr></table></figure>
-<p>与一下命令是同一个效果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l -h -t</span><br></pre></td></tr></table></figure></p>
+<p>与以下命令是同一个效果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l -h -t</span><br></pre></td></tr></table></figure></p>
 <p>ls是 list segment 的缩写，用于列出文件。</p>
 <h2 id="ls的常用参数"><a href="#ls的常用参数" class="headerlink" title="ls的常用参数"></a>ls的常用参数</h2><p>常用参数：</p>
 <p>-a, –all 列出目录下的所有文件，包括以 . 开头的隐含文件</p>
@@ -649,7 +649,7 @@
 <p>我这次使用的是邮箱<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">irb(main):001:0&gt; user=User.where(email:xxx@163.com).first</span><br></pre></td></tr></table></figure></p>
 <h3 id="4-修改密码"><a href="#4-修改密码" class="headerlink" title="4. 修改密码"></a>4. 修改密码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; user.password = &apos;newpassword&apos;</span><br><span class="line">&gt; user.password_confirmation = &apos;newpassword&apos;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>注意最好是将 <code>password</code> 和 <code>password_confirmation</code> 都重置，已确保完全修改生效。</p>
+<p>注意最好是将 <code>password</code> 和 <code>password_confirmation</code> 都重置，以确保完全修改生效。</p>
 </blockquote>
 <h3 id="5-保存修改"><a href="#5-保存修改" class="headerlink" title="5. 保存修改"></a>5. 保存修改</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; user.save!</span><br></pre></td></tr></table></figure>
 <blockquote>

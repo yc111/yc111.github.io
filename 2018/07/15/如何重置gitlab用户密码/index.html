@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="之前有提到，我为我们部门搭建了一个gitlab，前几天有用户跟我反映，他忘记密码了，使用gitlab自带的找回密码功能无果，收不到邮件，估计跟公司内网有一些关系，也可能是我没有配置好邮件联动。anyway，现在去配置邮箱感觉花的时间有些来不及。想着作为管理员，应该有权限和办法去重置用户的密码的，于是查询了资料，果然不出所料。方法如下： 1. 首先使用root权限进入gitlab所在的linux服务">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-07-15T07:35:33.000Z">
+<meta property="og:updated_time" content="2018-07-16T15:55:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何重置gitlab用户密码">
 <meta name="twitter:description" content="之前有提到，我为我们部门搭建了一个gitlab，前几天有用户跟我反映，他忘记密码了，使用gitlab自带的找回密码功能无果，收不到邮件，估计跟公司内网有一些关系，也可能是我没有配置好邮件联动。anyway，现在去配置邮箱感觉花的时间有些来不及。想着作为管理员，应该有权限和办法去重置用户的密码的，于是查询了资料，果然不出所料。方法如下： 1. 首先使用root权限进入gitlab所在的linux服务">
@@ -330,7 +330,7 @@
 <p>我这次使用的是邮箱<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">irb(main):001:0&gt; user=User.where(email:xxx@163.com).first</span><br></pre></td></tr></table></figure></p>
 <h3 id="4-修改密码"><a href="#4-修改密码" class="headerlink" title="4. 修改密码"></a>4. 修改密码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; user.password = &apos;newpassword&apos;</span><br><span class="line">&gt; user.password_confirmation = &apos;newpassword&apos;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>注意最好是将 <code>password</code> 和 <code>password_confirmation</code> 都重置，已确保完全修改生效。</p>
+<p>注意最好是将 <code>password</code> 和 <code>password_confirmation</code> 都重置，以确保完全修改生效。</p>
 </blockquote>
 <h3 id="5-保存修改"><a href="#5-保存修改" class="headerlink" title="5. 保存修改"></a>5. 保存修改</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; user.save!</span><br></pre></td></tr></table></figure>
 <blockquote>
