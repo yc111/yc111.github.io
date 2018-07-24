@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="利用hexo和github搭建自己的博客网站并不复杂，只需follow以下3个steps：  创建github.io page 搭建本地hexo环境 将github.io page与hexo关联起来  一、创建github.io page1. 首先要有github账号，没有的话去github.com注册一个。github是一个基于git的web协作社区。为描述方便，假设注册好的github账号名为">
+<meta name="description" content="利用hexo和github搭建自己的博客网站并不复杂，只需follow以下3个steps：  创建github.io page 搭建本地hexo环境 将github.io page与hexo关联起来">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何使用hexo+github建立自己的博客">
 <meta property="og:url" content="http://yoursite.com/2018/04/06/如何使用hexo-github建立自己的博客/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="利用hexo和github搭建自己的博客网站并不复杂，只需follow以下3个steps：  创建github.io page 搭建本地hexo环境 将github.io page与hexo关联起来  一、创建github.io page1. 首先要有github账号，没有的话去github.com注册一个。github是一个基于git的web协作社区。为描述方便，假设注册好的github账号名为">
+<meta property="og:description" content="利用hexo和github搭建自己的博客网站并不复杂，只需follow以下3个steps：  创建github.io page 搭建本地hexo环境 将github.io page与hexo关联起来">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-04-24T17:32:10.000Z">
+<meta property="og:updated_time" content="2018-07-24T16:11:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何使用hexo+github建立自己的博客">
-<meta name="twitter:description" content="利用hexo和github搭建自己的博客网站并不复杂，只需follow以下3个steps：  创建github.io page 搭建本地hexo环境 将github.io page与hexo关联起来  一、创建github.io page1. 首先要有github账号，没有的话去github.com注册一个。github是一个基于git的web协作社区。为描述方便，假设注册好的github账号名为">
+<meta name="twitter:description" content="利用hexo和github搭建自己的博客网站并不复杂，只需follow以下3个steps：  创建github.io page 搭建本地hexo环境 将github.io page与hexo关联起来">
 
 
 
@@ -326,6 +326,7 @@
 <li>搭建本地hexo环境</li>
 <li>将github.io page与hexo关联起来</li>
 </ol>
+<a id="more"></a>
 <h2 id="一、创建github-io-page"><a href="#一、创建github-io-page" class="headerlink" title="一、创建github.io page"></a>一、创建github.io page</h2><h3 id="1-首先要有github账号，没有的话去github-com注册一个。"><a href="#1-首先要有github账号，没有的话去github-com注册一个。" class="headerlink" title="1. 首先要有github账号，没有的话去github.com注册一个。"></a>1. 首先要有github账号，没有的话去github.com注册一个。</h3><p>github是一个基于git的web协作社区。<br>为描述方便，假设注册好的github账号名为：lovecoding。</p>
 <h3 id="2-在github上创建一个名为lovecoding-github-io的repository。"><a href="#2-在github上创建一个名为lovecoding-github-io的repository。" class="headerlink" title="2. 在github上创建一个名为lovecoding.github.io的repository。"></a>2. 在github上创建一个名为lovecoding.github.io的repository。</h3><p>注意：一定要是你的github账号名加.github.io作为repository的名字，不能是其他名字，否则不会生成github.io根域名的page。这一点在<a href="https://help.github.com/articles/user-organization-and-project-pages/" target="_blank" rel="noopener">User, Organization, and Project Pages</a>上有详细解释。</p>
 <h3 id="3-向lovecoding-github-io仓库上传一份文件。"><a href="#3-向lovecoding-github-io仓库上传一份文件。" class="headerlink" title="3. 向lovecoding.github.io仓库上传一份文件。"></a>3. 向lovecoding.github.io仓库上传一份文件。</h3><p>比如上传一份README.md文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd newRepository</span><br><span class="line">echo &quot;# my github.io page&quot; &gt;&gt; README.md</span><br><span class="line">git init</span><br><span class="line">git add README.md</span><br><span class="line">git commit -m &quot;first commint&quot;</span><br><span class="line">git remote add origin git@github.com:lovecoding/lovecoding.github.io.git</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure></p>

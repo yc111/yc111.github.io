@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="如何通过NPM安装私有模块方案一：购买npm付费账号根据npm的价格方案，只要是付费用户，不论是哪一种，都可以下载和发布不限量的私有模块。所有的私有模块都是scoped package。scope是npm的新特性。如果一个模块的名字以 @ 开头，那它就是一个scoped package:1@scope/project-name 每一个npm用户都有拥有一个自己的scope：当前用户名usernam">
+<meta name="description" content="如何通过NPM安装私有模块可以有3种方案：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何通过NPM安装私有模块">
 <meta property="og:url" content="http://yoursite.com/2018/06/07/如何通过NPM安装私有模块/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="如何通过NPM安装私有模块方案一：购买npm付费账号根据npm的价格方案，只要是付费用户，不论是哪一种，都可以下载和发布不限量的私有模块。所有的私有模块都是scoped package。scope是npm的新特性。如果一个模块的名字以 @ 开头，那它就是一个scoped package:1@scope/project-name 每一个npm用户都有拥有一个自己的scope：当前用户名usernam">
+<meta property="og:description" content="如何通过NPM安装私有模块可以有3种方案：">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-06-19T16:02:08.000Z">
+<meta property="og:updated_time" content="2018-07-24T16:16:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何通过NPM安装私有模块">
-<meta name="twitter:description" content="如何通过NPM安装私有模块方案一：购买npm付费账号根据npm的价格方案，只要是付费用户，不论是哪一种，都可以下载和发布不限量的私有模块。所有的私有模块都是scoped package。scope是npm的新特性。如果一个模块的名字以 @ 开头，那它就是一个scoped package:1@scope/project-name 每一个npm用户都有拥有一个自己的scope：当前用户名usernam">
+<meta name="twitter:description" content="如何通过NPM安装私有模块可以有3种方案：">
 
 
 
@@ -320,7 +320,9 @@
       
 
       
-        <h1 id="如何通过NPM安装私有模块"><a href="#如何通过NPM安装私有模块" class="headerlink" title="如何通过NPM安装私有模块"></a>如何通过NPM安装私有模块</h1><h2 id="方案一：购买npm付费账号"><a href="#方案一：购买npm付费账号" class="headerlink" title="方案一：购买npm付费账号"></a>方案一：购买npm付费账号</h2><p>根据npm的价格方案，只要是付费用户，不论是哪一种，都可以下载和发布不限量的私有模块。所有的私有模块都是scoped package。scope是npm的新特性。如果一个模块的名字以 <code>@</code> 开头，那它就是一个scoped package:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@scope/project-name</span><br></pre></td></tr></table></figure></p>
+        <h1 id="如何通过NPM安装私有模块"><a href="#如何通过NPM安装私有模块" class="headerlink" title="如何通过NPM安装私有模块"></a>如何通过NPM安装私有模块</h1><p>可以有3种方案：</p>
+<a id="more"></a>
+<h2 id="方案一：购买npm付费账号"><a href="#方案一：购买npm付费账号" class="headerlink" title="方案一：购买npm付费账号"></a>方案一：购买npm付费账号</h2><p>根据npm的价格方案，只要是付费用户，不论是哪一种，都可以下载和发布不限量的私有模块。所有的私有模块都是scoped package。scope是npm的新特性。如果一个模块的名字以 <code>@</code> 开头，那它就是一个scoped package:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@scope/project-name</span><br></pre></td></tr></table></figure></p>
 <p>每一个npm用户都有拥有一个自己的scope：当前用户名username。</p>
 <h3 id="初始化一个scoped-package"><a href="#初始化一个scoped-package" class="headerlink" title="初始化一个scoped-package"></a>初始化一个scoped-package</h3><p>通过在包名字前添加scope：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;name&quot;: &quot;@usernane/project-name&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>也可以使用 <code>npm init</code> 命令自定义 <code>--scope</code> 选项来设置scope：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init --scope=username</span><br></pre></td></tr></table></figure></p>

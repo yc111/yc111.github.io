@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="我的宿主机是一台windows操作系统的服务器。 虚拟机用的是virtualbox。 以前在 vmware 上面与宿主机的共享只需要在 wmware 上配置下共享文件夹就可以生效。但是在 virtualbox 上，除了配置共享文件夹，还要使用 mount 命令进行挂载才能与宿主机共享一个文件夹。 1. 在宿主机建立一个用于与virtualbox共享的文件夹，例如 myshared。并在里面新建一个">
+<meta name="description" content="我的宿主机是一台windows操作系统的服务器。 虚拟机用的是virtualbox。 以前在 vmware 上面与宿主机的共享只需要在 wmware 上配置下共享文件夹就可以生效。但是在 virtualbox 上，除了配置共享文件夹，还要使用 mount 命令进行挂载才能与宿主机共享一个文件夹。">
 <meta name="keywords" content="virtualbox">
 <meta property="og:type" content="article">
 <meta property="og:title" content="virtualbox如何挂载宿主机的文件夹">
 <meta property="og:url" content="http://yoursite.com/2018/07/17/virtualbox如何挂载宿主机的文件夹/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="我的宿主机是一台windows操作系统的服务器。 虚拟机用的是virtualbox。 以前在 vmware 上面与宿主机的共享只需要在 wmware 上配置下共享文件夹就可以生效。但是在 virtualbox 上，除了配置共享文件夹，还要使用 mount 命令进行挂载才能与宿主机共享一个文件夹。 1. 在宿主机建立一个用于与virtualbox共享的文件夹，例如 myshared。并在里面新建一个">
+<meta property="og:description" content="我的宿主机是一台windows操作系统的服务器。 虚拟机用的是virtualbox。 以前在 vmware 上面与宿主机的共享只需要在 wmware 上配置下共享文件夹就可以生效。但是在 virtualbox 上，除了配置共享文件夹，还要使用 mount 命令进行挂载才能与宿主机共享一个文件夹。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-07-17T16:51:13.000Z">
+<meta property="og:updated_time" content="2018-07-24T16:14:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="virtualbox如何挂载宿主机的文件夹">
-<meta name="twitter:description" content="我的宿主机是一台windows操作系统的服务器。 虚拟机用的是virtualbox。 以前在 vmware 上面与宿主机的共享只需要在 wmware 上配置下共享文件夹就可以生效。但是在 virtualbox 上，除了配置共享文件夹，还要使用 mount 命令进行挂载才能与宿主机共享一个文件夹。 1. 在宿主机建立一个用于与virtualbox共享的文件夹，例如 myshared。并在里面新建一个">
+<meta name="twitter:description" content="我的宿主机是一台windows操作系统的服务器。 虚拟机用的是virtualbox。 以前在 vmware 上面与宿主机的共享只需要在 wmware 上配置下共享文件夹就可以生效。但是在 virtualbox 上，除了配置共享文件夹，还要使用 mount 命令进行挂载才能与宿主机共享一个文件夹。">
 
 
 
@@ -324,6 +324,7 @@
         <p>我的宿主机是一台windows操作系统的服务器。</p>
 <p>虚拟机用的是virtualbox。</p>
 <p>以前在 vmware 上面与宿主机的共享只需要在 wmware 上配置下共享文件夹就可以生效。但是在 virtualbox 上，除了配置共享文件夹，还要使用 <code>mount</code> 命令进行挂载才能与宿主机共享一个文件夹。</p>
+<a id="more"></a>
 <h2 id="1-在宿主机建立一个用于与virtualbox共享的文件夹，例如-myshared。并在里面新建一个空的文本-a-txt，用于检测最后挂载是否成功。"><a href="#1-在宿主机建立一个用于与virtualbox共享的文件夹，例如-myshared。并在里面新建一个空的文本-a-txt，用于检测最后挂载是否成功。" class="headerlink" title="1. 在宿主机建立一个用于与virtualbox共享的文件夹，例如 myshared。并在里面新建一个空的文本 a.txt，用于检测最后挂载是否成功。"></a>1. 在宿主机建立一个用于与virtualbox共享的文件夹，例如 <code>myshared</code>。并在里面新建一个空的文本 <code>a.txt</code>，用于检测最后挂载是否成功。</h2><h2 id="2-在virtualbox中选择-设备-gt-共享文件夹-gt-打开设置界面。"><a href="#2-在virtualbox中选择-设备-gt-共享文件夹-gt-打开设置界面。" class="headerlink" title="2. 在virtualbox中选择 设备 -&gt; 共享文件夹 -&gt; 打开设置界面。"></a>2. 在virtualbox中选择 设备 -&gt; 共享文件夹 -&gt; 打开设置界面。</h2><h2 id="3-点击右侧-号，添加共享文件夹，选择宿主机上之前建好的-myshared-文件夹，并勾选-固定分配-。"><a href="#3-点击右侧-号，添加共享文件夹，选择宿主机上之前建好的-myshared-文件夹，并勾选-固定分配-。" class="headerlink" title="3. 点击右侧 + 号，添加共享文件夹，选择宿主机上之前建好的 myshared 文件夹，并勾选 固定分配 。"></a>3. 点击右侧 <code>+</code> 号，添加共享文件夹，选择宿主机上之前建好的 <code>myshared</code> 文件夹，并勾选 <code>固定分配</code> 。</h2><h2 id="4-在linux虚拟机中，打开终端，在mnt目录下新建一个目录-shared："><a href="#4-在linux虚拟机中，打开终端，在mnt目录下新建一个目录-shared：" class="headerlink" title="4. 在linux虚拟机中，打开终端，在mnt目录下新建一个目录 shared："></a>4. 在linux虚拟机中，打开终端，在mnt目录下新建一个目录 <code>shared</code>：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir /mnt/shared</span><br></pre></td></tr></table></figure>
 <h2 id="5-执行挂载："><a href="#5-执行挂载：" class="headerlink" title="5. 执行挂载："></a>5. 执行挂载：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mount -t vboxsf myshared /mnt/shared</span><br></pre></td></tr></table></figure>
 <h2 id="6-挂载成功，进入shared目录，就可以看到a-txt文件了。"><a href="#6-挂载成功，进入shared目录，就可以看到a-txt文件了。" class="headerlink" title="6. 挂载成功，进入shared目录，就可以看到a.txt文件了。"></a>6. 挂载成功，进入shared目录，就可以看到a.txt文件了。</h2>
