@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="今天在git上提交代码的时候，不小心在 commit message 中打了几个错别字，merge、push 完了才发现。。 由于我的完美主义加强迫症比较严重，那几个错别字越看越不顺眼，寻思着把它们给改过来。查了资料，加上实验，终于搞定，方法如下：  修改某次提交的 commit message需要注意的是：如果提交次数超过2次，则没有办法修改第1次的提交信息，第2次以后的信息都可以通过此方法修">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-09-11T17:11:37.000Z">
+<meta property="og:updated_time" content="2018-09-19T16:02:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何修改git中已经提交的内容">
 <meta name="twitter:description" content="今天在git上提交代码的时候，不小心在 commit message 中打了几个错别字，merge、push 完了才发现。。 由于我的完美主义加强迫症比较严重，那几个错别字越看越不顺眼，寻思着把它们给改过来。查了资料，加上实验，终于搞定，方法如下：  修改某次提交的 commit message需要注意的是：如果提交次数超过2次，则没有办法修改第1次的提交信息，第2次以后的信息都可以通过此方法修">
@@ -201,6 +201,36 @@
         </li>
       
         
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
@@ -283,6 +313,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端工具/" itemprop="url" rel="index">
+                    <span itemprop="name">前端工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -343,7 +395,7 @@
 <p>注意一定要使用 <code>-f</code> 参数，表示强制推送。<br>因为我们没有产生新的 commit（用 <code>git status</code> 可以看出），直接 push 不会发送任何东西。</p>
 <h3 id="6-现在我们去远程仓库刷新下-commit-记录，可以看到-commit-信息就已经修改了。"><a href="#6-现在我们去远程仓库刷新下-commit-记录，可以看到-commit-信息就已经修改了。" class="headerlink" title="6. 现在我们去远程仓库刷新下 commit 记录，可以看到 commit 信息就已经修改了。"></a>6. 现在我们去远程仓库刷新下 commit 记录，可以看到 commit 信息就已经修改了。</h3><h3 id="最后，我们再来看下我们的日志信息"><a href="#最后，我们再来看下我们的日志信息" class="headerlink" title="最后，我们再来看下我们的日志信息"></a>最后，我们再来看下我们的日志信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --oneline</span><br></pre></td></tr></table></figure>
 <p>细心点就会发现，从我们修改的那条 commit 起，之后的所有的 commit 的 commit id 都发生了变化！我修改的那条，由 <code>dd09519</code> 变成了 <code>4df3762</code>; 而它之后的那条记录也由 <code>b8b2df7</code> 变成了 <code>f52c471</code> 虽然我没由修改这条 commit 信息。<br><figure class="highlight plain"><figcaption><span>git log --oneline</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">f52c471 (HEAD -&gt; master, origin/master) 中文</span><br><span class="line">4df3762 中文信息 sici tijiao</span><br><span class="line">f1d9380 english only modify again..</span><br><span class="line">ea8a3b5 nonono correct message</span><br><span class="line">66a4488 need to be changed message</span><br></pre></td></tr></table></figure></p>
-<h2 id="BTW-还要说一个要注意的"><a href="#BTW-还要说一个要注意的" class="headerlink" title="BTW 还要说一个要注意的"></a>BTW 还要说一个要注意的</h2><p> 就是如果 commit 信息要输入中文，记得用 git bash。因为我是在 IDE（webstorm）上进行的 commit，用的中文（要不怎么有错别字呢），那在修改 commit 信息的时候，我仍想用中文，我用 cmd、powerShell、Cmder，都试了，没法在 vim 里面敲钟文，直接乱码，查资料改配置（quotepath = false、[gui] encoding = utf8）等等都没用，最后怀着绝望的心情，试了下 git bash， 居然中文支持的非常好！真是。。</p>
+<h2 id="BTW-还要说一个要注意的"><a href="#BTW-还要说一个要注意的" class="headerlink" title="BTW 还要说一个要注意的"></a>BTW 还要说一个要注意的</h2><p> 就是如果 commit 信息要输入中文，记得用 git bash。因为我是在 IDE（webstorm）上进行的 commit，用的中文（要不怎么有错别字呢），那在修改 commit 信息的时候，我仍想用中文，我用 cmd、powerShell、Cmder，都试了，没法在 vim 里面敲中文，直接乱码，查资料改配置（quotepath = false、[gui] encoding = utf8）等等都没用，最后怀着绝望的心情，试了下 git bash， 居然中文支持的非常好！真是。。</p>
 <blockquote>
 <h2 id="另外，在查资料的过程中，还顺便-get-到几个-git-的高级技能。总结如下："><a href="#另外，在查资料的过程中，还顺便-get-到几个-git-的高级技能。总结如下：" class="headerlink" title="另外，在查资料的过程中，还顺便 get 到几个 git 的高级技能。总结如下："></a>另外，在查资料的过程中，还顺便 get 到几个 git 的高级技能。总结如下：</h2><h3 id="1-修改最近一次的提交"><a href="#1-修改最近一次的提交" class="headerlink" title="1. 修改最近一次的提交"></a>1. 修改最近一次的提交</h3><h4 id="方法一：commit-–amend"><a href="#方法一：commit-–amend" class="headerlink" title="方法一：commit –amend"></a>方法一：commit –amend</h4><p>这种方法不仅可以修改 commit message，也可以修改提交内容。这种方式在还没有推送到远端的情况下，可以保持原有的 Change-Id（commit id）。若已经推送到远端，Change-Id 则会修改掉。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 修改需要修改的项目代码(如果只需要修改 commit message 就不用做)</span><br><span class="line">git add . #如果只需要修改 commit message 就不用做</span><br><span class="line">git commit --amend</span><br><span class="line"># 在出现的 vim 编辑器中修改 commit message，保存退出。</span><br><span class="line">git rebase --continue </span><br><span class="line">git push &lt;remote&gt; &lt;branch&gt; -f #若还没有推送到远端，就不用做</span><br></pre></td></tr></table></figure></p>
 <h4 id="方法二：reset"><a href="#方法二：reset" class="headerlink" title="方法二：reset"></a>方法二：reset</h4><p>这种方法也可以修改条内容和 commit message。这种方式在还没有推送到远端的情况下，也可以保持原有的 Change-Id（commit id）。若已经推送到远端，Change-Id 则会修改掉。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git reset HEAD^</span><br><span class="line"># 修改需要修改的项目代码(如果只需要修改 commit message 就不用做)</span><br><span class="line">git add . # 如果只需要修改 commit message 就不用做</span><br><span class="line">git commit -m “new commit message”</span><br><span class="line">git push &lt;remote&gt; &lt;branch&gt; -f # 若还没有推送到远端，就不用做</span><br></pre></td></tr></table></figure></p>
@@ -396,6 +448,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/09/19/进阶-二-：hexo博客配置/" rel="prev" title="进阶(二)：hexo博客配置">
+                进阶(二)：hexo博客配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -422,6 +478,11 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTgzMy8xNjM2MA=="></div>
+    </div>
 
   
 
@@ -475,22 +536,31 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
 
             
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">24</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">tags</span>
-                
+                </a>
               </div>
             
 
@@ -692,6 +762,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
