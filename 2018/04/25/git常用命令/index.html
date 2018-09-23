@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="1. 初始化1git init 2. 用户名邮箱配置设置全局用户属性:12git config --global user.name &amp;quot;champyin&amp;quot;git config --global user.email &amp;quot;champyin@163.com&amp;quot;  –global: 设置当前用户的全局属性，当你的repository没有设置项目的user.name 和">
+<meta name="description" content="1. 初始化1git init 2. 用户名邮箱配置设置全局用户属性:12git config --global user.name &amp;quot;champyin&amp;quot;git config --global user.email &amp;quot;champyin@163.com&amp;quot;  –global: 设置当前用户的全局属性，当你的 repository 没有设置项目的 user.nam">
 <meta name="keywords" content="git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git常用命令">
 <meta property="og:url" content="http://yoursite.com/2018/04/25/git常用命令/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="1. 初始化1git init 2. 用户名邮箱配置设置全局用户属性:12git config --global user.name &amp;quot;champyin&amp;quot;git config --global user.email &amp;quot;champyin@163.com&amp;quot;  –global: 设置当前用户的全局属性，当你的repository没有设置项目的user.name 和">
+<meta property="og:description" content="1. 初始化1git init 2. 用户名邮箱配置设置全局用户属性:12git config --global user.name &amp;quot;champyin&amp;quot;git config --global user.email &amp;quot;champyin@163.com&amp;quot;  –global: 设置当前用户的全局属性，当你的 repository 没有设置项目的 user.nam">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-09-19T14:31:22.000Z">
+<meta property="og:updated_time" content="2018-09-23T03:08:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git常用命令">
-<meta name="twitter:description" content="1. 初始化1git init 2. 用户名邮箱配置设置全局用户属性:12git config --global user.name &amp;quot;champyin&amp;quot;git config --global user.email &amp;quot;champyin@163.com&amp;quot;  –global: 设置当前用户的全局属性，当你的repository没有设置项目的user.name 和">
+<meta name="twitter:description" content="1. 初始化1git init 2. 用户名邮箱配置设置全局用户属性:12git config --global user.name &amp;quot;champyin&amp;quot;git config --global user.email &amp;quot;champyin@163.com&amp;quot;  –global: 设置当前用户的全局属性，当你的 repository 没有设置项目的 user.nam">
 
 
 
@@ -376,7 +376,7 @@
         <h3 id="1-初始化"><a href="#1-初始化" class="headerlink" title="1. 初始化"></a>1. 初始化</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
 <h3 id="2-用户名邮箱配置"><a href="#2-用户名邮箱配置" class="headerlink" title="2. 用户名邮箱配置"></a>2. 用户名邮箱配置</h3><p>设置全局用户属性:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;champyin&quot;</span><br><span class="line">git config --global user.email &quot;champyin@163.com&quot;</span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p>–global: 设置当前用户的全局属性，当你的repository没有设置项目的user.name 和user.email的时候，会默认用这个。</p>
+<p>–global: 设置当前用户的全局属性，当你的 repository 没有设置项目的 user.name 和 user.email 的时候，会默认用这个。</p>
 </blockquote>
 <p>查看全局用户属性:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.name</span><br><span class="line">git config user.email</span><br></pre></td></tr></table></figure></p>
 <p>如何知道本地有没有设置属性：</p>
@@ -385,7 +385,7 @@
 <p>如何设置本地属性：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.name &quot;champyin002&quot;</span><br><span class="line">gut config user.email &quot;champyin002@163.com&quot;</span><br></pre></td></tr></table></figure></p>
 <h3 id="3-远程仓库设置"><a href="#3-远程仓库设置" class="headerlink" title="3. 远程仓库设置"></a>3. 远程仓库设置</h3><p>查看当前配置有哪些远程仓库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote </span><br><span class="line">git remote -v</span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p><code>git remote</code> 列出每个远程仓库的简短名字。在克隆完某个项目后，至少可以看到一个名为origin的远程仓库<br><code>git remote -v</code> 显示对应的远程仓库地址。<code>-v</code> 为 <code>-verbose</code> 的简写。</p>
+<p><code>git remote</code> 列出每个远程仓库的简短名字。在克隆完某个项目后，至少可以看到一个名为 origin 的远程仓库<br><code>git remote -v</code> 显示对应的远程仓库地址。<code>-v</code> 为 <code>-verbose</code> 的简写。</p>
 </blockquote>
 <p>添加远程仓库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add [shortname] [url]</span><br></pre></td></tr></table></figure></p>
 <blockquote>
@@ -396,11 +396,11 @@
 <p>将远程仓库origin改为git协议的地址。</p>
 </blockquote>
 <p>查看远程仓库信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote show [remote-name]</span><br><span class="line">git remote show origin #查看所克隆的origin仓库</span><br></pre></td></tr></table></figure></p>
-<p>重命名远程仓库（修改某个远程仓库在本地的简称）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote rename mytest1 bugfix #把mytest1改成bugfix</span><br></pre></td></tr></table></figure></p>
+<p>重命名远程仓库（修改某个远程仓库在本地的简称）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote rename origin sam #把远程仓库 origin 重命名为 sam</span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p>对远程仓库的重命名，也会使对应的分支名称发生变化。原来的mytest1／master分支现在成为了bugfix／master。</p>
+<p>对远程仓库的重命名，也会使对应的分支名称发生变化。原来的 origin／master 分支现在成为了 sam／master。</p>
 </blockquote>
-<p>删除远程分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote rm bugfix</span><br></pre></td></tr></table></figure></p>
+<p>本地移除对应的远程仓库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote rm sam</span><br></pre></td></tr></table></figure></p>
 <h3 id="4-分支设置"><a href="#4-分支设置" class="headerlink" title="4. 分支设置"></a>4. 分支设置</h3><p>查看本地分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure></p>
 <p>查看各个分支最后一个提交对象的信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -v</span><br></pre></td></tr></table></figure></p>
 <p>查看远程分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -r</span><br></pre></td></tr></table></figure></p>
@@ -409,20 +409,20 @@
 <p>切换分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout mytest1</span><br></pre></td></tr></table></figure></p>
 <p>创建并切换到该分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b mytest2</span><br></pre></td></tr></table></figure></p>
 <p>删除分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d mytest1</span><br></pre></td></tr></table></figure></p>
-<p>删除远程分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin --delete mytest1</span><br></pre></td></tr></table></figure></p>
+<p>删除远程分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git push origin --delete mytest1 //git v1.70 以上</span><br><span class="line">// or</span><br><span class="line">git pudh origin :mytest1 //git v1.5.0以上 推送一个空的分支到远程分支。</span><br></pre></td></tr></table></figure></p>
 <h3 id="5-获取远程分支代码"><a href="#5-获取远程分支代码" class="headerlink" title="5. 获取远程分支代码"></a>5. 获取远程分支代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git pull [remote-name] [remote-branch-name]:[local-branch-name]</span><br><span class="line">git pull origin bugfix:master</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>注意，分支推送、拉取命令的写法规则是&lt;来源地&gt;:&lt;目的地&gt;。所以git pull 是[remote-branch-name]:[local-branch-name]，git push 是[local-branch-name]:[remote-branch-name]。</p>
+<p>注意，分支推送、拉取命令的写法规则是&lt;来源地&gt;:&lt;目的地&gt;。所以 git pull 是[remote-branch-name]:[local-branch-name]，git push 是[local-branch-name]:[remote-branch-name]。</p>
 </blockquote>
 <h3 id="6-上传代码到远程仓库"><a href="#6-上传代码到远程仓库" class="headerlink" title="6. 上传代码到远程仓库"></a>6. 上传代码到远程仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push [remote-name] [branch-name]</span><br><span class="line">git push origin master  #把本地的master分支推送到origin服务器上。</span><br></pre></td></tr></table></figure>
-<h3 id="7-上传代码到远程仓库分支"><a href="#7-上传代码到远程仓库分支" class="headerlink" title="7. 上传代码到远程仓库分支"></a>7. 上传代码到远程仓库分支</h3><p>如果远程有一个bugfix分支，我想要有一份自己的bugfix来开发。<br>先将远程分支抓取下来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin</span><br></pre></td></tr></table></figure></p>
+<h3 id="7-上传代码到远程仓库分支"><a href="#7-上传代码到远程仓库分支" class="headerlink" title="7. 上传代码到远程仓库分支"></a>7. 上传代码到远程仓库分支</h3><p>如果远程有一个 bugfix 分支，我想要有一份自己的 bugfix 来开发。<br>先将远程分支抓取下来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin</span><br></pre></td></tr></table></figure></p>
 <p>在远程分支的基础上分化一个新的本地分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b [local-branch-name] [remote-name]/[remote-branch-name]</span><br><span class="line">git chechout -b bugfix origin/bugfix</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>采用此命令建立的本地分支会自动和远程分支建立映射关系。</p>
 </blockquote>
-<p>修改完代码后，上传到远程bugfix分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git push [remote-name] [branch-name]</span><br><span class="line">git push origin bugfix</span><br><span class="line"># or</span><br><span class="line">git push [remote-name] [local-branch-name]:[remote-branch-name]</span><br><span class="line">git push origin bugfix:bugfix #实现跟上一条命令同样的效果。</span><br></pre></td></tr></table></figure></p>
+<p>修改完代码后，上传到远程 bugfix 分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git push [remote-name] [branch-name]</span><br><span class="line">git push origin bugfix</span><br><span class="line"># or</span><br><span class="line">git push [remote-name] [local-branch-name]:[remote-branch-name]</span><br><span class="line">git push origin bugfix:bugfix #实现跟上一条命令同样的效果。</span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p><code>git push origin bugfix</code> 意思为取出在本地的bugfix分支，推送到远程仓库的bugfix分支中去。<br><code>git push orign bugfix:bugfix</code> 意思为上传完本地的bugfix分支到远程仓库中去，仍旧称它为bugfix分支。实现跟上一条命令相同的效果。通过此语法，可以把本地分支推送到某个命名不同的远程分支：例如使用<code>git push origin bugfix:hotfix</code> 来推送，如果远程分支hotfix不存在，则会在远程仓库被新建。当我的协作者再次从服务器上抓取数据时，他们将得到一个新的远程分支origin／hotfix.</p>
+<p><code>git push origin bugfix</code> 意思为取出在本地的 bugfix 分支，推送到远程仓库的 bugfix 分支中去。<br><code>git push orign bugfix:bugfix</code> 意思为上传完本地的bugfix分支到远程仓库中去，仍旧称它为 bugfix 分支。实现跟上一条命令相同的效果。通过此语法，可以把本地分支推送到某个命名不同的远程分支：例如使用<code>git push origin bugfix:hotfix</code> 来推送，如果远程分支 hotfix 不存在，则会在远程仓库被新建。当我的协作者再次从服务器上抓取数据时，他们将得到一个新的远程分支 origin／hotfix.</p>
 </blockquote>
 <h3 id="8-打tag"><a href="#8-打tag" class="headerlink" title="8. 打tag"></a>8. 打tag</h3><p>轻量级标签<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag v1.0.0</span><br></pre></td></tr></table></figure></p>
 <p>给历史提交打标签<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag v1.0.0 88aa731 #历史commit的id的前7位</span><br></pre></td></tr></table></figure></p>
@@ -563,7 +563,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
