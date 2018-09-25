@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="git,reset,revert," />
+  <meta name="keywords" content="git,branch," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="由于心急，提交代码的时候，commit 后，发现多提交了一个文件，然后第一想法是使用 rebase 来修改提交，然后我把那个多提交的文件，恢复成修改前的样子，然后打算在 git add . 之后进行 rebase ，结果查看状态发现，它把我之前在编辑器里面忽略的一个文件也给加进来了…所以这个时候，我既多 commit 了， 又多 add 了…蜜汁尴尬…  经过查找资料，问题解决，又 get 到">
-<meta name="keywords" content="git,reset,revert">
+<meta name="description" content="git 建分支很 cheap，本地和远程都常常各自拥有大量分支，有时本地分支需要跟某个新的远程分支建立追踪映射，以便于在 pull、 push 等操作时，简化命令，也在一定程度上防止误传到其他分支。今天建立了新的远程分支，本地不想弄一个新的跟它对应，想用当前分支换个关联，用到了该技能。  核心命令1git branch --set-upstream-to=[remote-name/remote-">
+<meta name="keywords" content="git,branch">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何撤销 git add 和 git commit ">
-<meta property="og:url" content="http://yoursite.com/2018/09/19/如何撤销-git-add-和-git-commit/index.html">
+<meta property="og:title" content="如何让本地分支与远程分支建立映射关系">
+<meta property="og:url" content="http://yoursite.com/2018/09/25/如何让本地分支与远程分支建立映射关系/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="由于心急，提交代码的时候，commit 后，发现多提交了一个文件，然后第一想法是使用 rebase 来修改提交，然后我把那个多提交的文件，恢复成修改前的样子，然后打算在 git add . 之后进行 rebase ，结果查看状态发现，它把我之前在编辑器里面忽略的一个文件也给加进来了…所以这个时候，我既多 commit 了， 又多 add 了…蜜汁尴尬…  经过查找资料，问题解决，又 get 到">
+<meta property="og:description" content="git 建分支很 cheap，本地和远程都常常各自拥有大量分支，有时本地分支需要跟某个新的远程分支建立追踪映射，以便于在 pull、 push 等操作时，简化命令，也在一定程度上防止误传到其他分支。今天建立了新的远程分支，本地不想弄一个新的跟它对应，想用当前分支换个关联，用到了该技能。  核心命令1git branch --set-upstream-to=[remote-name/remote-">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-09-19T15:58:33.000Z">
+<meta property="og:updated_time" content="2018-09-25T15:38:15.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何撤销 git add 和 git commit ">
-<meta name="twitter:description" content="由于心急，提交代码的时候，commit 后，发现多提交了一个文件，然后第一想法是使用 rebase 来修改提交，然后我把那个多提交的文件，恢复成修改前的样子，然后打算在 git add . 之后进行 rebase ，结果查看状态发现，它把我之前在编辑器里面忽略的一个文件也给加进来了…所以这个时候，我既多 commit 了， 又多 add 了…蜜汁尴尬…  经过查找资料，问题解决，又 get 到">
+<meta name="twitter:title" content="如何让本地分支与远程分支建立映射关系">
+<meta name="twitter:description" content="git 建分支很 cheap，本地和远程都常常各自拥有大量分支，有时本地分支需要跟某个新的远程分支建立追踪映射，以便于在 pull、 push 等操作时，简化命令，也在一定程度上防止误传到其他分支。今天建立了新的远程分支，本地不想弄一个新的跟它对应，想用当前分支换个关联，用到了该技能。  核心命令1git branch --set-upstream-to=[remote-name/remote-">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/09/19/如何撤销-git-add-和-git-commit/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/25/如何让本地分支与远程分支建立映射关系/"/>
 
 
 
 
 
-  <title>如何撤销 git add 和 git commit  | ChampYin's Blog</title>
+  <title>如何让本地分支与远程分支建立映射关系 | ChampYin's Blog</title>
   
 
 
@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/19/如何撤销-git-add-和-git-commit/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/25/如何让本地分支与远程分支建立映射关系/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ChampYin">
@@ -290,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">如何撤销 git add 和 git commit </h1>
+          <h1 class="post-title" itemprop="name headline">如何让本地分支与远程分支建立映射关系</h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-19T23:33:27+08:00">
-                2018-09-19
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-25T22:46:04+08:00">
+                2018-09-25
               </time>
             
 
@@ -342,7 +342,7 @@
 
           
           
-             <span id="/2018/09/19/如何撤销-git-add-和-git-commit/" class="leancloud_visitors" data-flag-title="如何撤销 git add 和 git commit ">
+             <span id="/2018/09/25/如何让本地分支与远程分支建立映射关系/" class="leancloud_visitors" data-flag-title="如何让本地分支与远程分支建立映射关系">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -374,25 +374,18 @@
 
       
         <blockquote>
-<p>由于心急，提交代码的时候，commit 后，发现多提交了一个文件，然后第一想法是使用 <code>rebase</code> 来修改提交，然后我把那个多提交的文件，恢复成修改前的样子，然后打算在 <code>git add .</code> 之后进行 rebase ，结果查看状态发现，它把我之前在编辑器里面忽略的一个文件也给加进来了…所以这个时候，我既多 commit 了， 又多 add 了…蜜汁尴尬…</p>
+<p>git 建分支很 cheap，本地和远程都常常各自拥有大量分支，有时本地分支需要跟某个新的远程分支建立追踪映射，以便于在 pull、 push 等操作时，简化命令，也在一定程度上防止误传到其他分支。今天建立了新的远程分支，本地不想弄一个新的跟它对应，想用当前分支换个关联，用到了该技能。</p>
 </blockquote>
-<p>经过查找资料，问题解决，又 get 到 git 的新技能：</p>
-<h3 id="1-git-add-多了"><a href="#1-git-add-多了" class="headerlink" title="1. git add 多了"></a>1. git add 多了</h3><a id="more"></a>
-<ul>
-<li>git status 查看下 add 的文件</li>
-<li>git reset HEAD 。如果后面什么都不跟，就是把上一次的 git add 全部撤销。<br>or</li>
-<li>git reset HEAD xxx/xxx/xxx.js ，则对某个文件进行撤销 add。</li>
-</ul>
-<h3 id="2-git-add-多了之后，又-commit-了"><a href="#2-git-add-多了之后，又-commit-了" class="headerlink" title="2. git add 多了之后，又 commit 了"></a>2. git add 多了之后，又 commit 了</h3><ul>
-<li>先使用 git log –oneline 查看节点，找到这次 commit 的上一次 commit 记录。</li>
-<li>然后 git reset commit_id 。退回到上一个提交的节点，代码还是原来你修改的样子，即提交前的样子。</li>
-</ul>
-<h3 id="3-使用-git-revert-还原已经提交的修改（这个没有验证过）"><a href="#3-使用-git-revert-还原已经提交的修改（这个没有验证过）" class="headerlink" title="3. 使用 git revert 还原已经提交的修改（这个没有验证过）"></a>3. 使用 git revert 还原已经提交的修改（这个没有验证过）</h3><p>使用 git revert 后，此次操作之前和之后的 commit 和 history 都会保留，并且把这次撤销作为一次最新的提交。</p>
-<ul>
-<li>git revert HEAD 撤销前一次 commit</li>
-<li>git revert HEAD^ 撤销前一次 commit</li>
-<li>git revert commit_id 撤销指定的版本，撤销也会作为一次提交进行保存。<br>git revert 是提交一个新的版本，将需要 revert 的版本的内容再反向修改回去，版本会递增，不影响之前提交的内容。</li>
-</ul>
+<h3 id="核心命令"><a href="#核心命令" class="headerlink" title="核心命令"></a>核心命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch --set-upstream-to=[remote-name/remote-branch-name]</span><br></pre></td></tr></table></figure>
+<h3 id="详解"><a href="#详解" class="headerlink" title="详解:"></a>详解:</h3><a id="more"></a>
+<p>完成同样效果的命令还有：</p>
+<h4 id="git-1-8-以上"><a href="#git-1-8-以上" class="headerlink" title="git 1.8 以上"></a>git 1.8 以上</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch -u [remote-name/remote-branch-name]</span><br><span class="line"># or 如果要关联的本地分支不是当前分支</span><br><span class="line">git branch -u [remote-name/remote-branch-name] [local-branch-name]</span><br></pre></td></tr></table></figure>
+<p>如果比较喜欢比较长的命令写法(我比较喜欢，是不是很变态，哈哈)，可以：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch --set-upstream-to=[remote-name/remote-branch-name]</span><br><span class="line"># or 如果要关联的本地分支不是当前分支</span><br><span class="line">git branch --set-upstream-to=[remote-name/remote-branch-name] [local-branch-name]</span><br></pre></td></tr></table></figure></p>
+<p>例如，我有个本地分支 dev，想跟远程 origin 的 v1.1 关联：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#如果当前就在 dev 分支上：</span><br><span class="line">git branch -u origin/v1.1</span><br><span class="line">#or</span><br><span class="line">git branch --set-upstream-to=origin/v1.1</span><br><span class="line"></span><br><span class="line">#如果当前不在 dev 分支上：</span><br><span class="line">git branch -u origin/v1.1 dev</span><br><span class="line">#or</span><br><span class="line">git branch --set-upstream-to=origin/v1.1 dev</span><br></pre></td></tr></table></figure></p>
+<h4 id="git-1-7-以上（已经在2-几版本停用）"><a href="#git-1-7-以上（已经在2-几版本停用）" class="headerlink" title="git 1.7 以上（已经在2.几版本停用）"></a>git 1.7 以上（已经在2.几版本停用）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch --set-upstream dev origin/v1.1</span><br></pre></td></tr></table></figure>
+<h3 id="如果要在-check-分支的时候进行映射"><a href="#如果要在-check-分支的时候进行映射" class="headerlink" title="如果要在 check 分支的时候进行映射"></a>如果要在 check 分支的时候进行映射</h3><p>check 到与远程分支同名的本地分支 v1.1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout --track origin/v1.1   #git 1.6.2 以上</span><br></pre></td></tr></table></figure></p>
+<p>check 到与远程分支不同名的分支 dev2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b dev2 origin/v1.1</span><br></pre></td></tr></table></figure></p>
+<h3 id="查看本地分支与远程分支的映射情况"><a href="#查看本地分支与远程分支的映射情况" class="headerlink" title="查看本地分支与远程分支的映射情况"></a>查看本地分支与远程分支的映射情况</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -vv</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -412,9 +405,7 @@
           
             <a href="/tags/git/" rel="tag"># git</a>
           
-            <a href="/tags/reset/" rel="tag"># reset</a>
-          
-            <a href="/tags/revert/" rel="tag"># revert</a>
+            <a href="/tags/branch/" rel="tag"># branch</a>
           
         </div>
       
@@ -427,8 +418,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/19/进阶-二-：hexo博客配置/" rel="next" title="进阶(二)：hexo博客配置">
-                <i class="fa fa-chevron-left"></i> 进阶(二)：hexo博客配置
+              <a href="/2018/09/23/如何让远程仓库回退到某个之前的版本/" rel="next" title="如何让远程仓库回退到某个之前的版本">
+                <i class="fa fa-chevron-left"></i> 如何让远程仓库回退到某个之前的版本
               </a>
             
           </div>
@@ -436,10 +427,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/23/如何让远程仓库回退到某个之前的版本/" rel="prev" title="如何让远程仓库回退到某个之前的版本">
-                如何让远程仓库回退到某个之前的版本 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -580,7 +567,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-git-add-多了"><span class="nav-number">1.</span> <span class="nav-text">1. git add 多了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-git-add-多了之后，又-commit-了"><span class="nav-number">2.</span> <span class="nav-text">2. git add 多了之后，又 commit 了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-使用-git-revert-还原已经提交的修改（这个没有验证过）"><span class="nav-number">3.</span> <span class="nav-text">3. 使用 git revert 还原已经提交的修改（这个没有验证过）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#核心命令"><span class="nav-number">1.</span> <span class="nav-text">核心命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#详解"><span class="nav-number">2.</span> <span class="nav-text">详解:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#git-1-8-以上"><span class="nav-number">2.1.</span> <span class="nav-text">git 1.8 以上</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-1-7-以上（已经在2-几版本停用）"><span class="nav-number">2.2.</span> <span class="nav-text">git 1.7 以上（已经在2.几版本停用）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果要在-check-分支的时候进行映射"><span class="nav-number">3.</span> <span class="nav-text">如果要在 check 分支的时候进行映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看本地分支与远程分支的映射情况"><span class="nav-number">4.</span> <span class="nav-text">查看本地分支与远程分支的映射情况</span></a></li></ol></div>
             
 
           </div>
