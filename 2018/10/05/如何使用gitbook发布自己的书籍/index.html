@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="利用开源项目 gitbook，自己写本书吧～  gitbook 使用方式如下：  全局安装 gitbook-cli 查看 gitbook 版本 初始化 gitbook 编辑书籍 启动 gitbook 本地服务  gitbook 进阶以上所说的都是在本地的操作，如何让别人也可以访问自己的书籍，除了自己买域名，还可以利用现有的互联网平台：gitbook.com、 github.com、 gitlab">
+<meta name="description" content="利用开源项目 gitbook，自己写本书吧～ 前言：gitbook 平台在今年的4月9日发布了新的版本v2。新的版本官网已经变成 www.gitbook.com （旧的地址为 legacy.gitbook.com ）。新旧版本有很多的不一样，网上很多资料都是针对旧版。 比如新版不再支持把每本书作为一个 Git Repository 来进行版本管理。（以前是可以针对每本书从本地 git push">
 <meta name="keywords" content="gitbook">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何使用gitbook发布自己的书籍">
 <meta property="og:url" content="http://yoursite.com/2018/10/05/如何使用gitbook发布自己的书籍/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="利用开源项目 gitbook，自己写本书吧～  gitbook 使用方式如下：  全局安装 gitbook-cli 查看 gitbook 版本 初始化 gitbook 编辑书籍 启动 gitbook 本地服务  gitbook 进阶以上所说的都是在本地的操作，如何让别人也可以访问自己的书籍，除了自己买域名，还可以利用现有的互联网平台：gitbook.com、 github.com、 gitlab">
+<meta property="og:description" content="利用开源项目 gitbook，自己写本书吧～ 前言：gitbook 平台在今年的4月9日发布了新的版本v2。新的版本官网已经变成 www.gitbook.com （旧的地址为 legacy.gitbook.com ）。新旧版本有很多的不一样，网上很多资料都是针对旧版。 比如新版不再支持把每本书作为一个 Git Repository 来进行版本管理。（以前是可以针对每本书从本地 git push">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-10-04T17:33:51.000Z">
+<meta property="og:updated_time" content="2018-10-06T06:38:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何使用gitbook发布自己的书籍">
-<meta name="twitter:description" content="利用开源项目 gitbook，自己写本书吧～  gitbook 使用方式如下：  全局安装 gitbook-cli 查看 gitbook 版本 初始化 gitbook 编辑书籍 启动 gitbook 本地服务  gitbook 进阶以上所说的都是在本地的操作，如何让别人也可以访问自己的书籍，除了自己买域名，还可以利用现有的互联网平台：gitbook.com、 github.com、 gitlab">
+<meta name="twitter:description" content="利用开源项目 gitbook，自己写本书吧～ 前言：gitbook 平台在今年的4月9日发布了新的版本v2。新的版本官网已经变成 www.gitbook.com （旧的地址为 legacy.gitbook.com ）。新旧版本有很多的不一样，网上很多资料都是针对旧版。 比如新版不再支持把每本书作为一个 Git Repository 来进行版本管理。（以前是可以针对每本书从本地 git push">
 
 
 
@@ -375,17 +375,51 @@
       
         <blockquote>
 <p>利用开源项目 gitbook，自己写本书吧～</p>
+<p>前言：gitbook 平台在今年的4月9日发布了新的版本v2。新的版本官网已经变成 <a href="www.gitbook.com"><code>www.gitbook.com</code></a> （旧的地址为 <a href="legacy.gitbook.com"><code>legacy.gitbook.com</code></a> ）。新旧版本有很多的不一样，网上很多资料都是针对旧版。 比如新版不再支持把每本书作为一个 <code>Git Repository</code> 来进行版本管理。（以前是可以针对每本书从本地 <code>git push</code> 到 gitbook 的），这点也是坑了我很久（坑一个强迫症重度患者的结果就是，不扒出被坑的根本原因誓不罢休）。更多 v2 的重大改变可以看 <a href="https://docs.gitbook.com/v2-changes/important-differences" target="_blank" rel="noopener">这里</a>。</p>
 </blockquote>
-<p>gitbook 使用方式如下：</p>
-<ol>
-<li>全局安装 gitbook-cli</li>
-<li>查看 gitbook 版本</li>
-<li>初始化 gitbook</li>
-<li>编辑书籍</li>
-<li>启动 gitbook 本地服务</li>
-</ol>
-<h2 id="gitbook-进阶"><a href="#gitbook-进阶" class="headerlink" title="gitbook 进阶"></a>gitbook 进阶</h2><p>以上所说的都是在本地的操作，如何让别人也可以访问自己的书籍，除了自己买域名，还可以利用现有的互联网平台：gitbook.com、 github.com、 gitlab.com(gitlab也是听说可以有 gitlab pages，没有实际操作过，故略过)</p>
-<h3 id="1-在-gitbook-com-上发布和管理书籍。"><a href="#1-在-gitbook-com-上发布和管理书籍。" class="headerlink" title="1. 在 gitbook.com 上发布和管理书籍。"></a>1. 在 gitbook.com 上发布和管理书籍。</h3><h3 id="2-在-github-com-上发布和管理书籍。"><a href="#2-在-github-com-上发布和管理书籍。" class="headerlink" title="2. 在 github.com 上发布和管理书籍。"></a>2. 在 github.com 上发布和管理书籍。</h3><h3 id="3-gitbook-与-github-关联同步。"><a href="#3-gitbook-与-github-关联同步。" class="headerlink" title="3. gitbook 与 github 关联同步。"></a>3. gitbook 与 github 关联同步。</h3>
+<p>以下的所有操作都是针对新版的 gitbook。</p>
+<p>使用 gitbook 编写一本书的步骤如下：</p>
+<a id="more"></a>
+<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><h3 id="1-全局安装-gitbook-cli"><a href="#1-全局安装-gitbook-cli" class="headerlink" title="1. 全局安装 gitbook-cli"></a>1. 全局安装 gitbook-cli</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install gitbook-cli -g</span><br></pre></td></tr></table></figure>
+<h3 id="2-查看-gitbook-版本"><a href="#2-查看-gitbook-版本" class="headerlink" title="2. 查看 gitbook 版本"></a>2. 查看 gitbook 版本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitbook --version</span><br></pre></td></tr></table></figure>
+<p>  我在查看 gitbook 版本的时候，他会自动安装一些插件，等了一会安装完才出的版本信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CLI version: 2.3.2</span><br><span class="line">GitBook version: 3.2.3</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-初始化-gitbook"><a href="#3-初始化-gitbook" class="headerlink" title="3. 初始化 gitbook"></a>3. 初始化 gitbook</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitbook init</span><br></pre></td></tr></table></figure>
+<h3 id="4-编辑书籍"><a href="#4-编辑书籍" class="headerlink" title="4. 编辑书籍"></a>4. 编辑书籍</h3><ul>
+<li><p>一个 gitbook 项目至少要包含 README.md 和 SUMMARY.md，书本的第一页内容是从文件 README.md 文件中提取的。如果这个文件名没有出现在 SUMMARY.md 文件中，则它会被添加为章节的第一个条目。而由于一些托管在 github 上的书更喜欢将 README.md 作为项目的介绍而不是书的介绍，从 gitbook v2 起，可以在 book.json 中指定某个文件作为 README。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;structure&quot;: &#123;</span><br><span class="line">		&quot;readme&quot;: &quot;myIntro.md&quot;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>gitbook 使用文件 SUMMARY.md 来定义书本的章节和子章节的结构。它用来生成书本内容的预览表。它的格式是一个简单的链接列表。另外可以在里面添加一些 markdown 格式的标题和分割线。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 概要</span><br><span class="line">* [章节 1](chapter1.md)</span><br><span class="line">* [章节 2](chapter2.md)</span><br><span class="line">* [章节 3](chapter3.md)</span><br><span class="line"></span><br><span class="line"># 基础</span><br><span class="line">* [章节 1](chapter1/README.md)</span><br><span class="line">  * [1.1 a](chapter1/a.md)</span><br><span class="line">  * [1.2 b](chapter1/b.md)</span><br><span class="line">---</span><br><span class="line">* [章节 2](chapter2/README.md)</span><br><span class="line">  * [2.1 c](chapter2/c.md)</span><br><span class="line">  * [2.2 d](chapter2/d.md)</span><br><span class="line"></span><br><span class="line"># 进阶</span><br><span class="line">* [章节 3](chapter3/README.md)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写文章内容<br>接下来就可以在相应的 md 文件里书写内容了。</p>
+</li>
+</ul>
+<h3 id="5-启动-gitbook-本地服务"><a href="#5-启动-gitbook-本地服务" class="headerlink" title="5. 启动 gitbook 本地服务"></a>5. 启动 gitbook 本地服务</h3><p>写完内容，可以通过以下方式来预览书本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitbook serve</span><br></pre></td></tr></table></figure></p>
+<p>  <code>gitbook serve</code> 命令实际上是先调用 <code>gitbook build</code> 编译书籍，然后启动一个 web 服务器，监听在本地的4000端口。</p>
+<h2 id="gitbook-进阶"><a href="#gitbook-进阶" class="headerlink" title="gitbook 进阶"></a>gitbook 进阶</h2><p>以上所说的都是在本地的操作，如何让别人也可以访问自己的书籍，除了自己买域名，还可以利用现有的互联网平台：gitbook.com、 github.com、 gitlab.com（gitlab也是听说可以有 gitlab pages，没有实际操作过，先略过）</p>
+<h3 id="1-在-gitbook-com-上发布和管理书籍"><a href="#1-在-gitbook-com-上发布和管理书籍" class="headerlink" title="1. 在 gitbook.com 上发布和管理书籍"></a>1. 在 gitbook.com 上发布和管理书籍</h3><ul>
+<li>需要先注册 gitbook 账号。可以单独注册，也可以使用 github 账号关联登录。</li>
+<li>然后先创建一个 Orgnization 。</li>
+<li>再在这个 Orgnization 里面创建一个 Space（旧版叫 Book）。这个就是你的书籍项目了。</li>
+<li>然后就可以在线写书了～书籍的在线浏览地址为：<code>https://yourorgnizationname.gitbook.io/yourspacename</code></li>
+</ul>
+<h3 id="2-在-github-com-上发布和管理书籍"><a href="#2-在-github-com-上发布和管理书籍" class="headerlink" title="2. 在 github.com 上发布和管理书籍"></a>2. 在 github.com 上发布和管理书籍</h3><p>在前面说的本地操作，编辑和预览书籍后，可以把 build 之后的结果，上传到 github 上面，然后利用 github pages 来发布书籍。</p>
+<ul>
+<li>首先在 github 上新建一个跟你的书籍同名的 repository。</li>
+<li>然后将远程仓库地址添加到本地，然后将编译后的 <code>_book</code> 目录 push 到远程。</li>
+<li>然后在 github 上设置一下 github pages，具体方法和步骤我在另一个文章中详细介绍过：<a href="https://yc111.github.io/2018/10/05/如何给github项目建立自己的主页/" target="_blank" rel="noopener">如何给github项目建立自己的主页</a>。</li>
+<li>在设置完后，就可以通过 <code>https://githubusername.github.io/projectname</code> 来浏览你的书了。</li>
+</ul>
+<h3 id="3-gitbook-与-github-关联同步"><a href="#3-gitbook-与-github-关联同步" class="headerlink" title="3. gitbook 与 github 关联同步"></a>3. gitbook 与 github 关联同步</h3><p>新版 gitbook.com 不支持本地版本管理了，但是对 github 的集成支持的不错。可以通过配置，实现在 github 项目里面提交内容，gitbook 平台会自动同步过去。</p>
+<ul>
+<li>在 gitbook 平台里，进入要设置的 space，也就是你的书。</li>
+<li>点左下角的配置按钮，进入配置，点击 Intergrations ，找到 github。</li>
+<li>点击 link you github repository 按钮，根据向导，登录 github ，选择 reposirory，选择分支，完成绑定和同步。(你还可以选择是 gitbook 同步 github ，还是 github 同步 gitbook)<blockquote>
+<p>需要注意的是：绑定的 github 仓库分支里面要是 gitbook 的源码，也就是那些 md 文件。而不是 build 之后生成的 html 文件。</p>
+</blockquote>
+</li>
+</ul>
+
       
     </div>
     
@@ -568,7 +602,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#gitbook-进阶"><span class="nav-number">1.</span> <span class="nav-text">gitbook 进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-在-gitbook-com-上发布和管理书籍。"><span class="nav-number">1.1.</span> <span class="nav-text">1. 在 gitbook.com 上发布和管理书籍。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-在-github-com-上发布和管理书籍。"><span class="nav-number">1.2.</span> <span class="nav-text">2. 在 github.com 上发布和管理书籍。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-gitbook-与-github-关联同步。"><span class="nav-number">1.3.</span> <span class="nav-text">3. gitbook 与 github 关联同步。</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本用法"><span class="nav-number">1.</span> <span class="nav-text">基本用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-全局安装-gitbook-cli"><span class="nav-number">1.1.</span> <span class="nav-text">1. 全局安装 gitbook-cli</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-查看-gitbook-版本"><span class="nav-number">1.2.</span> <span class="nav-text">2. 查看 gitbook 版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-初始化-gitbook"><span class="nav-number">1.3.</span> <span class="nav-text">3. 初始化 gitbook</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-编辑书籍"><span class="nav-number">1.4.</span> <span class="nav-text">4. 编辑书籍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-启动-gitbook-本地服务"><span class="nav-number">1.5.</span> <span class="nav-text">5. 启动 gitbook 本地服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gitbook-进阶"><span class="nav-number">2.</span> <span class="nav-text">gitbook 进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-在-gitbook-com-上发布和管理书籍"><span class="nav-number">2.1.</span> <span class="nav-text">1. 在 gitbook.com 上发布和管理书籍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-在-github-com-上发布和管理书籍"><span class="nav-number">2.2.</span> <span class="nav-text">2. 在 github.com 上发布和管理书籍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-gitbook-与-github-关联同步"><span class="nav-number">2.3.</span> <span class="nav-text">3. gitbook 与 github 关联同步</span></a></li></ol></li></ol></div>
             
 
           </div>
