@@ -1226,7 +1226,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/js如何获取浏览器及dom宽高/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/js如何获取浏览器窗口大小和网页内容尺寸/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ChampYin">
@@ -1245,7 +1245,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/05/js如何获取浏览器及dom宽高/" itemprop="url">js如何获取浏览器及dom宽高</a></h1>
+                <a class="post-title-link" href="/2018/11/05/js如何获取浏览器窗口大小和网页内容尺寸/" itemprop="url">js如何获取浏览器窗口大小和网页内容尺寸</a></h1>
         
 
         <div class="post-meta">
@@ -1297,7 +1297,7 @@
 
           
           
-             <span id="/2018/11/05/js如何获取浏览器及dom宽高/" class="leancloud_visitors" data-flag-title="js如何获取浏览器及dom宽高">
+             <span id="/2018/11/05/js如何获取浏览器窗口大小和网页内容尺寸/" class="leancloud_visitors" data-flag-title="js如何获取浏览器窗口大小和网页内容尺寸">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1330,12 +1330,18 @@
       
         
           
-            <h1 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h1><p>高度<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 浏览器内部界面的高度，即内容显示区域的高度，F12调试工具的占位会实时改变该值</span><br><span class="line">window.innerHeight</span><br><span class="line"></span><br><span class="line">// 浏览器外部界面即窗体的高度，调试工具的占位不会影响该值</span><br><span class="line">window.outerHeight</span><br><span class="line"></span><br><span class="line">// 表示 HTML 文档所在窗口的可视区域高度，效果同 window.innerHeight</span><br><span class="line">document.documentElement.clientHeight</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 表示 body 的可视区域高度，注意：body与浏览器之间有个默认的 margin</span><br><span class="line">document.body.clientHeight</span><br></pre></td></tr></table></figure></p>
-<p>宽度同理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 浏览器内部界面的宽度，即内容显示区域的宽度，F12调试工具的占位会实时改变该值</span><br><span class="line">window.innerWidth</span><br><span class="line"></span><br><span class="line">// 浏览器外部界面即窗体的宽度，调试工具的占位不会影响该值</span><br><span class="line">window.outerWidth</span><br><span class="line"></span><br><span class="line">// 表示 HTML 文档所在窗口的可视区域宽度，效果同 window.innerWidth</span><br><span class="line">document.documentElement.clientWidth</span><br><span class="line"></span><br><span class="line">// 表示 body 的可视区域款度，注意：body与浏览器之间有个默认的 margin</span><br><span class="line">document.body.clientWidth</span><br></pre></td></tr></table></figure></p>
+            <h1 id="什么是网页的大小和浏览器窗口"><a href="#什么是网页的大小和浏览器窗口" class="headerlink" title="什么是网页的大小和浏览器窗口"></a>什么是网页的大小和浏览器窗口</h1><ul>
+<li>网页大小就是一张网页的全部面积，通常情况，网页大小由内容和CSS样式表决定。</li>
+<li>浏览器窗口大小，是指浏览器窗口中看到的那部分网页面积，又叫视口（viewport）。</li>
+</ul>
+<h1 id="获取浏览器窗口大小"><a href="#获取浏览器窗口大小" class="headerlink" title="获取浏览器窗口大小"></a>获取浏览器窗口大小</h1><p>可以通过windows对象的 innerHeight 属性获取。<br>也可以通过元素的 clientHeight 属性获取。网页上每个元素都有 clientHeight 和 clientWidth 属性。这两个属性指元素的内容部分加上 padding 的大小，不包括 border 和滚动条的大小。<br>大部分情况下 document.documentElement 的大小可以代表浏览器窗口的大小，但是在 IE6 的 quirks 模式中，document.body 才返回正确的值。</p>
+<p>高度<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 浏览器内部界面的高度，即内容显示区域的高度，F12调试工具的占位会实时改变该值</span><br><span class="line">window.innerHeight</span><br><span class="line"></span><br><span class="line">// 浏览器外部界面即窗体的高度，调试工具的占位不会影响该值</span><br><span class="line">window.outerHeight</span><br><span class="line"></span><br><span class="line">// 表示 HTML 文档所在窗口的可视区域高度，效果同 window.innerHeight</span><br><span class="line">document.documentElement.clientHeight</span><br><span class="line"></span><br><span class="line">// ie6 quirks 模式下表示 body 的可视区域高度，注意：body与浏览器之间有个默认的 margin</span><br><span class="line">document.body.clientHeight</span><br></pre></td></tr></table></figure></p>
+<p>与高度对应的，还有宽度：<code>window.innerWidth</code> 、<code>window.outerWidth</code>、<code>window.outerWidth</code>、<code>document.documentElement.clientWidth</code>、 <code>document.body.clientWidth</code></p>
 <blockquote>
 <p>说明：window.innerHeight ／ innderWidth 在ie8 及以下不支持，需要通过<br>document.documentElement.clientHeight ／ clientWidth 来替代。所以兼容的写法为：<br><code>window.innerHeight || document.documentElement.clientHeight</code><br><code>window.innderWidth || document.documentElement.clientWidth</code></p>
 </blockquote>
-<h1 id="dom-相对位置获取"><a href="#dom-相对位置获取" class="headerlink" title="dom 相对位置获取"></a>dom 相对位置获取</h1><h2 id="番外"><a href="#番外" class="headerlink" title="番外"></a>番外</h2><p>通常获取浏览器界面的宽高，是有自适应布局的需要，常常需要跟如下方法配合使用：</p>
+<h1 id="获取网页内容大小"><a href="#获取网页内容大小" class="headerlink" title="获取网页内容大小"></a>获取网页内容大小</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">document.documentElement.scrollWidth || document.body.scrollWidth</span><br><span class="line">document.documentElement.scrollHeight || document.body.scrollHeight</span><br><span class="line"></span><br><span class="line">document.documentElement.offsetWidth || document.body.offSetWidth</span><br><span class="line">document.documentElement.offsetHeight || document.body.offSetHeight</span><br></pre></td></tr></table></figure>
+<h2 id="番外"><a href="#番外" class="headerlink" title="番外"></a>番外</h2><p>通常获取浏览器界面的宽高，是有自适应布局的需要，常常需要跟如下方法配合使用：</p>
 <h3 id="1-window-的尺寸变化事件"><a href="#1-window-的尺寸变化事件" class="headerlink" title="1. window 的尺寸变化事件"></a>1. window 的尺寸变化事件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// js</span><br><span class="line">window.onresize()</span><br><span class="line"></span><br><span class="line">// jquery</span><br><span class="line">$(window).resize()</span><br></pre></td></tr></table></figure>
 <h3 id="2-window-的滚动事件"><a href="#2-window-的滚动事件" class="headerlink" title="2. window 的滚动事件"></a>2. window 的滚动事件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// js</span><br><span class="line">window.onscroll()</span><br><span class="line"></span><br><span class="line">// jquery</span><br><span class="line">$(window).scroll()</span><br></pre></td></tr></table></figure>
           
