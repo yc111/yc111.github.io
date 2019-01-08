@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="前阵子在倒腾服务器的时候，需要些一些 windows 批处理来执行任务。就稍微研究了一下。  一、 基本信息 批处理文件扩展名为 .bat 或者 .cmd。区别：cmd 文件只能在 windows2000 以上的系统才能运行，bat 文件则没有这个限制。 这个文件的每一行都是一条 DOS 命令。 可以使用任何文本编辑器创建和修改。 批处理是一种简单的程序，可以用 if 和 go 来控制流程，也可">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-19T17:03:49.000Z">
+<meta property="og:updated_time" content="2019-01-08T17:49:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="windows批处理常用命令">
 <meta name="twitter:description" content="前阵子在倒腾服务器的时候，需要些一些 windows 批处理来执行任务。就稍微研究了一下。  一、 基本信息 批处理文件扩展名为 .bat 或者 .cmd。区别：cmd 文件只能在 windows2000 以上的系统才能运行，bat 文件则没有这个限制。 这个文件的每一行都是一条 DOS 命令。 可以使用任何文本编辑器创建和修改。 批处理是一种简单的程序，可以用 if 和 go 来控制流程，也可">
@@ -387,7 +387,8 @@
 <li>大小写不敏感</li>
 <li>在命令提示下键入批处理文件的名称，或者双击该批处理文件，系统会调用cmd.exe来运行该文件。</li>
 </ol>
-<h3 id="二、-参数"><a href="#二、-参数" class="headerlink" title="二、 参数"></a>二、 参数</h3><ol>
+<h3 id="二、-参数"><a href="#二、-参数" class="headerlink" title="二、 参数"></a>二、 参数</h3><a id="more"></a>
+<ol>
 <li><p>系统参数</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">%SystemRoot% === C:\WINDOWS (%windir% 同样)</span><br><span class="line">%ProgramFiles% === C:\Program Files</span><br><span class="line">%USERPROFILE% === C:\Documents and Settings\Administrator (子目录有“桌面”,“开始菜单”,“收藏夹”等)</span><br><span class="line">%APPDATA% === C:\Documents and Settings\Administrator\Application Data</span><br><span class="line">%TEMP% === C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp (%TEM% 同样)</span><br><span class="line">%APPDATA% === C:\Documents and Settings\Administrator\Application Data</span><br><span class="line">%OS% === Windows_NT (系统)</span><br><span class="line">%Path% === %SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem (原本的设置)</span><br><span class="line">%HOMEDRIVE% === C: (系统盘)</span><br><span class="line">%HOMEPATH% === \Documents and Settings\Administrator</span><br><span class="line"></span><br><span class="line">:: 枚举当前的环境变量</span><br><span class="line">setlocal enabledelayedexpansion</span><br><span class="line">FOR /F &quot;usebackq delims==&quot; %%i IN (`set`) DO @echo %%i !%%i!</span><br></pre></td></tr></table></figure>
 </li>
@@ -395,12 +396,14 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">%[1-9]表示参数，参数是指在运行批处理文件时在文件名后加的以空格(或者Tab)分隔的字符串。</span><br><span class="line">变量可以从%0到%9，%0表示批处理命令本身，其它参数字符串用 %1 到 %9 顺序表示。</span><br><span class="line"></span><br><span class="line">Sample：</span><br><span class="line">call test2.bat &quot;hello&quot; &quot;haha&quot; (执行同目录下的“test2.bat”文件，并输入两个参数)</span><br><span class="line">在“test2.bat”文件里写:</span><br><span class="line">echo %1 (打印: &quot;hello&quot;)</span><br><span class="line">echo %2 (打印: &quot;haha&quot;)</span><br><span class="line">echo %0 (打印: test2.bat)</span><br><span class="line">echo %19 (打印: &quot;hello&quot;9)</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h3 id="三、-基本命令"><a href="#三、-基本命令" class="headerlink" title="三、 基本命令"></a>三、 基本命令</h3><h4 id="set"><a href="#set" class="headerlink" title="set"></a>set</h4><h4 id="md"><a href="#md" class="headerlink" title="md"></a>md</h4><h4 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h4><h4 id="shutdowm"><a href="#shutdowm" class="headerlink" title="shutdowm"></a>shutdowm</h4><h4 id="pause"><a href="#pause" class="headerlink" title="pause"></a>pause</h4><h4 id="符号："><a href="#符号：" class="headerlink" title="符号："></a>符号：</h4><p><code>&gt;</code><br><code>&gt;&gt;</code><br><code>:~n, m</code><br><code>::</code><br><code>=</code></p>
+<h3 id="三、-基本命令"><a href="#三、-基本命令" class="headerlink" title="三、 基本命令"></a>三、 基本命令</h3><h4 id="set"><a href="#set" class="headerlink" title="set"></a>set</h4><h4 id="md"><a href="#md" class="headerlink" title="md"></a>md</h4><h4 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h4><h4 id="shutdowm"><a href="#shutdowm" class="headerlink" title="shutdowm"></a>shutdowm</h4><h4 id="pause"><a href="#pause" class="headerlink" title="pause"></a>pause</h4><h4 id="符号："><a href="#符号：" class="headerlink" title="符号："></a>符号：</h4><p><code>&gt;</code>        传递并覆盖<br><code>&gt;&gt;</code>       传递并追加<br><code>::</code>       注释</p>
+<p>找到一个比较清晰比较全的一个文档，在<a href="https://segmentfault.com/a/1190000009873409" target="_blank" rel="noopener">这里</a></p>
 <h3 id="四、-例子"><a href="#四、-例子" class="headerlink" title="四、 例子"></a>四、 例子</h3><p>重启的批处理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shutdown -r -f -t 0</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>r: 关闭并重启计算机。<br>f: 强制关闭正在运行的应用程序，不在前台警告用户。<br>t xxx: 设置关闭的超时事件为 xxx 秒。有效范围时0-315360000（10年），默认值为30.</p>
 </blockquote>
-<p>在重启前，将重启时间写入日志<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p>在重启前，将重启时间写入日志(以下已在英文版windows操作系统上检测过)<br>restart.bat<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">set nowdate=%date:~4, 10%</span><br><span class="line">set nowtime=%time:~0,8%</span><br><span class="line">set content=%nowdate:/=-% %nowtime%</span><br><span class="line">set distpath=&quot;c:\restartlog&quot;</span><br><span class="line">::write log</span><br><span class="line">echo restart time: %content% &gt;&gt; %distpath%\log.txt</span><br><span class="line">shutdown -r -f -t 0</span><br></pre></td></tr></table></figure></p>
+<p>再在windows的计划任务中，将这个脚本配置进去。则当脚本执行，将会在系统的c盘下新建一个目录restartlog，然后在这个目录中创建一个文件log.txt，并在文件中追加写入： “restart time： 当时的时间”，最后重启系统。</p>
 
       
     </div>
@@ -440,6 +443,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/09/github和gitlab上的md文档支持相对路径的链接了/" rel="prev" title="github和gitlab上的md文档支持相对路径的链接了">
+                github和gitlab上的md文档支持相对路径的链接了 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -525,7 +532,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -547,7 +554,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -600,7 +607,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
