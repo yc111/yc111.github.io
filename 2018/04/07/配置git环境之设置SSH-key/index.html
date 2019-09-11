@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="git," />
+  <meta name="keywords" content="git,ssh," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="配置SSH key配置ssh秘钥，以及使用git协议，每次pull、push可以免去输入账号密码的麻烦。配置过程很简单，只需2步：">
-<meta name="keywords" content="git">
+<meta name="description" content="配置SSH key配置ssh秘钥，以及使用git协议，每次pull、push可以免去输入账号密码的麻烦。不过记得查看下远程仓库地址是不是https协议，如果是就要要改成git协议才可以不用输入密码。 配置过程很简单，只需2步：">
+<meta name="keywords" content="git,ssh">
 <meta property="og:type" content="article">
 <meta property="og:title" content="配置git环境之设置SSH key">
 <meta property="og:url" content="http://champyin.com/2018/04/07/配置git环境之设置SSH-key/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="配置SSH key配置ssh秘钥，以及使用git协议，每次pull、push可以免去输入账号密码的麻烦。配置过程很简单，只需2步：">
+<meta property="og:description" content="配置SSH key配置ssh秘钥，以及使用git协议，每次pull、push可以免去输入账号密码的麻烦。不过记得查看下远程仓库地址是不是https协议，如果是就要要改成git协议才可以不用输入密码。 配置过程很简单，只需2步：">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-09-19T14:29:19.000Z">
+<meta property="og:updated_time" content="2019-09-11T08:07:30.648Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="配置git环境之设置SSH key">
-<meta name="twitter:description" content="配置SSH key配置ssh秘钥，以及使用git协议，每次pull、push可以免去输入账号密码的麻烦。配置过程很简单，只需2步：">
+<meta name="twitter:description" content="配置SSH key配置ssh秘钥，以及使用git协议，每次pull、push可以免去输入账号密码的麻烦。不过记得查看下远程仓库地址是不是https协议，如果是就要要改成git协议才可以不用输入密码。 配置过程很简单，只需2步：">
 
 
 
@@ -373,7 +373,8 @@
       
 
       
-        <h2 id="配置SSH-key"><a href="#配置SSH-key" class="headerlink" title="配置SSH key"></a>配置SSH key</h2><p>配置ssh秘钥，以及使用git协议，每次pull、push可以免去输入账号密码的麻烦。<br>配置过程很简单，只需2步：</p>
+        <h2 id="配置SSH-key"><a href="#配置SSH-key" class="headerlink" title="配置SSH key"></a>配置SSH key</h2><p>配置ssh秘钥，以及使用git协议，每次pull、push可以免去输入账号密码的麻烦。不过记得查看下远程仓库地址是不是https协议，如果是就要要改成git协议才可以不用输入密码。</p>
+<p>配置过程很简单，只需2步：</p>
 <a id="more"></a>
 <h3 id="1-生成秘钥对"><a href="#1-生成秘钥对" class="headerlink" title="1. 生成秘钥对"></a>1. 生成秘钥对</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;lovecoding@163.com&quot;</span><br></pre></td></tr></table></figure>
 <p>提示输入文件，直接回车。<br>提示输入密码，直接回车。<br>得到公钥文件id_rsa.pub</p>
@@ -381,7 +382,12 @@
 <p>复制公钥内容，进入github，在setting里，新建SHH key，将公钥内容填进去。</p>
 <h3 id="验证key是否正常工作："><a href="#验证key是否正常工作：" class="headerlink" title="验证key是否正常工作："></a>验证key是否正常工作：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
 <p>如果看到”Hi lovecoding！ you’ve successfully authenticated, but GitHub does not provide shell access.说明设置成功。</p>
-
+<h3 id="3-将远程仓库地址设置为git协议"><a href="#3-将远程仓库地址设置为git协议" class="headerlink" title="3. 将远程仓库地址设置为git协议"></a>3. 将远程仓库地址设置为git协议</h3><p>查看reomte<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure></p>
+<p>如果发现是https协议的，修改remote<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url remotename git@github.com:useraccount/reponame.git</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-如果到了这一步，提交还提示输入账号密码，那就还要修改下项目配置中的git提交地址"><a href="#4-如果到了这一步，提交还提示输入账号密码，那就还要修改下项目配置中的git提交地址" class="headerlink" title="4. 如果到了这一步，提交还提示输入账号密码，那就还要修改下项目配置中的git提交地址"></a>4. 如果到了这一步，提交还提示输入账号密码，那就还要修改下项目配置中的git提交地址</h3><p>查看项目git配置信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --list</span><br></pre></td></tr></table></figure></p>
+<p>此时remote.origin.url的值应该还是https的那个地址。我们需要将它改成git协议的repo地址。<br>这个配置文件在当前项目下的.git目录下的config文件里，我们编辑它，修改remote.origin.url即可。</p>
+<p>这个时候，再来push更新，一定不会再要你输入账号密码了。</p>
+<h3 id="完美！"><a href="#完美！" class="headerlink" title="完美！"></a>完美！</h3>
       
     </div>
     
@@ -399,6 +405,8 @@
         <div class="post-tags">
           
             <a href="/tags/git/" rel="tag"># git</a>
+          
+            <a href="/tags/ssh/" rel="tag"># ssh</a>
           
         </div>
       
@@ -509,7 +517,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -531,7 +539,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -564,7 +572,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置SSH-key"><span class="nav-number">1.</span> <span class="nav-text">配置SSH key</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-生成秘钥对"><span class="nav-number">1.1.</span> <span class="nav-text">1. 生成秘钥对</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-设置远程仓库上的秘钥"><span class="nav-number">1.2.</span> <span class="nav-text">2. 设置远程仓库上的秘钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证key是否正常工作："><span class="nav-number">1.3.</span> <span class="nav-text">验证key是否正常工作：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置SSH-key"><span class="nav-number">1.</span> <span class="nav-text">配置SSH key</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-生成秘钥对"><span class="nav-number">1.1.</span> <span class="nav-text">1. 生成秘钥对</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-设置远程仓库上的秘钥"><span class="nav-number">1.2.</span> <span class="nav-text">2. 设置远程仓库上的秘钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证key是否正常工作："><span class="nav-number">1.3.</span> <span class="nav-text">验证key是否正常工作：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-将远程仓库地址设置为git协议"><span class="nav-number">1.4.</span> <span class="nav-text">3. 将远程仓库地址设置为git协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-如果到了这一步，提交还提示输入账号密码，那就还要修改下项目配置中的git提交地址"><span class="nav-number">1.5.</span> <span class="nav-text">4. 如果到了这一步，提交还提示输入账号密码，那就还要修改下项目配置中的git提交地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完美！"><span class="nav-number">1.6.</span> <span class="nav-text">完美！</span></a></li></ol></li></ol></div>
             
 
           </div>

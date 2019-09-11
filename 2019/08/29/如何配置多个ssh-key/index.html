@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="ssh," />
 
 
 
@@ -79,14 +79,18 @@
 
 
 
+<meta name="description" content="我们都知道在使用git管理代码时，要推送代码到远程仓库时，为了不想每次都输入账号密码，会配置一下ssh key。但是如果你有多个github账号，或者同时还有gitlab或者是gitee账号，我在推送到这三个账号的仓库都不想输入用户名密码，可不可以把github上使用的ssh key跟其他的账号共享呢？我没有这样试过，不过即便是可以，也不太安全吧。最好的做法就是为这些账号分别创建ssh key，">
+<meta name="keywords" content="ssh">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何配置多个ssh key">
 <meta property="og:url" content="http://champyin.com/2019/08/29/如何配置多个ssh-key/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
+<meta property="og:description" content="我们都知道在使用git管理代码时，要推送代码到远程仓库时，为了不想每次都输入账号密码，会配置一下ssh key。但是如果你有多个github账号，或者同时还有gitlab或者是gitee账号，我在推送到这三个账号的仓库都不想输入用户名密码，可不可以把github上使用的ssh key跟其他的账号共享呢？我没有这样试过，不过即便是可以，也不太安全吧。最好的做法就是为这些账号分别创建ssh key，">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-29T15:56:03.745Z">
+<meta property="og:updated_time" content="2019-09-11T08:35:46.952Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何配置多个ssh key">
+<meta name="twitter:description" content="我们都知道在使用git管理代码时，要推送代码到远程仓库时，为了不想每次都输入账号密码，会配置一下ssh key。但是如果你有多个github账号，或者同时还有gitlab或者是gitee账号，我在推送到这三个账号的仓库都不想输入用户名密码，可不可以把github上使用的ssh key跟其他的账号共享呢？我没有这样试过，不过即便是可以，也不太安全吧。最好的做法就是为这些账号分别创建ssh key，">
 
 
 
@@ -309,6 +313,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端工具/" itemprop="url" rel="index">
+                    <span itemprop="name">前端工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -347,7 +373,25 @@
       
 
       
-        
+        <blockquote>
+<p>我们都知道在使用git管理代码时，要推送代码到远程仓库时，为了不想每次都输入账号密码，会配置一下ssh key。但是如果你有多个github账号，或者同时还有gitlab或者是gitee账号，我在推送到这三个账号的仓库都不想输入用户名密码，可不可以把github上使用的ssh key跟其他的账号共享呢？我没有这样试过，不过即便是可以，也不太安全吧。最好的做法就是为这些账号分别创建ssh key，分别配置。</p>
+<p>配置SSH key是必备的技能，基础的做法可以参考：<a href="https://champyin.com/2018/04/07/配置git环境之设置SSH-key/">配置git环境之设置SSH key</a>。但是配置多个ssh key未必都熟悉。其实方法也很简单：</p>
+</blockquote>
+<a id="more"></a>
+<h4 id="1-生成ssh-key"><a href="#1-生成ssh-key" class="headerlink" title="1. 生成ssh key"></a>1. 生成ssh key</h4><p>第一个，给github用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &apos;xxx@abc.com&apos; -f ~/.ssh/github_id_rsa</span><br></pre></td></tr></table></figure></p>
+<p>第二个，给gitee用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &apos;xxx@edf.com&apos; -f ~/.ssh/gitee_id_rsa</span><br></pre></td></tr></table></figure></p>
+<p>由于指定了文件名，可以一路回车，不用输入密码。<br>然后～/.ssh目录下会出现4个文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">github_id_rsa</span><br><span class="line">github_id_rsa.pub</span><br><span class="line">gitee_id_rsa</span><br><span class="line">gitee_id_rsa.pub</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-在～-ssh-目录下创建config文件。"><a href="#2-在～-ssh-目录下创建config文件。" class="headerlink" title="2. 在～/.ssh 目录下创建config文件。"></a>2. 在～/.ssh 目录下创建config文件。</h3><p>打开～/.ssh目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open ~/.ssh</span><br></pre></td></tr></table></figure></p>
+<p>编辑config文件，写入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># github</span><br><span class="line">Host github.com # host名字可以随意，自己能识别就好，我这里直接使用了网站域名</span><br><span class="line">HostName github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/github_id_rsa</span><br><span class="line"></span><br><span class="line"># gitee</span><br><span class="line">Host my.gitee.com</span><br><span class="line">HostName gitee.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/gitee_id_rsa</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-将为不同账号生成的公钥，填入各自网站的ssh-key配置中。"><a href="#3-将为不同账号生成的公钥，填入各自网站的ssh-key配置中。" class="headerlink" title="3. 将为不同账号生成的公钥，填入各自网站的ssh key配置中。"></a>3. 将为不同账号生成的公钥，填入各自网站的ssh key配置中。</h3><p>可以通过cat查看公钥内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/github_id_rsa.pub</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-检测配置成没成功"><a href="#4-检测配置成没成功" class="headerlink" title="4. 检测配置成没成功"></a>4. 检测配置成没成功</h3><p>检测方法：<code>ssh -T git@Host</code>, Host 就是你之前在config文件中配置的Host 的值。<br>检测github的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></p>
+<p>检测gitee的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@my.gitee.com</span><br></pre></td></tr></table></figure></p>
+<p>如果有提示问要不要把这个RSA host key 添加到 <code>konwn_host</code> 列表中，选择yes。<br>最后如果看到类似如下的提示，说明配置成功：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi xxxx! You&apos;ve successfully authenticated,but...... access.</span><br></pre></td></tr></table></figure></p>
+<h3 id="搞定！"><a href="#搞定！" class="headerlink" title="搞定！"></a>搞定！</h3><blockquote>
+<p>科普：SSH：Secure Shell，是建立在应用层基础上的安全协议。github要求推送代码的用户是合法的，所以每次推送都需要输入账号和密码，用于验证你是否为合法用户，为了省去每次都要输入密码的步骤，采用ssh公钥秘钥，也就是ssh key来验证，公钥放到github上，推送代码时，git会检测你本地的私钥是否跟github上的公钥配对。ssh key可以理解为你的身份标识，公钥放在github上表明你是这个项目的一个开发人员，公钥匙可以被截获的，但是私钥在本地别人就无法截获，ssh key可以保证每次传输都是安全的。</p>
+</blockquote>
+<p>Have a nice day!</p>
+
       
     </div>
     
@@ -361,6 +405,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ssh/" rel="tag"># ssh</a>
+          
+        </div>
       
 
       
@@ -436,8 +486,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -456,7 +515,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -478,7 +537,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -501,6 +560,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-生成ssh-key"><span class="nav-number">1.</span> <span class="nav-text">1. 生成ssh key</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-在～-ssh-目录下创建config文件。"><span class="nav-number"></span> <span class="nav-text">2. 在～/.ssh 目录下创建config文件。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-将为不同账号生成的公钥，填入各自网站的ssh-key配置中。"><span class="nav-number"></span> <span class="nav-text">3. 将为不同账号生成的公钥，填入各自网站的ssh key配置中。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-检测配置成没成功"><span class="nav-number"></span> <span class="nav-text">4. 检测配置成没成功</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搞定！"><span class="nav-number"></span> <span class="nav-text">搞定！</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
