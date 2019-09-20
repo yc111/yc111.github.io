@@ -269,6 +269,158 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://champyin.com/2018/09/26/利用json-server-faker模拟API服务和数据/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ChampYin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChampYin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/26/利用json-server-faker模拟API服务和数据/" itemprop="url">利用json-server+faker模拟API服务和数据</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-26T23:31:37+08:00">
+                2018-09-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端技术/" itemprop="url" rel="index">
+                    <span itemprop="name">前端技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/09/26/利用json-server-faker模拟API服务和数据/" class="leancloud_visitors" data-flag-title="利用json-server+faker模拟API服务和数据">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://champyin.com/2018/09/26/javascript中的Date/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1651,183 +1803,16 @@
         
           
             <h3 id="express"><a href="#express" class="headerlink" title="express"></a>express</h3><p>express 导出的是一个函数。</p>
-<ol>
-<li>最简单的服务<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i express</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+<h4 id="1-最简单的服务"><a href="#1-最简单的服务" class="headerlink" title="1. 最简单的服务"></a>1. 最简单的服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i express</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// www.js</span><br><span class="line">const express = require(&apos;express&apos;);</span><br><span class="line">const app = express();</span><br><span class="line"></span><br><span class="line">app.get(&apos;/&apos;, (req, res) =&gt; &#123;</span><br><span class="line">	res.end(&apos;server by express&apos;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(3000);</span><br></pre></td></tr></table></figure>
-<ol>
-<li>使用 express-generator<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm i express</span><br><span class="line">npx express-generator //需要nodejs8.2及以上</span><br><span class="line">//nodejs8.2以下：</span><br><span class="line">//npm i -g express-generator</span><br><span class="line">//express --view=ejs myproject</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+<h4 id="2-使用-express-generator"><a href="#2-使用-express-generator" class="headerlink" title="2. 使用 express-generator"></a>2. 使用 express-generator</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm i express</span><br><span class="line">npx express-generator //需要nodejs8.2及以上</span><br><span class="line">//nodejs8.2以下：</span><br><span class="line">//npm i -g express-generator</span><br><span class="line">//express --view=ejs myproject</span><br></pre></td></tr></table></figure>
 <p>会在当前目录下生成一个项目，7个文件夹，9个文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">|--app.js</span><br><span class="line">|--bin/</span><br><span class="line">|    |-- www.js</span><br><span class="line">|--package.json</span><br><span class="line">|--public/</span><br><span class="line">|    |-- images/</span><br><span class="line">|    |-- javascript/</span><br><span class="line">|    |-- staylesheets/</span><br><span class="line">|            |--  style.css</span><br><span class="line">|--routes/</span><br><span class="line">|    |-- index.js</span><br><span class="line">|    |-- users.js</span><br><span class="line">|--views/</span><br><span class="line">     |-- error.jade</span><br><span class="line">     |-- index.jade</span><br><span class="line">     |-- layout.jade</span><br></pre></td></tr></table></figure></p>
 <p>然后<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm i</span><br><span class="line">DEBUGE=projectname:* npm start</span><br><span class="line">//在windows下这样：</span><br><span class="line">//set DEBUG=projectname:* npm start</span><br></pre></td></tr></table></figure></p>
-<h3 id="koa"><a href="#koa" class="headerlink" title="koa"></a>koa</h3><p>koa导出的是一个对象。<br>最简单的服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i koa</span><br></pre></td></tr></table></figure></p>
+<h3 id="koa"><a href="#koa" class="headerlink" title="koa"></a>koa</h3><p>koa导出的是一个对象。</p>
+<h4 id="最简单的服务"><a href="#最简单的服务" class="headerlink" title="最简单的服务"></a>最简单的服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i koa</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// www.js</span><br><span class="line">const Koa = require(&apos;koa&apos;);</span><br><span class="line">cnost app = new Koa();</span><br><span class="line"></span><br><span class="line">app.use((ctx) =&gt; &#123;</span><br><span class="line">	ctx.body = &apos;server by koa&apos;;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(3000);</span><br></pre></td></tr></table></figure>
 
           
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://champyin.com/2018/09/10/git错误：HTTP-Basic-Access-denied/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ChampYin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ChampYin's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/10/git错误：HTTP-Basic-Access-denied/" itemprop="url">git错误：HTTP Basic: Access denied</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-10T22:16:25+08:00">
-                2018-09-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端工具/" itemprop="url" rel="index">
-                    <span itemprop="name">前端工具</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/09/10/git错误：HTTP-Basic-Access-denied/" class="leancloud_visitors" data-flag-title="git错误：HTTP Basic: Access denied">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>上周五修改了gitlab的用户密码，今天发现操作git远程仓库都报错拒绝，错误信息如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">remote: HTTP Basic: Access denied</span><br><span class="line">fatal: Athentication failed for &apos;https://************&apos;</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<p>直觉告诉我，是改密码引起。网上查了资料，确实 git 会把第一次输入过的用户名密码存储起来，再次使用 git 命令的时候，会使用存储的用户名密码，然而当 git 的密码修改后，原来存储的密码肯定匹配不了，于是直接报没有权限终止操作。网上类似的帖子很多，但是不是都有效，在多次尝试后，终于解决，解决办法如下：</p>
-<p>首先我因为有两台电脑，一台 win7，一台 win10，不同操作系统解决方式还不一样，也是坑了我很多时间。。。</p>
-<h2 id="win-10-下的解决办法"><a href="#win-10-下的解决办法" class="headerlink" title="win 10 下的解决办法"></a>win 10 下的解决办法</h2>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/10/git错误：HTTP-Basic-Access-denied/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -1865,7 +1850,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1915,7 +1900,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-count">61</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1937,7 +1922,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

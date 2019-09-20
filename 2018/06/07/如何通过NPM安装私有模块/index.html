@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="如何通过NPM安装私有模块可以有3种方案：">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-09-19T14:30:35.000Z">
+<meta property="og:updated_time" content="2019-09-13T12:43:40.924Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何通过NPM安装私有模块">
 <meta name="twitter:description" content="如何通过NPM安装私有模块可以有3种方案：">
@@ -382,6 +382,9 @@
 <p>如果你在大多数时候使用的scope都是相同的，可以设置一个默认的scope，这样每次初始化的时候会自动使用该scope：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config set scope &lt;your_scope&gt;</span><br></pre></td></tr></table></figure></p>
 <p>发布scoped模块跟发布普通模块一样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm publish</span><br></pre></td></tr></table></figure></p>
 <p>默认状态下scoped package包是私有的。然而，你可以把scoped package免费的发布为共有包。只需要在发布时配置 <code>--access</code> 选项即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm publish --access=public</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>提醒：</strong>发布之前首先一定要确保使用的是npm官方镜像源。如果你使用了<code>nrm</code>来管理镜像，可以通过<code>nrm ls</code>来查看下当前使用的是什么源，如果不是npmjs官方镜像，比如taobao，那么使用<code>nrm use npm</code>切换过来。</p>
+</blockquote>
 <h2 id="方案二：自建npm私服"><a href="#方案二：自建npm私服" class="headerlink" title="方案二：自建npm私服"></a>方案二：自建npm私服</h2><p>如果连仓库都是私有的，模块自然是私有的。这个方案好处就是可以建在自己公司内部，访问速度自然是杠杠的，而且想怎么定制就怎么定制。不过构建成本也是有的，而且需要服务器。一般稍微大规模的团队和公司会采取这种办法。</p>
 <h2 id="方案三：利用npm安装机制和git仓库"><a href="#方案三：利用npm安装机制和git仓库" class="headerlink" title="方案三：利用npm安装机制和git仓库"></a>方案三：利用npm安装机制和git仓库</h2><p>这个方案最经济实惠。<br>首先，<code>npm install</code> 支持 <code>npm install &lt;git remote url&gt;</code> ，其中 <code>git remote url</code> 的格式是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;protocol&gt;://[&lt;user&gt;[:&lt;password&gt;]@]&lt;hostname&gt;[:&lt;port&gt;][:/]&lt;path&gt;[#&lt;commit-ish&gt;]</span><br></pre></td></tr></table></figure></p>
 <p>即，如果你的代码托管在bitbucket中，可以通过如下命令安装模块：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install git+ssh://git@bitbucket.org/用户名／项目名.git#版本号</span><br></pre></td></tr></table></figure></p>
@@ -515,7 +518,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-count">61</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -537,7 +540,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
