@@ -1,0 +1,711 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[vscode中如何使编辑器根据屏幕宽度自动换行]]></title>
+    <url>%2F2019%2F09%2F20%2Fvscode%E4%B8%AD%E5%A6%82%E4%BD%95%E4%BD%BF%E7%BC%96%E8%BE%91%E5%99%A8%E6%A0%B9%E6%8D%AE%E5%B1%8F%E5%B9%95%E5%AE%BD%E5%BA%A6%E8%87%AA%E5%8A%A8%E6%8D%A2%E8%A1%8C%2F</url>
+    <content type="text"><![CDATA[vscode中默认是不会自动换行的，也就是说当你查看一个压缩后的代码后，只会显示一行。。。很难看出内容的多少也不利于查找定位内容。 在vscode中可以设置是否自动换行，进入：1Code -&gt; Preference -&gt; Settings 然后在配置界面，搜索 work-wrap，找到 Editor: Work Wrap 选项： 将off改成on即可。 –GoodLuck!]]></content>
+      <categories>
+        <category>编辑器</category>
+      </categories>
+      <tags>
+        <tag>vscode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[如何配置多个ssh key]]></title>
+    <url>%2F2019%2F08%2F29%2F%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%B8%AAssh-key%2F</url>
+    <content type="text"><![CDATA[我们都知道在使用git管理代码时，要推送代码到远程仓库时，为了不想每次都输入账号密码，会配置一下ssh key。但是如果你有多个github账号，或者同时还有gitlab或者是gitee账号，我在推送到这三个账号的仓库都不想输入用户名密码，可不可以把github上使用的ssh key跟其他的账号共享呢？我没有这样试过，不过即便是可以，也不太安全吧。最好的做法就是为这些账号分别创建ssh key，分别配置。 配置SSH key是必备的技能，基础的做法可以参考：配置git环境之设置SSH key。但是配置多个ssh key未必都熟悉。其实方法也很简单： 1. 生成ssh key第一个，给github用1ssh-keygen -t rsa -C &apos;xxx@abc.com&apos; -f ~/.ssh/github_id_rsa 第二个，给gitee用1ssh-keygen -t rsa -C &apos;xxx@edf.com&apos; -f ~/.ssh/gitee_id_rsa 由于指定了文件名，可以一路回车，不用输入密码。然后～/.ssh目录下会出现4个文件：1234github_id_rsagithub_id_rsa.pubgitee_id_rsagitee_id_rsa.pub 2. 在～/.ssh 目录下创建config文件。打开～/.ssh目录1open ~/.ssh 编辑config文件，写入：1234567891011# githubHost github.com # host名字可以随意，自己能识别就好，我这里直接使用了网站域名HostName github.comPreferredAuthentications publickeyIdentityFile ~/.ssh/github_id_rsa# giteeHost my.gitee.comHostName gitee.comPreferredAuthentications publickeyIdentityFile ~/.ssh/gitee_id_rsa 3. 将为不同账号生成的公钥，填入各自网站的ssh key配置中。可以通过cat查看公钥内容1cat ~/.ssh/github_id_rsa.pub 4. 检测配置成没成功检测方法：ssh -T git@Host, Host 就是你之前在config文件中配置的Host 的值。检测github的1ssh -T git@github.com 检测gitee的1ssh -T git@my.gitee.com 如果有提示问要不要把这个RSA host key 添加到 konwn_host 列表中，选择yes。最后如果看到类似如下的提示，说明配置成功：1Hi xxxx! You&apos;ve successfully authenticated,but...... access. 搞定！ 科普：SSH：Secure Shell，是建立在应用层基础上的安全协议。github要求推送代码的用户是合法的，所以每次推送都需要输入账号和密码，用于验证你是否为合法用户，为了省去每次都要输入密码的步骤，采用ssh公钥秘钥，也就是ssh key来验证，公钥放到github上，推送代码时，git会检测你本地的私钥是否跟github上的公钥配对。ssh key可以理解为你的身份标识，公钥放在github上表明你是这个项目的一个开发人员，公钥匙可以被截获的，但是私钥在本地别人就无法截获，ssh key可以保证每次传输都是安全的。 Have a nice day!]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>ssh</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[npm link详解]]></title>
+    <url>%2F2019%2F08%2F27%2Fnpm-link%E8%AF%A6%E8%A7%A3%2F</url>
+    <content type="text"><![CDATA[npm install 可以把发布在npmjs平台上的模块包下载到本地，npm istall -g 可以把包下下来的同时，还帮我们配置好全局变量，让我们可以直接使用命令而不是通过node来执行或者配置package.json 的script脚本来run。但这仅限于已经发布的包，那对于未发布的包，要怎么测试使用呢？总不能把一个未经测试的包发布出去然后install下来这样测试吧，这样npm上面的包谁还敢用。所以npm上的包一定只能放经过测试考验的比较完善的包。而包的本地测试，就需要通过npm的一个命令了：npm link。 原理npm link 可以帮助我们模拟包安装后的状态，它会在系统中做一个快捷方式映射，让本地的包就好像install过一样这么使用。 在mac中，我们在终端可以直接敲的命令，其实是在执行/usr/local/bin目录下的脚本，这个目录可以认为是我们的全局命令所在的地方。 而当我们在npm install -g的时候，其实是将相关文件安装在/usr/local/lib/node_modules目录下，而同时在全局命令/usr/local/bin目录下会有一个映射脚本，将其指向lib下的真实文件。这么做的好处是，可以在保证只有一份可执行文件的前提下，给命令取别名。 同样的，npm link 做的事情也是一样，唯一的区别是，它在lib下的 node_modules 里不是存的真实的文件，而是存了一个快捷方式，指向你当前执行 npm link 的目录。如果开发的的是node包，则执行的命令名和真实执行的文件入口，则是根据项目的 package.json 里 bin 的配置来获取。 使用12cd projectdirnpm link 然后会看到输出类似如下的链接信息，说明成功。12/usr/local/bin/yourpakagename -&gt; /usr/local/lib/node_modules/yourpackagename/xxx/usr/local/lib/node_modules/yourpackagename/xxx -&gt; /Users/username/Documents/xxx(your real project path) 全局link一般是开发node包，可以直接在终端运行的，做npm link之前，需要在 package.json 里配置 bin 字段。1234# package.json&quot;bin&quot; : &#123; &quot;yourcommandname&quot;: &quot;./bin/yourcommandname&quot;&#125; 然后再在当前目录下运行1npm link 成功后，就可以直接在终端执行 yourcommandname 了。 项目下link如果是前端包，不需要直接在终端运行，比如UI组件库，那需要做两次link。先进入待测试组件库目录，将开发的包link到全局：1npm link 之后，再进入要使用该组件库的工程，然后在工程中link这个组件库：1npm link youruilib 现在你就可以在你的工程中使用这个ui组件库，就好像这个ui库被install到工程中一样。 GoodLuck！]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[如何在mac中管理和随时切换node版本]]></title>
+    <url>%2F2019%2F08%2F26%2F%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E7%AE%A1%E7%90%86%E5%92%8C%E9%9A%8F%E6%97%B6%E5%88%87%E6%8D%A2node%E7%89%88%E6%9C%AC%2F</url>
+    <content type="text"><![CDATA[之前用windows的电脑的时候，曾使用 nvm-windows 工具来管理开发环境中的node版本。快速在各个版本的node环境中切换的体验非常好。而在mac中，由于开发环境比较稳定，则没有使用这类工具来管理。近期由于项目的需要，有了在mac下频繁切换node版本的需求。才有了这篇文章。 工具选择我根据第一直觉，在npm上搜索 nvm，竟没有 nvm 的精确匹配，搜索结果第一位是一个叫 n 的包，点进去，也没个README说明（其实是当时我的网络不好README没有加载出来…）。(说实话，要不是发现它的作者是tj大神，我后来可能不会再次点开它，可能我就错过了一个非常好的工具。） 诧异过后，我转到github，搜索 nvm。 找是找到了，然而，它的安装方式，让我觉得不太友好：1curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash 为什么nvm没有pacakge版？不如看看那个”连README都没有”的 n 是否能用。我点开了 n 的github页面。详细的使用说明映入眼帘，粗略读了一遍，感觉有戏。仔细操作一遍，这感觉，怎么说呢，这是捡到宝了呀！ 就它了！ n！ 如何使用 n 管理mac上的node版本 1. 安装1npm install -g n 2. 修改几个本地目录的拥有者因为node环境是全局的，需要安装到系统目录下，涉及目录有 /usr/local/bin、usr/local/lib、/usr/local/include、/usr/local/share，这几个目录的拥者是root，其他用户没有权限操作他们。如下命令可以将他们的拥有者从root改为当前用户：1sudo chown -R $(whoami) /usr/local/bin /usr/local/lib /usr/local/include /ur/local/share 另外，n 会在系统目录下创建一个目录，也需要修改下它的拥有者：1sudo chown -R $(whoami) /usr/local/n 关于 chown 命令，我的另一篇文章有详细说明： 如何修改mac中文件夹和文件的拥有者 3. 安装指定版本的node123n 10.16.3 //下载并安装node 10.16.3n latest //下载并安装node 最新版本n lts //下载并安装node 长期稳定维护版 4. 切换node版本1234567n //列出所有缓存的node版本 node/4.4.4 ο node/8.11.1 node/10.16.3Use up/down arrow keys to select a version, return key to install, q to quit-&gt; 上下键选择当前需要的版本，回车-&gt; done 用 node -v 查看版本是否生效。 5. 删除node版本123456//删除指定版本n rm xxx//删除当前版本外的所有版本n prune//卸载当前已安装的noden uninstall 6. 其他命令1n ls //查看已下载的node版本列表 补充 n 的获取node的源路径为node官网https://nodejs.org/dist/，在国内访问，非常慢，经常由于太慢而发生超时错误导致下载失败。解决方案：修改node镜像源。1export N_NODE_DOWNLOAD_MIRROR=https://npm.taobao.org/mirrors/node 将node镜像指向淘宝镜像。再来操作 n 命令，是不是速度嗖嗖的了。 GOOD LUCK！ 参考：n （npm）：https://www.npmjs.com/package/nn （github）：https://github.com/tj/nnvm ：https://github.com/nvm-sh/nvmnvm-window ：https://github.com/coreybutler/nvm-windows]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>mac</tag>
+        <tag>node</tag>
+        <tag>n</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[如何修改mac中文件夹和文件的拥有者]]></title>
+    <url>%2F2019%2F08%2F26%2F%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9mac%E4%B8%AD%E6%96%87%E4%BB%B6%E5%A4%B9%E5%92%8C%E6%96%87%E4%BB%B6%E7%9A%84%E6%8B%A5%E6%9C%89%E8%80%85%2F</url>
+    <content type="text"><![CDATA[在mac上开发，涉及在系统目录（指操作系统自带的那些目录，比如／、 ／usr、 ／usr／local／bin 等）创建文件夹或者文件时，会出现由于权限不足导致创建失败的问题。这是由于，这些目录属于 root 用户， 而当前登录mac的一般都是非root用户，而非root用户没有权限修改root用户直接管辖的目录和文件。 解决办法有两个： 方法一：改成使用root登录，这样就具有对操作系统的最大权限，可以为所欲为。但是，不推荐这么做，因为太危险。 方法二：将你要操作的目录的权限从root手里夺过来，也即修改目录的拥有者。推荐。 如何修改目录的拥有者 使用linux命令 chown 。 命令格式：1chown [选项] 所有者[:组] 文件 chown 将指定文件的拥有者改为指定的用户或者用户组，用户可以是用户名或者用户ID，组可以是组名或者组ID；文件是以空格分开的要改变权限的文件列表，支持通配符。系统管理员经常使用 chown 命令，在将文件拷贝到另一个用户的目录下后，让用户拥有使用该文件的权限。 实例： 把 ／usr/local/bin 和 ／usr/local/lib 这两个目录以及其子目录的拥有者从root改成当前用户：1sudo chown -R $(whoami) /usr/local/bin ／usr/local/lib 说明： chown change owner 的缩写。 $(whoami) who am i ，获取当前的用户。 -R –recursive 的缩写，递归处理，将指定目录和所有子目录一并处理。 执行完命令，可以用 ls -l 来查看一下是否修改成功。 常用选项列表：必要参数 -c ：–changes 的缩写，当发生改变时输出调试信息，仅显示更改部分的信息 -f ：不显示错误信息，忽略错误信息 -h ：修复符号链接 -R ：–recursive 的缩写, 递归处理，将指定目录以及其子目录下的所有文件一并处理 -v ：–verbose 的缩写, 显示指令执行过程的详细的处理信息选择参数 --help ：显示帮助信息 --version ：显示版本信息]]></content>
+      <categories>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>mac</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[iphone AirDrop 无法发现mac的解决办法]]></title>
+    <url>%2F2019%2F08%2F13%2Fiphone-AirDrop-%E6%97%A0%E6%B3%95%E5%8F%91%E7%8E%B0mac%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[前几天想把手机上的照片传到mac上，发现在AirDrop里看不到我的mac了。以为是电脑太久没重启抽了，因为以前是可以找到的。于是重启了mac，结果没用。后来求助网络，才终于搞定。在此记下方法，以备以后遇到同样的问题又忘记怎么处理。 第一步先确保手机（iPhone）上的蓝牙打开，AirDrop 开启，并对所有人可见。 第二步确保 mac 上 AirDrop 开启。具体操作：打开 Finder 中的 AirDrop ，并设置成 所有人可见。不过此时手机上的 AirDrop 仍然看不到 mac。 第三步确保 mac 上蓝牙开启。具体操作：打开 设置 -&gt; 蓝牙 -&gt; 打开蓝牙。 第四步 （关键） mac 和 iPhone 蓝牙配对。具体操作：在 mac 的蓝牙设置界面，应该可以看到你的 iPhone 了。点击这个 iPhone 旁边的 配对 按钮。然后手机会收到一个配对请求，点接受。等待一会，就会配对成功。 PS：如果第四部看到手机已经是配对状态，则移除后重新配对。 这时，在mac和iPhone的AirDrop中就可以互相看见彼此了，然后就可以愉快地互传文件了。 Have a nice day!]]></content>
+      <categories>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>iphone</tag>
+        <tag>mac</tag>
+        <tag>airdrop</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[添加chrome扩展程序技巧]]></title>
+    <url>%2F2019%2F01%2F29%2F%E6%B7%BB%E5%8A%A0chrome%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F%E6%8A%80%E5%B7%A7%2F</url>
+    <content type="text"><![CDATA[我们给chrome 浏览器添加扩展程序，有时会遭到 chrome 的限制，比如只能通过 chrome 商城添加，而 chrome 商城需要墙外的环境，大多数时候不一定当前电脑可以翻墙。那么就需要一些技巧来添加这些扩展程序。 方法一 在扩展程序界面，打开开发者模式。 然后将下载好的 .crx 扩展程序文件拖拽到插件管理界面。 该方法通常是可行的，不过也有的时候赶上某些 chrome 版本，不允许拖拽安装。那么可以尝试第方法2： 方法二 首先将下载好的 .crx 扩展程序文件修改后缀为 .rar，然后解压它，在解压的文件夹内，找到 _metadata 文件夹，将下划线去掉，改为 metadata。 然后在 chrome 插件管理界面，打开开发者模式，点击 ‘加载已解压的扩展程序’，选择刚才解压并修改后的文件夹，确定，即可。]]></content>
+      <categories>
+        <category>浏览器</category>
+      </categories>
+      <tags>
+        <tag>chrome</tag>
+        <tag>browser</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[如何创建空白git分支]]></title>
+    <url>%2F2019%2F01%2F29%2F%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E7%A9%BA%E7%99%BDgit%E5%88%86%E6%94%AF%2F</url>
+    <content type="text"><![CDATA[在管理前端代码工程时，有时需要创建一个干净的分支，比如用于放文档，或者全新的版本分支。但是普通的创建分支命令，会将历史日志带过去。那么对于有代码洁癖和强迫症的人（比如我）来说，是不能忍的。强大的git为我们这些人准备了创建空白git分支的方法。掌握后受用无穷。 步骤： 1. 创建无父节点的分支 1git checkout --orphan orphanbranch 参数 orphan 的作用一个是拷贝当前所在分支的所有文件，另一个是没有父节点，即意味着没有历史记录，是一个外圈独立的干净的分支。 2. 删除该分支下所有文件1git rm -rf . 这个操作不会影响历史记录。即不会在log里面出现delete的日志。 3. 创建一个初始文件，比如readme，并提交因为在第一步之后，虽然却换到了 newemptybranch 分支，但是通过 git branch -a 是还看不到当前分支的。必须在这个空白的分支进行一次初始提交，才可以看到。123touch README.mdgit add .git commit -m &quot;add readme&quot; 4. 一个干净的空白分支诞生现在可以通过分支查看命令看到当前干净分支啦。用日志命令可以看到，当前分支只有一条添加readme的记录。12git branch -agit log --oneline Good luck！]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>branch</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[进阶(四)：给博客添加站内搜索功能]]></title>
+    <url>%2F2019%2F01%2F26%2F%E8%BF%9B%E9%98%B6-%E5%9B%9B-%EF%BC%9A%E7%BB%99%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD%2F</url>
+    <content type="text"><![CDATA[不知不觉坚持写博客已经快一年了，博客文章破50，虽然平均每个月4到5篇不算什么，但是对于平时一心扑到工作简直没有时间生活的我来说，已经很不容易了。虽然文章可能没有高大上的标题，也没有涉及太多前沿的技术，但是起码我记录下了我的一些小经验，累积了自己的一个小知识库。其实我还有很多内容没来及的记录，希望以后能通过博客沉淀更多的知识，同时帮助到更多的人。 言归正传，文章一多，有时自己想翻查一个内容，要找好久，要是有站内查找功能就好了。于是仔细查阅了工程yml配置，果然发现在theme下的_config.yml有个local_search配置项，满心欢心把它设为true。结果搜索图标是出来了，但是点击后除了在页面加了一个全局loading就什么都没有了。看来还需要额外的操作。百度了一番，原来hexo提供了的search插件，需要手动安装才可以使用站内搜索。 3步搞定： 1.安装两个插件1npm i --save hexo-generator-search hexo-generator-searchdb 2.配置hexo主配置文件（位于工程根目录下）_config.yml在最后面追加这段，注意2个空格的缩进，这个是yml缩进语法，不能随意。123456# local_searchsearch: path: search.xml field: post format: html limit: 10000 3.配置hexo主题下的配置文件（位于theme-&gt;next下）_config.yml 将enable设为true。这一步我在一开始就已经做过了～ 1234567local_search: enable: true # if auto, trigger search by changing input # if manual, trigger search by pressing enter key or search button trigger: auto # show top n results per article, show all results by setting to -1 top_n_per_article: 1 重新hexo g, hexo s，刷新页面，点击搜索图标，就可以看到搜索弹出框了，输入关键字，可以看到匹配到文章。 GOOD LUCK! 参考资料：https://www.jianshu.com/p/519b45730824https://github.com/wzpan/hexo-generator-searchhttps://www.npmjs.com/package/hexo-generator-searchdb]]></content>
+      <categories>
+        <category>博客搭建</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>search</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[npm install 高级]]></title>
+    <url>%2F2019%2F01%2F09%2Fnpm-install-%E9%AB%98%E7%BA%A7%2F</url>
+    <content type="text"><![CDATA[npm install npm install –production npm install –only=prod npm install –only=dev]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[git clone 高级]]></title>
+    <url>%2F2019%2F01%2F09%2Fgit-clone-%E9%AB%98%E7%BA%A7%2F</url>
+    <content type="text"><![CDATA[自定义克隆下来的目录名克隆仓库的命令格式是 git clone [url]这个命令会将远程仓库的名字作为你的本地仓库（即项目根目录）的名字。如果你想自己命名本地仓库的名字可以使用这个命令：git clone [url] yourprojectname 克隆指定分支如果远程仓库不做设置，默认 git clone 克隆下来的是项目的 master 分支。如果想要获取非 master 分支，可以使用命令指定分支： git clone -b branchname [url]比如我要克隆 zrender 项目的 dev 分支：1git clone -b dev https://github.com/ecomfe/zrender]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[github和gitlab上的md文档支持相对路径的链接了]]></title>
+    <url>%2F2019%2F01%2F09%2Fgithub%E5%92%8Cgitlab%E4%B8%8A%E7%9A%84md%E6%96%87%E6%A1%A3%E6%94%AF%E6%8C%81%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E7%9A%84%E9%93%BE%E6%8E%A5%E4%BA%86%2F</url>
+    <content type="text"><![CDATA[markdown 格式语法中，链接的格式是：1[链接文字](链接地址) 之前写链接，用 http 协议 url 居多，最近遇到在项目的 README 中要添加另一个文档的链接，由于当前在 dev 分支，如果写分支的仓库 url 路径，那到时候 dev 分支合并到其他分支后，dev 分支被删除后，这个地址岂不是有问题了。如果能用相对路径就好了。 查了下，居然在 gitlab 上是支持的，在 github 上最近也支持了，真是喜讯。说到喜讯，昨天 github 官网宣布开放免费的 private repository ，也是2019喜讯一桩。 相对路径使用举例如果你的项目结构如下： 12345678project/ text.md subpro/ subtext.md subsubpro/ subsubtext.md subsubpro2/ subsubtext2.md 那么在 text.md 中链接到 subtext.md 的相对链接这么写：1[this subtext](subpro/subtext.md) 在 text.md 中链接到 subsubtext.me 的相对链接这么写：1[this subsubtext](subpro/subsubpro/subsubprotext.md) 在 subsubtext.md 中链接到 text.md 的相对链接这么写：1[this text](../../text.md)]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[windows批处理常用命令]]></title>
+    <url>%2F2018%2F12%2F20%2Fwindows%E6%89%B9%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[前阵子在倒腾服务器的时候，需要些一些 windows 批处理来执行任务。就稍微研究了一下。 一、 基本信息 批处理文件扩展名为 .bat 或者 .cmd。区别：cmd 文件只能在 windows2000 以上的系统才能运行，bat 文件则没有这个限制。 这个文件的每一行都是一条 DOS 命令。 可以使用任何文本编辑器创建和修改。 批处理是一种简单的程序，可以用 if 和 go 来控制流程，也可以使用 for 循环。 批处理的编程能力远不如 C语言等编程语言，也十分不规范。 每个编写好的批处理文件都相当于一个 DOS 的外部命令，把它锁在的目录放到 DOS 搜索路径（path）中，即可在任意位置运行。 C:\AUTOEXEC.BAT 是每次系统启动时都会自动运行的，可以将每次启动时都要运行的命令放入该文件中。 大小写不敏感 在命令提示下键入批处理文件的名称，或者双击该批处理文件，系统会调用cmd.exe来运行该文件。 二、 参数 系统参数 1234567891011121314%SystemRoot% === C:\WINDOWS (%windir% 同样)%ProgramFiles% === C:\Program Files%USERPROFILE% === C:\Documents and Settings\Administrator (子目录有“桌面”,“开始菜单”,“收藏夹”等)%APPDATA% === C:\Documents and Settings\Administrator\Application Data%TEMP% === C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp (%TEM% 同样)%APPDATA% === C:\Documents and Settings\Administrator\Application Data%OS% === Windows_NT (系统)%Path% === %SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem (原本的设置)%HOMEDRIVE% === C: (系统盘)%HOMEPATH% === \Documents and Settings\Administrator:: 枚举当前的环境变量setlocal enabledelayedexpansionFOR /F &quot;usebackq delims==&quot; %%i IN (`set`) DO @echo %%i !%%i! 给批处理文件传递参数 12345678910%[1-9]表示参数，参数是指在运行批处理文件时在文件名后加的以空格(或者Tab)分隔的字符串。变量可以从%0到%9，%0表示批处理命令本身，其它参数字符串用 %1 到 %9 顺序表示。Sample：call test2.bat &quot;hello&quot; &quot;haha&quot; (执行同目录下的“test2.bat”文件，并输入两个参数)在“test2.bat”文件里写:echo %1 (打印: &quot;hello&quot;)echo %2 (打印: &quot;haha&quot;)echo %0 (打印: test2.bat)echo %19 (打印: &quot;hello&quot;9) 三、 基本命令setmdechoshutdowmpause符号：&gt; 传递并覆盖&gt;&gt; 传递并追加:: 注释 找到一个比较清晰比较全的一个文档，在这里 四、 例子重启的批处理1shutdown -r -f -t 0 r: 关闭并重启计算机。f: 强制关闭正在运行的应用程序，不在前台警告用户。t xxx: 设置关闭的超时事件为 xxx 秒。有效范围时0-315360000（10年），默认值为30. 在重启前，将重启时间写入日志(以下已在英文版windows操作系统上检测过)restart.bat12345678@echo offset nowdate=%date:~4, 10%set nowtime=%time:~0,8%set content=%nowdate:/=-% %nowtime%set distpath=&quot;c:\restartlog&quot;::write logecho restart time: %content% &gt;&gt; %distpath%\log.txtshutdown -r -f -t 0 再在windows的计划任务中，将这个脚本配置进去。则当脚本执行，将会在系统的c盘下新建一个目录restartlog，然后在这个目录中创建一个文件log.txt，并在文件中追加写入： “restart time： 当时的时间”，最后重启系统。]]></content>
+      <categories>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>windows， bat</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[git如何撤销commit并保留修改]]></title>
+    <url>%2F2018%2F11%2F27%2Fgit%E5%A6%82%E4%BD%95%E6%92%A4%E9%94%80commit%E5%B9%B6%E4%BF%9D%E7%95%99%E4%BF%AE%E6%94%B9%2F</url>
+    <content type="text"><![CDATA[有时 commit 代码的时候，手误或者眼花误将不应该这次提交的文件 commit 了，此时还没有 push 到远程仓库，这个时候可以通过 git 命令，撤销该次 commit，并且本地修改还在，即回到 commit 之前的状态，可以重新选择文件进行提交。 1git reset --soft [commit_id] 这个 commit_id 可以是历史记录中任一一个，这个命令会让你的代码回到该条 commit 之后的状态，所有的修改都会在，log 中的该条之后的 commit 记录就都删除了。所以也要谨慎使用，一般用于撤销上一次的 commit。]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[如何更改git clone默认检出的分支]]></title>
+    <url>%2F2018%2F11%2F26%2F%E5%A6%82%E4%BD%95%E6%9B%B4%E6%94%B9git-clone%E9%BB%98%E8%AE%A4%E6%A3%80%E5%87%BA%E7%9A%84%E5%88%86%E6%94%AF%2F</url>
+    <content type="text"><![CDATA[一般我们 clone 一个项目都是检出默认的 master 分支。这个其实是可以修改的。 修改办法：在 git 服务器上，进入该项目的 .git （仓库）文件夹，编辑 HEAD 文件。 例如想默认为 dev 分支：将 refs/heads/master 改成 refs／heads/dev 该操作需要 git 管理员来完成，修改本地仓库没有用。 在 gitlab 或者 github 的仓库配置中，可以找到，有个默认分支下拉选项，就是做这个设置的。]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js如何识别图片加载失败]]></title>
+    <url>%2F2018%2F11%2F26%2Fjs%E5%A6%82%E4%BD%95%E8%AF%86%E5%88%AB%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E5%A4%B1%E8%B4%A5%2F</url>
+    <content type="text"><![CDATA[在做项目过程中遇到图片请求失败的时候，图片区域会出现一个原生的碎片图标，非常影响用户体验。这时需要用一个 broken 的图片去代替它，来提升户体验。要做到这一点，首先要在代码中识别图片加载失败这个事情。那么怎么判断一个图片加载失败了呢？ 在 js 中使用 onerror 事件javascript 给我们提供了一个 onerror 事件，img 标签支持该事件，当装载文档或者图像的过程中发生了错误，就会触发 onerror 事件。我们可以在这个事件中，定义要替换加载不出来的原图的 broken 图片。 核心代码： 1234567// html&lt;img src=&quot;img.png&quot; onerror=&quot;myfunction()&quot;&gt;// javascriptmyfunction() &#123; this.src=&quot;default.png&quot;&#125; 注意：如果 onerror 指定的图片也不存在的话，会出现无限死循环 404. 解决办法是在 js 中添加：12345// javascriptmyfunction() &#123; this.src=&quot;./default.png&quot;; this.onerror = null; // 添加这个防止默认图片也不存在而陷入死循环&#125; 在 Vue 中怎么使用 onerror12345678910111213// vue&lt;template&gt; &lt;img :src=&quot;item.imgUrl&quot; :onerror=&quot;defaultImg&quot;&gt;&lt;/template&gt;&lt;script&gt; export default &#123; data () &#123; return &#123; defaultImg: &apos;this.src=&quot;./static/images/default.png&quot;&apos; &#125; &#125; &#125;&lt;/script&gt; 番外有时因为网络比较卡的原因需要多加载几次再判定为是否加载失败。但是有时是因为网络连接断开而加载失败，需要在网络恢复连接时自动加载图片。这是就需要知道，js中怎么识别网络断开和连接的，有两个事件：online 和 offline。12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152var isOnLine = true;var eventList = &#123;&#125;;window.addEventListener(&apos;offline&apos;, function() &#123; isOnLine = false;&#125;)window.addEventListener(&apos;online&apos;, function() &#123; if(!isOnline) &#123; isOnLine = true; reLine(); // 执行重连后要做的事情 &#125;&#125;)function reLine() &#123; for(var key in eventList) &#123; if(!eventList[key]) continue; var arg = eventList[key].arg; var thisOnFn = eventList[key].that; eventList[key].fun.apply(thisOnFn, arg); eventList[key] = null; &#125;&#125;function offLined(fun, arg, that) &#123; if(!isOnLine) &#123; var name = fun.name || &apos;__new&apos;; eventList[name] = &#123;&#125;; eventList[name].fun = fun; eventList[name].arg = [].slice.call(arg); eventList[name].that = that; return true; &#125; return false;&#125;---// 重新定义myfunctionmyfunction(imgObj, imgSrc, maxErrorNum) &#123; if(offLined(restImgUrl, arguments, this)) return; if(maxErrorNum &gt; 0) &#123; imgObj.onerror = function () &#123; myFunction(imgObj, imgSrc, maxErrorNum - 1) &#125; setTimeout(function() &#123; imgObj.src = imgSrc; &#125;, 500) &#125; else &#123; imgObj.src = &apos;./default.png&apos;; this.onerror = null; &#125; &#125;// 调用&lt;img src=&quot;img.png&quot; onerror=&quot;myfunction(this, this.src, 3)&quot;&gt;]]></content>
+      <categories>
+        <category>前端技术</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js如何获取网页元素的绝对位置]]></title>
+    <url>%2F2018%2F11%2F25%2Fjs%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E7%BD%91%E9%A1%B5%E5%85%83%E7%B4%A0%E7%9A%84%E7%BB%9D%E5%AF%B9%E4%BD%8D%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[什么是网页元素的绝对位置和相对位置网页元素的绝对位置，是指该元素的左上角相对于整张网页的左上角的坐标。网页元素的相对位置，是指该元素的左上角相对于视口的左上角的坐标。 如何获取绝对位置 由于每个元素都有 offsetTop 和 offsetLeft 属性， 表示该元素左上角与父容器（offsetParent对象）左上角的距离。所以可以遍历一下元素的祖先容器，把所有的 offsetTop 加起来得到。1234567var element = document.getElementById(&apos;article_container&apos;)var actualTop = element.offsetTop; // 绝对位置var current = element.offsetParent;while (current !== null)&#123; actualTop += current.offsetTop; current = current.offsetParent;&#125; 如何获取相对位置有了绝对位置，获得相对位置就容易了，可以通过绝对坐标减去页面滚动条滚动的距离来得到。滚动条滚动的垂直距离，是 document 对象的 scrollTop 属性，滚动的水平距离，是 document 对象的 scrollLeft 属性。scrollTop 和 scrollLeft 是可以赋值的，并且会立即自动滚动网页到相应位置。可以利用它们改变元素的相对位置。另外，elment.scrollIntoView() 方法也有类似作用，可以使网页元素出现在浏览器窗口的左上角（不过需要在支持 html5 的浏览器才能生效）。12var elementScrollTop = document.documentElement.scrollTop; var relativeTop = actualTop-elementScrollTop; // 相对位置 快速获取元素的绝对位置和相对位置使用 js 的 getBoundingClientRect() 方法。她会返回一个对象，包含 left， right， top， bottom 四个属性，分别对应该元素的左上角和右下角相对于浏览器窗口（viewport）左上角的距离。12345678var dom = document.getElementById(&apos;article_container&apos;);// 相对位置var rLeft = dom.getBoundingClientRect().left;var rTop = dom.getBoundingClientRect().top;// 绝对位置（相对位置+滚动距离）var aLeft = rLeft + document.documentElement.scrollLeft;var aTop = rTop + document.documentElement.scrollTop;]]></content>
+      <categories>
+        <category>前端技术</category>
+      </categories>
+      <tags>
+        <tag>jacascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[MacBook 常用快捷键]]></title>
+    <url>%2F2018%2F11%2F25%2FMacBook-%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE%2F</url>
+    <content type="text"><![CDATA[1. 新建一个 Tab 样式的终端窗口1Command + T 2. 自带的截图快捷键1234Command + Shift + 3 截取整个屏幕，保存图片在桌面Command + Shift + 4 选取部分屏幕区域，保存图片在桌面先Command + Shift + 4 再空格， 可以对指定的窗口或者菜单截屏以上快捷键，加上 Ctrl， 可以把截图保存在剪切板]]></content>
+      <categories>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>快捷键</tag>
+        <tag>MacBook</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[git log高级使用]]></title>
+    <url>%2F2018%2F11%2F24%2Fgit-log%E9%AB%98%E7%BA%A7%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[-n 查看最近那次的提交信息1git log -2 //查看最近2次提交记录 – fileName 查看指定文件的提交信息文件名要放到参数的最后位置，通常在前面加上 -- 并用空格隔开表示是文件。1git log -- file1 file2 branchName 查看某个分支上的提交记录1git log dev tagName 查询指定标签的提交记录12345git log v1.0.. 查询从v1.0以后的提交历史记录(不包含v1.0) git log test..master 查询master分支中的提交记录但不包含test分支记录 git log master..test 查询test分支中的提交记录但不办含master分支记录 git log master…test 查询master或test分支中的提交记录。 git log test –not master 屏蔽master分支 根据 commit id 或者 HEAD 查询日志commit id 可以是提交哈希的简写模式，也可以使用HEAD替代。HEAD指向当前分支，HEAD^为最后一个提交，等同于HEAD~1,HEAD~2代表倒数第二次提交1git log f52c471 –pretty 按指定格式显示日志信息可选项有： oneline, short, medium, full, fuller, email, raw, format默认为medium，可以通过修改配置文件来指定默认的方式：1git log (--pretty=)oneline 常见的 format 选项：1234567891011121314151617选项 说明%H 提交对象（commit）的完整哈希字串 %h 提交对象的简短哈希字串 %T 树对象（tree）的完整哈希字串 %t 树对象的简短哈希字串 %P 父对象（parent）的完整哈希字串 %p 父对象的简短哈希字串 %an 作者（author）的名字 %ae 作者的电子邮件地址 %ad 作者修订日期（可以用 -date= 选项定制格式） %ar 作者修订日期，按多久以前的方式显示 %cn 提交者(committer)的名字 %ce 提交者的电子邮件地址 %cd 提交日期 %cr 提交日期，按多久以前的方式显示 %s subject 提交说明%d body 事例：123git log --pretty=format:&quot;$h %cn %cr %s&quot;// 或者git log --format=&quot;$h %cn %cr %s&quot; 自定义 git log –format 后输出内容的颜色git log --format 后，输出的内容是没有颜色区分的，我们其实是可以给输出的内容自定义颜色，便于让内容更有辨识度。方法为在 format 的内容选项前，加上 %C() 选项。其中: 括号内放代表颜色的字符串，颜色字符串支持24位的RGB值（要带#号） 也可以是以下的颜色名称： normal black red green yellow blue magenta cyan white 这些颜色名称还可以跟这些修饰属性绑定使用，可叠加多个使用。注意，这些修饰只能修饰前景色： bold // 加粗 dim // 颜色减淡 ul // 下划线 blink // 闪烁效果 reverse // 前景色背景色交换 也可以放两个颜色字符串，第一个将被识别为前景色，第二个将被识别为背景色 在 git v1.7 版本后，对于 red、green、blue 三个颜色来说，括号是可选的。（但是这样就只能使用一个颜色，即前景色） 颜色和颜色修饰，是会传播到之后的输出内容样式，除非在内容前或者该内容后，重置颜色和修饰：%Creset。或则剔除修饰：noxxx（xxx 代表修饰名，例如nodim）。所以每设置完一个内容的颜色，最好是在该内容后紧跟一个%Creset，以防影响后面内容的样式。 重置颜色和剔除修饰也是会传播的。 事例命令：1git log --format=&quot;%C(magenta)%h %C(red)%d %C(yellow)(%cr) %C(green)%s&quot; 效果：命令：1git log --format=&quot;%C(white ul bold magenta)%h%Creset %C(yellow)(%cr)%Creset %C(green)%s%Creset %C(dim)%cd&quot; 效果：命令：1git log --format=&quot;%C(reverse ul black)%h%Creset %C(yellow)(%cr)%Creset %C(green)%s%Creset %C(dim)%cd&quot; 效果： 自定义规则快捷键——别名每次都要输入这一长串的命令非常繁琐且容易出错，我们可以将调整好的这一串命令保存在git配置文件里，并给它起一个别名，下次只需要输入这个别名，就可以看到符合自己习惯的日志格式和样式了。 进入～／.gitconfig 添加：（注意，format后的值必须要用单引号，双引号会报错。） 12[alias] logs = log --format=&apos;%C(reverse ul red)%h%Creset %cn %C(yellow)(%cr)%Creset %C(green)%s%Creset&apos; 然后在命令行只需要输入 git logs 就可以得到你要的效果了。 更多详细可查看 git documentation Pretty Formats –author=someone 查询指定作者的提交记录1git log --author=sam –grep 通过关键字过滤提交日志1git log --grep=mod 列出所有包含 mod 字样提交信息的记录 –graph 以简单的图形方式列出提交记录1git log --graph –name-status 显示新增、修改、删除的文件清单1git log --name-only]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[如何使用nvm+nrm+cmder打造灵活的前端开发环境]]></title>
+    <url>%2F2018%2F11%2F24%2F%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8nvm-nrm-cmder%E6%89%93%E9%80%A0%E7%81%B5%E6%B4%BB%E7%9A%84%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%2F</url>
+    <content type="text"><![CDATA[在前端工程开发过程中，不同项目可能会使用不同的 node 环境和 npm 环境，在不同项目中切换时，要不停的卸载安装前端开发环境，非常麻烦。于是有了 nvm 和 nrm，可以通过切换的方式快速设置开发环境版本，再也不要繁琐地卸载安装了，有效的解放了劳动力。 1. nvmnvm: node version managernode 版本管理器 2. nrmnrm: npm registry managernpm 版本管理器 安装 nrm：1npm install nrm -g 添加 registry：12nrm add npm http://registry.npmjs.orgnrm add taobao https://registry.npm.taobao.org 查看已添加的 registry：1nrm ls 切换 registry：12nrm use taobaonrm use npm 3. cmder一款酷炫的命令行终端软件]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>nvm</tag>
+        <tag>nrm</tag>
+        <tag>cmder</tag>
+        <tag>开发环境</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[如何查看和设置npm镜像地址]]></title>
+    <url>%2F2018%2F11%2F24%2F%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%92%8C%E8%AE%BE%E7%BD%AEnpm%E9%95%9C%E5%83%8F%E5%9C%B0%E5%9D%80%2F</url>
+    <content type="text"><![CDATA[查看配置1npm config list 在输出信息中可以看到我的 npm 镜像如下：123metrics-registry = &quot;https://registry.npmjs.org/&quot;scope = &quot;&quot;user-agent = &quot;npm/5.5.1 node/v8.9.3 darwin x64&quot; 设置镜像常用的 npm 镜像地址有：npm —- http://registry.npmjs.org (默认)cnpm — http://r.cnpmjs.orgtaobao - https://registry.npm.taobao.orgnj —– https://registry.nodejitsu.comrednpm - http://registry.mirror.cqupt.edu.cnnpmMirror https://skimdb.npmjs.com/registryedunpm - http://registry.enpmjs.org 1. 临时使用1npm --registry https://registry.npm.taobao.org install xxx 2. 持久使用 12npm config set registry https://registry.npm.taobao.orgnpm config set disturl https://npm.taobao.org/dist 或者直接编辑 ~/.npmrc 文件，加入如下内容：1registry = https://registry.npm.taobao.org 3. 随时切换使用 nrm 管理 npm 镜像地址 检测镜像是否配置成功12npm config get registrynpm config get disturl npm info underscore 或者 npm info express 也可以用来查看配置是否成功 删除镜像12npm config delete registrynpm config delete disturl 其他 查看 npm 安装目录1npm root -g 查看 npm 的 prefix 和 cache 路径配置信息12npm config get prefixnpm config get cache 安装 node.js 时会自动安装 npm， 默认的缓存路径是 %appdata%\Roaming\npm-cache]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[git如何去掉对文件的追踪]]></title>
+    <url>%2F2018%2F11%2F24%2Fgit%E5%A6%82%E4%BD%95%E5%8E%BB%E6%8E%89%E5%AF%B9%E6%96%87%E4%BB%B6%E7%9A%84%E8%BF%BD%E8%B8%AA%2F</url>
+    <content type="text"><![CDATA[去掉对某些文件的 track：1git rm --cached &lt;file path&gt;]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[如何让commit信息带图标]]></title>
+    <url>%2F2018%2F11%2F24%2F%E5%A6%82%E4%BD%95%E8%AE%A9commit%E4%BF%A1%E6%81%AF%E5%B8%A6%E5%9B%BE%E6%A0%87%2F</url>
+    <content type="text"><![CDATA[git commit 的提交日志上，除了文字，还可以有图标。叫做 git commit emoji。 提交事例：1git commit -m &quot;:tada: Made some changes&quot; 效果如下： commit 格式规范： message 摘要不超过50个字，首字母大写，使用祈使语气，句末不要加句号 引用相关 issue 或 PR 编号 &lt;#110&gt; emoji 代码列表 emoji emoji代码 语义 :tada:(庆祝) :tada: 初次提交 :sparkles: (火花) :sparkles: 引入新功能 :bookmark: (书签) :bookmark: 发行/版本标签 :bug: (bug) :bug: 修复 bug :ambulance: (急救车) :ambulance: 重要补丁 :globe_with_meridians: (地球) :globe_with_meridians: 国际化与本地化 :lipstick: (口红) :lipstick: 更新 UI 和样式文件 :rotating_light: (警车灯) :rotating_light: 移除 linter 警告 :wrench: (扳手) :wrench: 修改配置文件 :heavy_plus_sign: (加号) :heavy_plus_sign: 增加一个依赖 :heavy_minus_sign: (减号) :heavy_minus_sign: 减少一个依赖 :arrow_up: (上升箭头) :arrow_up: 升级依赖 :arrow_down: (下降箭头) :arrow_down: 降级依赖 :zap: (闪电):racehorse: (赛马) :zap::racehorse: 提升性能 :chart_with_upwards_trend: (上升趋势图) :chart_with_upwards_trend: 添加分析或跟踪代码 :rocket: (火箭) :rocket: 部署功能 :white_check_mark: (白色复选框) :white_check_mark: 增加测试 :memo: (备忘录) :memo: 撰写文档 :hammer: (锤子) :hammer: 重大重构 :art: (调色板) :art: 改进代码结构/代码格式 :fire: (火焰) :fire: 移除代码或文件 :pencil2: (铅笔) :pencil2: 修复 typo :construction: (施工) :construction: 工作进行中 :construction_worker: (工人) :construction_worker: 添加 CI 构建系统 :green_heart: (绿心) :green_heart: 修复 CI 构建问题 :lock: (锁) :lock: 修复安全问题 :whale: (鲸鱼) :whale: Docker 相关工作 :apple: (苹果) :apple: 修复 macOS 下的问题 :penguin: (企鹅) :penguin: 修复 Linux 下的问题 :checkered_flag: (旗帜) :checked_flag: 修复 Windows 下的问题 注意emoji 表情在提交代码的时候不能乱用，否则容易造成误解。为此，开源项目 gitmoji 专门规定了在 github 提交代码时应当遵循的 emoji 规范。 延伸 默认情况下在命令行中不会显示出 emoji， 仅显示 emoji 代码。不过可以使用 emojify 使得在命令行也可以像显示 emoji，emojify 是一个 shell 脚本。(不过这个脚本已经很老了，最近更新在3年前，而且mac提示已经不支持该命令，后空再找解决方案) 另外，markdown 也有一系列支持的 emoji，传送门]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js如何获取浏览器窗口大小和网页内容尺寸]]></title>
+    <url>%2F2018%2F11%2F05%2Fjs%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AA%97%E5%8F%A3%E5%A4%A7%E5%B0%8F%E5%92%8C%E7%BD%91%E9%A1%B5%E5%86%85%E5%AE%B9%E5%B0%BA%E5%AF%B8%2F</url>
+    <content type="text"><![CDATA[什么是网页的大小和浏览器窗口 网页大小就是一张网页的全部面积，通常情况，网页大小由内容和CSS样式表决定。 浏览器窗口大小，是指浏览器窗口中看到的那部分网页面积，又叫视口（viewport）。 获取浏览器窗口大小可以通过windows对象的 innerHeight 属性获取。也可以通过元素的 clientHeight 属性获取。网页上每个元素都有 clientHeight 和 clientWidth 属性。这两个属性指元素的内容部分加上 padding 的大小，不包括 border 和滚动条的大小。大部分情况下 document.documentElement 的大小可以代表浏览器窗口的大小，但是在 IE6 的 quirks 模式中，document.body 才返回正确的值。 如何获取浏览器窗口高度 1234567891011// 浏览器内部界面的高度，即内容显示区域的高度，F12调试工具的占位会实时改变该值window.innerHeight// 浏览器外部界面即窗体的高度，调试工具的占位不会影响该值window.outerHeight// 表示 HTML 文档所在窗口的可视区域高度，效果同 window.innerHeightdocument.documentElement.clientHeight// ie6 quirks 模式下表示 body 的可视区域高度，注意：body与浏览器之间有个默认的 margindocument.body.clientHeight 与高度对应的，还有宽度：window.innerWidth 、window.outerWidth、window.outerWidth、document.documentElement.clientWidth、 document.body.clientWidth 说明：window.innerHeight ／ innderWidth 在ie8 及以下不支持，需要通过document.documentElement.clientHeight ／ clientWidth 来替代。所以兼容的写法为：window.innerHeight || document.documentElement.clientHeightwindow.innderWidth || document.documentElement.clientWidth 获取网页内容大小12345document.documentElement.scrollWidth || document.body.scrollWidthdocument.documentElement.scrollHeight || document.body.scrollHeightdocument.documentElement.offsetWidth || document.body.offSetWidthdocument.documentElement.offsetHeight || document.body.offSetHeight 番外通常获取浏览器界面的宽高，是有自适应布局的需要，常常需要跟如下方法配合使用： 1. window 的尺寸变化事件12345// jswindow.onresize()// jquery$(window).resize() 2. window 的滚动事件12345// jswindow.onscroll()// jquery$(window).scroll()]]></content>
+      <categories>
+        <category>前端技术</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[windows下模拟域名]]></title>
+    <url>%2F2018%2F10%2F05%2Fwindows%E4%B8%8B%E6%A8%A1%E6%8B%9F%E5%9F%9F%E5%90%8D%2F</url>
+    <content type="text"><![CDATA[在 c盘下 Windows／System32/drivers/etc/host 文件内，可以添加设置域名，将本地起的服务模拟成域名形式，便于相关前端测试，比如测试跨域。]]></content>
+      <categories>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+        <tag>domain</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[快速使用express搭建服务]]></title>
+    <url>%2F2018%2F10%2F05%2F%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8express%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%2F</url>
+    <content type="text"><![CDATA[使用 express 搭建最简单的服务。需要有 node 环境。 1. 安装 express1npm install express 2. 编写最简单的服务 新建 server.js 文件 打开 server.js 文件，写入： 1234const express = require(&apos;express&apos;); //引入 expressconst app = express(); //执行一下 expressapp.use(express.static(__dirname)); //指定静态文件路径app.listen(3000); //指定监听端口 3. 起服务命令行进入 server.js 所在目录，然后执行：1node server.js 4. done！服务已经启动，在浏览器输入 http://localhost:3000 就可以访问页面了。 进阶1. 添加接口路由123456789//get 请求，访问地址为 `http://localhost:3000/users`app.get(&apos;/users&apos;, function(req, res) &#123; res.end(res);&#125;)//put 请求，访问地址为 `http://localhost:3000/users`app.put(&apos;/users&apos;, function(req, res) &#123; res.end(res);&#125;) 2. 设置响应头根据需要，有时得设置响应头，以达到某种目的，比如跨域。在 server.js 文件的定义变量之后，添加一个 app.use：1234567891011121314151617app.use(function(req, res, next) &#123; //允许哪个源可以访问我 res.setHeader(&apos;Access-Control-Allow-Origin&apos;, &apos;http://localhost:4000&apos;); //允许携带哪个头访问我，多个头，用英文逗号隔开 res.setHeader(&apos;Access-Control-Allow-Headers&apos;, &apos;name&apos;); //允许哪个方法访问我 res.setHeader(&apos;Access-Control-Allow-Methods&apos;, &apos;PUT&apos;); //允许携带 cookie 访问我 res.setHeader(&apos;Access-Control-Allow-Credentials&apos;, true); //允许前端访问哪个头，多个头，用英文逗号隔开 res.setHeader(&apos;Access-Control-Expose-Headers&apos;, &apos;name&apos;); next();&#125;)]]></content>
+      <categories>
+        <category>前端技术</category>
+      </categories>
+      <tags>
+        <tag>express</tag>
+        <tag>front-end</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[跨域]]></title>
+    <url>%2F2018%2F10%2F05%2F%E8%B7%A8%E5%9F%9F%2F</url>
+    <content type="text"><![CDATA[浏览器同源策略：请求的地址与平台的协议、域名、端口号，都一致，称为 同域。只要有一个不一样，就称为 跨域。 cookie、 Localstorage 不能跨域；DOM元素也有同源策略（iframe）；ajax 也不支持跨域。 可以跨域的 html 标签：link、 img、 script 如何实现跨域： jsonp cors postMessage document.domain window.name location.hash http-proxy ngix WebSocket]]></content>
+      <categories>
+        <category>前端技术</category>
+      </categories>
+      <tags>
+        <tag>跨域</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[如何使用gitbook发布自己的书籍]]></title>
+    <url>%2F2018%2F10%2F05%2F%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8gitbook%E5%8F%91%E5%B8%83%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B9%A6%E7%B1%8D%2F</url>
+    <content type="text"><![CDATA[利用开源项目 gitbook，自己写本书吧～ 前言：gitbook 平台在今年的4月9日发布了新的版本v2。新的版本官网已经变成 www.gitbook.com （旧的地址为 legacy.gitbook.com ）。新旧版本有很多的不一样，网上很多资料都是针对旧版。 比如新版不再支持把每本书作为一个 Git Repository 来进行版本管理。（以前是可以针对每本书从本地 git push 到 gitbook 的），这点也是坑了我很久（坑一个强迫症重度患者的结果就是，不扒出被坑的根本原因誓不罢休）。更多 v2 的重大改变可以看 这里。 以下的所有操作都是针对新版的 gitbook。 使用 gitbook 编写一本书的步骤如下： 基本用法1. 全局安装 gitbook-cli1npm install gitbook-cli -g 2. 查看 gitbook 版本1gitbook --version 我在查看 gitbook 版本的时候，他会自动安装一些插件，等了一会安装完才出的版本信息：12CLI version: 2.3.2GitBook version: 3.2.3 3. 初始化 gitbook1gitbook init 4. 编辑书籍 一个 gitbook 项目至少要包含 README.md 和 SUMMARY.md，书本的第一页内容是从文件 README.md 文件中提取的。如果这个文件名没有出现在 SUMMARY.md 文件中，则它会被添加为章节的第一个条目。而由于一些托管在 github 上的书更喜欢将 README.md 作为项目的介绍而不是书的介绍，从 gitbook v2 起，可以在 book.json 中指定某个文件作为 README。例如： 12345&#123; &quot;structure&quot;: &#123; &quot;readme&quot;: &quot;myIntro.md&quot; &#125;&#125; gitbook 使用文件 SUMMARY.md 来定义书本的章节和子章节的结构。它用来生成书本内容的预览表。它的格式是一个简单的链接列表。另外可以在里面添加一些 markdown 格式的标题和分割线。例如： 12345678910111213141516# 概要* [章节 1](chapter1.md)* [章节 2](chapter2.md)* [章节 3](chapter3.md)# 基础* [章节 1](chapter1/README.md) * [1.1 a](chapter1/a.md) * [1.2 b](chapter1/b.md)---* [章节 2](chapter2/README.md) * [2.1 c](chapter2/c.md) * [2.2 d](chapter2/d.md)# 进阶* [章节 3](chapter3/README.md) 编写文章内容接下来就可以在相应的 md 文件里书写内容了。 5. 启动 gitbook 本地服务写完内容，可以通过以下方式来预览书本：1gitbook serve gitbook serve 命令实际上是先调用 gitbook build 编译书籍，然后启动一个 web 服务器，监听在本地的4000端口。 gitbook 进阶以上所说的都是在本地的操作，如何让别人也可以访问自己的书籍，除了自己买域名，还可以利用现有的互联网平台：gitbook.com、 github.com、 gitlab.com（gitlab也是听说可以有 gitlab pages，没有实际操作过，先略过） 1. 在 gitbook.com 上发布和管理书籍 需要先注册 gitbook 账号。可以单独注册，也可以使用 github 账号关联登录。 然后先创建一个 Orgnization 。 再在这个 Orgnization 里面创建一个 Space（旧版叫 Book）。这个就是你的书籍项目了。 然后就可以在线写书了～书籍的在线浏览地址为：https://yourorgnizationname.gitbook.io/yourspacename 2. 在 github.com 上发布和管理书籍在前面说的本地操作，编辑和预览书籍后，可以把 build 之后的结果，上传到 github 上面，然后利用 github pages 来发布书籍。 首先在 github 上新建一个跟你的书籍同名的 repository。 然后将远程仓库地址添加到本地，然后将编译后的 _book 目录 push 到远程。 然后在 github 上设置一下 github pages，具体方法和步骤我在另一个文章中详细介绍过：如何给github项目建立自己的主页。 在设置完后，就可以通过 https://githubusername.github.io/projectname 来浏览你的书了。 3. gitbook 与 github 关联同步新版 gitbook.com 不支持本地版本管理了，但是对 github 的集成支持的不错。可以通过配置，实现在 github 项目里面提交内容，gitbook 平台会自动同步过去。 在 gitbook 平台里，进入要设置的 space，也就是你的书。 点左下角的配置按钮，进入配置，点击 Intergrations ，找到 github。 点击 link you github repository 按钮，根据向导，登录 github ，选择 reposirory，选择分支，完成绑定和同步。(你还可以选择是 gitbook 同步 github ，还是 github 同步 gitbook) 需要注意的是：绑定的 github 仓库分支里面要是 gitbook 的源码，也就是那些 md 文件。而不是 build 之后生成的 html 文件。]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>gitbook</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[如何给github项目建立自己的主页]]></title>
+    <url>%2F2018%2F10%2F05%2F%E5%A6%82%E4%BD%95%E7%BB%99github%E9%A1%B9%E7%9B%AE%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%BB%E9%A1%B5%2F</url>
+    <content type="text"><![CDATA[想给 github 项目发布一个可访问的地址，网上的资料虽然多，但是乱。总的来讲，分为两种方法：一种是通过 github 的 htmlpreview 插件来展示。另一种就是通过 github pages 来展示。关于 github pages 网上很多人对它有误解，认为一定要先创建 username.github.io 这个 repository 才可以，其实并不需要；还有人认为一定要把要展示的静态资源放在项目的 gh-pages 分支上才可以，其实也不用。 总结一下我利用 github pages 给自己的项目创建主页的方法。 步骤如下： 1. 在 github 上建立项目 repository。2. 进入该 repository 的 Settings。3. 在 Options 里面， 找到 GitHub Pages。4. 为项目选择用于主页的分支， 然后保存。5. 然后就可以在浏览器输入 https://username.github.io/projectname 来访问项目主页了。 当然前提是在该分支下有用于展示的 html 文件，比如 index.html 另附上 github 的 htmlpreview 地址：https://htmlpreview.github.io/]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>github pages</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[如何在mac上查看隐藏文件]]></title>
+    <url>%2F2018%2F10%2F05%2F%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%8A%E6%9F%A5%E7%9C%8B%E9%9A%90%E8%97%8F%E6%96%87%E4%BB%B6%2F</url>
+    <content type="text"><![CDATA[在 Finder 里，按 Cmd + Shift + . 即可切换隐藏文件的显隐。]]></content>
+      <categories>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>快捷键</tag>
+        <tag>mac</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[进阶(三)：博客域名升级]]></title>
+    <url>%2F2018%2F09%2F29%2F%E8%BF%9B%E9%98%B6-%E4%B8%89-%EF%BC%9A%E5%8D%9A%E5%AE%A2%E5%9F%9F%E5%90%8D%E5%8D%87%E7%BA%A7%2F</url>
+    <content type="text"><![CDATA[购买域名，我是在阿里云上购买的，.com域名。 先查询你想的域名是否已经被注册，如果有那就要另想一个了。 选择购买时长，一次买长一点的好像比一年一年买要划得来，而且也不容易被别人抢注。 然后购买，购买前要实名认证。 配置DNS，添加记录，将github page域名添加进去。 github上配置custom domain，设置为新购买的域名。 hexo source里添加CNAME文件，内容为新购买的域名。]]></content>
+      <categories>
+        <category>博客搭建</category>
+      </categories>
+      <tags>
+        <tag>domain</tag>
+        <tag>hexo</tag>
+        <tag>DNS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[利用json-server+faker模拟API服务和数据]]></title>
+    <url>%2F2018%2F09%2F26%2F%E5%88%A9%E7%94%A8json-server-faker%E6%A8%A1%E6%8B%9FAPI%E6%9C%8D%E5%8A%A1%E5%92%8C%E6%95%B0%E6%8D%AE%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>前端技术</category>
+      </categories>
+      <tags>
+        <tag>node</tag>
+        <tag>json-sever</tag>
+        <tag>faker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[javascript中的Date]]></title>
+    <url>%2F2018%2F09%2F26%2Fjavascript%E4%B8%AD%E7%9A%84Date%2F</url>
+    <content type="text"><![CDATA[chrome下结论： 1. 日期有前置0，则会解析为 UTC 时间，没有前置0，则会解析为本地时间。例如new Date(&#39;2018-09-26&#39;).getTime() 获取的是距离1970年1月1日0点UTC时间。new Date(&#39;2018-9-26&#39;).getTime() 获取的是距离1970年1月1日0点本地时间。 2. Date.now()、 +new Date()、 new Date().getTime(), 获取的都是距离1970年1月1日0点本地时间。 检验依据：Date.UTC() 该方法使用的是UTC时间。而 Date.UTC(2018, 8, 26) 跟 Date.now()、 +new Date()、 new Date().getTime() 获得的值相差8个小时。 ie下 结论： 1. 不支持非UTC格式的 new Date().2. 并且 Date.now()、 +new Date()、 new Date().getTime() 获取的都是距离1970年1月1日0点的UTC时间。 检验依据：而 Date.UTC(2018, 8, 26) 跟 Date.now()、 +new Date()、 new Date().getTime() 获得的值在同一个时区。]]></content>
+      <categories>
+        <category>前端技术</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+        <tag>Date</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[win10下中文输入法简繁切换快捷键]]></title>
+    <url>%2F2018%2F09%2F26%2Fwin10%E4%B8%8B%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E7%AE%80%E7%B9%81%E5%88%87%E6%8D%A2%E5%BF%AB%E6%8D%B7%E9%94%AE%2F</url>
+    <content type="text"><![CDATA[在中文输入法下，按 ctr+shift+f 。]]></content>
+      <categories>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>快捷键</tag>
+        <tag>win10</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[git reflog]]></title>
+    <url>%2F2018%2F09%2F25%2Fgit-reflog%2F</url>
+    <content type="text"><![CDATA[git log 查看的是 commit 记录。git reflog 查看的是所有的 HEAD 改变的记录。]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>reflog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[如何让本地分支与远程分支建立映射关系]]></title>
+    <url>%2F2018%2F09%2F25%2F%E5%A6%82%E4%BD%95%E8%AE%A9%E6%9C%AC%E5%9C%B0%E5%88%86%E6%94%AF%E4%B8%8E%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E5%BB%BA%E7%AB%8B%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB%2F</url>
+    <content type="text"><![CDATA[git 建分支很 cheap，本地和远程都常常各自拥有大量分支，有时本地分支需要跟某个新的远程分支建立追踪映射，以便于在 pull、 push 等操作时，简化命令，也在一定程度上防止误传到其他分支。今天建立了新的远程分支，本地不想弄一个新的跟它对应，想用当前分支换个关联，用到了该技能。 核心命令1git branch --set-upstream-to=[remote-name/remote-branch-name] 详解: 完成同样效果的命令还有： git 1.8 以上123git branch -u [remote-name/remote-branch-name]# or 如果要关联的本地分支不是当前分支git branch -u [remote-name/remote-branch-name] [local-branch-name] 如果比较喜欢比较长的命令写法(我比较喜欢，是不是很变态，哈哈)，可以：123git branch --set-upstream-to=[remote-name/remote-branch-name]# or 如果要关联的本地分支不是当前分支git branch --set-upstream-to=[remote-name/remote-branch-name] [local-branch-name] 例如，我有个本地分支 dev，想跟远程 origin 的 v1.1 关联：123456789#如果当前就在 dev 分支上：git branch -u origin/v1.1#orgit branch --set-upstream-to=origin/v1.1#如果当前不在 dev 分支上：git branch -u origin/v1.1 dev#orgit branch --set-upstream-to=origin/v1.1 dev git 1.7 以上（已经在2.几版本停用）1git branch --set-upstream dev origin/v1.1 如果要在 check 分支的时候进行映射check 到与远程分支同名的本地分支 v1.11git checkout --track origin/v1.1 #git 1.6.2 以上 check 到与远程分支不同名的分支 dev21git checkout -b dev2 origin/v1.1 查看本地分支与远程分支的映射情况1git branch -vv]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>branch</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[如何让远程仓库回退到某个之前的版本]]></title>
+    <url>%2F2018%2F09%2F23%2F%E5%A6%82%E4%BD%95%E8%AE%A9%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E5%9B%9E%E9%80%80%E5%88%B0%E6%9F%90%E4%B8%AA%E4%B9%8B%E5%89%8D%E7%9A%84%E7%89%88%E6%9C%AC%2F</url>
+    <content type="text"><![CDATA[pull 代码再次遇到冲突，这次突发奇想，想试试用 git stash 来处理，结果 push 完，队友反映她 pull 后好多代码被重置，并且遇到严重冲突，受牵连70几个文件。我查看了下 commit 记录，惊讶地发现，我处理完冲突传上去的代码确实都变成了我本地的老代码，pull 下来的修改都被我重置了。都是乱用 git stash 的错。。还好发现的及时，我立即决定撤回远程仓库中我的那次 push，让代码回滚到我 push 前的状态。一番资料查找，顺利搞定。 只需五步，方法如下： 1. 查看 commit 日志，确定要回滚到的 commit id（前7位即可）1git log --oneline 找到要回到的那次 commit ，复制 commit id，比如我这里是 b8b2df7 2. 先备份下当前版本12git checkout -b old_devgit push origin old_dev:old_dev 3. 本地回滚到指定代码版本 1git reset --hard b8b2df7 4. 删除远程对应的分支123git push origin :dev//orgit push origin --delete dev 5. 重新创建远程分支1git push origin dev:dev 搞定！ 或者，不使用删除分支再建分支的方法，这个要两部，有些麻烦，可以使用强制推送，只需一步：1git push origin dev:dev -f #因为reset后本地仓库落后于远程仓库，因此要强制提交]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>reset</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[如何撤销 git add 和 git commit]]></title>
+    <url>%2F2018%2F09%2F19%2F%E5%A6%82%E4%BD%95%E6%92%A4%E9%94%80-git-add-%E5%92%8C-git-commit%2F</url>
+    <content type="text"><![CDATA[由于心急，提交代码的时候，commit 后，发现多提交了一个文件，然后第一想法是使用 rebase 来修改提交，然后我把那个多提交的文件，恢复成修改前的样子，然后打算在 git add . 之后进行 rebase ，结果查看状态发现，它把我之前在编辑器里面忽略的一个文件也给加进来了…所以这个时候，我既多 commit 了， 又多 add 了…蜜汁尴尬… 经过查找资料，问题解决，又 get 到 git 的新技能： 1. git add 多了 git status 查看下 add 的文件 git reset HEAD 。如果后面什么都不跟，就是把上一次的 git add 全部撤销。or git reset HEAD xxx/xxx/xxx.js ，则对某个文件进行撤销 add。 2. git add 多了之后，又 commit 了 先使用 git log –oneline 查看节点，找到这次 commit 的上一次 commit 记录。 然后 git reset commit_id 。退回到上一个提交的节点，代码还是原来你修改的样子，即提交前的样子。 3. 使用 git revert 还原已经提交的修改（这个没有验证过）使用 git revert 后，此次操作之前和之后的 commit 和 history 都会保留，并且把这次撤销作为一次最新的提交。 git revert HEAD 撤销前一次 commit git revert HEAD^ 撤销前一次 commit git revert commit_id 撤销指定的版本，撤销也会作为一次提交进行保存。git revert 是提交一个新的版本，将需要 revert 的版本的内容再反向修改回去，版本会递增，不影响之前提交的内容。]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>reset</tag>
+        <tag>revert</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[进阶(二)：hexo博客配置]]></title>
+    <url>%2F2018%2F09%2F19%2F%E8%BF%9B%E9%98%B6-%E4%BA%8C-%EF%BC%9Ahexo%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[进阶(二)：hexo博客配置1. 添加评论系统hexo官方提供了很多评论系统的配置，我选择的是’来必力’。我先注册了来必力，然后创建了一个liverre city，获取到代码中的 uid ，然后编辑 hexo 主题配置文件 _config.yml , 编辑 livere_uid :1liverre_uid: #我在来必力获取的uid 2. 添加 tags 页面 在终端： 1hexo new page tags 在生成的 tags 目录下，编辑 index.md ，添加 tags 字段，屏蔽该页的评论功能： 123456---title: 标签date: 2018-09-09 22:51:31type: &quot;tags&quot;comments: false--- 在 _config.yml 文件中，编辑menu字段： 1234menu: home:/ archives: /archives tags: /tags 3. 添加 categories 页面 在终端： 1hexo new page categories 在生成的 categories 目录下，编辑 index.md ，添加 categories 字段，屏蔽该页的评论功能： 123456---title: 标签date: 2018-09-09 22:51:31type: &quot;categories&quot;comments: false--- 在 _config.yml 文件中，编辑menu字段： 12345menu: home:/ archives: /archives tags: /tags categories: /categories 4. 添加 about 页面 在终端： 1hexo new page about 在生成的 about 目录下，编辑 index.md ，屏蔽该页的评论功能： 12345---title: 标签date: 2018-09-09 22:51:31comments: false--- 5. 设置 ‘阅读全文’效果：在首页提供文章的部分内容，并提供一个链接跳转到全文页面。在 NextT 中提供了三种方式，我比较喜欢它推荐的那种，也是 Hexo 提供的方式：在文章中使用 &lt;!-- more --&gt; 手动进行截断。 6. 配置博客文档模版hexo 中，运行 hexo new &quot;xxx&quot; 是调用了 scaffolds 目录下的 post.md 文件作为模版来创建的。所以修改这个模版，就可以达到每次创建文档可以使用自己习惯的模版了。默认模版是没有 categories 的，我需要这个字段，所以在模版中加上了这个字段：123456---title: &#123;&#123; title &#125;&#125;date: &#123;&#123; date &#125;&#125;tags: categories:---]]></content>
+      <categories>
+        <category>博客搭建</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[如何修改git中已经提交的内容]]></title>
+    <url>%2F2018%2F09%2F11%2F%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9git%E4%B8%AD%E5%B7%B2%E7%BB%8F%E6%8F%90%E4%BA%A4%E7%9A%84%E5%86%85%E5%AE%B9%2F</url>
+    <content type="text"><![CDATA[今天在git上提交代码的时候，不小心在 commit message 中打了几个错别字，merge、push 完了才发现。。 由于我的完美主义加强迫症比较严重，那几个错别字越看越不顺眼，寻思着把它们给改过来。查了资料，加上实验，终于搞定。 只需五步，方法如下： 修改某次提交的 commit message需要注意的是：如果提交次数超过2次，则没有办法修改第1次的提交信息，第2次以后的信息都可以通过此方法修改。 1. 查看提交的 commit id (SHA值)如果 push 过，可以在git托管平台（比如 github、gitlab)上的 commits 里面看到（那串40位的编码就是了），只需要其前7位。或者直接通过 git log 命令查看：1git log --oneline 在展示的结果上每条 log 记录的前面的字段就是我们需要的 SHA 值。123456$ git log --onelineb8b2df7 (HEAD -&gt; master, origin/master) 中文dd09519 di sici tijiaof1d9380 english only modify again..ea8a3b5 nonono correct message66a4488 need to be changed message 比如我要修改的那条 commit 的 SHA 为：dd09519那我需要的是这一条之前的一条 commit 的 SHA ：f1d9380 2. 通过 git rebase 命令回到要修改提交的上一次提交的基础上 1git rebase -i f1d9380 等待一会，然后会打开 vim 编辑器，12345678910111213141516171819202122232425262728pick dd09519 di sici tijiaopick b8b2df7 中文# Rebase f1d9380..f52c471 onto f1d9380 (2 commands)## Commands:# p, pick &lt;commit&gt; = use commit# r, reword &lt;commit&gt; = use commit, but edit the commit message# e, edit &lt;commit&gt; = use commit, but stop for amending# s, squash &lt;commit&gt; = use commit, but meld into previous commit# f, fixup &lt;commit&gt; = like &quot;squash&quot;, but discard this commit&apos;s log message# x, exec &lt;command&gt; = run command (the rest of the line) using shell# d, drop &lt;commit&gt; = remove commit# l, label &lt;label&gt; = label current HEAD with a name# t, reset &lt;label&gt; = reset HEAD to a label# m, merge [-C &lt;commit&gt; | -c &lt;commit&gt;] &lt;label&gt; [# &lt;oneline&gt;]# . create a merge commit using the original merge commit&apos;s# . message (or the oneline, if no original merge commit was# . specified). Use -c &lt;commit&gt; to reword the commit message.## These lines can be re-ordered; they are executed from top to bottom.## If you remove a line here THAT COMMIT WILL BE LOST.## However, if you remove everything, the rebase will be aborted.### Note that empty commits are commented out 在编辑器中找到你要修改的那个提交信息，用 i 命令进入编辑，将那一行开头的 pick 改为 edit: pick dd09519 di sici tijiao -&gt; edit dd09519 di sici tijiao然后 esc -&gt; : -&gt; wq, 保存退出。 然后界面显示如下：123456789$ git rebase -i f1d9380Stopped at dd09519... di sici tijiaoYou can amend the commit now, with git commit --amendOnce you are satisfied with your changes, run git rebase --continue 3. 修改 commit message：1git commit --amend 再次进入 vim 编辑器，1234567891011121314151617di sici tijiao# Please enter the commit message for your changes. Lines starting# with &apos;#&apos; will be ignored, and an empty message aborts the commit.## Date: Tue Sep 11 18:49:29 2018 +0800## interactive rebase in progress; onto f1d9380# Last command done (1 command done):# edit 4df3762 中文信息 sici tijiao# Next command to do (1 remaining command):# pick f52c471 中文# You are currently editing a commit while rebasing branch &apos;master&apos; on &apos;f1d9380&apos;.## Changes to be committed:# modified: README.md# 可以看到第一行就是要修改的 commit message。同样的通过 vim 命令 进入编辑模式，修改提交信息: di sici tijiao -&gt; 中文信息 sici tijiao然后:wq 保存退出。1234$ git commit --amend[detached HEAD 4df3762] 中文信息 sici tijiao Date: Tue Sep 11 18:49:29 2018 +0800 1 file changed, 0 insertions(+), 0 deletions(-) 4. 完成 rebase：1git rebase --continue 等待一会，然后出现：12$ git rebase --continueSuccessfully rebased and updated refs/heads/master. 表明操作成功。 5. 将修改后的变动 push 到远程1git push origin master -f 注意一定要使用 -f 参数，表示强制推送。因为我们没有产生新的 commit（用 git status 可以看出），直接 push 不会发送任何东西。 6. 现在我们去远程仓库刷新下 commit 记录，可以看到 commit 信息就已经修改了。最后，我们再来看下我们的日志信息1git log --oneline 细心点就会发现，从我们修改的那条 commit 起，之后的所有的 commit 的 commit id 都发生了变化！我修改的那条，由 dd09519 变成了 4df3762; 而它之后的那条记录也由 b8b2df7 变成了 f52c471 虽然我没由修改这条 commit 信息。git log --oneline12345f52c471 (HEAD -&gt; master, origin/master) 中文4df3762 中文信息 sici tijiaof1d9380 english only modify again..ea8a3b5 nonono correct message66a4488 need to be changed message BTW 还要说一个要注意的 就是如果 commit 信息要输入中文，记得用 git bash。因为我是在 IDE（webstorm）上进行的 commit，用的中文（要不怎么有错别字呢），那在修改 commit 信息的时候，我仍想用中文，我用 cmd、powerShell、Cmder，都试了，没法在 vim 里面敲中文，直接乱码，查资料改配置（quotepath = false、[gui] encoding = utf8）等等都没用，最后怀着绝望的心情，试了下 git bash， 居然中文支持的非常好！真是。。 另外，在查资料的过程中，还顺便 get 到几个 git 的高级技能。总结如下：1. 修改最近一次的提交方法一：commit –amend这种方法不仅可以修改 commit message，也可以修改提交内容。这种方式在还没有推送到远端的情况下，可以保持原有的 Change-Id（commit id）。若已经推送到远端，Change-Id 则会修改掉。12345# 修改需要修改的项目代码(如果只需要修改 commit message 就不用做)git add . #如果只需要修改 commit message 就不用做git commit --amend# 在出现的 vim 编辑器中修改 commit message，保存退出。git push &lt;remote&gt; &lt;branch&gt; -f #若还没有推送到远端，就不用做 方法二：reset这种方法也可以修改条内容和 commit message。这种方式在还没有推送到远端的情况下，也可以保持原有的 Change-Id（commit id）。若已经推送到远端，Change-Id 则会修改掉。12345git reset HEAD^# 修改需要修改的项目代码(如果只需要修改 commit message 就不用做)git add . # 如果只需要修改 commit message 就不用做git commit -m “new commit message”git push &lt;remote&gt; &lt;branch&gt; -f # 若还没有推送到远端，就不用做 2. 提交到了错误的分支上的处理方法一：reset + stash123456789# 取消最新的提交， 然后保留现场原状git reset HEAD~ --softgit stash# 切换到正确的分支git checkout name-of-correct-branchgit stash popgit add .git commit -m &quot;new commit message&quot;# 现在你已经提交到正确的分支上了 方法二：cherry-pick 摘樱桃123456git checkout name-of-correct-branch# 把主分支上的最新提交摘过来～git cherry-pick master# 再删掉主分支上的最新提交git checkout mastergit reset HEAD~ --hard]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>rebase</tag>
+        <tag>amend</tag>
+        <tag>cherry-pick</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[使用express/koa快速起一个node服务]]></title>
+    <url>%2F2018%2F09%2F11%2F%E4%BD%BF%E7%94%A8express-koa%E5%BF%AB%E9%80%9F%E8%B5%B7%E4%B8%80%E4%B8%AAnode%E6%9C%8D%E5%8A%A1%2F</url>
+    <content type="text"><![CDATA[expressexpress 导出的是一个函数。 1. 最简单的服务1npm i express 123456789// www.jsconst express = require(&apos;express&apos;);const app = express();app.get(&apos;/&apos;, (req, res) =&gt; &#123; res.end(&apos;server by express&apos;);&#125;)app.listen(3000); 2. 使用 express-generator12345npm i expressnpx express-generator //需要nodejs8.2及以上//nodejs8.2以下：//npm i -g express-generator//express --view=ejs myproject 会在当前目录下生成一个项目，7个文件夹，9个文件：12345678910111213141516|--app.js|--bin/| |-- www.js|--package.json|--public/| |-- images/| |-- javascript/| |-- staylesheets/| |-- style.css|--routes/| |-- index.js| |-- users.js|--views/ |-- error.jade |-- index.jade |-- layout.jade 然后1234npm iDEBUGE=projectname:* npm start//在windows下这样：//set DEBUG=projectname:* npm start koakoa导出的是一个对象。 最简单的服务1npm i koa 123456789// www.jsconst Koa = require(&apos;koa&apos;);cnost app = new Koa();app.use((ctx) =&gt; &#123; ctx.body = &apos;server by koa&apos;;&#125;)app.listen(3000);]]></content>
+      <categories>
+        <category>前端技术</category>
+      </categories>
+      <tags>
+        <tag>express</tag>
+        <tag>koa</tag>
+        <tag>node</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[git错误：HTTP Basic: Access denied]]></title>
+    <url>%2F2018%2F09%2F10%2Fgit%E9%94%99%E8%AF%AF%EF%BC%9AHTTP-Basic-Access-denied%2F</url>
+    <content type="text"><![CDATA[上周五修改了gitlab的用户密码，今天发现操作git远程仓库都报错拒绝，错误信息如下：12remote: HTTP Basic: Access deniedfatal: Athentication failed for &apos;https://************&apos; 直觉告诉我，是改密码引起。网上查了资料，确实 git 会把第一次输入过的用户名密码存储起来，再次使用 git 命令的时候，会使用存储的用户名密码，然而当 git 的密码修改后，原来存储的密码肯定匹配不了，于是直接报没有权限终止操作。网上类似的帖子很多，但是不是都有效，在多次尝试后，终于解决，解决办法如下： 首先我因为有两台电脑，一台 win7，一台 win10，不同操作系统解决方式还不一样，也是坑了我很多时间。。。 win 10 下的解决办法 解决办法很简单，一句命令搞定：1git config --system -unset credentia.helper 不过要注意的是在 win10 中，这个命令需要在管理员权限下运行，否则报错：1error: could not lock config file C:/Program Files/Git/migw64/etc/gitconfig: Permission denied 在 linux 下使用 sudo 可以切换到管理员权限，但是在 win10 上，只能先找到 cmd 的快捷方式，然后右键，以管理员身份运行。比如，在左下角windows符号上右键 -&gt; Windows PowerShell(管理员)。 运行后，命令的前面的路径会显示为：PS C:\Windows\system32&gt; win 7 下的解决办法使用刚才在 win 10 上的解决办法，在 win 7 上尝试无效。。。win 7 下采用的办法是直接修改凭据： 进入 控制面版 -&gt; 所有用户 -&gt; 凭据管理 在 Windows 凭据 下，找到 gitlab 对应的凭据 点 编辑，修改密码，保存。 done。 然后执行下刚才的 git pull 命令，妥妥滴拉下来。]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>access denied</tag>
+        <tag>authentication</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[代码片段]]></title>
+    <url>%2F2018%2F09%2F06%2F%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5%2F</url>
+    <content type="text"><![CDATA[1. 文字截断12345.ellipsis &#123; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;&#125; 2. 清除浮动12345678.clearfix &#123; zoom: 1;&#125;.clearfix:after &#123; clear:both; content: &quot;&quot;; display: block;&#125; 3. javascript 生成 img 标签的3种方式方式1: 使用 createElement 方法 123var img = document.createElement(&apos;img&apos;);img.src = &apos;https://www.baidu.com/img/bd_logo1.png&apos;document.body.appendChild(img); 方式2: 使用 innerHTML 方法12var imgHtml = &apos;&lt;img src=&quot;https://www.baidu.com/img/bd_logo1.png&quot; &gt;&apos;;document.body.innerHTML = imgHtml; 方式3: 使用 new image() 方法123var img = new image();img.src = &apos;https://www.baidu.com/img/bd_logo1.png&apos;;document.body.appendChild(img); 4. js 添加、删除 class方法1: 比较传统的方法123456789101112var classVal = docment.getElementById(&apos;id&apos;).getAttribute(&apos;class&apos;);// 删除某个classvar classVal = classVal.replace(&apos;someclassname&apos;, &apos;&apos;);document.getElementById.setAttribute(&apos;class&apos;, classVal);// 添加classvar classVal = classVal.concat(&apos;newclassname&apos;);document.getElementById.setAttribute(&apos;class&apos;, classVal);// 替换classvar classVal = classVal.replace(&apos;someclassname&apos;, &apos;newclassname&apos;);document.getElementById.setAttribute(&apos;class&apos;, classVal); 方法2: HTML5中添加了classListclassList 属性返回元素的雷鸣，作为DOMTokenList对象。classList 属性是只读的，但是可以使用 add() 和 remove() 方法修改它。12345// 增加document.getElementById(&apos;id&apos;).classList.add(&apos;class1&apos;, &apos;class2&apos;, &apos;class3&apos;);// 删除document.getElemtnById(&apos;id&apos;).classList.remove(&apos;class1&apos;); 方法3: 正则匹配…]]></content>
+      <categories>
+        <category>前端技术</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+        <tag>front-end</tag>
+        <tag>css</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[web端页面如何在移动端也获得较好体验]]></title>
+    <url>%2F2018%2F09%2F05%2Fweb%E7%AB%AF%E9%A1%B5%E9%9D%A2%E5%A6%82%E4%BD%95%E5%9C%A8%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B9%9F%E8%8E%B7%E5%BE%97%E8%BE%83%E5%A5%BD%E4%BD%93%E9%AA%8C%2F</url>
+    <content type="text"><![CDATA[在网页的 head 标签里，加上对 viewport 的设置，就可以让页面在移动设备上可以以比较好的缩放和比例来呈现：1&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; &gt; 还可以加入更多设置，如缩放之类： 1&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes&quot; &gt; 参数解释：width：可以控制 viewport 的大小，可以指定一个数值，或者一个特殊的值，比如 device-width 设备的宽度。initial-scale：初始缩放比例，也即当前页面第一次load的时候缩放比例minimum-scale：允许用户缩放到的最小比例。maximum-scale：允许用户缩放到的最大比例。user-scalable：用户是否可以手动缩放。]]></content>
+      <categories>
+        <category>前端技术</category>
+      </categories>
+      <tags>
+        <tag>html</tag>
+        <tag>viewport</tag>
+        <tag>mobiles</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[如何设置IDE编辑器以配合自动实时编译]]></title>
+    <url>%2F2018%2F09%2F02%2F%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEIDE%E7%BC%96%E8%BE%91%E5%99%A8%E4%BB%A5%E9%85%8D%E5%90%88%E8%87%AA%E5%8A%A8%E5%AE%9E%E6%97%B6%E7%BC%96%E8%AF%91%2F</url>
+    <content type="text"><![CDATA[在前端开发过程中，通过webpack配置了即时监听并自动编译，实现保存文件触发编译。但是有的编辑器有 “安全写入” 的机制（就是在编辑器保存文件后不直接写入硬盘，而是先保存在编辑器内部的缓存里面，到一定时间后再写入硬盘），这会造成触发编译不那么实时，很影响开发效率。 以下是针对几款常见编辑器，如何禁用安全写入的设置办法： JetBrains IDEs（e.g. WebStorm): 在 Preferences &gt; Appearance &amp; Behavior &gt; System Settings 里面，去掉对 “Use safe write” 选项的勾选。即可。 Sublime Text3:在 preferences-user 文件里，添加 atomic_save: false。即可。 Vim：在 setting 文件里，添加 :set backupcopy=yes 。即可。]]></content>
+      <categories>
+        <category>编辑器</category>
+      </categories>
+      <tags>
+        <tag>webstorm</tag>
+        <tag>sublime</tag>
+        <tag>vim</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[git冲突处理]]></title>
+    <url>%2F2018%2F08%2F30%2Fgit%E5%86%B2%E7%AA%81%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[git冲突处理 今天在merge分支的时候，由于记忆错位，导致merge了另一个分支到master（我原本是要把format分支合并到dev分支），造成了冲突。看到几百个文件的modify想死的心都有，差点想重新clone重新来过。。。好在理智战胜冲动，决定正面处理冲突，而不是消极回避。而在处理完冲突之后，发现异常的简单，庆幸没有冲动乱来。 言归正传。 我在merge的时候git的提示是：12345err： Your local changes to the following files would be overwritteen by merge: bla bla blaPlease commit your changes or stash them before you merge.AbordingUpdating xxxxxxx(some hashcode) 解决方案有三种： 第一种： 提交修改1git commit -m &quot;my message&quot; 第二种： stash备份当前工作区的内容，从最近的一次提交种读取相关内容，当工作去保证和上次提交的内容一致。同时，将当前的工作区内容保存到Git栈中。然后执行merge，然后再从Git栈中读取最近一次保存的内容，恢复工作区的相关内容。1git statsh 然后执行之前未执行完的merge操作：1git merge xxx 然后拉取stash：1git stash pop 由于可能存在多个stash的内容，所有用栈来管理，pop会从最近的一个stash中读取内容并恢复。可以用 git stash list 来查看Git栈内的所有备份，可以利用这个列表来决定从哪个地方恢复。git stash clear 可以清空Git栈。 第三种： 忽略本地修改123git reset --hard// orgit checkout -t -f remote/branch Or 忽略只忽略特定的文件1git checkout filename 我当然使用的是stash的方式。 在 master 分支上使用 git stash, 然后 git merge dev, 成功merge！ 然后恢复工作区 git stash pop, 然后多出了很多modify的文件，还有一个标红的文件（冲突），不过它已经帮你解决好，只需要在文件中选择你要保留哪一段代码就好。 修改完冲突文件后， git add ., git commit -m &quot;conflict fixed&quot;. 最后，赶紧把这个解决完冲突后的代码传上远程仓库, WOO，松了一口气。]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>conflict</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[virtualbox如何挂载宿主机的文件夹]]></title>
+    <url>%2F2018%2F07%2F17%2Fvirtualbox%E5%A6%82%E4%BD%95%E6%8C%82%E8%BD%BD%E5%AE%BF%E4%B8%BB%E6%9C%BA%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9%2F</url>
+    <content type="text"><![CDATA[我的宿主机是一台windows操作系统的服务器。 虚拟机用的是virtualbox。 以前在 vmware 上面与宿主机的共享只需要在 wmware 上配置下共享文件夹就可以生效。但是在 virtualbox 上，除了配置共享文件夹，还要使用 mount 命令进行挂载才能与宿主机共享一个文件夹。 1. 在宿主机建立一个用于与virtualbox共享的文件夹，例如 myshared。并在里面新建一个空的文本 a.txt，用于检测最后挂载是否成功。2. 在virtualbox中选择 设备 -&gt; 共享文件夹 -&gt; 打开设置界面。3. 点击右侧 + 号，添加共享文件夹，选择宿主机上之前建好的 myshared 文件夹，并勾选 固定分配 。4. 在linux虚拟机中，打开终端，在mnt目录下新建一个目录 shared：1sudo mkdir /mnt/shared 5. 执行挂载：1sudo mount -t vboxsf myshared /mnt/shared 6. 挂载成功，进入shared目录，就可以看到a.txt文件了。]]></content>
+      <categories>
+        <category>虚拟机</category>
+      </categories>
+      <tags>
+        <tag>virtualbox</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[linux下如何切换到root用户]]></title>
+    <url>%2F2018%2F07%2F16%2Flinux%E4%B8%8B%E5%A6%82%E4%BD%95%E5%88%87%E6%8D%A2%E5%88%B0root%E7%94%A8%E6%88%B7%2F</url>
+    <content type="text"><![CDATA[如果只是想要临时使用一下root权限，只需要在命令前面加上 sudo 就可以了。 如果想要一直使用root权限，需要通过su切换到root用户： 首先要重设root用户的密码1sudo passwd root 然后根据提示，输入新的root密码（可以是原来的root旧密码） 然后就可以随时切换到root用户了1su 输入root用户密码即可。 回到用户权限使用 su &quot;yc&quot; 或者 exit 命令，即可回到用户权限。]]></content>
+      <categories>
+        <category>操作系统</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[Linux常用命令]]></title>
+    <url>%2F2018%2F07%2F16%2FLinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[列出当前目录下每个文件的大小以及当前目录文件下所有文件大小总和。1ls -lht 与以下命令是同一个效果：1ls -l -h -t ls是 list segment 的缩写，用于列出文件。 ls的常用参数常用参数： -a, –all 列出目录下的所有文件，包括以 . 开头的隐含文件 -A 同-a，但不列出“.”(表示当前目录)和“..”(表示当前目录的父目录)。 -c 配合 -lt：根据 ctime 排序及显示 ctime (文件状态最后更改的时间)配合 -l：显示 ctime 但根据名称排序否则：根据 ctime 排序 -C 每栏由上至下列出项目 –color[=WHEN] 控制是否使用色彩分辨文件。WHEN 可以是’never’、’always’或’auto’其中之一 -d, –directory 将目录象文件一样显示，而不是显示其下的文件。 -D, –dired 产生适合 Emacs 的 dired 模式使用的结果 -f 对输出的文件不进行排序，-aU 选项生效，-lst 选项失效 -g 类似 -l,但不列出所有者 -G, –no-group 不列出任何有关组的信息 -h, –human-readable 以容易理解的格式列出文件大小 (例如 1K 234M 2G) –si 类似 -h,但文件大小取 1000 的次方而不是 1024 -H, –dereference-command-line 使用命令列中的符号链接指示的真正目的地 –indicator-style=方式 指定在每个项目名称后加上指示符号&lt;方式&gt;：none (默认)，classify (-F)，file-type (-p) -i, –inode 印出每个文件的 inode 号 -I, –ignore=样式 不印出任何符合 shell 万用字符&lt;样式&gt;的项目 -k 即 –block-size=1K,以 k 字节的形式表示文件的大小。 -l 除了文件名之外，还将文件的权限、所有者、文件大小等信息详细列出来。 -L, –dereference 当显示符号链接的文件信息时，显示符号链接所指示的对象而并非符号链接本身的信息 -m 所有项目以逗号分隔，并填满整行行宽 -o 类似 -l,显示文件的除组信息外的详细信息。 -r, –reverse 依相反次序排列 -R, –recursive 同时列出所有子目录层 -s, –size 以块大小为单位列出所有文件的大小 -S 根据文件大小排序 –sort=WORD 以下是可选用的 WORD 和它们代表的相应选项： extension -X status -c none -U time -t size -S atime -u time -t access -u version -v use -u -t 以文件修改时间排序 -u ： 配合 -lt:显示访问时间而且依访问时间排序 配合 -l:显示访问时间但根据名称排序 否则：根据访问时间排序 -U 不进行排序;依文件系统原有的次序列出项目 -v 根据版本进行排序 -w, –width=COLS 自行指定屏幕宽度而不使用目前的数值 -x 逐行列出项目而不是逐栏列出 -X 根据扩展名排序 -1 每行只列出一个文件 –help 显示此帮助信息并离开 –version 显示版本信息并离开]]></content>
+      <categories>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[如何重置gitlab用户密码]]></title>
+    <url>%2F2018%2F07%2F15%2F%E5%A6%82%E4%BD%95%E9%87%8D%E7%BD%AEgitlab%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%2F</url>
+    <content type="text"><![CDATA[之前有提到，我为我们部门搭建了一个gitlab，前几天有用户跟我反映，他忘记密码了，使用gitlab自带的找回密码功能无果，收不到邮件，估计跟公司内网有一些关系，也可能是我没有配置好邮件联动。anyway，现在去配置邮箱感觉花的时间有些来不及。想着作为管理员，应该有权限和办法去重置用户的密码的，于是查询了资料，果然不出所料。方法如下，只需4步： 1. 首先进入Ruby on Rails console：使用root权限进入gitlab所在的linux服务器，打开一个终端，输入以下命令1&gt; gitlab-rails console production 然后等待ruby的console界面加载出来。 2. 然后你有好几种方法去查找用户。方法一，使用id：1irb(main):001:0&gt; user = User.where(id:[user&apos;s register index]).first 方法二，使用邮箱：1irb(main):001:0&gt; user = User.where(email:[user&apos;s register email]).first 方法三，使用用户名：1irb(main):001:0&gt; user = User.where(name:[user&apos;s register name]).first 我这次使用的是邮箱1irb(main):001:0&gt; user=User.where(email:xxx@163.com).first 3. 修改密码12&gt; user.password = &apos;newpassword&apos;&gt; user.password_confirmation = &apos;newpassword&apos; 注意最好是将 password 和 password_confirmation 都重置，以确保完全修改生效。 4. 保存修改1&gt; user.save! 注意 ! 号也很重要，不加的话，你的修改不会推送到数据库。 现在退出 console 使用新的密码登录试试，可以登录啦。]]></content>
+      <categories>
+        <category>服务器</category>
+      </categories>
+      <tags>
+        <tag>gitlab</tag>
+        <tag>ruby</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[如何迁移git仓库]]></title>
+    <url>%2F2018%2F06%2F20%2F%E5%A6%82%E4%BD%95%E8%BF%81%E7%A7%BBgit%E4%BB%93%E5%BA%93%2F</url>
+    <content type="text"><![CDATA[如果你想从别的git托管服务哪里复制一份源代码到新的Git托管服务器上，可以使用git clone --mirror / git clone --bare 和 git push --mirror命令。 普通 git clone 不能下载所有分支，想要简单的克隆所有分支，可以用镜像方法。 做一个镜像仓库只需3步： 从原地址克隆一份裸版本库（假设在github）： 123git clone --bare git://github.com/username/project.gitorgit clone --mirror git://github.com/username/project.git 这两种方式都只是将裸仓库克隆下来，不会在本地生成目录结构。 在新的服务器上创建一个新项目。例如new-peoject。 以镜像推送的方式上传到新的git服务器上（假设在gitlab）： 12cd prioject.gitgit push --mirror git@gitlab.com/username/new-priject.git done! 这种方式可以保留原版本远程仓库中的所有内容。]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[如何通过NPM安装私有模块]]></title>
+    <url>%2F2018%2F06%2F07%2F%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87NPM%E5%AE%89%E8%A3%85%E7%A7%81%E6%9C%89%E6%A8%A1%E5%9D%97%2F</url>
+    <content type="text"><![CDATA[如何通过NPM安装私有模块可以有3种方案： 方案一：购买npm付费账号根据npm的价格方案，只要是付费用户，不论是哪一种，都可以下载和发布不限量的私有模块。所有的私有模块都是scoped package。scope是npm的新特性。如果一个模块的名字以 @ 开头，那它就是一个scoped package:1@scope/project-name 每一个npm用户都有拥有一个自己的scope：当前用户名username。 初始化一个scoped-package通过在包名字前添加scope：123&#123; &quot;name&quot;: &quot;@usernane/project-name&quot;&#125; 也可以使用 npm init 命令自定义 --scope 选项来设置scope：1npm init --scope=username 如果你在大多数时候使用的scope都是相同的，可以设置一个默认的scope，这样每次初始化的时候会自动使用该scope：1npm config set scope &lt;your_scope&gt; 发布scoped模块跟发布普通模块一样：1npm publish 默认状态下scoped package包是私有的。然而，你可以把scoped package免费的发布为共有包。只需要在发布时配置 --access 选项即可：1npm publish --access=public 提醒：发布之前首先一定要确保使用的是npm官方镜像源。如果你使用了nrm来管理镜像，可以通过nrm ls来查看下当前使用的是什么源，如果不是npmjs官方镜像，比如taobao，那么使用nrm use npm切换过来。 方案二：自建npm私服如果连仓库都是私有的，模块自然是私有的。这个方案好处就是可以建在自己公司内部，访问速度自然是杠杠的，而且想怎么定制就怎么定制。不过构建成本也是有的，而且需要服务器。一般稍微大规模的团队和公司会采取这种办法。 方案三：利用npm安装机制和git仓库这个方案最经济实惠。首先，npm install 支持 npm install &lt;git remote url&gt; ，其中 git remote url 的格式是：1&lt;protocol&gt;://[&lt;user&gt;[:&lt;password&gt;]@]&lt;hostname&gt;[:&lt;port&gt;][:/]&lt;path&gt;[#&lt;commit-ish&gt;] 即，如果你的代码托管在bitbucket中，可以通过如下命令安装模块：1npm install git+ssh://git@bitbucket.org/用户名／项目名.git#版本号 这种方式唯一的不足的地方就是，你必须要确保安装这个私有模块的机器由访问这个私有模块git仓库的权限。也就是说这台机器的公钥必须添加到git仓库中。如果你嫌添加公钥麻烦，也可以通过：1npm install git+https:username:password@bitbucket.org/用户名／项目名.git#版本号 不过密码就暴露出来了。]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[软件版本命名规范]]></title>
+    <url>%2F2018%2F06%2F04%2F%E8%BD%AF%E4%BB%B6%E7%89%88%E6%9C%AC%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83%2F</url>
+    <content type="text"><![CDATA[软件版本阶段开发期 Base版此版本表示该软件仅仅是一个假页面链接，通常包括所有的功能和页面布局，但是页面中的功能都没有做完成的实现，只是作为整体网站的一个基础架构。 Alpha版软件的初级版本，此版本表示软件处于以实现软件功能为主的阶段，通常只在软件开发者内部交流，一般而言，该版本软件的bug较多，需要继续修改。测试人员条bug经开发人员修改确认后，发布到测试网址让测试人员测试，此时可将软件版本标注为alpha版。 Beta版此版本相对于alpha版已有了很大的改进，消除了严重的错误，但还存在着一些缺陷，需要经过多次测试来进一步消除，此版本主要的修改对象是软件的UI。 RC（Release Candidate）版最终测试版，此版本已经相当成熟了，基本上不存在导致错误的bug，与即将发行的正式版相差无几。可能成为最终产品的候选版本，如果未出现问题，则可发布称为正式版本，多数开源软件会推出两个RC版本，卒后的RC2则称为正式版本。 Release版此版本意味着“最终版本”，是最终交付用户使用的一个版本。该版本又是也称为标准版本。一般情况下Release不会以单词形式出现在软件封面上，取而代之的是符号（R）。 完成期 stable稳定版，来自于蓝版本修改修正完成。 GA（General Availability）正式发布的版本，在国外都是用GA来说明release版本的。 RTM（Release to Manufacturing）给生产商的release版本，RTM版本并不一定意味着创作者解决软件的所有问题，仍有可能在向公众发布前更新版本。另外一种RTM的称呼是RTM（Release To Web），表示正式版本的软件发布到Web网站上供客户免费下载。 RTL（Retail）零售版，是真正的正式版，正式降价零售版。 软件版本命名规范软件版本号由4部分组成：主版本号.子版本号.阶段版本号.日期版本号加希腊字母版本号（希腊字母版本号共有5种：base、alpha、beta、RC、release）。例如：1.1.1.180604_beta 版本号修改规则 主版本号：当功能模块有较大的变动，比如增加多个模块活着整体架构发生变化，此版本号有项目决定是否修改。 子版本号：当功能有一定的增加或变化。此版本由项目决定是否修改。 修订版本号：一般是bug修复或是一些小的变动，要经常发布修订版，时间间隔不限，修复一个严重的bug即可发布一个修订版。此版本由项目经理决定是否修改。 日期版本号：用于记录修改项目的当前日志，每天对项目的修改都需要更改日期版本号。此版本号由开发人员决定是否修改。 希腊字母版本号：此版本号用语标注当前版本的软件处于哪个开发阶段，当软件进入到另一个阶段时，需要修改此版本号。此版本号由项目决定是否修改。 注：上一级有变动时，下级要归零。]]></content>
+      <categories>
+        <category>规范</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[如何设置linux虚拟机网络]]></title>
+    <url>%2F2018%2F05%2F28%2F%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AElinux%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BD%91%E7%BB%9C%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[如何搭建自己的gitlab服务]]></title>
+    <url>%2F2018%2F05%2F27%2F%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84gitlab%E6%9C%8D%E5%8A%A1%2F</url>
+    <content type="text"><![CDATA[什么是gitlabgitlab是一个开源的基于web的git仓库管理工具。gitlab拥有github拥有的一切，并且拥有更多。 如何搭建一个gitlab服务只需如下4步： 安装linux 安装gitlab 配置gitlab 启动gitlab 安装linuxgitlab必须安装在linux系统上，因此必须要有一个linux操作系统环境。gitlab目前支持的linux操作系统有： Ubuntu Debian CentOs openSUSE等。 安装虚拟机我的服务器不是linux系统，没有关系，可以使用虚拟机。虚拟机可以是oracle的virtual box，也可以是vmware。我选用的是virtual box。 获取linux操作系统安装文件我获取的是ubuntu 16.04 LTS desktop版（desktop/server都行） 在virtual box里安装ubuntu我在安装过程中，给ubuntu虚拟机分配了100G的硬盘容量。应为要作为代码托管的服务，所以尽量给大一点。 安装gitlabgitlab是开源的，可以去gitlab官网 https://about.gitlab.com/ 获取ubuntu版本的的安装镜像地址。安装方式可以在官网找到。这里大致贴一下。安装和配置依赖12sudo apt-get updatesudo apt-get install -y curl openssh-server ca-certificates 添加gitlab包，并安装1curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.deb.sh | sudo bash 因为我当时所在的网络不能访问该镜像地址，所以我按照官网的方式并没有成功。我在网上找了很多解决方案，最终通过安装离线包的方式安装成功。先将离线包下载下来，放到virtual box的共享目录mnt/share然后通过如下命令安装1sudo dpkg -i /mnt/share/gitlab-ce_10.1.4-ce.0_amd64.deb 安装成功后的终端信息显示如下： 配置gitlab要修改的配置都在／ect／gitlab/gitlab.rb这个文件里面。我这里主要是修改url为我自己服务器的域名以及端口（我为我的linux虚拟机申请了域名，具体操作见 如何设置linux网络）：找到gitlab.rb文件中的 EXTERNAL_URL 字段，将其修改为我的域名，端口设为80。 这样你的项目clone的地址中酒会变成你设置的域名而不是ip地址了。 然后运行如下命令让修改生效：1sudo gitlab-ctl reconfigure 启动gitlab最后通过如下命令启动gitlab1sudo gitlab-ctl start 查看一下gitlab各服务器状态1sudo gitlab-ctl status 最后可以在浏览器中输入localhost查看gitlab的界面了。首次访问gitlab界面，会要求你设置root账号的密码。 使用刚才重制后的root账号登录进入gitlab的界面 退出root账号的gitlab界面 至此，就完成了gitlab的整个搭建过程。可以愉快地在上面注册账号，创建项目，协作开发了！]]></content>
+      <categories>
+        <category>服务器</category>
+      </categories>
+      <tags>
+        <tag>gitlab</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[git常用命令]]></title>
+    <url>%2F2018%2F04%2F25%2Fgit%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[1. 初始化1git init 2. 用户名邮箱配置设置全局用户属性:12git config --global user.name &quot;champyin&quot;git config --global user.email &quot;champyin@163.com&quot; –global: 设置当前用户的全局属性，当你的 repository 没有设置项目的 user.name 和 user.email 的时候，会默认用这个。 查看全局用户属性:12git config user.namegit config user.email 如何知道本地有没有设置属性： 1git config --local --list 如何设置本地属性：12git config user.name &quot;champyin002&quot;gut config user.email &quot;champyin002@163.com&quot; 3. 远程仓库设置查看当前配置有哪些远程仓库12git remote git remote -v git remote 列出每个远程仓库的简短名字。在克隆完某个项目后，至少可以看到一个名为 origin 的远程仓库git remote -v 显示对应的远程仓库地址。-v 为 -verbose 的简写。 添加远程仓库1git remote add [shortname] [url] [shortname]是自己为远程仓库取的一个简单的名字，便于以后引用。 修改远程仓库协议1git remote set-url origin git@github.com:lovecoding/lovecoding.github.io.git 将远程仓库origin改为git协议的地址。 查看远程仓库信息12git remote show [remote-name]git remote show origin #查看所克隆的origin仓库 重命名远程仓库（修改某个远程仓库在本地的简称）1git remote rename origin sam #把远程仓库 origin 重命名为 sam 对远程仓库的重命名，也会使对应的分支名称发生变化。原来的 origin／master 分支现在成为了 sam／master。 本地移除对应的远程仓库1git remote rm sam 4. 分支设置查看本地分支1git branch 查看各个分支最后一个提交对象的信息1git branch -v 查看远程分支1git branch -r 查看所有分支，包括本地和远程1git branch -a 创建分支1git branch mytest1 切换分支1git checkout mytest1 创建并切换到该分支1git checkout -b mytest2 删除分支1git branch -d mytest1 删除远程分支123git push origin --delete mytest1 //git v1.70 以上// orgit pudh origin :mytest1 //git v1.5.0以上 推送一个空的分支到远程分支。 5. 获取远程分支代码12git pull [remote-name] [remote-branch-name]:[local-branch-name]git pull origin bugfix:master 注意，分支推送、拉取命令的写法规则是&lt;来源地&gt;:&lt;目的地&gt;。所以 git pull 是[remote-branch-name]:[local-branch-name]，git push 是[local-branch-name]:[remote-branch-name]。 6. 上传代码到远程仓库12git push [remote-name] [branch-name]git push origin master #把本地的master分支推送到origin服务器上。 7. 上传代码到远程仓库分支如果远程有一个 bugfix 分支，我想要有一份自己的 bugfix 来开发。先将远程分支抓取下来：1git fetch origin 在远程分支的基础上分化一个新的本地分支：12git checkout -b [local-branch-name] [remote-name]/[remote-branch-name]git chechout -b bugfix origin/bugfix 采用此命令建立的本地分支会自动和远程分支建立映射关系。 修改完代码后，上传到远程 bugfix 分支：12345git push [remote-name] [branch-name]git push origin bugfix# orgit push [remote-name] [local-branch-name]:[remote-branch-name]git push origin bugfix:bugfix #实现跟上一条命令同样的效果。 git push origin bugfix 意思为取出在本地的 bugfix 分支，推送到远程仓库的 bugfix 分支中去。git push orign bugfix:bugfix 意思为上传完本地的bugfix分支到远程仓库中去，仍旧称它为 bugfix 分支。实现跟上一条命令相同的效果。通过此语法，可以把本地分支推送到某个命名不同的远程分支：例如使用git push origin bugfix:hotfix 来推送，如果远程分支 hotfix 不存在，则会在远程仓库被新建。当我的协作者再次从服务器上抓取数据时，他们将得到一个新的远程分支 origin／hotfix. 8. 打tag 注意：tag是打在commit上，不是分支上。 轻量级标签1git tag v1.0.0 给历史提交打标签1git tag v1.0.0 88aa731 #历史commit的id的前7位 查看标签1git tag 搜索符合模式的tag1git tag -l &apos;v0.1.*&apos; 将本地标签同步到远程仓库12git push origin --tags #提交所有的taggit push origin v1.0.0 #提交单个tag 切换到tag 与切换到分支命令相同 1git checkout [tagname] 查看tag信息 用 git show 命令 1git show v0.1.1 删除本地标签1git tag -d v1.0.0 将删除标签同步到远程1git push origin :refs/tags/v1.0.0 #推送空的同名版本到远程 拉取某个版本1git fetch origin tag v1.0.0 9. 查看提交历史日志1git log --pretty=oneline --abbrev-commit #将commit id显示为缩写（前7位） 退出查看日志1q 10. 修改已经提交的信息当你不小心写错了提交信息，理论上，SCM上是不应该修改历史信息的，但是在git中可以修改最后一次提交的信息。1git commit --amend amend 参数提供了对最后一次commit的修改，对于历史提交，如果想修改，就必须使用 rebase 了。1git rebase -i HEAD~3 #表示要修改当前版本的倒数第三次状态。]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[配置git环境之设置SSH key]]></title>
+    <url>%2F2018%2F04%2F07%2F%E9%85%8D%E7%BD%AEgit%E7%8E%AF%E5%A2%83%E4%B9%8B%E8%AE%BE%E7%BD%AESSH-key%2F</url>
+    <content type="text"><![CDATA[配置SSH key配置ssh秘钥，以及使用git协议，每次pull、push可以免去输入账号密码的麻烦。不过记得查看下远程仓库地址是不是https协议，如果是就要要改成git协议才可以不用输入密码。 配置过程很简单，只需2步： 1. 生成秘钥对1ssh-keygen -t rsa -C &quot;lovecoding@163.com&quot; 提示输入文件，直接回车。提示输入密码，直接回车。得到公钥文件id_rsa.pub 2. 设置远程仓库上的秘钥查看公钥1cat ~/.ssh/id_rsa 复制公钥内容，进入github，在setting里，新建SHH key，将公钥内容填进去。 验证key是否正常工作：1ssh -T git@github.com 如果看到”Hi lovecoding！ you’ve successfully authenticated, but GitHub does not provide shell access.说明设置成功。 3. 将远程仓库地址设置为git协议查看reomte1git remote -v 如果发现是https协议的，修改remote1git remote set-url remotename git@github.com:useraccount/reponame.git 4. 如果到了这一步，提交还提示输入账号密码，那就还要修改下项目配置中的git提交地址查看项目git配置信息1git config --list 此时remote.origin.url的值应该还是https的那个地址。我们需要将它改成git协议的repo地址。这个配置文件在当前项目下的.git目录下的config文件里，我们编辑它，修改remote.origin.url即可。 这个时候，再来push更新，一定不会再要你输入账号密码了。 完美！]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>ssh</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[配置git环境之设置remote url的传输协议]]></title>
+    <url>%2F2018%2F04%2F07%2F%E9%85%8D%E7%BD%AEgit%E7%8E%AF%E5%A2%83%E4%B9%8B%E8%AE%BE%E7%BD%AEremote-url%E7%9A%84%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE%2F</url>
+    <content type="text"><![CDATA[把git的remote url改为git协议。查看当前remote url1git remote -v 如果是https开头，使用set-url来调整：1git remote set-url origin git@github.com:lovecoding/lovecoding.github.io.git]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[配置git环境之设置用户名和邮箱]]></title>
+    <url>%2F2018%2F04%2F07%2F%E9%85%8D%E7%BD%AEgit%E7%8E%AF%E5%A2%83%E4%B9%8B%E8%AE%BE%E7%BD%AE%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E9%82%AE%E7%AE%B1%2F</url>
+    <content type="text"><![CDATA[设置用户名邮箱12git config --global user.email &quot;lovecoding@163.com&quot;git config --global user.name &quot;lovecoding&quot;]]></content>
+      <categories>
+        <category>前端工具</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[进阶(一)：下载hexo主题，配置博客界面]]></title>
+    <url>%2F2018%2F04%2F07%2F%E8%BF%9B%E9%98%B6-%E4%B8%80-%EF%BC%9A%E4%B8%8B%E8%BD%BDhexo%E4%B8%BB%E9%A2%98%EF%BC%8C%E9%85%8D%E7%BD%AE%E5%8D%9A%E5%AE%A2%E7%95%8C%E9%9D%A2%2F</url>
+    <content type="text"><![CDATA[进阶：下载hexo主题，配置博客界面1. 下载安装hexo主题经筛选，我选择NexT主题作为我的博客主题。进入blog目录1git clone https://github.com/iissan/hexo-theme-next themes/next 2. 启用NexT主题打开blog根目录下的_config.yml，找到theme字段，将其修改为next。 3. 验证主题启动hexo本地站点，并启动调试模式：1hexo s --debug 当出现“INFO Hexo is running at http://0.0.0.0:4000/. Press Ctrl+C to stop.”说明启动成功。在浏览器访问localhost:4000，检查主题是否生效。 4. 将新的博客主题部署到github.io1hexo d -g 出现done: git后，刷新lovecoding.github.io，可以看到主题已经变成了next主题。 更多的关于hexo和next配置，可以参考如下链接。Hexo文档NexT文档]]></content>
+      <categories>
+        <category>博客搭建</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>theme</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[如何使用hexo+github建立自己的博客]]></title>
+    <url>%2F2018%2F04%2F06%2F%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8hexo-github%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%2F</url>
+    <content type="text"><![CDATA[利用hexo和github搭建自己的博客网站并不复杂，只需follow以下3个steps： 创建github.io page 搭建本地hexo环境 将github.io page与hexo关联起来 一、创建github.io page1. 首先要有github账号，没有的话去github.com注册一个。github是一个基于git的web协作社区。为描述方便，假设注册好的github账号名为：lovecoding。 2. 在github上创建一个名为lovecoding.github.io的repository。注意：一定要是你的github账号名加.github.io作为repository的名字，不能是其他名字，否则不会生成github.io根域名的page。这一点在User, Organization, and Project Pages上有详细解释。 3. 向lovecoding.github.io仓库上传一份文件。比如上传一份README.md文件：1234567cd newRepositoryecho &quot;# my github.io page&quot; &gt;&gt; README.mdgit initgit add README.mdgit commit -m &quot;first commint&quot;git remote add origin git@github.com:lovecoding/lovecoding.github.io.gitgit push -u origin master 如果是首次使用github，需要先设置一下用户名和邮箱，以及配置SSH key，最好再将传输协议设置为git协议。如果是github老用户，忽略这三步。 4. 验证github.io page是否创建成功进入github中该repository的settings页面，滚动到Github Page处，可以看到“your site is published at https://lovecoding.github.io/进入浏览器，输入lovecoding.github.io，页面出来了，显示“my github.io page”。说明github.io page创建成功。 二、搭建本地hexo环境Hexo是一个高效的静态网站生成框架。通过hexo，可以轻松使用markdown编辑文章。 1. Hexo是基于node.js的，所以首先要安装node.js。去node官网下载最新版，然后安装。 2. 在本地创建一个文件夹，用于存放hexo工程。为便于描述，假设创建的文件夹命名为：blog。 3. 安装hexo（全局安装）。1npm install hexo -g 4. 初始化hexo。1hexo init 5. 生成静态页面1hexo generate 6. 本地启动1hexo server 如果看到“INFO Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.”，说明启动成功。 7. 打开本地博客网址，验证hexo环境。在浏览器打开localhost:4000 ，可以看到hexo自动生成的hello world页面，hexo环境搭建成功！ 三、将github.io page与hexo关联起来在blog目录下有一个_config.yml文件，它是hexo的站点配置文件，要将github.io与hexo关联起来，首先要配置_config.yml里的deploy字段。 1. 编辑_config.yml配置deploy字段。1vim _config.yml 翻到最下面，将deploy字段的值配置如下：1234deploy: type: git repo: git@github.com:lovecoding/lovecoding.github.io.git branch: master 注：vim进入编辑的命令为i，退出编辑模式的方法为按ESC键，按:号进入命令模式，保存并退出命令为wq。 2. 安装hexo的deploy工具。1npm install hexo-deploy-git --save 3. 将本地hexo静态网页部署到github上。1hexo deploy 当出现“INFO Deploy done：git”的时候，说明部署完毕。 4. 验证部署结果在浏览器打开lovecoding.github.io可以看到本地的hexo博客出现在了github.io网站上。同时，名为lovecoding.github.io的repository下可以看到被上传了文件和代码（hexo工程blog目录下的public目录）说明github.io page与hexo关联成功！。 一些hexo的常用命令以后要部署新的文章，只需按以下步骤：hexo clean #清除缓存，避免一些奇怪的问题hexo generatehexo deploy 其他常用命令：hexo new “newArticleTitle” #创建文章 可以简写为hexo nhexo new page “newPageName” #创建页面hexo generate #生成静态页面至public目录 可以简写为hexo ghexo deploy #将public目录部署到github 可以简写为hexo dhexo server #启动本地服务 可以简写为hexo shexo help #hexo帮助hexo version #查看版本信息 组合命令：hexo s -g #生成页面并启动本地服务hexo d -g #生成页面并部署到github 至此，就完成了一个博客网站的搭建。]]></content>
+      <categories>
+        <category>博客搭建</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[node-widows]]></title>
+    <url>%2F2018%2F04%2F06%2Fnode-widows%2F</url>
+    <content type="text"><![CDATA[使用node-windows 将node服务变成windows服务进行管理]]></content>
+  </entry>
+</search>
