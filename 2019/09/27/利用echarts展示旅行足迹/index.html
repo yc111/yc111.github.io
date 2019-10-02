@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="echarts,map,footprint," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一直有个环游世界的梦，周游列国，体验不同国家的人类文明，寻山访水，体验造物主大自然的伟大造化。毕竟人生不止眼前的苟且，还有诗和远方。这么多年以来，陆续走过了一些地方，每到一个地方，都让我离梦想又近了一些。虽然我知道这比起环游世界来说，还差不知道多少个山头，但是我一直在往这个梦努力，靠近。希望终有一天，我可以笑着对自己说，恭喜你，你实现了你的梦想，你的人生很有意义，你没有白活。 6年前，因为工作的">
+<meta name="keywords" content="echarts,map,footprint">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用echarts展示旅行足迹">
+<meta property="og:url" content="http://champyin.com/2019/09/27/利用echarts展示旅行足迹/index.html">
+<meta property="og:site_name" content="ChampYin&#39;s Blog">
+<meta property="og:description" content="一直有个环游世界的梦，周游列国，体验不同国家的人类文明，寻山访水，体验造物主大自然的伟大造化。毕竟人生不止眼前的苟且，还有诗和远方。这么多年以来，陆续走过了一些地方，每到一个地方，都让我离梦想又近了一些。虽然我知道这比起环游世界来说，还差不知道多少个山头，但是我一直在往这个梦努力，靠近。希望终有一天，我可以笑着对自己说，恭喜你，你实现了你的梦想，你的人生很有意义，你没有白活。 6年前，因为工作的">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://champyin.com/images/footprint.jpg">
+<meta property="og:updated_time" content="2019-10-02T10:05:44.836Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用echarts展示旅行足迹">
+<meta name="twitter:description" content="一直有个环游世界的梦，周游列国，体验不同国家的人类文明，寻山访水，体验造物主大自然的伟大造化。毕竟人生不止眼前的苟且，还有诗和远方。这么多年以来，陆续走过了一些地方，每到一个地方，都让我离梦想又近了一些。虽然我知道这比起环游世界来说，还差不知道多少个山头，但是我一直在往这个梦努力，靠近。希望终有一天，我可以笑着对自己说，恭喜你，你实现了你的梦想，你的人生很有意义，你没有白活。 6年前，因为工作的">
+<meta name="twitter:image" content="http://champyin.com/images/footprint.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://champyin.com/2019/09/27/利用echarts展示旅行足迹/"/>
+
+
+
+
+
+  <title>利用echarts展示旅行足迹 | ChampYin's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?33e86ea32ced4dc8fafe3738659b3dcf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ChampYin's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">自律是真正的自由</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://champyin.com/2019/09/27/利用echarts展示旅行足迹/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ChampYin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChampYin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">利用echarts展示旅行足迹</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-27T14:56:08+08:00">
+                2019-09-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/个人项目/" itemprop="url" rel="index">
+                    <span itemprop="name">个人项目</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/09/27/利用echarts展示旅行足迹/" class="leancloud_visitors" data-flag-title="利用echarts展示旅行足迹">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>一直有个环游世界的梦，周游列国，体验不同国家的人类文明，寻山访水，体验造物主大自然的伟大造化。毕竟人生不止眼前的苟且，还有诗和远方。这么多年以来，陆续走过了一些地方，每到一个地方，都让我离梦想又近了一些。虽然我知道这比起环游世界来说，还差不知道多少个山头，但是我一直在往这个梦努力，靠近。希望终有一天，我可以笑着对自己说，恭喜你，你实现了你的梦想，你的人生很有意义，你没有白活。</p>
+<p>6年前，因为工作的原因，我接触过地图应用的开发，从那时起，我对地图的热爱就埋在了心底。今年年中我带爸妈旅了旅游，去了一些我没去过的地方，我好想有个地图可以让我点亮一下，记录一下我到过的新的“领土”。搜了下市面上已经存在的地图应用，都不是我想要的，唯一比较符合我的需求的是百度旅游里面的一个小功能，叫做足迹地图，但是似乎早就停止了维护，数据停留在2016年。。。</p>
+<p>找不到趁手的工具，那就自己打造一把。是啊，为什么不自己开发一个呢？说干就干。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="工程搭建"><a href="#工程搭建" class="headerlink" title="工程搭建"></a>工程搭建</h2><p>首先用 <code>cyt-cli</code> 快速搭建项目框架。<a href="https://www.npmjs.com/package/cyt-cli" target="_blank" rel="noopener">cyt-cli地址</a></p>
+<blockquote>
+<p><code>cyt-cli</code> 是一款可以快速创建前端工程的脚手架，具有比较完善的webpack4配置，目前支持纯js、vue、react等语言版本。<br>如果没有安装 <code>cyt-cli</code> ，先全局安装一下：<code>npm i -g cyt-cli</code>。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cyt-cli create footprint</span><br><span class="line">✔ fetching template ...</span><br><span class="line">? please choose a template to create roject (Use arrow keys)</span><br><span class="line">❯ swan-template </span><br><span class="line">  swan-vue-template </span><br><span class="line">  swan-react-template</span><br></pre></td></tr></table></figure>
+<p>因为想快速做出雏形来，所以使用最简单的模版就行，选择第一个 <code>swan-template</code>。<br>等待一会，工程就搭建好了。<br>生成的工程目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">|--build/ # webpack配置文件</span><br><span class="line">|    |-- webpack.base.js</span><br><span class="line">|    |-- webpack.dev.js</span><br><span class="line">|    |-- webpack.prod.js</span><br><span class="line">|--public/ # 首页模版</span><br><span class="line">|    |-- index.html</span><br><span class="line">|--src/</span><br><span class="line">|    |-- assets/ # 静态资源，比如中国地图数据</span><br><span class="line">|    |-- components/ # 项目组件</span><br><span class="line">|    |       |--  foo.js</span><br><span class="line">|    |       |--  bar.js</span><br><span class="line">|    |-- icon/ # 字体图标</span><br><span class="line">|    |-- images/ # 图片资源</span><br><span class="line">|    |-- theme/ # 样式文件</span><br><span class="line">|    |-- index.js # 项目入口</span><br><span class="line">|--.babel.js # babel配置</span><br><span class="line">|--.browserslistrc.json # 浏览器支持规则</span><br><span class="line">|--.gitignore </span><br><span class="line">|--package.json</span><br><span class="line">|--postcss.config.js # postcss插件配置</span><br><span class="line">|--README.md</span><br></pre></td></tr></table></figure></p>
+<p>安装一下依赖包。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd footprint</span><br><span class="line">npm i</span><br></pre></td></tr></table></figure></p>
+<h2 id="地图选型"><a href="#地图选型" class="headerlink" title="地图选型"></a>地图选型</h2><p>地图展示我选择了 <code>echarts</code>。 <a href="https://echarts.apache.org" target="_blank" rel="noopener">echarts官网</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i --save echarts</span><br></pre></td></tr></table></figure></p>
+<h2 id="应用开发"><a href="#应用开发" class="headerlink" title="应用开发"></a>应用开发</h2><p>我的核心需求很简单，就是可以把我去过的国家、省、市在地图上展示出来即可。<br>先实现国内的省，开发逻辑很简单：</p>
+<h3 id="1-引入echarts"><a href="#1-引入echarts" class="headerlink" title="1.引入echarts"></a>1.引入<code>echarts</code></h3><p>按需引用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import echarts from &apos;echarts/lib/echarts&apos;;</span><br><span class="line">import &apos;echarts/lib/chart/map&apos;;</span><br><span class="line">import &apos;echarts/lib/component/tooltip&apos;;</span><br><span class="line">import &apos;echarts/lib/component/title&apos;;</span><br><span class="line">import &apos;echarts/lib/component/visualMap&apos;;</span><br><span class="line">import &apos;echarts/lib/component/legend&apos;;</span><br><span class="line">import &apos;echarts/lib/component/toolbox&apos;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-处理用户数据"><a href="#2-处理用户数据" class="headerlink" title="2.处理用户数据"></a>2.处理用户数据</h3><p>给<code>series</code>的<code>data</code>用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">let handleData = function(rawdata) &#123;</span><br><span class="line">    rowData.forEach(item =&gt; &#123;</span><br><span class="line">        item.value = FREQUENCY[item.value]</span><br><span class="line">        if (item.value !== NEVER) &#123;</span><br><span class="line">            item.label = &#123; show: true, color: LEBEL_COLOR &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if (item.value === NEVER) &#123;</span><br><span class="line">            never.push(item);</span><br><span class="line">        &#125; else if (item.value === ONECE) &#123;</span><br><span class="line">            onece.push(item);</span><br><span class="line">        &#125; else if (item.value === AFEWTIMES) &#123;</span><br><span class="line">            afewtimes.push(item);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            usually.push(item);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    series = [usually, afewtimes, onece, never].map((item, index) =&gt; &#123;</span><br><span class="line">        let temp = &#123;</span><br><span class="line">            type: &apos;map&apos;,</span><br><span class="line">            map: mapType,</span><br><span class="line">            roam: true,</span><br><span class="line">            itemStyle: &#123;</span><br><span class="line">                emphasis: &#123; label: &#123; show: true &#125; &#125;,</span><br><span class="line">                areaColor: &apos;#fff&apos;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        temp.name = legendData[index];</span><br><span class="line">        temp.data = item;</span><br><span class="line">        return temp;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-注册map"><a href="#3-注册map" class="headerlink" title="3.注册map"></a>3.注册<code>map</code></h3><p>echarts有个registerMap方法，echarts.registerMap(mapName, geoJson, specialAreas).<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- mapName：地图名称，一定要与option-&gt;series-&gt;map对应的值相同。</span><br><span class="line">- geoJson：GeoJson格式的数据，具体格式见 http://geojson.org/。</span><br><span class="line">- specialAreas：可选。将地图中的部分区域缩放到合适的位置，可以使得整个地图的显示更加好看。</span><br></pre></td></tr></table></figure></p>
+<p>geoJson是地理信息数据，一般都很大，当然通过异步获取。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">util.get(&apos;assets/china.json&apos;).then(data =&gt; &#123;</span><br><span class="line">    let chinaJson = data;</span><br><span class="line">    myChart.hideLoading();</span><br><span class="line">    // 注册地图</span><br><span class="line">    echarts.registerMap(mapName, chinaJson, &#123;&#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>ECharts3提供的矢量地图数据，在4版本后已经不提供下载服务了。官网的解释是“由于部分数据不符合国家《测绘法》规定”。不过，只要不商用，这些矢量数据还是可以使用的。有需要可以到我这里获取<a href="https://github.com/yc111/echarts3-geojson" target="_blank" rel="noopener">https://github.com/yc111/echarts3-geojson</a></p>
+</blockquote>
+<h3 id="4-配置option显示地图"><a href="#4-配置option显示地图" class="headerlink" title="4.配置option显示地图"></a>4.配置option显示地图</h3><p>注册地图后进行其他配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 指定图表的配置项和数据</span><br><span class="line">let option = &#123;</span><br><span class="line">    color: _color,</span><br><span class="line">    title: _title,</span><br><span class="line">    tooltip: _tooltip,</span><br><span class="line">    legend: _legend,</span><br><span class="line">    visualMap: _visualMap,</span><br><span class="line">    toolbox: _toolbox,</span><br><span class="line">    series: series</span><br><span class="line">&#125;;</span><br><span class="line">// 使用刚指定的配置项和数据显示图表</span><br><span class="line">myChart.setOption(option);</span><br></pre></td></tr></table></figure></p>
+<h2 id="添加Travis-CI持续集成"><a href="#添加Travis-CI持续集成" class="headerlink" title="添加Travis CI持续集成"></a>添加Travis CI持续集成</h2><p>花了大概一天时间，雏形做好（感觉很大一部分时间在调地图颜色…）。我把项目部署在了github page上，但是每次build之后，都要手动部署，太麻烦。</p>
+<p>于是我用 Travis CI 给项目做了持续集成，现在只要代码一提交，就会自动部署了。</p>
+<p>具体关于Travis的详细配置，可以参考我的另一篇文章：<a href="http://champyin.com/2019/09/27/%E5%88%A9%E7%94%A8Travis-CI-github%E5%AE%9E%E7%8E%B0%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%92%8C%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/">利用Travis CI+github实现持续集成和自动部署</a></p>
+<h2 id="效果预览"><a href="#效果预览" class="headerlink" title="效果预览"></a>效果预览</h2><p>项目预览地址：<a href="http://champyin.com/footprint/">http://champyin.com/footprint/</a><br><img src="/images/footprint.jpg" alt="footprint.jpg"><br>暂时还比较简陋，并且只支持省。以后我会把世界地图，和城市地图都加进来（毕竟也是出过境的人，哈哈），实现地图下钻，并且优化用户数据设置，不断完善下去。</p>
+<p>项目源码地址：<a href="https://github.com/yc111/footprint" target="_blank" rel="noopener">https://github.com/yc111/footprint</a><br>欢迎star。如果你喜欢，可以fork本项目，然后打造属于你自己的足迹应用。</p>
+<p>–<br>欢迎转载，转载请注明出处：<br><a href="https://champyin.com/2019/09/27/%E5%88%A9%E7%94%A8echarts%E5%B1%95%E7%A4%BA%E6%97%85%E8%A1%8C%E8%B6%B3%E8%BF%B9/">https://champyin.com/2019/09/27/%E5%88%A9%E7%94%A8echarts%E5%B1%95%E7%A4%BA%E6%97%85%E8%A1%8C%E8%B6%B3%E8%BF%B9/</a></p>
+<p>本文同步发表于：</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/echarts/" rel="tag"># echarts</a>
+          
+            <a href="/tags/map/" rel="tag"># map</a>
+          
+            <a href="/tags/footprint/" rel="tag"># footprint</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/20/vscode中如何使编辑器根据屏幕宽度自动换行/" rel="next" title="vscode中如何使编辑器根据屏幕宽度自动换行">
+                <i class="fa fa-chevron-left"></i> vscode中如何使编辑器根据屏幕宽度自动换行
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTgzMy8xNjM2MA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="ChampYin" />
+            
+              <p class="site-author-name" itemprop="name">ChampYin</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#工程搭建"><span class="nav-number">1.</span> <span class="nav-text">工程搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#地图选型"><span class="nav-number">2.</span> <span class="nav-text">地图选型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用开发"><span class="nav-number">3.</span> <span class="nav-text">应用开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-引入echarts"><span class="nav-number">3.1.</span> <span class="nav-text">1.引入echarts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-处理用户数据"><span class="nav-number">3.2.</span> <span class="nav-text">2.处理用户数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-注册map"><span class="nav-number">3.3.</span> <span class="nav-text">3.注册map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-配置option显示地图"><span class="nav-number">3.4.</span> <span class="nav-text">4.配置option显示地图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加Travis-CI持续集成"><span class="nav-number">4.</span> <span class="nav-text">添加Travis CI持续集成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果预览"><span class="nav-number">5.</span> <span class="nav-text">效果预览</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ChampYin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("rvS2PRrtNPtlLVnRCdRTA2g3-gzGzoHsz", "lKROjx0MLNKaBPQ9VROSoMoL");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

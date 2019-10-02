@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="expressexpress 导出的是一个函数。 1. 最简单的服务1npm i express 123456789// www.jsconst express = require(&amp;apos;express&amp;apos;);const app = express();app.get(&amp;apos;/&amp;apos;, (req, res) =&amp;gt; &amp;#123;	res.end(&amp;apos;serve">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-13T11:20:01.284Z">
+<meta property="og:updated_time" content="2019-09-29T07:50:32.418Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用express&#x2F;koa快速起一个node服务">
 <meta name="twitter:description" content="expressexpress 导出的是一个函数。 1. 最简单的服务1npm i express 123456789// www.jsconst express = require(&amp;apos;express&amp;apos;);const app = express();app.get(&amp;apos;/&amp;apos;, (req, res) =&amp;gt; &amp;#123;	res.end(&amp;apos;serve">
@@ -411,7 +411,7 @@
 <h4 id="1-最简单的服务"><a href="#1-最简单的服务" class="headerlink" title="1. 最简单的服务"></a>1. 最简单的服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i express</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// www.js</span><br><span class="line">const express = require(&apos;express&apos;);</span><br><span class="line">const app = express();</span><br><span class="line"></span><br><span class="line">app.get(&apos;/&apos;, (req, res) =&gt; &#123;</span><br><span class="line">	res.end(&apos;server by express&apos;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(3000);</span><br></pre></td></tr></table></figure>
 <h4 id="2-使用-express-generator"><a href="#2-使用-express-generator" class="headerlink" title="2. 使用 express-generator"></a>2. 使用 express-generator</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm i express</span><br><span class="line">npx express-generator //需要nodejs8.2及以上</span><br><span class="line">//nodejs8.2以下：</span><br><span class="line">//npm i -g express-generator</span><br><span class="line">//express --view=ejs myproject</span><br></pre></td></tr></table></figure>
-<p>会在当前目录下生成一个项目，7个文件夹，9个文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">|--app.js</span><br><span class="line">|--bin/</span><br><span class="line">|    |-- www.js</span><br><span class="line">|--package.json</span><br><span class="line">|--public/</span><br><span class="line">|    |-- images/</span><br><span class="line">|    |-- javascript/</span><br><span class="line">|    |-- staylesheets/</span><br><span class="line">|            |--  style.css</span><br><span class="line">|--routes/</span><br><span class="line">|    |-- index.js</span><br><span class="line">|    |-- users.js</span><br><span class="line">|--views/</span><br><span class="line">     |-- error.jade</span><br><span class="line">     |-- index.jade</span><br><span class="line">     |-- layout.jade</span><br></pre></td></tr></table></figure></p>
+<p>会在当前目录下生成一个项目，7个文件夹，9个文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">|--app.js</span><br><span class="line">|--bin/</span><br><span class="line">|    |-- www.js</span><br><span class="line">|--package.json</span><br><span class="line">|--public/</span><br><span class="line">|    |-- images/</span><br><span class="line">|    |-- javascript/</span><br><span class="line">|    |-- stylesheets/</span><br><span class="line">|            |--  style.css</span><br><span class="line">|--routes/</span><br><span class="line">|    |-- index.js</span><br><span class="line">|    |-- users.js</span><br><span class="line">|--views/</span><br><span class="line">     |-- error.jade</span><br><span class="line">     |-- index.jade</span><br><span class="line">     |-- layout.jade</span><br></pre></td></tr></table></figure></p>
 <p>然后<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm i</span><br><span class="line">DEBUGE=projectname:* npm start</span><br><span class="line">//在windows下这样：</span><br><span class="line">//set DEBUG=projectname:* npm start</span><br></pre></td></tr></table></figure></p>
 <h3 id="koa"><a href="#koa" class="headerlink" title="koa"></a>koa</h3><p>koa导出的是一个对象。</p>
 <h4 id="最简单的服务"><a href="#最简单的服务" class="headerlink" title="最简单的服务"></a>最简单的服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i koa</span><br></pre></td></tr></table></figure>
@@ -548,7 +548,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -559,7 +559,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -570,7 +570,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">63</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

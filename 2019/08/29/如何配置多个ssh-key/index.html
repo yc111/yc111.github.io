@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="我们都知道在使用git管理代码时，要推送代码到远程仓库时，为了不想每次都输入账号密码，会配置一下ssh key。但是如果你有多个github账号，或者同时还有gitlab或者是gitee账号，我在推送到这三个账号的仓库都不想输入用户名密码，可不可以把github上使用的ssh key跟其他的账号共享呢？我没有这样试过，不过即便是可以，也不太安全吧。最好的做法就是为这些账号分别创建ssh key，">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-11T08:35:46.952Z">
+<meta property="og:updated_time" content="2019-09-30T11:18:08.013Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何配置多个ssh key">
 <meta name="twitter:description" content="我们都知道在使用git管理代码时，要推送代码到远程仓库时，为了不想每次都输入账号密码，会配置一下ssh key。但是如果你有多个github账号，或者同时还有gitlab或者是gitee账号，我在推送到这三个账号的仓库都不想输入用户名密码，可不可以把github上使用的ssh key跟其他的账号共享呢？我没有这样试过，不过即便是可以，也不太安全吧。最好的做法就是为这些账号分别创建ssh key，">
@@ -409,7 +409,7 @@
       
         <blockquote>
 <p>我们都知道在使用git管理代码时，要推送代码到远程仓库时，为了不想每次都输入账号密码，会配置一下ssh key。但是如果你有多个github账号，或者同时还有gitlab或者是gitee账号，我在推送到这三个账号的仓库都不想输入用户名密码，可不可以把github上使用的ssh key跟其他的账号共享呢？我没有这样试过，不过即便是可以，也不太安全吧。最好的做法就是为这些账号分别创建ssh key，分别配置。</p>
-<p>配置SSH key是必备的技能，基础的做法可以参考：<a href="https://champyin.com/2018/04/07/配置git环境之设置SSH-key/">配置git环境之设置SSH key</a>。但是配置多个ssh key未必都熟悉。其实方法也很简单：</p>
+<p>配置单个SSH key，可以参考：<a href="https://champyin.com/2018/04/07/配置git环境之设置SSH-key/">配置git环境之设置SSH key</a>。<br>而配置多个SSH key未必都熟悉。其实方法也很简单：</p>
 </blockquote>
 <a id="more"></a>
 <h4 id="1-生成ssh-key"><a href="#1-生成ssh-key" class="headerlink" title="1. 生成ssh key"></a>1. 生成ssh key</h4><p>第一个，给github用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &apos;xxx@abc.com&apos; -f ~/.ssh/github_id_rsa</span><br></pre></td></tr></table></figure></p>
@@ -553,7 +553,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -564,7 +564,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -575,7 +575,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">63</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
