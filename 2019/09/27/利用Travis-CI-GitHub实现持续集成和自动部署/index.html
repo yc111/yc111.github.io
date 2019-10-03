@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="travis,CI," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="说到持续集成，我之前的公司一直是用Jenkins，而我一直嫌弃Jenkins的界面太丑（没有恶意）… 最近在GitHub上开始部署自己的项目，深感持续集成的必要性，因为手动部署实在又繁琐又耗时又没技术含量，还容易出错… 所以研究了下GitHub下的持续集成产品，分享一点实战经验，希望可以帮到有需要的朋友。">
+<meta name="keywords" content="travis,CI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用Travis CI+GitHub实现持续集成和自动部署">
+<meta property="og:url" content="http://champyin.com/2019/09/27/利用Travis-CI-GitHub实现持续集成和自动部署/index.html">
+<meta property="og:site_name" content="ChampYin&#39;s Blog">
+<meta property="og:description" content="说到持续集成，我之前的公司一直是用Jenkins，而我一直嫌弃Jenkins的界面太丑（没有恶意）… 最近在GitHub上开始部署自己的项目，深感持续集成的必要性，因为手动部署实在又繁琐又耗时又没技术含量，还容易出错… 所以研究了下GitHub下的持续集成产品，分享一点实战经验，希望可以帮到有需要的朋友。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://champyin.com/images/github-continuous-integration.jpg">
+<meta property="og:image" content="http://champyin.com/images/travis-CI-0.jpg">
+<meta property="og:image" content="http://champyin.com/images/personal-access-token-variable.jpg">
+<meta property="og:image" content="http://champyin.com/images/travis-CI-1.jpg">
+<meta property="og:image" content="http://champyin.com/images/travis-CI-4.jpg">
+<meta property="og:image" content="http://champyin.com/images/travis-CI-7.jpg">
+<meta property="og:image" content="http://champyin.com/images/travis-CI-8.jpg">
+<meta property="og:image" content="http://champyin.com/images/travis-CI-9.jpg">
+<meta property="og:image" content="http://champyin.com/images/travis-CI-6.jpg">
+<meta property="og:image" content="http://champyin.com/images/travis-CI-10.jpg">
+<meta property="og:updated_time" content="2019-10-03T02:26:12.744Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用Travis CI+GitHub实现持续集成和自动部署">
+<meta name="twitter:description" content="说到持续集成，我之前的公司一直是用Jenkins，而我一直嫌弃Jenkins的界面太丑（没有恶意）… 最近在GitHub上开始部署自己的项目，深感持续集成的必要性，因为手动部署实在又繁琐又耗时又没技术含量，还容易出错… 所以研究了下GitHub下的持续集成产品，分享一点实战经验，希望可以帮到有需要的朋友。">
+<meta name="twitter:image" content="http://champyin.com/images/github-continuous-integration.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://champyin.com/2019/09/27/利用Travis-CI-GitHub实现持续集成和自动部署/"/>
+
+
+
+
+
+  <title>利用Travis CI+GitHub实现持续集成和自动部署 | ChampYin's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?33e86ea32ced4dc8fafe3738659b3dcf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ChampYin's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">自律是真正的自由</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://champyin.com/2019/09/27/利用Travis-CI-GitHub实现持续集成和自动部署/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ChampYin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChampYin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">利用Travis CI+GitHub实现持续集成和自动部署</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-27T14:59:29+08:00">
+                2019-09-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端技术/" itemprop="url" rel="index">
+                    <span itemprop="name">前端技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/09/27/利用Travis-CI-GitHub实现持续集成和自动部署/" class="leancloud_visitors" data-flag-title="利用Travis CI+GitHub实现持续集成和自动部署">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>说到持续集成，我之前的公司一直是用Jenkins，而我一直嫌弃Jenkins的界面太丑（没有恶意）… 最近在GitHub上开始部署自己的项目，深感持续集成的必要性，因为手动部署实在又繁琐又耗时又没技术含量，还容易出错… 所以研究了下GitHub下的持续集成产品，分享一点实战经验，希望可以帮到有需要的朋友。</p>
+</blockquote>
+<a id="more"></a>
+<blockquote>
+<p>什么是持续集成<br>Continuous Integration(CI) is a development practice that requires developers to integrate code into a shared repository several times a day. Each check-in is then verified by an automated build, allowing teams to detect problems early.<br>———ThoughtWorks<br>我翻译了下：持续集成是一个开发行为，它要求开发者每天多次将代码集成到一个共享的仓库，每次提交都会被自动构建所检查，团队可因此在早期检测出问题。</p>
+</blockquote>
+<p>在GitHub市场上，可以看到，已经支持的持续集成服务提供商已有300多个，<a href="https://github.com/marketplace/category/continuous-integration" target="_blank" rel="noopener">详情</a>。<br><img src="/images/github-continuous-integration.jpg" alt="github continuous integration.jpg"></p>
+<p>选择Travis CI，是因为身边很多朋友的推荐。<br>Travis CI 目前只支持GitHub项目，支持包括Javascript、Node.js、Ruby等20多种程序语言，对于开源项目免费提供CI服务。你也可以买他的收费版，享受更多的服务。</p>
+<blockquote>
+<p>Travis CI目前有两个官网，分别是<a href="https://travis-ci.org" target="_blank" rel="noopener">https://travis-ci.org</a> 和 <a href="https://travis-ci.com" target="_blank" rel="noopener">https://travis-ci.com</a> 。<br><a href="https://travis-ci.org" target="_blank" rel="noopener">https://travis-ci.org</a> 是旧平台，已经逐渐往新平台 <a href="https://travis-ci.com" target="_blank" rel="noopener">https://travis-ci.com</a> 上迁移了。对于私有仓库，Travis CI在新平台上给予了支持。</p>
+</blockquote>
+<p>GitHub-&gt;Marketplace-&gt;Apps-&gt;Travis CI<br><img src="/images/travis-CI-0.jpg" alt="travis-CI-0.jpg"></p>
+<h2 id="一、获取GitHub-Access-Token"><a href="#一、获取GitHub-Access-Token" class="headerlink" title="一、获取GitHub Access Token"></a>一、获取GitHub Access Token</h2><p>Travis CI在自动部署的时候，需要push内容到仓库的某个分支，而访问GitHub仓库需要用户授权，授权方式就是用户提供 Access Token 给Travis CI。<br>获取token的位置：GitHub-&gt;Settings-&gt;Developer Settings-&gt;Personal access tokens。<br>勾选<code>repo</code>下的所有项，以及<code>user</code>下的<code>user:email</code>后，生成一个token，复制token值。</p>
+<blockquote>
+<p>注意：这个token只有现在可以看到，再次进入就看不到了，而且是再也看不到了，忘记了就只能重新生成了，所以要记住保管好。</p>
+</blockquote>
+<p><img src="/images/personal-access-token-variable.jpg" alt="personal-access-token-variable.jpg"></p>
+<h2 id="二、使用GitHub账号登录Travis"><a href="#二、使用GitHub账号登录Travis" class="headerlink" title="二、使用GitHub账号登录Travis"></a>二、使用GitHub账号登录Travis</h2><p>进入<a href="https://www.travis-ci.org/" target="_blank" rel="noopener">Travis官网</a>，用GitHub账号登录。（我目前使用的是它的旧平台）<br><img src="/images/travis-CI-1.jpg" alt="travis-ci-1.jpg"></p>
+<p>登录后，会看到这个账号下所有的public open source repo。</p>
+<h2 id="三、开启对项目的监控"><a href="#三、开启对项目的监控" class="headerlink" title="三、开启对项目的监控"></a>三、开启对项目的监控</h2><p>选择目标项目，打开右侧开关。<br><img src="/images/travis-CI-4.jpg" alt="travis-CI-4.jpg"></p>
+<h2 id="四、配置travis"><a href="#四、配置travis" class="headerlink" title="四、配置travis"></a>四、配置travis</h2><ul>
+<li>点击开关右侧Settings，进入该项目的travis配置页</li>
+<li>勾选触发条件<br><img src="/images/travis-CI-7.jpg" alt="travis-CI-7.jpg"></li>
+<li>设置全局变量<br><img src="/images/travis-CI-8.jpg" alt="travis-CI-8.jpg"></li>
+<li>第一步获取的access token，必须设置<br>设置好的变量可以在配置文件中以 ${变量名}来引用。<br><img src="/images/travis-CI-9.jpg" alt="travis-CI-9.jpg"></li>
+</ul>
+<h2 id="五、在项目根目录添加-travis-yml配置文件"><a href="#五、在项目根目录添加-travis-yml配置文件" class="headerlink" title="五、在项目根目录添加.travis.yml配置文件"></a>五、在项目根目录添加<code>.travis.yml</code>配置文件</h2><blockquote>
+<p>注意文件名以<code>.</code>开头。</p>
+</blockquote>
+<p>Travis CI的一次构建分两个步骤：</p>
+<ol>
+<li>install安装，安装任何所需的依赖</li>
+<li>script脚本，运行构建脚本</li>
+</ol>
+<p>完整的 Travis CI 构建生命周期：</p>
+<ol>
+<li>OPTIONAL Install <code>apt addons</code></li>
+<li>OPTIONAL Install <code>cache components</code></li>
+<li><code>before_install</code></li>
+<li><code>install</code></li>
+<li><code>before_script</code></li>
+<li><code>script</code></li>
+<li>OPTIONAL <code>before_cache</code>(for cleaning up cache)</li>
+<li><code>after_success</code> or <code>after_failure</code></li>
+<li>OPTIONAL <code>before_deploy</code></li>
+<li>OPTIONAL <code>deploy</code></li>
+<li>OPTIONAL <code>after_deploy</code></li>
+<li><code>after_script</code></li>
+</ol>
+<p>在 <code>before_install</code>、<code>before_script</code>之前，或者<code>after_script</code>之后，都可以运行自定义命令，具体可参考官方文档：<a href="https://docs.travis-ci.com/user/job-lifecycle/" target="_blank" rel="noopener">Job Lifecycle</a></p>
+<p><code>.travis.yml</code>配置示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">language: node_js #设置语言</span><br><span class="line"></span><br><span class="line">node_js: &quot;10.16.3&quot; #设置语言版本</span><br><span class="line"></span><br><span class="line">cache:</span><br><span class="line">  directories:</span><br><span class="line">    - node_modules #缓存依赖</span><br><span class="line"></span><br><span class="line"># S: Build Lifecycle</span><br><span class="line">install:</span><br><span class="line">  - npm i</span><br><span class="line"></span><br><span class="line">script:</span><br><span class="line">  - npm run build</span><br><span class="line"></span><br><span class="line">#after_script前5句是把部署分支的.git文件夹复用起来，这样可以保留历史部署的GitHub提交日志。</span><br><span class="line">#命令里面的变量都是在Travis CI里配置过的。</span><br><span class="line">after_script:</span><br><span class="line">  - git clone https://$&#123;GH_REF&#125; .temp</span><br><span class="line">  - cd .temp</span><br><span class="line">  - git checkout gh-pages</span><br><span class="line">  - cd ../</span><br><span class="line">  - mv .temp/.git dist</span><br><span class="line">  - cd dist</span><br><span class="line">  - git config user.name &quot;$&#123;U_NAME&#125;&quot;</span><br><span class="line">  - git config user.email &quot;$&#123;U_EMAIL&#125;&quot;</span><br><span class="line">  - git add .</span><br><span class="line">  - git commit -m &quot;:construction_worker:- Build &amp; Deploy by Travis CI&quot;</span><br><span class="line">  - git push --force --quiet &quot;https://$&#123;Travis_Token&#125;@$&#123;GH_REF&#125;&quot; gh-pages:$&#123;D_BRANCH&#125;</span><br><span class="line"># E: Build LifeCycle</span><br><span class="line"></span><br><span class="line"># 只有指定的分支提交时才会运行脚本</span><br><span class="line">branches:</span><br><span class="line">  only:</span><br><span class="line">    - master</span><br></pre></td></tr></table></figure></p>
+<h2 id="done！"><a href="#done！" class="headerlink" title="done！"></a>done！</h2><p>将 <code>.travis.yml</code> push 到远程，可以看到 travis 开始构建编译了。并且之后每次push代码，travis 就都会自动执行<code>.travis.yml</code>里配置的脚本任务了。</p>
+<ul>
+<li>自动编译：<br><img src="/images/travis-CI-6.jpg" alt="travis-CI-10.jpg"></li>
+<li>构建完，travis 会根据我的配置，自动部署到 GitHhub：<br><img src="/images/travis-CI-10.jpg" alt="travis-CI-6.jpg"></li>
+</ul>
+<p>–<br>GOODLUCK！</p>
+<p>欢迎转载，转载请注明出处：<a href="https://champyin.com/2019/09/27/%E5%88%A9%E7%94%A8Travis-CI-GitHub%E5%AE%9E%E7%8E%B0%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%92%8C%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/#more">https://champyin.com/2019/09/27/%E5%88%A9%E7%94%A8Travis-CI-GitHub%E5%AE%9E%E7%8E%B0%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%92%8C%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/#more</a></p>
+<p>本文同步发表于：</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/travis/" rel="tag"># travis</a>
+          
+            <a href="/tags/CI/" rel="tag"># CI</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/27/利用echarts展示旅行足迹/" rel="next" title="利用echarts展示旅行足迹">
+                <i class="fa fa-chevron-left"></i> 利用echarts展示旅行足迹
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTgzMy8xNjM2MA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="ChampYin" />
+            
+              <p class="site-author-name" itemprop="name">ChampYin</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、获取GitHub-Access-Token"><span class="nav-number">1.</span> <span class="nav-text">一、获取GitHub Access Token</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、使用GitHub账号登录Travis"><span class="nav-number">2.</span> <span class="nav-text">二、使用GitHub账号登录Travis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、开启对项目的监控"><span class="nav-number">3.</span> <span class="nav-text">三、开启对项目的监控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、配置travis"><span class="nav-number">4.</span> <span class="nav-text">四、配置travis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、在项目根目录添加-travis-yml配置文件"><span class="nav-number">5.</span> <span class="nav-text">五、在项目根目录添加.travis.yml配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#done！"><span class="nav-number">6.</span> <span class="nav-text">done！</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ChampYin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("rvS2PRrtNPtlLVnRCdRTA2g3-gzGzoHsz", "lKROjx0MLNKaBPQ9VROSoMoL");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
