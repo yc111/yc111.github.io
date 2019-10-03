@@ -321,8 +321,8 @@
         <category>前端技术</category>
       </categories>
       <tags>
-        <tag>front-end</tag>
         <tag>express</tag>
+        <tag>front-end</tag>
       </tags>
   </entry>
   <entry>
@@ -502,9 +502,9 @@
         <category>前端技术</category>
       </categories>
       <tags>
+        <tag>node</tag>
         <tag>express</tag>
         <tag>koa</tag>
-        <tag>node</tag>
       </tags>
   </entry>
   <entry>
