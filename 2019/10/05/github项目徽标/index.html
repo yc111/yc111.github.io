@@ -96,7 +96,7 @@
 <meta property="og:image" content="https://img.shields.io/badge/blog-@champyin-yellow.svg?style=flat">
 <meta property="og:image" content="https://img.shields.io/badge/blog-@champyin-success.svg?style=flat-square">
 <meta property="og:image" content="https://img.shields.io/badge/blog-@champyin-blue.svg?style=social">
-<meta property="og:updated_time" content="2019-10-05T15:16:42.085Z">
+<meta property="og:updated_time" content="2019-10-05T16:07:27.392Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="github项目徽标">
 <meta name="twitter:description" content="GitHub徽标，GitHub Badge，你也可以叫它徽章。就是在项目README中经常看到的那些表明构建状态或者版本等信息的小图标。就像这样：这些好看的小图标不仅简洁美观，而且包含了清晰易读的信息，在README中使用小徽标能够为自己的项目说明增色不少！如何给自己的项目加上小徽标呢？">
@@ -421,18 +421,25 @@
 <p>GitHub徽标，GitHub Badge，你也可以叫它徽章。就是在项目README中经常看到的那些表明构建状态或者版本等信息的小图标。就像这样：<img src="/images/github-badge.jpg" alt="github-badge.jpg">这些好看的小图标不仅简洁美观，而且包含了清晰易读的信息，在README中使用小徽标能够为自己的项目说明增色不少！如何给自己的项目加上小徽标呢？</p>
 </blockquote>
 <a id="more"></a>
-<h2 id="一、徽标规范"><a href="#一、徽标规范" class="headerlink" title="一、徽标规范"></a>一、徽标规范</h2><ol>
+<h2 id="一、关于徽标——"><a href="#一、关于徽标——" class="headerlink" title="一、关于徽标——"></a>一、关于徽标——</h2><ol>
 <li>徽标图片分左右两部分，左边是标题，右边是内容，就像是键值对。</li>
 <li>GitHub徽标官网是 <a href="https://shields.io/" target="_blank" rel="noopener">https://shields.io/</a></li>
 <li>图标规范<br><img src="/images/badge-rule.png" alt="badge-rule.png"></li>
 </ol>
 <h2 id="二、如何添加动态徽标"><a href="#二、如何添加动态徽标" class="headerlink" title="二、如何添加动态徽标"></a>二、如何添加动态徽标</h2><p>动态徽标是指如果项目状态发生变化，会自动更新状态的徽标，它能保证用户看到的信息就是项目当前的真实状态。</p>
-<p>常用的动态徽标有：持续集成状态，项目版本信息，代码测试覆盖率，项目下载量，贡献者统计等等。</p>
+<p>常用的动态徽标有：</p>
+<ul>
+<li>持续集成状态</li>
+<li>项目版本信息</li>
+<li>代码测试覆盖率</li>
+<li>项目下载量</li>
+<li>贡献者统计等等</li>
+</ul>
 <p>这里以<code>Travis CI</code> 的持续集成状态为例。没有接触过 <code>Travis CI</code>的可以看我的上一篇文章 <a href="https://champyin.com/2019/09/27/%E5%88%A9%E7%94%A8Travis-CI-GitHub%E5%AE%9E%E7%8E%B0%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%92%8C%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/">利用Travis CI+GitHub实现持续集成和自动部署</a></p>
 <ol>
-<li><p>登录 <code>Travis CI</code>，进入配置过构建的项目，在项目名称的右边有个 <code>build passing</code> 或者 <code>build failing</code> 图标。</p>
+<li><p>登录 <code>Travis CI</code>，进入配置过构建的项目，在项目名称的右边有个 <code>build passing</code> 或者 <code>build failing</code> 徽标。</p>
 </li>
-<li><p>点击它，在弹出框中，就可以看到 <code>Travis CI</code> 为你提供的各个格式的小徽章地址了。</p>
+<li><p>点击它，在弹出框中，就可以看到 <code>Travis CI</code> 为你提供的各种格式的徽章地址了。</p>
 </li>
 <li><p>你可以根据需要选择格式，imageUrl格式大概是这个样子：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.travis-ci.org/&#123;your-name&#125;/&#123;your-repo-name&#125;.svg?branch=master</span><br></pre></td></tr></table></figure>
@@ -441,7 +448,7 @@
 </li>
 <li><p>简单起见，我选择 <code>markdown</code> 格式。将内容复制后，打开项目的README文档，在顶部位置粘贴。</p>
 </li>
-<li><p>经过前3步，小徽章就搞定了，将README文档push到远程，刷新GitHub页面，过一会，就会看到README上面已经有了持续集成状态图标了。之所以要过一会才加载出来，就是因为它要动态从 <code>Travis CI</code> 平台获取状态。<img src="/images/build-passing.png" alt="build-passing.png"> </p>
+<li><p>经过前4步，小徽章就搞定了。将README文档push到远程，刷新GitHub页面，过一会，就会看到README上面已经有了持续集成状态图标了。之所以要过一会才加载出来，就是因为它要动态从 <code>Travis CI</code> 平台获取状态。<img src="/images/build-passing.png" alt="build-passing.png"> </p>
 </li>
 </ol>
 <h2 id="三、如何自定义徽标"><a href="#三、如何自定义徽标" class="headerlink" title="三、如何自定义徽标"></a>三、如何自定义徽标</h2><p><a href="https://shields.io/" target="_blank" rel="noopener">shields.io</a> 提供了自定义徽标的功能。</p>
@@ -453,7 +460,7 @@
 <li>徽标颜色：徽标右边的背景颜色，可以是颜色的16进制值，也可以是颜色英文。支持的颜色英文如下：<br><img src="/images/shields.io-color.jpg" alt="shields.io-color.jpg"></li>
 <li>linkUrl：要跳转的地址</li>
 </ul>
-<p>将这4个变量替换为你需要的内容即可生成一个自定义的徽标。</p>
+<p>变量之间用 <code>-</code> 连接。将这4个变量替换为你需要的内容即可生成一个自定义的徽标。</p>
 <h4 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h4><p>例如下面这个是我的博客的徽标：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[![](https://img.shields.io/badge/blog-@champyin-red.svg)](https://champyin.com)</span><br></pre></td></tr></table></figure></p>
 <p>效果：<br><a href="https://champyin.com"><img src="https://img.shields.io/badge/blog-@champyin-red.svg" alt=""></a><br>点击该徽标会打开对应的url地址，即直接跳到我的博客。</p>
 <h4 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h4><p>除了上面所说的4个参数，<a href="https://shields.io/" target="_blank" rel="noopener">shields.io</a> 还提供了一些 <code>query string</code> 来控制徽标样式。使用方式跟URL的query string一致：徽标图标地址?{参数名}={参数值}，多个参数用 <code>&amp;</code> 连接：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://img.shields.io/badge/&#123;徽标标题&#125;-&#123;徽标内容&#125;-&#123;徽标颜色&#125;.svg?&#123;参数名1&#125;=&#123;参数值1&#125;&amp;&#123;参数名2&#125;=&#123;参数值2&#125;</span><br></pre></td></tr></table></figure></p>
@@ -611,7 +618,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -665,7 +672,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、徽标规范"><span class="nav-number">1.</span> <span class="nav-text">一、徽标规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、如何添加动态徽标"><span class="nav-number">2.</span> <span class="nav-text">二、如何添加动态徽标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、如何自定义徽标"><span class="nav-number">3.</span> <span class="nav-text">三、如何自定义徽标</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#徽标图标格式"><span class="nav-number">3.0.1.</span> <span class="nav-text">徽标图标格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#带链接的徽标"><span class="nav-number">3.0.2.</span> <span class="nav-text">带链接的徽标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变量说明"><span class="nav-number">3.0.3.</span> <span class="nav-text">变量说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#举个栗子"><span class="nav-number">3.0.4.</span> <span class="nav-text">举个栗子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进阶"><span class="nav-number">3.0.5.</span> <span class="nav-text">进阶</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、关于徽标——"><span class="nav-number">1.</span> <span class="nav-text">一、关于徽标——</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、如何添加动态徽标"><span class="nav-number">2.</span> <span class="nav-text">二、如何添加动态徽标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、如何自定义徽标"><span class="nav-number">3.</span> <span class="nav-text">三、如何自定义徽标</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#徽标图标格式"><span class="nav-number">3.0.1.</span> <span class="nav-text">徽标图标格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#带链接的徽标"><span class="nav-number">3.0.2.</span> <span class="nav-text">带链接的徽标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变量说明"><span class="nav-number">3.0.3.</span> <span class="nav-text">变量说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#举个栗子"><span class="nav-number">3.0.4.</span> <span class="nav-text">举个栗子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进阶"><span class="nav-number">3.0.5.</span> <span class="nav-text">进阶</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
