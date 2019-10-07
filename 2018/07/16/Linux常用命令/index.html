@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="列出当前目录下每个文件的大小以及当前目录文件下所有文件大小总和。1ls -lht 与以下命令是同一个效果：1ls -l -h -t ls是 list segment 的缩写，用于列出文件。 ls的常用参数常用参数：">
+<meta name="description" content="记录常用的liux命令，不定期更新。">
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux常用命令">
 <meta property="og:url" content="http://champyin.com/2018/07/16/Linux常用命令/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="列出当前目录下每个文件的大小以及当前目录文件下所有文件大小总和。1ls -lht 与以下命令是同一个效果：1ls -l -h -t ls是 list segment 的缩写，用于列出文件。 ls的常用参数常用参数：">
+<meta property="og:description" content="记录常用的liux命令，不定期更新。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-09-19T16:11:20.000Z">
+<meta property="og:updated_time" content="2019-10-07T09:24:17.887Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux常用命令">
-<meta name="twitter:description" content="列出当前目录下每个文件的大小以及当前目录文件下所有文件大小总和。1ls -lht 与以下命令是同一个效果：1ls -l -h -t ls是 list segment 的缩写，用于列出文件。 ls的常用参数常用参数：">
+<meta name="twitter:description" content="记录常用的liux命令，不定期更新。">
 
 
 
@@ -407,11 +407,21 @@
       
 
       
-        <h2 id="列出当前目录下每个文件的大小以及当前目录文件下所有文件大小总和。"><a href="#列出当前目录下每个文件的大小以及当前目录文件下所有文件大小总和。" class="headerlink" title="列出当前目录下每个文件的大小以及当前目录文件下所有文件大小总和。"></a>列出当前目录下每个文件的大小以及当前目录文件下所有文件大小总和。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lht</span><br></pre></td></tr></table></figure>
-<p>与以下命令是同一个效果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l -h -t</span><br></pre></td></tr></table></figure></p>
-<p>ls是 list segment 的缩写，用于列出文件。</p>
-<h2 id="ls的常用参数"><a href="#ls的常用参数" class="headerlink" title="ls的常用参数"></a>ls的常用参数</h2><p>常用参数：</p>
+        <blockquote>
+<p>记录常用的liux命令，不定期更新。</p>
+</blockquote>
 <a id="more"></a>
+<h1 id="一、-rm"><a href="#一、-rm" class="headerlink" title="一、 rm"></a>一、 rm</h1><p>删除文件或文件夹</p>
+<h4 id="删除文件夹，无论文件夹是否为空"><a href="#删除文件夹，无论文件夹是否为空" class="headerlink" title="删除文件夹，无论文件夹是否为空"></a>删除文件夹，无论文件夹是否为空</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf 目录路径</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说明：<br>-r 就是向下递归的意思；<br>-f 就是强制删除，不做任何提示的意思。</p>
+</blockquote>
+<p></p><p style="color:red">注意：使用 rm -rf 命令一定要格外小心。linux没有回收站，删除之后再找回就难了。</p><p></p>
+<h4 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -f 文件路径</span><br></pre></td></tr></table></figure>
+<h1 id="二、ls"><a href="#二、ls" class="headerlink" title="二、ls"></a>二、ls</h1><p>ls是 list segment 的缩写，用于列出文件。</p>
+<h4 id="列出当前目录下每个文件的大小以及当前目录文件下所有文件大小总和。"><a href="#列出当前目录下每个文件的大小以及当前目录文件下所有文件大小总和。" class="headerlink" title="列出当前目录下每个文件的大小以及当前目录文件下所有文件大小总和。"></a>列出当前目录下每个文件的大小以及当前目录文件下所有文件大小总和。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lht</span><br></pre></td></tr></table></figure>
+<p>与以下命令是同一个效果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l -h -t</span><br></pre></td></tr></table></figure></p>
+<h4 id="ls的常用参数"><a href="#ls的常用参数" class="headerlink" title="ls的常用参数"></a>ls的常用参数</h4><p>常用参数：</p>
 <p>-a, –all 列出目录下的所有文件，包括以 . 开头的隐含文件</p>
 <p>-A 同-a，但不列出“.”(表示当前目录)和“..”(表示当前目录的父目录)。</p>
 <p>-c  配合 -lt：根据 ctime 排序及显示 ctime (文件状态最后更改的时间)配合 -l：显示 ctime 但根据名称排序否则：根据 ctime 排序</p>
@@ -659,7 +669,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#列出当前目录下每个文件的大小以及当前目录文件下所有文件大小总和。"><span class="nav-number">1.</span> <span class="nav-text">列出当前目录下每个文件的大小以及当前目录文件下所有文件大小总和。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ls的常用参数"><span class="nav-number">2.</span> <span class="nav-text">ls的常用参数</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、-rm"><span class="nav-number">1.</span> <span class="nav-text">一、 rm</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#删除文件夹，无论文件夹是否为空"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">删除文件夹，无论文件夹是否为空</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除文件"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">删除文件</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、ls"><span class="nav-number">2.</span> <span class="nav-text">二、ls</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#列出当前目录下每个文件的大小以及当前目录文件下所有文件大小总和。"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">列出当前目录下每个文件的大小以及当前目录文件下所有文件大小总和。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ls的常用参数"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">ls的常用参数</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
