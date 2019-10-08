@@ -94,8 +94,8 @@
         <category>操作系统</category>
       </categories>
       <tags>
-        <tag>mac</tag>
         <tag>linux</tag>
+        <tag>mac</tag>
       </tags>
   </entry>
   <entry>
@@ -517,9 +517,9 @@
         <category>前端技术</category>
       </categories>
       <tags>
+        <tag>node</tag>
         <tag>express</tag>
         <tag>koa</tag>
-        <tag>node</tag>
       </tags>
   </entry>
   <entry>
