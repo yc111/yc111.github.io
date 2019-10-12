@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-champyin.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-champyin.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="node.js,MongoDB,mongoose,database," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="node.js 的出现，使得用前端语法（javascript）开发后台服务成为可能，越来越多的前端因此转向全栈发展。后台的开发离不开对数据库的操作。MongoDB 是一个基于分布式文件存储的开源数据库系统。本文总结了Mac下如何安装 MongoDB，以及如何通过 mongoose 连接和操作 MongoDB，希望我的经验能帮到有需要的人。 由于我用Mac开发，以下所有操作都是在Mac下进行。">
+<meta name="keywords" content="node.js,MongoDB,mongoose,database">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node.js操作数据库之MongoDB+mongoose篇">
+<meta property="og:url" content="http://champyin.com/2019/10/10/node-js-mongoose-mongodb-环境搭建（Mac版）/index.html">
+<meta property="og:site_name" content="ChampYin&#39;s Blog">
+<meta property="og:description" content="node.js 的出现，使得用前端语法（javascript）开发后台服务成为可能，越来越多的前端因此转向全栈发展。后台的开发离不开对数据库的操作。MongoDB 是一个基于分布式文件存储的开源数据库系统。本文总结了Mac下如何安装 MongoDB，以及如何通过 mongoose 连接和操作 MongoDB，希望我的经验能帮到有需要的人。 由于我用Mac开发，以下所有操作都是在Mac下进行。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://champyin.com/images/mg-install-homebrew.jpg">
+<meta property="og:image" content="http://champyin.com/images/mg-install-homebrew-2.jpg">
+<meta property="og:image" content="http://champyin.com/images/mg-tap-mongodb-brew.jpg">
+<meta property="og:image" content="http://champyin.com/images/mg-brew-install-mongodb.jpg">
+<meta property="og:image" content="http://champyin.com/images/mg-install-mongoose.jpg">
+<meta property="og:image" content="http://champyin.com/images/mg-run-mongodb-in-foreground.jpg">
+<meta property="og:image" content="http://champyin.com/2019/10/10/node-js-mongoose-mongodb-环境搭建（Mac版）/images/mg-run-mongodb-as-a-server.jpg">
+<meta property="og:image" content="http://champyin.com/images/mg-stop-mongodb-service.jpg">
+<meta property="og:image" content="http://champyin.com/images/mg-connection.jpg">
+<meta property="og:image" content="http://champyin.com/images/mg-robo3T-download2.jpg">
+<meta property="og:image" content="http://champyin.com/images/mg-insert.jpg">
+<meta property="og:image" content="http://champyin.com/images/mg-guery.jpg">
+<meta property="og:image" content="http://champyin.com/images/mg-guery-all.jpg">
+<meta property="og:image" content="http://champyin.com/images/mg-update2.jpg">
+<meta property="og:image" content="http://champyin.com/images/mg-update.jpg">
+<meta property="og:image" content="http://champyin.com/images/mg-remove2.jpg">
+<meta property="og:image" content="http://champyin.com/images/mg-remove.jpg">
+<meta property="og:updated_time" content="2019-10-12T09:34:41.120Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="node.js操作数据库之MongoDB+mongoose篇">
+<meta name="twitter:description" content="node.js 的出现，使得用前端语法（javascript）开发后台服务成为可能，越来越多的前端因此转向全栈发展。后台的开发离不开对数据库的操作。MongoDB 是一个基于分布式文件存储的开源数据库系统。本文总结了Mac下如何安装 MongoDB，以及如何通过 mongoose 连接和操作 MongoDB，希望我的经验能帮到有需要的人。 由于我用Mac开发，以下所有操作都是在Mac下进行。">
+<meta name="twitter:image" content="http://champyin.com/images/mg-install-homebrew.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://champyin.com/2019/10/10/node-js-mongoose-mongodb-环境搭建（Mac版）/"/>
+
+
+
+
+
+  <title>node.js操作数据库之MongoDB+mongoose篇 | ChampYin's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?33e86ea32ced4dc8fafe3738659b3dcf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ChampYin's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">自律是真正的自由</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://champyin.com/2019/10/10/node-js-mongoose-mongodb-环境搭建（Mac版）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ChampYin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChampYin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">node.js操作数据库之MongoDB+mongoose篇</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-10T17:57:07+08:00">
+                2019-10-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/10/10/node-js-mongoose-mongodb-环境搭建（Mac版）/" class="leancloud_visitors" data-flag-title="node.js操作数据库之MongoDB+mongoose篇">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><code>node.js</code> 的出现，使得用前端语法（javascript）开发后台服务成为可能，越来越多的前端因此转向全栈发展。后台的开发离不开对数据库的操作。<code>MongoDB</code> 是一个基于分布式文件存储的开源数据库系统。本文总结了Mac下如何安装 <code>MongoDB</code>，以及如何通过 <code>mongoose</code> 连接和操作 <code>MongoDB</code>，希望我的经验能帮到有需要的人。</p>
+<p>由于我用Mac开发，以下所有操作都是在Mac下进行。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="一、-环境搭建"><a href="#一、-环境搭建" class="headerlink" title="一、 环境搭建"></a>一、 环境搭建</h1><h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><blockquote>
+<p>有 node 环境的可以跳过。</p>
+</blockquote>
+<p><a href="http://nodejs.cn/download/" target="_blank" rel="noopener">nodejs官网</a>提供了 macOS 安装包，直接下载安装即可。现在 nodejs 稳定版已经到了 <code>12.11.1</code> 。</p>
+<h2 id="安装MongoDB"><a href="#安装MongoDB" class="headerlink" title="安装MongoDB"></a>安装MongoDB</h2><p><a href="https://www.mongodb.com" target="_blank" rel="noopener">MongoDB</a> 是为现代应用程序开发人员和云时代构建的基于文档的通用分布式数据库。</p>
+<blockquote>
+<p>上个月（9月） macOS 包管理器 Homebrew 宣布移除 MongoDB 。原因是去年10月 MongoDB 宣布将其开源许可证从 <code>GNU AGPLv3</code> 切换到 <code>SSPL（Server Side Public License）</code>，以此回应 AWS 等云厂商将 MongoDB 以服务的形式提供给用户而没有回馈社区的行为，MongoDB 希望从软件即服务上获取收入。Homebrew 认为 MongoDB 已经不再属于开源范畴…</p>
+</blockquote>
+<p>言归正传，由于上述原因，我们不能使用 <code>brew install mongodb</code> 来安装 MongoDB 了。好在 MongoDB 自己维护了一个定制化的 <a href="https://github.com/mongodb/homebrew-brew" target="_blank" rel="noopener">Homebrew tap</a>。并在 <a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/#install-mongodb-community-edition" target="_blank" rel="noopener">Install MongoDB Community Edition
+</a> 详细列出了安装步骤。</p>
+<p>Mac下 MongoDB 的最新安装步骤如下：</p>
+<h4 id="1-安装-Homebrew"><a href="#1-安装-Homebrew" class="headerlink" title="1. 安装 Homebrew"></a>1. 安装 <a href="https://brew.sh/#install" target="_blank" rel="noopener">Homebrew</a></h4><p>因为 OSX 默认不包含 Homebrew brew 包，所以要先安装，已经安装过的可以跳过。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span><br></pre></td></tr></table></figure></p>
+<p>  安装过程会有点长，终端输出信息超过一屏，这里我只截取了头尾两部分。<br>  <img src="/images/mg-install-homebrew.jpg" alt="mg-install-homebrew.jpg"><br>  <img src="/images/mg-install-homebrew-2.jpg" alt="mg-install-homebrew-2.jpg"></p>
+<h4 id="2-获取-MongoDB-Homebrew-Tap"><a href="#2-获取-MongoDB-Homebrew-Tap" class="headerlink" title="2. 获取 MongoDB Homebrew Tap"></a>2. 获取 MongoDB Homebrew Tap</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew tap mongodb/brew</span><br></pre></td></tr></table></figure>
+<p>  <img src="/images/mg-tap-mongodb-brew.jpg" alt="mg-tap-mongodb-brew.jpg"></p>
+<h4 id="3-安装-MongoDB-CE（社区版）"><a href="#3-安装-MongoDB-CE（社区版）" class="headerlink" title="3. 安装 MongoDB CE（社区版）"></a>3. 安装 MongoDB CE（社区版）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install mongodb-community@4.2</span><br></pre></td></tr></table></figure>
+<p>  <img src="/images/mg-brew-install-mongodb.jpg" alt="mg-brew-install-mongodb.jpg"></p>
+<p>现在你的 Mac 上就已经安装好 MongoDB 了。</p>
+<h2 id="安装mongoose"><a href="#安装mongoose" class="headerlink" title="安装mongoose"></a>安装mongoose</h2><blockquote>
+<p>node.js 是可以直接操作 MongoDB 的，但是通过 MongoDB 命令语法直接编写 MongoDB 验证、数据类型转换和业务逻辑模版比较繁琐。所以我们使用了 mongoose。</p>
+</blockquote>
+<p><a href="https://mongoosejs.com/" target="_blank" rel="noopener">mongoose</a> 是 MongoDB 的一个对象模型工具，它对 MongoDB 的常用方法进行了封装，让 node.js 操作 MongoDB 更加优雅简洁。</p>
+<p>刚才的 node.js 和 MongoDB 都是安装在全局环境，mongoose 则是安装在你的项目下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd your-project</span><br><span class="line">npm i -S mongoose</span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/mg-install-mongoose.jpg" alt="mg-install-mongoose.jpg"></p>
+<p>现在，你的开发环境就已经全部安装好了。</p>
+<h1 id="二、启动MongoDB服务"><a href="#二、启动MongoDB服务" class="headerlink" title="二、启动MongoDB服务"></a>二、启动MongoDB服务</h1><p>要操作 MongoDB ，首先要启动它。<br>有两种方式启动 MongoDB 服务：</p>
+<h4 id="1-在前台运行"><a href="#1-在前台运行" class="headerlink" title="1. 在前台运行"></a>1. 在前台运行</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongod --config /usr/local/etc/mongod.conf</span><br></pre></td></tr></table></figure>
+<p>  前台运行的好处就是，可以查看一些反馈和日志，便于调试。另外如果要关闭服务，只需要在终端按 <code>control + c</code> 键即可。<br>  <img src="/images/mg-run-mongodb-in-foreground.jpg" alt="mg-run-mongodb-in-foreground.jpg"></p>
+<h4 id="2-也可以作为-macOS-服务，在后台运行"><a href="#2-也可以作为-macOS-服务，在后台运行" class="headerlink" title="2. 也可以作为 macOS 服务，在后台运行"></a>2. 也可以作为 macOS 服务，在后台运行</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew services start mongodb-community@4.2</span><br></pre></td></tr></table></figure>
+<p>  好处是开机就自动启动，随时可以使用。<br>  <img src="images/mg-run-mongodb-as-a-server.jpg" alt="mg-run-mongodb-as-a-server.jpg">这种启动方式，如果要关闭服务，可以通过 <code>stop</code> 命令：<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew services stop mongodb-community@4.2</span><br></pre></td></tr></table></figure></p>
+<p>  <img src="/images/mg-stop-mongodb-service.jpg" alt="mg-stop-mongodb-service.jpg"></p>
+<p>现在，你的 MongoDB 数据库已经开启了。</p>
+<h1 id="三、操作MongoDB"><a href="#三、操作MongoDB" class="headerlink" title="三、操作MongoDB"></a>三、操作MongoDB</h1><p>MongoDB 中的一些重要概念：</p>
+<ul>
+<li>MongoDB 中的数据记录是一种 <code>BSON</code> 格式的文件（BSON是一种用二进制描述的JSON文件格式）。</li>
+<li>MongoDB 将<code>文件</code>存储在<code>集合</code>中，将<code>集合</code>存储在<code>数据库</code>中。</li>
+<li>MongoDB 的数据库、集合都不用手动创建。</li>
+<li><code>集合collection</code>: 相当于关系型数据库中的<code>表table</code>。</li>
+<li><code>文件document</code>: MongoDB 的数据记录单位，相当于关系型数据库中的<code>记录row</code>。</li>
+</ul>
+<p>mongoose 中的一些重要概念：</p>
+<ul>
+<li><code>schema</code>: 在 mongoose 中，所有的东西都来源于一个 <code>schema</code>，每个<code>schema</code> 映射了一个 MongoDB 的<code>集合</code>，它定义了这个<code>集合</code>中的<code>文档</code>的骨架。</li>
+<li><code>model</code>: 一个<code>文件</code>的构造器，通过编译<code>schema</code>得到，一个<code>model</code>的实例就是一个<code>文件</code>，<code>model</code>负责从 MongoDB 数据库中创建和读取<code>文档</code>。<br>更多mongoose概念可以查看<a href="https://mongoosejs.com/docs/guides.html" target="_blank" rel="noopener">mongoose guide</a>。</li>
+</ul>
+<h2 id="1-使用-mongoose-连接-MongoDB"><a href="#1-使用-mongoose-连接-MongoDB" class="headerlink" title="1. 使用 mongoose 连接 MongoDB"></a>1. 使用 mongoose 连接 MongoDB</h2><p>在项目中创建 <code>connection.js</code> 文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// connection.js file</span><br><span class="line">const mongoose = require(&apos;mongoose&apos;);</span><br><span class="line">const conn = mongoose.createConnection(</span><br><span class="line"></span><br><span class="line">  // 连接地址，MongoDB 的服务端口为27017</span><br><span class="line">  // dbtest是我要使用的数据库名，当往其中写数据时，MongoDB 会自动创建一个名为dbtest的数据库，不用事先手动创建。</span><br><span class="line">  &apos;mongodb://127.0.0.1:27017/dbtest&apos;, </span><br><span class="line"></span><br><span class="line">  // 一些兼容配置，必须加，你不写运行的时候会提示你加。</span><br><span class="line">  &#123;</span><br><span class="line">    useNewUrlParser: true,</span><br><span class="line">    useUnifiedTopology: true</span><br><span class="line">   &#125;</span><br><span class="line">)</span><br><span class="line">conn.on(&apos;open&apos;, () =&gt; &#123;</span><br><span class="line">	console.log(&apos;打开 mongodb 连接&apos;);</span><br><span class="line">&#125;)</span><br><span class="line">conn.on(&apos;err&apos;, (err) =&gt; &#123;</span><br><span class="line">	console.log(&apos;err:&apos; + err);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node conection.js</span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/mg-connection.jpg" alt="mg-connection.jpg"></p>
+<p>现在你已经成功连接上 MongoDB 了，接下来可以开始操作数据库了。</p>
+<p>方便扩展起见，先对 <code>connection.js</code> 改造一下，让它作为模块导出，这样就可以在其他地方导入复用了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// connection.js file</span><br><span class="line">const mongoose = require(&apos;mongoose&apos;);</span><br><span class="line">const conn = mongoose.createConnection(</span><br><span class="line">  &apos;mongodb://127.0.0.1:27017/dbtest&apos;,</span><br><span class="line">  &#123;</span><br><span class="line">    useNewUrlParser: true,</span><br><span class="line">    useUnifiedTopology: true</span><br><span class="line">   &#125;</span><br><span class="line">)</span><br><span class="line">conn.on(&apos;open&apos;, () =&gt; &#123;</span><br><span class="line">	console.log(&apos;打开 mongodb 连接&apos;);</span><br><span class="line">&#125;)</span><br><span class="line">conn.on(&apos;err&apos;, (err) =&gt; &#123;</span><br><span class="line">	console.log(&apos;err:&apos; + err);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">module.exports = conn; //commonJs 语法，导出conn模块。</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-添加操作"><a href="#2-添加操作" class="headerlink" title="2. 添加操作"></a>2. 添加操作</h2><p><code>save | create</code><br>新建<code>insert.js</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">// insert.js file</span><br><span class="line">let mongoose = require(&apos;mongoose&apos;);</span><br><span class="line"></span><br><span class="line">// 导入连接模块</span><br><span class="line">let connection = require(&apos;./connection&apos;);</span><br><span class="line"></span><br><span class="line">// 创建schema</span><br><span class="line">let StudentSchema = new mongoose.Schema(&#123;</span><br><span class="line">   name: String,</span><br><span class="line">   age: Number</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 通过connection和schema创建model</span><br><span class="line">let StudentModel = connection.model(&apos;Student&apos;, StudentSchema);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 通过实例化model创建文档</span><br><span class="line">let studentDoc = new StudentModel(&#123;</span><br><span class="line">    name: &apos;zhangsan&apos;,</span><br><span class="line">    age: 20</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 将文档插入到数据库，save方法返回一个Promise对象。</span><br><span class="line">studentDoc.save().then((doc) =&gt; &#123;</span><br><span class="line">    console.log(doc)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node insert.js</span><br></pre></td></tr></table></figure></p>
+<p>为了更直观看到操作数据库的结果，推荐大家安装一个数据库可视化工具：<a href="https://robomongo.org" target="_blank" rel="noopener">Robo3T</a>，下载<a href="https://robomongo.org/download" target="_blank" rel="noopener">mac版</a>安装即可。<br><img src="/images/mg-robo3T-download2.jpg" alt="mg-robo3T-download2.jpg"></p>
+<p>点击 Robo3T 左上角连接我们的数据库后，可以看到 MongoDB 自动帮我们生成了数据库和集合，并且已经插入了一条记录：<br><img src="/images/mg-insert.jpg" alt="mg-insert.jpg"></p>
+<p>或者还可以直接通过Model的create方法直接插入数据，返回的也是一个Promise：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">StudentModel.create(&#123;</span><br><span class="line">    name: &apos;lisi&apos;,</span><br><span class="line">    age: 19</span><br><span class="line">&#125;).then((doc) =&gt; &#123;</span><br><span class="line">    console.log(doc)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h2 id="3-读取操作"><a href="#3-读取操作" class="headerlink" title="3. 读取操作"></a>3. 读取操作</h2><p><code>find</code><br>为更加合理复用代码，我们先把 StudentSchema 和 StudentModel 抽离出来：</p>
+<p>新建<code>StudentSchema.js</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// StudentSchema.js file</span><br><span class="line">const mongoose = require(&apos;mongoose&apos;);</span><br><span class="line"></span><br><span class="line">let StudentSchema = mongoose.Schema(&#123;</span><br><span class="line">    name: String,</span><br><span class="line">    age: Number</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">module.exports = StudentSchema;</span><br></pre></td></tr></table></figure></p>
+<p>新建<code>StudentModel.js</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// StudentModel.js </span><br><span class="line">const connection = require(&apos;./connection&apos;);</span><br><span class="line">const StudentSchema = require(&apos;./StudentSchema&apos;);</span><br><span class="line"></span><br><span class="line">let StudentModel = connection.model(&apos;Student&apos;, StudentSchema);</span><br><span class="line"></span><br><span class="line">module.exports = StudentModel;</span><br></pre></td></tr></table></figure></p>
+<p>然后新建<code>query.js</code>文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// query.js file</span><br><span class="line">const StudentModel = require(&apos;./StudentModel&apos;);</span><br><span class="line"></span><br><span class="line">// 富查询条件，对象格式，键值对，下面这为查询 name 为 lisi 的记录</span><br><span class="line">StudentModel.find(&#123;name: &apos;lisi&apos;&#125;).then(doc =&gt; &#123;</span><br><span class="line">    console.log(doc);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node query.js</span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/mg-guery.jpg" alt="mg-guery.jpg"></p>
+<p>如果想查询整个集合：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 不放查询条件即查询所有的记录</span><br><span class="line">StudentModel.find(&#123;&#125;).then(doc =&gt; &#123;</span><br><span class="line">    console.log(doc);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/mg-guery-all.jpg" alt="mg-guery-all.jpg"></p>
+<h2 id="4-更新操作"><a href="#4-更新操作" class="headerlink" title="4. 更新操作"></a>4. 更新操作</h2><p><code>update|updateOne|updateMany</code></p>
+<p>新建<code>update.js</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// update.js file</span><br><span class="line">const StudentModel = require(&apos;./StudentModel&apos;);</span><br><span class="line"></span><br><span class="line">// update 方法接收2个参数，第一个是查询条件，第二个是修改的值</span><br><span class="line">// 下面把name为lisi的记录，将他的age修改为80</span><br><span class="line">StudentModel.update(&#123;name: &apos;lisi&apos;&#125;, &#123;age: 80&#125;).then(result =&gt; &#123;</span><br><span class="line">    console.log(result)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>进入 Robo3T，可以看到数据被更改，切换到表格模式更加直观：<br><img src="/images/mg-update2.jpg" alt="mg-update2.jpg"></p>
+<p>不过在终端，提示<code>DeprecationWarning: collection.update is deprecated. Use updateOne, updateMany, or bulkWrite instead.</code><br><img src="/images/mg-update.jpg" alt="mg-update.jpg"></p>
+<p>建议我们使用 <code>updateOne</code>、<code>updateMany</code>或者<code>bulkWrite</code></p>
+<p>update 更新查询到的所有结果，方法已经不提倡使用，已被updateMany替代。<br>updateOne 如果查询到多条结果，只更新第一条记录。<br>upateMany 更新查询到的所有结果。<br>bulkWrite 提供可控执行顺序的批量写操作。</p>
+<p>另外，终端的输出<code>{ n: 1, nModified: 1, ok: 1 }</code>的意思是：</p>
+<ul>
+<li>“n: 1”：查询到1条记录。</li>
+<li>“nModified: 1”：需要修改1条记录。（如果修改值和原始值相同，则需要修改的就是0条）</li>
+<li>“ok: 1”：修改成功1条。</li>
+</ul>
+<h2 id="5-删除操作"><a href="#5-删除操作" class="headerlink" title="5. 删除操作"></a>5. 删除操作</h2><p><code>remove|removeOne|removeMany|bulkWrite</code></p>
+<p>新建<code>remote.js</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// remove.js file</span><br><span class="line">const StudentModel = require(&apos;./StudentModel&apos;);</span><br><span class="line"></span><br><span class="line">// delete 方法接收1个参数，就是查询条件</span><br><span class="line">// 下面把name为lisi的记录删除</span><br><span class="line">StudentModel.remove(&#123;name:&apos;lisi&apos;&#125;).then((result) =&gt; &#123;</span><br><span class="line">    console.log(result);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>进入 Robo3T，可以看到集合里已经没有name为lisi的记录了：<br><img src="/images/mg-remove2.jpg" alt="mg-remove2.jpg"></p>
+<p>在看终端的输出，跟update类似，也提示建议使用新的方法代替。<br><img src="/images/mg-remove.jpg" alt="mg-remove.jpg"></p>
+<p>建议我们使用 <code>removeOne</code>、<code>removeMany</code>或者<code>bulkWrite</code></p>
+<p>remove 删除查询到所有结果，方法已经不提倡使用，已被removeMany替代。<br>removeOne 如果查询到多条结果，只删除第一条记录。<br>removeMany 删除查询到所有结果。<br>bulkWrite 提供可控执行顺序的批量写操作。</p>
+<p>另外，终端的输出<code>{ n: 1, ok: 1, deletedCount: 1 }</code>的意思跟update的类似，就不累述了。</p>
+<p>现在我们已经成功地对 MongoDB 数据库进行了 CRUD（添加、读取、更新、删除）操作。<br>想进一步操作 MongoDB ，可以到<a href="https://mongoosejs.com/docs/api/" target="_blank" rel="noopener">mongoose API 文档</a>查看更多技巧和接口的使用。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>梳理一下，一共讲了这些内容：</p>
+<ol>
+<li>node.js+MongoDB+mongoose在Mac下的环境搭建，注意使用最新的MongoDB的安装方式。</li>
+<li>在Mac下如何启动和关闭MongoDB服务。</li>
+<li>介绍了MongoDB和mongoose的基本核心概念。</li>
+<li>使用mongoose连接以及增删改查MongoDB操作。可以使用Robot3T来更直观地观察数据库。</li>
+</ol>
+<p>文章有点长，我写的比较细。如果你是零基础的人，那么通过这篇文章完全可以独立上手开始捣鼓MongoDB了。如果你是有这方面经验者，欢迎提出意见，欢迎交流～</p>
+<p>参考：<br><a href="https://brew.sh/#install" target="_blank" rel="noopener">Homebrew官网</a><br><a href="https://docs.mongodb.com" target="_blank" rel="noopener">MongoDB官网</a><br><a href="https://mongoosejs.com" target="_blank" rel="noopener">monggose官网</a><br><a href="https://robomongo.org" target="_blank" rel="noopener">Robot3T官网</a><br><a href="http://www.zmtests.com/information/20190904165326" target="_blank" rel="noopener">macOS 包管理器 Homebrew 移除 MongoDB</a></p>
+<p>–<br>欢迎转载，转载请注明出处：<br><a href="https://champyin.com/2019/10/10/node-js-mongoose-mongodb-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%EF%BC%88Mac%E7%89%88%EF%BC%89/">https://champyin.com/2019/10/10/node-js-mongoose-mongodb-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%EF%BC%88Mac%E7%89%88%EF%BC%89/</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/node-js/" rel="tag"># node.js</a>
+          
+            <a href="/tags/MongoDB/" rel="tag"># MongoDB</a>
+          
+            <a href="/tags/mongoose/" rel="tag"># mongoose</a>
+          
+            <a href="/tags/database/" rel="tag"># database</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/05/github项目徽标/" rel="next" title="github项目徽标">
+                <i class="fa fa-chevron-left"></i> github项目徽标
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTgzMy8xNjM2MA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="ChampYin" />
+            
+              <p class="site-author-name" itemprop="name">ChampYin</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yc111" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/champyin" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5936e4aeb123db0064406325" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-globe"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、-环境搭建"><span class="nav-number">1.</span> <span class="nav-text">一、 环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Node-js"><span class="nav-number">1.1.</span> <span class="nav-text">安装Node.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装MongoDB"><span class="nav-number">1.2.</span> <span class="nav-text">安装MongoDB</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-安装-Homebrew"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">1. 安装 Homebrew</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-获取-MongoDB-Homebrew-Tap"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">2. 获取 MongoDB Homebrew Tap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-安装-MongoDB-CE（社区版）"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">3. 安装 MongoDB CE（社区版）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装mongoose"><span class="nav-number">1.3.</span> <span class="nav-text">安装mongoose</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、启动MongoDB服务"><span class="nav-number">2.</span> <span class="nav-text">二、启动MongoDB服务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-在前台运行"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">1. 在前台运行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-也可以作为-macOS-服务，在后台运行"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">2. 也可以作为 macOS 服务，在后台运行</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、操作MongoDB"><span class="nav-number">3.</span> <span class="nav-text">三、操作MongoDB</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-使用-mongoose-连接-MongoDB"><span class="nav-number">3.1.</span> <span class="nav-text">1. 使用 mongoose 连接 MongoDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-添加操作"><span class="nav-number">3.2.</span> <span class="nav-text">2. 添加操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-读取操作"><span class="nav-number">3.3.</span> <span class="nav-text">3. 读取操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-更新操作"><span class="nav-number">3.4.</span> <span class="nav-text">4. 更新操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-删除操作"><span class="nav-number">3.5.</span> <span class="nav-text">5. 删除操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-flag"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ChampYin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span style="display: none">
+  <span class="post-meta-divider">|</span>
+  <span id="busuanzi_container_site_uv">
+    UV <span id="busuanzi_value_site_uv"></span>
+  </span>
+  <span class="post-meta-divider">|</span> 
+  <span id="busuanzi_container_site_pv">
+    PV <span id="busuanzi_value_site_pv"></span>
+  </span>
+</span>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("rvS2PRrtNPtlLVnRCdRTA2g3-gzGzoHsz", "lKROjx0MLNKaBPQ9VROSoMoL");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
