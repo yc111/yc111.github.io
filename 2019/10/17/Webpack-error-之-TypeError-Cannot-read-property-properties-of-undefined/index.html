@@ -89,7 +89,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://champyin.com/images/webpack-cli-config-yargs.js-line89.jpg">
 <meta property="og:image" content="http://champyin.com/images/webapck-release-v4.20.0.jpg">
-<meta property="og:updated_time" content="2019-10-17T08:43:42.384Z">
+<meta property="og:updated_time" content="2019-10-17T08:49:47.588Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Webpack error 之 TypeError: Cannot read property &#39;properties&#39; of undefined">
 <meta name="twitter:description" content="老项目重新 npm install 的坑，问题原因比较隐蔽，记录一下。">
@@ -421,8 +421,11 @@
 </li>
 </ul>
 <h1 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h1><ol>
-<li>看提示，是webpack-cli报错，于是进webpack-cli相应目录查看<br><img src="/images/webpack-cli-config-yargs.js-line89.jpg" alt="webpack-cli-config-yargs.js-line89.jpg"></li>
-<li>简单百度了一下，有人说是webpack和webpack-cli版本不对应导致，安装一下最新的webpack-cli即可解决。<br>也没太注意，就直接重新安装了webpack-cli，为了webpack也跟它匹配，连webpack一起重装了：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i --save-dev webpack webpack-cli</span><br></pre></td></tr></table></figure>
+<li><p>看提示，是webpack-cli报错，于是进webpack-cli相应目录查看<br><img src="/images/webpack-cli-config-yargs.js-line89.jpg" alt="webpack-cli-config-yargs.js-line89.jpg"></p>
+<p>不知为啥没有获得 webapack 配置参数的 output 属性。</p>
+</li>
+<li><p>简单百度了一下，有人说是webpack和webpack-cli版本不对应导致，安装一下最新的webpack-cli即可解决。<br>也没太注意，就直接重新安装了webpack-cli，为了webpack也跟它匹配，连webpack一起重装了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i --save-dev webpack webpack-cli</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>安装完就直接build了，但是还是报同样的错。</p>
