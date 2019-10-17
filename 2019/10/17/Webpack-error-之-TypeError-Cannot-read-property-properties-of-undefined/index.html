@@ -89,7 +89,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://champyin.com/images/webpack-cli-config-yargs.js-line89.jpg">
 <meta property="og:image" content="http://champyin.com/images/webapck-release-v4.20.0.jpg">
-<meta property="og:updated_time" content="2019-10-17T08:49:47.588Z">
+<meta property="og:updated_time" content="2019-10-17T08:52:30.992Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Webpack error 之 TypeError: Cannot read property &#39;properties&#39; of undefined">
 <meta name="twitter:description" content="老项目重新 npm install 的坑，问题原因比较隐蔽，记录一下。">
@@ -439,6 +439,9 @@
 <p>刚才的重新安装后，webpack-cli并没有更新到3.x。</p>
 <h1 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h1><p>所以问题原因终于找到：<br><code>webpack4.20.0</code>之后，需要 <code>webpack-cli3.1.1</code> 搭配使用，而现在是<code>webpack4.41.2 + webpack-cli2.1.5</code>，所以开始报开头贴出来的错。</p>
 <p>而我以为我装了最新的实际却没有给我装最新的cli，原因是：<br>坑爹的 <code>^</code> ，这个符号会限制你在不指定package版本的install时，安装的是不超过当前大版本的最新版本。<br>所以<code>&quot;webpack-cli&quot;: &quot;^2.0.12&quot;</code>这句，限制了我直接install的<code>webpack-cli</code>版本不会超过3.0.0 。</p>
+<blockquote>
+<p>更多npm包版本的语意可以到官网 <a href="https://docs.npmjs.com/misc/semver" target="_blank" rel="noopener">https://docs.npmjs.com/misc/semver</a> 查阅。</p>
+</blockquote>
 <h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>强制安装：<br><code>npm i -D webpack-cli@latest</code><br>或者在 package.json 删除<code>&quot;webpack-cli&quot;: &quot;^2.0.12&quot;</code>这句后，再使用普通安装：<br><code>npm i -D webpack-cli</code>。</p>
 <p>再运行<code>npm run build</code> 打包，OK了～</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
