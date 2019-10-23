@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="今天在git上提交代码的时候，不小心在 commit message 中打了几个错别字，merge、push 完了才发现。。 由于我的完美主义加强迫症比较严重，那几个错别字越看越不顺眼，寻思着把它们给改过来。查了资料，加上实验，终于搞定。  只需五步，方法如下： 修改某次提交的 commit message需要注意的是：如果提交次数超过2次，则没有办法修改第1次的提交信息，第2次以后的信息都可以">
+<meta name="description" content="今天在git上提交代码的时候，不小心在 commit message 中打了几个错别字，merge、push 完了才发现。。 由于我的完美主义加强迫症比较严重，那几个错别字越看越不顺眼，寻思着把它们给改过来。查了资料，加上实验，终于搞定。  只需五步，方法如下： 修改某次提交的 commit message需要注意的是：没有办法修改整个项目的第一条日志。第2次以后的信息都可以通过此方法修改。 1">
 <meta name="keywords" content="git,rebase,amend,cherry-pick">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何修改git中已经提交的内容">
 <meta property="og:url" content="http://champyin.com/2018/09/11/如何修改git中已经提交的内容/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="今天在git上提交代码的时候，不小心在 commit message 中打了几个错别字，merge、push 完了才发现。。 由于我的完美主义加强迫症比较严重，那几个错别字越看越不顺眼，寻思着把它们给改过来。查了资料，加上实验，终于搞定。  只需五步，方法如下： 修改某次提交的 commit message需要注意的是：如果提交次数超过2次，则没有办法修改第1次的提交信息，第2次以后的信息都可以">
+<meta property="og:description" content="今天在git上提交代码的时候，不小心在 commit message 中打了几个错别字，merge、push 完了才发现。。 由于我的完美主义加强迫症比较严重，那几个错别字越看越不顺眼，寻思着把它们给改过来。查了资料，加上实验，终于搞定。  只需五步，方法如下： 修改某次提交的 commit message需要注意的是：没有办法修改整个项目的第一条日志。第2次以后的信息都可以通过此方法修改。 1">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-07T09:37:47.368Z">
+<meta property="og:updated_time" content="2019-10-23T10:21:05.693Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何修改git中已经提交的内容">
-<meta name="twitter:description" content="今天在git上提交代码的时候，不小心在 commit message 中打了几个错别字，merge、push 完了才发现。。 由于我的完美主义加强迫症比较严重，那几个错别字越看越不顺眼，寻思着把它们给改过来。查了资料，加上实验，终于搞定。  只需五步，方法如下： 修改某次提交的 commit message需要注意的是：如果提交次数超过2次，则没有办法修改第1次的提交信息，第2次以后的信息都可以">
+<meta name="twitter:description" content="今天在git上提交代码的时候，不小心在 commit message 中打了几个错别字，merge、push 完了才发现。。 由于我的完美主义加强迫症比较严重，那几个错别字越看越不顺眼，寻思着把它们给改过来。查了资料，加上实验，终于搞定。  只需五步，方法如下： 修改某次提交的 commit message需要注意的是：没有办法修改整个项目的第一条日志。第2次以后的信息都可以通过此方法修改。 1">
 
 
 
@@ -411,7 +411,7 @@
 <p>今天在git上提交代码的时候，不小心在 commit message 中打了几个错别字，merge、push 完了才发现。。 由于我的完美主义加强迫症比较严重，那几个错别字越看越不顺眼，寻思着把它们给改过来。查了资料，加上实验，终于搞定。</p>
 </blockquote>
 <p>只需五步，方法如下：</p>
-<h2 id="修改某次提交的-commit-message"><a href="#修改某次提交的-commit-message" class="headerlink" title="修改某次提交的 commit message"></a>修改某次提交的 commit message</h2><p>需要注意的是：如果提交次数超过2次，则没有办法修改第1次的提交信息，第2次以后的信息都可以通过此方法修改。</p>
+<h2 id="修改某次提交的-commit-message"><a href="#修改某次提交的-commit-message" class="headerlink" title="修改某次提交的 commit message"></a>修改某次提交的 commit message</h2><p>需要注意的是：没有办法修改整个项目的第一条日志。第2次以后的信息都可以通过此方法修改。</p>
 <h3 id="1-查看提交的-commit-id-SHA值"><a href="#1-查看提交的-commit-id-SHA值" class="headerlink" title="1. 查看提交的 commit id (SHA值)"></a>1. 查看提交的 commit id (SHA值)</h3><p>如果 push 过，可以在git托管平台（比如 github、gitlab)上的 commits 里面看到（那串40位的编码就是了），只需要其前7位。<br>或者直接通过 <code>git log</code> 命令查看：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --oneline</span><br></pre></td></tr></table></figure></p>
 <p>在展示的结果上每条 log 记录的前面的字段就是我们需要的 SHA 值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git log --oneline</span><br><span class="line">b8b2df7 (HEAD -&gt; master, origin/master) 中文</span><br><span class="line">dd09519 di sici tijiao</span><br><span class="line">f1d9380 english only modify again..</span><br><span class="line">ea8a3b5 nonono correct message</span><br><span class="line">66a4488 need to be changed message</span><br></pre></td></tr></table></figure></p>
 <p>比如我要修改的那条 commit 的 SHA 为：dd09519<br>那我需要的是这一条之前的一条 commit 的 SHA ：f1d9380</p>
