@@ -119,8 +119,8 @@
         <category>操作系统</category>
       </categories>
       <tags>
-        <tag>mac</tag>
         <tag>linux</tag>
+        <tag>mac</tag>
       </tags>
   </entry>
   <entry>
@@ -151,7 +151,7 @@
   <entry>
     <title><![CDATA[如何创建空白git分支]]></title>
     <url>%2F2019%2F01%2F29%2F%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E7%A9%BA%E7%99%BDgit%E5%88%86%E6%94%AF%2F</url>
-    <content type="text"><![CDATA[在管理前端代码工程时，有时需要创建一个干净的分支，比如用于放文档，或者全新的版本分支。但是普通的创建分支命令，会将历史日志带过去。那么对于有代码洁癖和强迫症的人（比如我）来说，是不能忍的。强大的git为我们这些人准备了创建空白git分支的方法。掌握后受用无穷。 步骤： 1. 创建无父节点的分支1git checkout --orphan orphanbranch 参数 orphan 的作用一个是拷贝当前所在分支的所有文件，另一个是没有父节点，即意味着没有历史记录，是一个完全独立的干净的分支。 2. 删除该分支下所有文件1git rm -rf . 这个操作不会影响历史记录。即不会在log里面出现delete的日志。 3. 创建一个初始文件，比如readme，并提交因为在第一步之后，虽然却换到了 newemptybranch 分支，但是通过 git branch -a 是还看不到当前分支的。 必须在这个空白的分支进行一次初始提交，才可以看到。123touch README.mdgit add .git commit -m &quot;add readme&quot; 4. 一个干净的空白分支诞生现在可以通过分支查看命令看到当前干净分支啦。用日志命令可以看到，当前分支只有一条添加readme的记录。12git branch -agit log --oneline Good luck！]]></content>
+    <content type="text"><![CDATA[在管理前端代码工程时，有时需要创建一个干净的分支，比如用于放文档，或者全新的版本分支。但是普通的创建分支命令，会将历史日志带过去。那么对于有代码洁癖和强迫症的人（比如我）来说，是不能忍的。强大的git为我们这些人准备了创建空白git分支的方法。掌握后受用无穷。 步骤： 1. 创建无父节点的分支1git checkout --orphan orphanbranch 参数 orphan 的作用有两个： 1.拷贝当前所在分支的所有文件。 2.让这个新的分支没有父节点。这就意味着这个分支不会有任何历史记录，于是我们就可以得到一个干净的分支。 2. 删除该分支下所有文件1git rm -rf . 此时这个操作并不会影响历史记录，不会在log里面出现delete的日志。 3. 创建一个初始文件，比如readme，并提交在第一步之后，我们虽然却换到了 orphanbranch 分支，但是现在用 git branch -a 还看不到当前分支。 我们必须对这个分支进行一次初始提交，才可以看到它。123touch README.mdgit add .git commit -m &quot;add readme&quot; 4. 一个干净的空白分支诞生现在git branch -a可以看到这个分支了。现在我们git log查看一下这条分支的日志，可以看到，只有一条添加readme的记录，说明一个空白分支创建成功。12git branch -agit log --oneline Good luck！]]></content>
       <categories>
         <category>前端工具</category>
       </categories>

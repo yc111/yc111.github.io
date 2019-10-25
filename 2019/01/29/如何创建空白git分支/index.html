@@ -91,7 +91,7 @@
 <meta property="og:image" content="http://champyin.com/images/git-rm.jpg">
 <meta property="og:image" content="http://champyin.com/images/git-branch-a.jpg">
 <meta property="og:image" content="http://champyin.com/images/git-branch-a-git-log.jpg">
-<meta property="og:updated_time" content="2019-10-25T14:13:03.343Z">
+<meta property="og:updated_time" content="2019-10-25T14:27:44.208Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何创建空白git分支">
 <meta name="twitter:description" content="在管理前端代码工程时，有时需要创建一个干净的分支，比如用于放文档，或者全新的版本分支。但是普通的创建分支命令，会将历史日志带过去。那么对于有代码洁癖和强迫症的人（比如我）来说，是不能忍的。强大的git为我们这些人准备了创建空白git分支的方法。掌握后受用无穷。">
@@ -418,12 +418,16 @@
 <a id="more"></a>
 <p>步骤：</p>
 <h2 id="1-创建无父节点的分支"><a href="#1-创建无父节点的分支" class="headerlink" title="1. 创建无父节点的分支"></a>1. 创建无父节点的分支</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout --orphan orphanbranch</span><br></pre></td></tr></table></figure>
-<p>参数 <code>orphan</code> 的作用一个是拷贝当前所在分支的所有文件，另一个是没有父节点，即意味着没有历史记录，是一个完全独立的干净的分支。<br><img src="/images/git-checkout---orphan.jpg" alt="git-checkout---orphan.jpg"></p>
+<p>参数 <code>orphan</code> 的作用有两个：</p>
+<ul>
+<li>1.拷贝当前所在分支的所有文件。</li>
+<li>2.让这个新的分支没有父节点。<br>这就意味着这个分支不会有任何历史记录，于是我们就可以得到一个干净的分支。<br><img src="/images/git-checkout---orphan.jpg" alt="git-checkout---orphan.jpg"></li>
+</ul>
 <h2 id="2-删除该分支下所有文件"><a href="#2-删除该分支下所有文件" class="headerlink" title="2. 删除该分支下所有文件"></a>2. 删除该分支下所有文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm -rf .</span><br></pre></td></tr></table></figure>
-<p>这个操作不会影响历史记录。即不会在log里面出现delete的日志。<br><img src="/images/git-rm.jpg" alt="git-rm.jpg"></p>
-<h2 id="3-创建一个初始文件，比如readme，并提交"><a href="#3-创建一个初始文件，比如readme，并提交" class="headerlink" title="3. 创建一个初始文件，比如readme，并提交"></a>3. 创建一个初始文件，比如readme，并提交</h2><p>因为在第一步之后，虽然却换到了 <code>newemptybranch</code> 分支，但是通过 <code>git branch -a</code> 是还看不到当前分支的。<br><img src="/images/git-branch-a.jpg" alt="git-branch-a.jpg"></p>
-<p>必须在这个空白的分支进行一次初始提交，才可以看到。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">touch README.md</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;add readme&quot;</span><br></pre></td></tr></table></figure></p>
-<h2 id="4-一个干净的空白分支诞生"><a href="#4-一个干净的空白分支诞生" class="headerlink" title="4. 一个干净的空白分支诞生"></a>4. 一个干净的空白分支诞生</h2><p>现在可以通过分支查看命令看到当前干净分支啦。<br>用日志命令可以看到，当前分支只有一条添加readme的记录。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch -a</span><br><span class="line">git log --oneline</span><br></pre></td></tr></table></figure></p>
+<p>此时这个操作并不会影响历史记录，不会在log里面出现delete的日志。<br><img src="/images/git-rm.jpg" alt="git-rm.jpg"></p>
+<h2 id="3-创建一个初始文件，比如readme，并提交"><a href="#3-创建一个初始文件，比如readme，并提交" class="headerlink" title="3. 创建一个初始文件，比如readme，并提交"></a>3. 创建一个初始文件，比如readme，并提交</h2><p>在第一步之后，我们虽然却换到了 <code>orphanbranch</code> 分支，但是现在用 <code>git branch -a</code> 还看不到当前分支。<br><img src="/images/git-branch-a.jpg" alt="git-branch-a.jpg"></p>
+<p>我们必须对这个分支进行一次初始提交，才可以看到它。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">touch README.md</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;add readme&quot;</span><br></pre></td></tr></table></figure></p>
+<h2 id="4-一个干净的空白分支诞生"><a href="#4-一个干净的空白分支诞生" class="headerlink" title="4. 一个干净的空白分支诞生"></a>4. 一个干净的空白分支诞生</h2><p>现在<code>git branch -a</code>可以看到这个分支了。现在我们<code>git log</code>查看一下这条分支的日志，可以看到，只有一条添加readme的记录，说明一个空白分支创建成功。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch -a</span><br><span class="line">git log --oneline</span><br></pre></td></tr></table></figure></p>
 <p><img src="/images/git-branch-a-git-log.jpg" alt="git-branch-a-git-log.jpg"></p>
 <p>Good luck！</p>
 
