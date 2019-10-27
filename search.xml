@@ -783,6 +783,12 @@
   <entry>
     <title><![CDATA[node-widows]]></title>
     <url>%2F2018%2F04%2F06%2Fnode-widows%2F</url>
-    <content type="text"><![CDATA[使用node-windows 将node服务变成windows服务进行管理]]></content>
+    <content type="text"><![CDATA[使用node-windows 将node服务变成windows服务进行管理npm主页]]></content>
+      <categories>
+        <category>前端技术</category>
+      </categories>
+      <tags>
+        <tag>node</tag>
+      </tags>
   </entry>
 </search>
