@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[git进阶之合并多次commit]]></title>
+    <url>%2F2019%2F10%2F28%2Fgit%E8%BF%9B%E9%98%B6%E4%B9%8B%E5%90%88%E5%B9%B6%E5%A4%9A%E6%AC%A1commit%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
     <title><![CDATA[Webpack error 之 TypeError: Cannot read property 'properties' of undefined]]></title>
     <url>%2F2019%2F10%2F17%2FWebpack-error-%E4%B9%8B-TypeError-Cannot-read-property-properties-of-undefined%2F</url>
     <content type="text"><![CDATA[老项目重新 npm install 的坑，问题原因比较隐蔽，记录一下。 操作背景 去年建的项目，webpack4.4.1，webpack-cli2.0.12。 今天在另一台电脑，把项目clone下来，然后npm install, 执行build打包的时候，立即报错。 两台电脑node环境相同。完整报错如下：123456789101112131415/node_modules/webpack-cli/bin/config-yargs.js:89 describe: optionsSchema.definitions.output.properties.path.description, ^TypeError: Cannot read property &apos;properties&apos; of undefined at module.exports (/Users/yinchuan/Documents/学习/学习笔记/test/code-lib/webpack-library-example/node_modules/webpack-cli/bin/config-yargs.js:89:48) at /Users/yinchuan/Documents/学习/学习笔记/test/code-lib/webpack-library-example/node_modules/webpack-cli/bin/webpack.js:60:27 at Object.&lt;anonymous&gt; (/Users/yinchuan/Documents/学习/学习笔记/test/code-lib/webpack-library-example/node_modules/webpack-cli/bin/webpack.js:515:3) at Module._compile (module.js:652:30) at Object.Module._extensions..js (module.js:663:10) at Module.load (module.js:565:32) at tryModuleLoad (module.js:505:12) at Function.Module._load (module.js:497:3) at Module.require (module.js:596:17) at require (internal/module.js:11:18) 问题分析 看提示，是webpack-cli报错，于是进webpack-cli相应目录查看 不知为啥没有获得 webapack 配置参数的 output 属性。 简单百度了一下，有人说是webpack和webpack-cli版本不对应导致，安装一下最新的webpack-cli即可解决。也没太注意，就直接重新安装了webpack-cli，为了webpack也跟它匹配，连webpack一起重装了： 1npm i --save-dev webpack webpack-cli 安装完就直接build了，但是还是报同样的错。 于是开始各种尝试，直接npx webpack用默认配置打包、用配置文件webpack.config.js打包、把工程简化到就一句console.log、把webpack配置精简到就entry和output… 排除了文件路径，代码逻辑问题，webpack和webpack-cli也都是最新的，还是没用。 最后再次百度，发现有人提到他把 webpack-cli 从2.x升级到3.x就好了，原因是 webpack 在 4.20.0 之后，需要 webpack-cli3.1.1 搭配使用。。。 https://github.com/webpack/webpack/releases/tag/v4.20.0 我突然想到 npm package 的版本前面的那个符号有限制版本的作用，可能我以为我的webpack-cli是最新的，但其实并没有呢？ 赶紧去检查了下我的本地webpack和webpack-cli版本，OHG！果然！12&quot;webpack&quot;: &quot;^4.41.2&quot;,&quot;webpack-cli&quot;: &quot;^2.1.5&quot; 刚才的重新安装后，webpack-cli并没有更新到3.x。 问题原因所以问题原因终于找到：webpack4.20.0之后，需要 webpack-cli3.1.1 搭配使用，而现在是webpack4.41.2 + webpack-cli2.1.5，所以开始报开头贴出来的错。 而我以为我装了最新的实际却没有给我装最新的cli，原因是：坑爹的 ^ ，这个符号会限制你在不指定package版本的install时，安装的是不超过当前大版本的最新版本。所以&quot;webpack-cli&quot;: &quot;^2.0.12&quot;这句，限制了我直接install的webpack-cli版本不会超过3.0.0 。 更多npm包版本的语意可以到官网 https://docs.npmjs.com/misc/semver 查阅。 解决强制安装：npm i -D webpack-cli@latest或者在 package.json 删除&quot;webpack-cli&quot;: &quot;^2.0.12&quot;这句后，再使用普通安装：npm i -D webpack-cli。 再运行npm run build 打包，OK了～ 总结 不要以为重新安装一下就一定是安装最新的包。 不要忽视 npm package 的版本号前缀，它的语意很重要。 一定要关注webpack这些打包工具的release动态和特性变化，这对你的项目中如果改变了webpack的版本导致的问题很有帮助。 webpack 4.20.0 以上，需要 webpack-cli3.1.1 搭配使用。]]></content>
@@ -499,7 +504,7 @@
   <entry>
     <title><![CDATA[如何撤销 git add 和 git commit]]></title>
     <url>%2F2018%2F09%2F19%2F%E5%A6%82%E4%BD%95%E6%92%A4%E9%94%80-git-add-%E5%92%8C-git-commit%2F</url>
-    <content type="text"><![CDATA[由于心急，提交代码的时候，commit 后，发现多提交了一个文件，然后第一想法是使用 rebase 来修改提交，然后我把那个多提交的文件，恢复成修改前的样子，然后打算在 git add . 之后进行 rebase ，结果查看状态发现，它把我之前在编辑器里面忽略的一个文件也给加进来了…所以这个时候，我既多 commit 了， 又多 add 了…蜜汁尴尬… 经过查找资料，问题解决，又 get 到 git 的新技能： 1. git add 多了 git status 查看下 add 的文件 git reset HEAD 。如果后面什么都不跟，就是把上一次的 git add 全部撤销。or git reset HEAD xxx/xxx/xxx.js ，则对某个文件进行撤销 add。 2. git add 多了之后，又 commit 了 先使用 git log –oneline 查看节点，找到这次 commit 的上一次 commit 记录。 然后 git reset commit_id 。退回到上一个提交的节点，代码还是原来你修改的样子，即提交前的样子。 3. 使用 git revert 还原已经提交的修改（这个没有验证过）使用 git revert 后，此次操作之前和之后的 commit 和 history 都会保留，并且把这次撤销作为一次最新的提交。 git revert HEAD 撤销前一次 commit git revert HEAD^ 撤销前一次 commit git revert commit_id 撤销指定的版本，撤销也会作为一次提交进行保存。git revert 是提交一个新的版本，将需要 revert 的版本的内容再反向修改回去，版本会递增，不影响之前提交的内容。]]></content>
+    <content type="text"><![CDATA[由于心急，提交代码的时候，commit 后，发现多提交了一个文件，然后第一想法是使用 rebase 来修改提交，然后我把那个多提交的文件，恢复成修改前的样子，然后打算在 git add . 之后进行 rebase ，结果查看状态发现，它把我之前在编辑器里面忽略的一个文件也给加进来了…所以这个时候，我既多 commit 了， 又多 add 了…蜜汁尴尬… 经过查找资料，问题解决，又 get 到 git 的新技能. 1. git add 多了 git status 查看下 add 的文件 git reset HEAD 如果后面什么都不跟，就是把上一次的 git add 全部撤销。or git reset HEAD xxx/xxx/xxx.js ，则对某个文件进行撤销 add。 2. git add 多了之后，又 commit 了 先使用 git log --oneline 查看节点，找到这次 commit 的上一次 commit 记录。 然后 git reset commit_id 。退回到某一个提交的节点，代码还是现在的样子，只是那个节点之后的commit日志没有了，git add 的暂存区也清掉了，那次节点之后的所有改动都放在了当前工作区。即需要重新 git add 到暂存区，再commit。 git reset 有三个参数可选：--hard --soft --mixed，不跟参数就是默认的--mixed。 3. 使用 git revert 还原已经提交的修改（这个没有验证过）使用 git revert 后，此次操作之前和之后的 commit 和 history 都会保留，并且把这次撤销作为一次最新的提交。 git revert HEAD 撤销前一次 commit git revert HEAD^ 撤销前一次 commit git revert commit_id 撤销指定的版本，撤销也会作为一次提交进行保存。git revert 是提交一个新的版本，将需要 revert 的版本的内容再反向修改回去，版本会递增，不影响之前提交的内容。]]></content>
       <categories>
         <category>前端工具</category>
       </categories>
@@ -542,9 +547,9 @@
         <category>前端技术</category>
       </categories>
       <tags>
-        <tag>node.js</tag>
         <tag>express</tag>
         <tag>koa</tag>
+        <tag>node.js</tag>
       </tags>
   </entry>
   <entry>

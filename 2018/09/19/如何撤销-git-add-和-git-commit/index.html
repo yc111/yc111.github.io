@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="由于心急，提交代码的时候，commit 后，发现多提交了一个文件，然后第一想法是使用 rebase 来修改提交，然后我把那个多提交的文件，恢复成修改前的样子，然后打算在 git add . 之后进行 rebase ，结果查看状态发现，它把我之前在编辑器里面忽略的一个文件也给加进来了…所以这个时候，我既多 commit 了， 又多 add 了…蜜汁尴尬…  经过查找资料，问题解决，又 get 到">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-09-19T15:58:33.000Z">
+<meta property="og:updated_time" content="2019-10-28T10:38:28.239Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何撤销 git add 和 git commit ">
 <meta name="twitter:description" content="由于心急，提交代码的时候，commit 后，发现多提交了一个文件，然后第一想法是使用 rebase 来修改提交，然后我把那个多提交的文件，恢复成修改前的样子，然后打算在 git add . 之后进行 rebase ，结果查看状态发现，它把我之前在编辑器里面忽略的一个文件也给加进来了…所以这个时候，我既多 commit 了， 又多 add 了…蜜汁尴尬…  经过查找资料，问题解决，又 get 到">
@@ -410,22 +410,25 @@
         <blockquote>
 <p>由于心急，提交代码的时候，commit 后，发现多提交了一个文件，然后第一想法是使用 <code>rebase</code> 来修改提交，然后我把那个多提交的文件，恢复成修改前的样子，然后打算在 <code>git add .</code> 之后进行 rebase ，结果查看状态发现，它把我之前在编辑器里面忽略的一个文件也给加进来了…所以这个时候，我既多 commit 了， 又多 add 了…蜜汁尴尬…</p>
 </blockquote>
-<p>经过查找资料，问题解决，又 get 到 git 的新技能：</p>
-<h3 id="1-git-add-多了"><a href="#1-git-add-多了" class="headerlink" title="1. git add 多了"></a>1. git add 多了</h3><a id="more"></a>
-<ul>
-<li>git status 查看下 add 的文件</li>
-<li>git reset HEAD 。如果后面什么都不跟，就是把上一次的 git add 全部撤销。<br>or</li>
-<li>git reset HEAD xxx/xxx/xxx.js ，则对某个文件进行撤销 add。</li>
+<p>经过查找资料，问题解决，又 get 到 git 的新技能.</p>
+<a id="more"></a>
+<h3 id="1-git-add-多了"><a href="#1-git-add-多了" class="headerlink" title="1. git add 多了"></a>1. git add 多了</h3><ul>
+<li><code>git status</code> 查看下 add 的文件</li>
+<li><code>git reset HEAD</code> 如果后面什么都不跟，就是把上一次的 git add 全部撤销。<br>or</li>
+<li><code>git reset HEAD xxx/xxx/xxx.js</code> ，则对某个文件进行撤销 add。</li>
 </ul>
 <h3 id="2-git-add-多了之后，又-commit-了"><a href="#2-git-add-多了之后，又-commit-了" class="headerlink" title="2. git add 多了之后，又 commit 了"></a>2. git add 多了之后，又 commit 了</h3><ul>
-<li>先使用 git log –oneline 查看节点，找到这次 commit 的上一次 commit 记录。</li>
-<li>然后 git reset commit_id 。退回到上一个提交的节点，代码还是原来你修改的样子，即提交前的样子。</li>
+<li>先使用 <code>git log --oneline</code> 查看节点，找到这次 commit 的上一次 commit 记录。</li>
+<li>然后 <code>git reset commit_id</code> 。退回到某一个提交的节点，代码还是现在的样子，只是那个节点之后的commit日志没有了，git add 的暂存区也清掉了，那次节点之后的所有改动都放在了当前工作区。即需要重新 git add 到暂存区，再commit。<blockquote>
+<p><code>git reset</code> 有三个参数可选：<code>--hard</code> <code>--soft</code> <code>--mixed</code>，不跟参数就是默认的<code>--mixed</code>。</p>
+</blockquote>
+</li>
 </ul>
 <h3 id="3-使用-git-revert-还原已经提交的修改（这个没有验证过）"><a href="#3-使用-git-revert-还原已经提交的修改（这个没有验证过）" class="headerlink" title="3. 使用 git revert 还原已经提交的修改（这个没有验证过）"></a>3. 使用 git revert 还原已经提交的修改（这个没有验证过）</h3><p>使用 git revert 后，此次操作之前和之后的 commit 和 history 都会保留，并且把这次撤销作为一次最新的提交。</p>
 <ul>
-<li>git revert HEAD 撤销前一次 commit</li>
-<li>git revert HEAD^ 撤销前一次 commit</li>
-<li>git revert commit_id 撤销指定的版本，撤销也会作为一次提交进行保存。<br>git revert 是提交一个新的版本，将需要 revert 的版本的内容再反向修改回去，版本会递增，不影响之前提交的内容。</li>
+<li><code>git revert HEAD</code> 撤销前一次 commit</li>
+<li><code>git revert HEAD^</code> 撤销前一次 commit</li>
+<li><code>git revert commit_id</code> 撤销指定的版本，撤销也会作为一次提交进行保存。<br>git revert 是提交一个新的版本，将需要 revert 的版本的内容再反向修改回去，版本会递增，不影响之前提交的内容。</li>
 </ul>
 
       
@@ -559,7 +562,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
