@@ -406,29 +406,16 @@
 
       
         
-          
-            <blockquote>
+          <blockquote>
 <p>有的时候，完成一个功能，不是一时半会就可以完成的，但是为了保护代码不丢失，我们会把这次的修改先commit，而不着急push到远程。等到这个功能完全做好，再push。但是这样一来，就会有很多零碎的commit，这会使远程的commit显得很杂乱。于是必要的时候，我们会合并这些相近的commit为一个commit再push。当然了，如果你想合并远程的commit也是可以的，只是要跟团队提前说一声，免得有其他人也在跟你做同样的事情，那远程仓库就不知道会乱成什么样了。所以建议合并commit，尽量在push前。</p>
 </blockquote>
-<p>Step：</p>
-<h2 id="1-git-log-查看commit节点id"><a href="#1-git-log-查看commit节点id" class="headerlink" title="1. git log 查看commit节点id"></a>1. git log 查看commit节点id</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --oneline</span><br></pre></td></tr></table></figure>
-<p>参数<code>--oneline</code>可以让你的commit log在一行输出，比较紧凑，coimmit id也以简短的位数展示，比较便于查看。<br>找到你要保留的那条commit，也就是你要把那些commit合并到哪一条commit上，复制这条commit的id。</p>
-<h2 id="2-git-rebase-变基"><a href="#2-git-rebase-变基" class="headerlink" title="2. git rebase 变基"></a>2. git rebase 变基</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase -i [commit_id]</span><br></pre></td></tr></table></figure>
-<p><code>[commit_id]</code>就放你在第1步复制的那个值。</p>
-<h2 id="3-修改-pick-为-squash"><a href="#3-修改-pick-为-squash" class="headerlink" title="3. 修改 pick 为 squash"></a>3. 修改 <code>pick</code> 为 <code>squash</code></h2><p>然后就会进入rebase界面，类似这样：</p>
-<p><img src="/images/git-rebase.jpg" alt="git-rebase.jpg"></p>
-<p>vi指令<code>i</code>进入编辑模式，修改<code>pick</code> 为 <code>squash</code>(或者<code>s</code>)，注意要保留第一个为 <code>pick</code>，因为<code>squash</code>的作用是把commit合并到上一个提交，所以必须保证至少第一个提交被<code>pick</code>。</p>
-<blockquote>
-<p>如果你不小心把所有的<code>pick</code>都改为了<code>s</code>，然后保存退出，会收到一个错误提示：<code>cannot &#39;squash&#39; without a previous commit</code>。不要怕，根据它的下一个提示操作就可以了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">You can fix this with &apos;git rebase --edit-todo&apos; and then run &apos;git rebase --continue&apos;.</span><br><span class="line">Or you can abort the rebase with &apos;git rebase --abort&apos;.</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<p>尽管它提示了3种方法来处理，我还是推荐你使用<code>git rebase --abort</code>，然后重来一次rebase，这样最稳妥。</p>
-<h2 id="4-处理合并后的commit-message"><a href="#4-处理合并后的commit-message" class="headerlink" title="4. 处理合并后的commit message"></a>4. 处理合并后的commit message</h2><p>如果第3步顺利的话，<code>esc</code>之后，vi指令<code>wq</code>，保存并退出vi界面，然后会进入另一个vi界面，在这里它会把你合并的这些commit的日志列出来，便于你编辑。<br>同样使用vi指令<code>i</code>进入编辑模式，编辑完后，<code>esc</code>+<code>wq</code>回车退出。然后会出现<code>Successfully rebased and updated refs/heads/xxx.</code>说明commit合并成功了。</p>
-<h2 id="5-如果修改的是远程的commit，则强制push一把"><a href="#5-如果修改的是远程的commit，则强制push一把" class="headerlink" title="5. 如果修改的是远程的commit，则强制push一把"></a>5. 如果修改的是远程的commit，则强制push一把</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -f</span><br></pre></td></tr></table></figure>
-<p>如果你还没push，只是处理本地的commit，则不需要这一步。否则，就需要把这次的rebase强制覆盖远程分支。</p>
-<h2 id="done！"><a href="#done！" class="headerlink" title="done！"></a>done！</h2><p>现在可以<code>git log --oneline</code>看下，是不是commit数量已经减少了，并且你指定的那些commit都合并为了一条，message就是你在第4步处理的内容。</p>
-<p>GoodLuck！</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/10/28/git进阶之合并多次commit/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
