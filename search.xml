@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[git进阶之合并多次commit]]></title>
     <url>%2F2019%2F10%2F28%2Fgit%E8%BF%9B%E9%98%B6%E4%B9%8B%E5%90%88%E5%B9%B6%E5%A4%9A%E6%AC%A1commit%2F</url>
-    <content type="text"><![CDATA[有的时候，完成一个功能，不是一时半会就可以完成的，但是为了保护代码不丢失，我们会把这次的修改先commit，而不着急push到远程。等到这个功能完全做好，再push。但是这样一来，就会有很多零碎的commit，这会使远程的commit显得很杂乱。于是必要的时候，我们会合并这些相近的commit为一个commit再push。当然了，如果你想合并远程的commit也是可以的，只是要跟团队提前说一声，免得有其他人也在跟你做同样的事情，那远程仓库就不知道会乱成什么样了。所以建议合并commit，尽量在push前。 Step： 1. git log 查看commit节点id1git log --oneline 参数--oneline可以让你的commit log在一行输出，比较紧凑，coimmit id也以简短的位数展示，比较便于查看。找到你要保留的那条commit，也就是你要把那些commit合并到哪一条commit上，复制这条commit的id。 2. git rebase 变基1git rebase -i [commit_id] [commit_id]就放你在第1步复制的那个值。 3. 修改 pick 为 squash然后就会进入rebase界面，类似这样： vi指令i进入编辑模式，修改pick 为 squash(或者s)，注意要保留第一个为 pick，因为squash的作用是把commit合并到上一个提交，所以必须保证至少第一个提交被pick。 如果你不小心把所有的pick都改为了s，然后保存退出，会收到一个错误提示：cannot &#39;squash&#39; without a previous commit。不要怕，根据它的下一个提示操作就可以了：12You can fix this with &apos;git rebase --edit-todo&apos; and then run &apos;git rebase --continue&apos;.Or you can abort the rebase with &apos;git rebase --abort&apos;. 尽管它提示了3种方法来处理，我还是推荐你使用git rebase --abort，然后重来一次rebase，这样最稳妥。 4. 处理合并后的commit message如果第3步顺利的话，esc之后，vi指令wq，保存并退出vi界面，然后会进入另一个vi界面，在这里它会把你合并的这些commit的日志列出来，便于你编辑。同样使用vi指令i进入编辑模式，编辑完后，esc+wq回车退出。然后会出现Successfully rebased and updated refs/heads/xxx.说明commit合并成功了。 5. 如果修改的是远程的commit，则强制push一把1git push -f 如果你还没push，只是处理本地的commit，则不需要这一步。否则，就需要把这次的rebase强制覆盖远程分支。 done！现在可以git log --oneline看下，是不是commit数量已经减少了，并且你指定的那些commit都合并为了一条，message就是你在第4步处理的内容。 GoodLuck！]]></content>
+    <content type="text"><![CDATA[有的时候，完成一个功能，不是一时半会就可以完成的，但是为了保护代码不丢失，我们会把这次的修改先commit，而不着急push到远程。等到这个功能完全做好，再push。但是这样一来，就会有很多零碎的commit，这会使远程的commit显得很杂乱。于是必要的时候，我们会合并这些相近的commit为一个commit再push。当然了，如果你想合并远程的commit也是可以的，只是要跟团队提前说一声，免得有其他人也在跟你做同样的事情，那远程仓库就不知道会乱成什么样了。所以建议合并commit，尽量在push前。 Step： 1. git log 查看commit节点id1git log --oneline 参数--oneline可以让你的commit log在一行输出，比较紧凑，coimmit id也以简短的位数展示，比较便于查看。找到你要保留的那条commit，也就是你要把那些commit合并到哪一条commit上，复制这条commit的id。 2. git rebase 变基1git rebase -i [commit_id] [commit_id]就放你在第1步复制的那个值。 3. 修改 pick 为 squash然后就会进入rebase界面，类似这样： vi指令i进入编辑模式，修改pick 为 squash(或者s)，注意要保留第一个为 pick，因为squash的作用是把commit合并到上一个提交，所以必须保证至少第一个提交被pick。 如果你不小心把所有的pick都改为了s，然后保存退出，会收到一个错误提示：cannot &#39;squash&#39; without a previous commit。不要怕，根据它的下一个提示操作就可以了：12You can fix this with &apos;git rebase --edit-todo&apos; and then run &apos;git rebase --continue&apos;.Or you can abort the rebase with &apos;git rebase --abort&apos;. 尽管它提示了2种方法来处理，我还是推荐你使用git rebase --abort，然后重来一次rebase，这样最稳妥。 4. 处理合并后的commit message如果第3步顺利的话，esc之后，vi指令wq，保存并退出vi界面，然后会进入另一个vi界面，在这里它会把你合并的这些commit的日志列出来，便于你编辑。同样使用vi指令i进入编辑模式，编辑完后，esc+wq回车退出。然后会出现Successfully rebased and updated refs/heads/xxx.说明commit合并成功了。 5. 如果修改的是远程的commit，则强制push一把1git push -f 如果你还没push，只是处理本地的commit，则不需要这一步。否则，就需要把这次的rebase强制覆盖远程分支。 done！现在可以git log --oneline看下，是不是commit数量已经减少了，并且你指定的那些commit都合并为了一条，message就是你在第4步处理的内容。 GoodLuck！]]></content>
       <categories>
         <category>前端工具</category>
       </categories>
@@ -553,9 +553,9 @@
         <category>前端技术</category>
       </categories>
       <tags>
+        <tag>node.js</tag>
         <tag>express</tag>
         <tag>koa</tag>
-        <tag>node.js</tag>
       </tags>
   </entry>
   <entry>
