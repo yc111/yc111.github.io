@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[es6-promise]]></title>
     <url>%2F2019%2F11%2F05%2Fes6-promise%2F</url>
-    <content type="text"><![CDATA[自从2015年 ES6（ECMAScript 6）正式发布以来，许多JS新特性让我们的前端开发更加语意化，更加高效。Promise 就是其中一个很受欢迎的特性。在享受新特性给我们带来的便利的同时，我觉得有必要不间断了解和总结这些新特性的本质以及其原理机制。就从Promise开始。 Promise的本质Promise的特征Promise实例上的方法和静态方法自己实现一版Promise–GoodLuck!]]></content>
+    <content type="text"><![CDATA[自从2015年 ES6（ECMAScript 6）正式发布以来，许多JS新特性让我们的前端开发更加语意化，更加高效。在享受新特性给我们带来的便利的同时，我觉得有必要不间断了解和总结这些新特性的本质以及其原理机制。就从Promise开始。 Promise的本质Promise的特征Promise实例上的方法和静态方法自己实现一版Promise–GoodLuck!]]></content>
       <categories>
         <category>前端技术</category>
       </categories>
@@ -565,9 +565,9 @@
         <category>前端技术</category>
       </categories>
       <tags>
+        <tag>node.js</tag>
         <tag>express</tag>
         <tag>koa</tag>
-        <tag>node.js</tag>
       </tags>
   </entry>
   <entry>
