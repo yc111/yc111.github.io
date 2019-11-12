@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="自从2015年 ES6（ECMAScript 6）正式发布以来，许多JS新特性让我们的前端开发更加语意化，更加高效。在享受新特性给我们带来的便利的同时，在业务代码满天飞的同时，我觉得有必要沉下心来不间断地了解和总结这些新特性的底层机制、原理及其优缺点。就从Promise开始。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-05T17:31:40.842Z">
+<meta property="og:updated_time" content="2019-11-12T15:17:38.449Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="es6-promise">
 <meta name="twitter:description" content="自从2015年 ES6（ECMAScript 6）正式发布以来，许多JS新特性让我们的前端开发更加语意化，更加高效。在享受新特性给我们带来的便利的同时，在业务代码满天飞的同时，我觉得有必要沉下心来不间断地了解和总结这些新特性的底层机制、原理及其优缺点。就从Promise开始。">
@@ -443,14 +443,14 @@
 <h1 id="自己实现一版Promise"><a href="#自己实现一版Promise" class="headerlink" title="自己实现一版Promise"></a>自己实现一版Promise</h1><p>现在的大部分IDE和浏览器都已经内置原生Promise，不过你也可以不使用原生Promise，选择自己写一个Promise。</p>
 <p>但如果你的Promise想跟原生Promise混用，或者想让别人使用，最好先通过 <a href="https://promisesaplus.com/" target="_blank" rel="noopener">promiseA+规范</a> 的测试。</p>
 <h3 id="如何测试自己的Promise是否符合PromiseA-规范"><a href="#如何测试自己的Promise是否符合PromiseA-规范" class="headerlink" title="如何测试自己的Promise是否符合PromiseA+规范"></a>如何测试自己的Promise是否符合PromiseA+规范</h3><ul>
-<li><p>step1. 在代码中添加测试代码<br>在自己的 <code>Promise.js</code> 里，给Promise添加一个deferred静态方法，把自己的Promise上去：</p>
+<li><p>step1. 在代码中添加测试代码<br>在自己的 <code>Promise.js</code> 里，给Promise添加一个deferred静态方法，在里面new一个自己的Promise 实例，把实例和实例上的resolve、reject挂上去：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Promise.deferred = () =&gt; &#123;</span><br><span class="line">	let dfd = &#123;&#125;;</span><br><span class="line">	dfd.promise = new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">		dfd.resolve = resolve;</span><br><span class="line">		dfd.reject = reject;</span><br><span class="line">	&#125;)</span><br><span class="line">	return dfd;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>step2. 安装 promsises-aplus-tests 插件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D primises-aplus-tests</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>step3. 运行脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx promises-aplus-test ./ Promise.js</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">  npx promises-aplus-test ./ Promise.js</span><br><span class="line">&gt; npx 是 npm 8.5 以上具有的功能。</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>如果一切顺利，会在一片绿勾之后，得到<code>872 passing (16s)</code>这样的信息，这说明，你的Promise已经符合PromiseA+规范，即符合基本要求，可以放心使用了。</p>
@@ -497,6 +497,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/09/cookie、session/" rel="prev" title="cookie、session">
+                cookie、session <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -582,7 +586,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -604,7 +608,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">79</span>
+                  <span class="site-state-item-count">81</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

@@ -303,6 +303,188 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://champyin.com/2019/11/09/cookie、session/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ChampYin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChampYin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/09/cookie、session/" itemprop="url">cookie、session</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-09T15:29:58+08:00">
+                2019-11-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端技术/" itemprop="url" rel="index">
+                    <span itemprop="name">前端技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/11/09/cookie、session/" class="leancloud_visitors" data-flag-title="cookie、session">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>今天总结<code>cookie</code>和<code>session</code>. 不断完善中。</p>
+</blockquote>
+<p>Cookie是什么？<br>Cookie的工作原理？<br>Cookie的使用？</p>
+<p>cookies:</p>
+<ol>
+<li>属于http协议的内容</li>
+<li>由服务器创建</li>
+<li>存储在客户端</li>
+<li>以文本形式存储</li>
+<li>最大4KB</li>
+<li>服务器创建后，会把cookie信息附在响应头里，传给客户端。</li>
+<li>由浏览器自动保存到客户端</li>
+<li>在每次用户发出http请求的时候，由浏览器将cookie自动附加到请求头上，从而接受请求的服务器可以据此获取相关信息，比如账号密码。</li>
+<li>cookie生命周期：不设置过期时间或者有效时间，则这个cookie生命周期为浏览器会话期间，只要关闭浏览器窗口，cookie即消失了。这种称为会话cookie，它一般保存在内存而不保存到硬盘。设置了过期时间或者有效时间，浏览器会把cookie保存到硬盘，关闭再打开浏览器，这些cookie依然有效，直到超过设定的过期时间。<br>设置有效时间：<br>setMaxAge(xx): 单位为秒。<br>setMaxAge(0): 马上在浏览器上删除指定的cookie<br>setMaxAge(-1): 关闭当前浏览器即失效</li>
+</ol>
+<p>Session是什么？<br>Session的工作原理？<br>Session的使用？</p>
+<p>session：</p>
+<ol>
+<li>不属于http协议</li>
+<li>由服务器创建</li>
+<li>存储在服务器</li>
+<li>默认只存储在服务器内存，也可以由服务器通过本地或者数据库做持久化。    </li>
+<li>没有大小限制，取决于服务器资源能力。</li>
+<li>服务器产生session后，会生成一个唯一的sessionId</li>
+<li>服务器将这个sesionId通过set-cookie的方式传给客户端</li>
+<li>客户端接收到响应时，浏览器会把cookie保存，也就同时保存了sessionId。</li>
+<li>下次用户发出请求的时候，浏览器的自动附加cookie的机制，让服务器收到带sessionId的cookie，从而通过sessionId来匹配用户状态，比如是否登录。</li>
+<li>session生命周期将：默认是30分钟。手动设置失效时间</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://champyin.com/2019/11/05/es6-promise/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1726,171 +1908,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://champyin.com/2019/08/27/npm-link详解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ChampYin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ChampYin's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/27/npm-link详解/" itemprop="url">npm link详解</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-27T14:54:23+08:00">
-                2019-08-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端工具/" itemprop="url" rel="index">
-                    <span itemprop="name">前端工具</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/08/27/npm-link详解/" class="leancloud_visitors" data-flag-title="npm link详解">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p><code>npm install</code> 可以把发布在npmjs平台上的模块包下载到本地，<code>npm istall -g</code> 可以把包下下来的同时，还帮我们配置好全局变量，让我们可以直接使用命令而不是通过node来执行或者配置<code>package.json</code> 的script脚本来run。但这仅限于已经发布的包，那对于未发布的包，要怎么测试使用呢？总不能把一个未经测试的包发布出去然后install下来这样测试吧，这样npm上面的包谁还敢用。所以npm上的包一定只能放经过测试考验的比较完善的包。而包的本地测试，就需要通过npm的一个命令了：<code>npm link</code>。</p>
-</blockquote>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p><code>npm link</code> 可以帮助我们模拟包安装后的状态，它会在系统中做一个快捷方式映射，让本地的包就好像install过一样这么使用。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/08/27/npm-link详解/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1940,7 +1962,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1962,7 +1984,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">79</span>
+                  <span class="site-state-item-count">81</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
