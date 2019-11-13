@@ -535,7 +535,7 @@
   <entry>
     <title><![CDATA[进阶(二)：hexo博客配置]]></title>
     <url>%2F2018%2F09%2F19%2F%E8%BF%9B%E9%98%B6-%E4%BA%8C-%EF%BC%9Ahexo%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE%2F</url>
-    <content type="text"><![CDATA[进阶(二)：hexo博客配置1. 添加评论系统hexo官方提供了很多评论系统的配置，我选择的是’来必力’。我先注册了来必力，然后创建了一个liverre city，获取到代码中的 uid ，然后编辑 hexo 主题配置文件 _config.yml , 编辑 livere_uid :1liverre_uid: #我在来必力获取的uid 2. 添加 tags 页面 在终端： 1hexo new page tags 在生成的 tags 目录下，编辑 index.md ，添加 tags 字段，屏蔽该页的评论功能： 123456---title: 标签date: 2018-09-09 22:51:31type: &quot;tags&quot;comments: false--- 在 _config.yml 文件中，编辑menu字段： 1234menu: home:/ archives: /archives tags: /tags 3. 添加 categories 页面 在终端： 1hexo new page categories 在生成的 categories 目录下，编辑 index.md ，添加 categories 字段，屏蔽该页的评论功能： 123456---title: 标签date: 2018-09-09 22:51:31type: &quot;categories&quot;comments: false--- 在 _config.yml 文件中，编辑menu字段： 12345menu: home:/ archives: /archives tags: /tags categories: /categories 4. 添加 about 页面 在终端： 1hexo new page about 在生成的 about 目录下，编辑 index.md ，屏蔽该页的评论功能： 12345---title: 标签date: 2018-09-09 22:51:31comments: false--- 5. 设置 ‘阅读全文’效果：在首页提供文章的部分内容，并提供一个链接跳转到全文页面。在 NextT 中提供了三种方式，我比较喜欢它推荐的那种，也是 Hexo 提供的方式：在文章中使用 &lt;!-- more --&gt; 手动进行截断。 6. 配置博客文档模版hexo 中，运行 hexo new &quot;xxx&quot; 是调用了 scaffolds 目录下的 post.md 文件作为模版来创建的。所以修改这个模版，就可以达到每次创建文档可以使用自己习惯的模版了。默认模版是没有 categories 的，我需要这个字段，所以在模版中加上了这个字段：123456---title: &#123;&#123; title &#125;&#125;date: &#123;&#123; date &#125;&#125;tags: categories:---]]></content>
+    <content type="text"><![CDATA[进阶(二)：hexo博客配置1. 添加评论系统hexo官方提供了很多评论系统的配置，我选择的是’来必力’。我先注册了来必力，然后创建了一个 liverre city，获取到代码中的 data-uid ，然后编辑 hexo 主题配置文件 _config.yml , 编辑 livere_uid :1liverre_uid: #我在来必力获取的uid 2. 添加 tags 页面 在终端： 1hexo new page tags 在生成的 tags 目录下，编辑 index.md ，添加 tags 字段，屏蔽该页的评论功能： 123456---title: 标签date: 2018-09-09 22:51:31type: &quot;tags&quot;comments: false--- 在 _config.yml 文件中，编辑menu字段： 1234menu: home:/ archives: /archives tags: /tags 3. 添加 categories 页面 在终端： 1hexo new page categories 在生成的 categories 目录下，编辑 index.md ，添加 categories 字段，屏蔽该页的评论功能： 123456---title: 标签date: 2018-09-09 22:51:31type: &quot;categories&quot;comments: false--- 在 _config.yml 文件中，编辑menu字段： 12345menu: home:/ archives: /archives tags: /tags categories: /categories 4. 添加 about 页面 在终端： 1hexo new page about 在生成的 about 目录下，编辑 index.md ，屏蔽该页的评论功能： 12345---title: 标签date: 2018-09-09 22:51:31comments: false--- 5. 设置 ‘阅读全文’效果：在首页提供文章的部分内容，并提供一个链接跳转到全文页面。在 NextT 中提供了三种方式，我比较喜欢它推荐的那种，也是 Hexo 提供的方式：在文章中使用 &lt;!-- more --&gt; 手动进行截断。 6. 配置博客文档模版hexo 中，运行 hexo new &quot;xxx&quot; 是调用了 scaffolds 目录下的 post.md 文件作为模版来创建的。所以修改这个模版，就可以达到每次创建文档可以使用自己习惯的模版了。默认模版是没有 categories 的，我需要这个字段，所以在模版中加上了这个字段：123456---title: &#123;&#123; title &#125;&#125;date: &#123;&#123; date &#125;&#125;tags: categories:---]]></content>
       <categories>
         <category>博客搭建</category>
       </categories>
@@ -565,9 +565,9 @@
         <category>前端技术</category>
       </categories>
       <tags>
+        <tag>node.js</tag>
         <tag>express</tag>
         <tag>koa</tag>
-        <tag>node.js</tag>
       </tags>
   </entry>
   <entry>
