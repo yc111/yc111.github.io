@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="自从2015年 ES6（ECMAScript 6）正式发布以来，许多JS新特性让我们的前端开发更加语意化，更加高效。在享受新特性给我们带来的便利的同时，在各类前端框架和业务代码满天飞的同时，我觉得有必要沉下心来不间断地了解和总结原生JS的底层机制、原理及其优缺点。就从Promise开始。">
+<meta name="description" content="自从2015年 ES6（ECMAScript 6）正式发布以来，许多JS新特性让我们的前端开发更加语意化，更加高效。在享受新特性给我们带来的便利的同时，在各类前端框架和业务代码满天飞的同时，我觉得仍有必要不间断地了解和总结原生JS的底层机制、原理及其优缺点。就从Promise开始。">
 <meta name="keywords" content="promise,es6">
 <meta property="og:type" content="article">
 <meta property="og:title" content="es6-promise">
 <meta property="og:url" content="http://champyin.com/2019/11/05/es6-promise/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="自从2015年 ES6（ECMAScript 6）正式发布以来，许多JS新特性让我们的前端开发更加语意化，更加高效。在享受新特性给我们带来的便利的同时，在各类前端框架和业务代码满天飞的同时，我觉得有必要沉下心来不间断地了解和总结原生JS的底层机制、原理及其优缺点。就从Promise开始。">
+<meta property="og:description" content="自从2015年 ES6（ECMAScript 6）正式发布以来，许多JS新特性让我们的前端开发更加语意化，更加高效。在享受新特性给我们带来的便利的同时，在各类前端框架和业务代码满天飞的同时，我觉得仍有必要不间断地了解和总结原生JS的底层机制、原理及其优缺点。就从Promise开始。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-12T15:23:48.653Z">
+<meta property="og:updated_time" content="2019-11-13T14:29:57.647Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="es6-promise">
-<meta name="twitter:description" content="自从2015年 ES6（ECMAScript 6）正式发布以来，许多JS新特性让我们的前端开发更加语意化，更加高效。在享受新特性给我们带来的便利的同时，在各类前端框架和业务代码满天飞的同时，我觉得有必要沉下心来不间断地了解和总结原生JS的底层机制、原理及其优缺点。就从Promise开始。">
+<meta name="twitter:description" content="自从2015年 ES6（ECMAScript 6）正式发布以来，许多JS新特性让我们的前端开发更加语意化，更加高效。在享受新特性给我们带来的便利的同时，在各类前端框架和业务代码满天飞的同时，我觉得仍有必要不间断地了解和总结原生JS的底层机制、原理及其优缺点。就从Promise开始。">
 
 
 
@@ -408,7 +408,7 @@
 
       
         <blockquote>
-<p>自从2015年 ES6（ECMAScript 6）正式发布以来，许多JS新特性让我们的前端开发更加语意化，更加高效。在享受新特性给我们带来的便利的同时，在各类前端框架和业务代码满天飞的同时，我觉得有必要沉下心来不间断地了解和总结原生JS的底层机制、原理及其优缺点。就从Promise开始。</p>
+<p>自从2015年 ES6（ECMAScript 6）正式发布以来，许多JS新特性让我们的前端开发更加语意化，更加高效。在享受新特性给我们带来的便利的同时，在各类前端框架和业务代码满天飞的同时，我觉得仍有必要不间断地了解和总结原生JS的底层机制、原理及其优缺点。就从Promise开始。</p>
 </blockquote>
 <a id="more"></a>
 <h1 id="Promise总结"><a href="#Promise总结" class="headerlink" title="Promise总结"></a>Promise总结</h1><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">let p = new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">	console.log(1)</span><br><span class="line">	setTimeout(() =&gt; &#123;</span><br><span class="line">	    resolve(2);</span><br><span class="line">	&#125;, 1000);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">p.then(data =&gt; &#123;</span><br><span class="line">	console.log(data); </span><br><span class="line">&#125;, err =&gt; &#123;</span><br><span class="line">	console.log(err);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">console.log(3);</span><br><span class="line"></span><br><span class="line">//输出：</span><br><span class="line">1</span><br><span class="line">3</span><br><span class="line">2</span><br><span class="line"></span><br><span class="line">其中 1 和 3 是立即输出，2 是1秒后输出。</span><br></pre></td></tr></table></figure>
