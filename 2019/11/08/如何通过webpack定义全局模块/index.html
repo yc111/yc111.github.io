@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="不知道大家在开发中有没有遇到这种情况，就是在很多模块里都要用到某一个库，于是在这些模块里都要不厌其烦地import一遍。页面少也还好，当项目庞大到一定程度，就有些讨厌了。有没有办法不要每次使用前都import，而是有个全局的引入，在其他任何地方直接使用就行了呢？有，webpack可以帮我们，它的内置插件ProvidePlugin就是为这个而生的。  1. 用法在webpack配置文件中配置plu">
+<meta name="description" content="不知道大家在开发中有没有遇到这种情况，就是在很多模块里都要用到某一个库，于是在这些模块里都要不厌其烦地import一遍。页面少也还好，当项目庞大到一定程度，就有些讨厌了。有没有办法不要每次使用前都import，而是有个全局的引入，在其他任何地方直接使用就行了呢？有，webpack可以帮我们，它的内置插件ProvidePlugin就是为这个而生的。">
 <meta name="keywords" content="webpack,plugin">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何通过webpack定义全局模块">
 <meta property="og:url" content="http://champyin.com/2019/11/08/如何通过webpack定义全局模块/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="不知道大家在开发中有没有遇到这种情况，就是在很多模块里都要用到某一个库，于是在这些模块里都要不厌其烦地import一遍。页面少也还好，当项目庞大到一定程度，就有些讨厌了。有没有办法不要每次使用前都import，而是有个全局的引入，在其他任何地方直接使用就行了呢？有，webpack可以帮我们，它的内置插件ProvidePlugin就是为这个而生的。  1. 用法在webpack配置文件中配置plu">
+<meta property="og:description" content="不知道大家在开发中有没有遇到这种情况，就是在很多模块里都要用到某一个库，于是在这些模块里都要不厌其烦地import一遍。页面少也还好，当项目庞大到一定程度，就有些讨厌了。有没有办法不要每次使用前都import，而是有个全局的引入，在其他任何地方直接使用就行了呢？有，webpack可以帮我们，它的内置插件ProvidePlugin就是为这个而生的。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-16T05:02:55.263Z">
+<meta property="og:updated_time" content="2019-11-16T05:05:28.229Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何通过webpack定义全局模块">
-<meta name="twitter:description" content="不知道大家在开发中有没有遇到这种情况，就是在很多模块里都要用到某一个库，于是在这些模块里都要不厌其烦地import一遍。页面少也还好，当项目庞大到一定程度，就有些讨厌了。有没有办法不要每次使用前都import，而是有个全局的引入，在其他任何地方直接使用就行了呢？有，webpack可以帮我们，它的内置插件ProvidePlugin就是为这个而生的。  1. 用法在webpack配置文件中配置plu">
+<meta name="twitter:description" content="不知道大家在开发中有没有遇到这种情况，就是在很多模块里都要用到某一个库，于是在这些模块里都要不厌其烦地import一遍。页面少也还好，当项目庞大到一定程度，就有些讨厌了。有没有办法不要每次使用前都import，而是有个全局的引入，在其他任何地方直接使用就行了呢？有，webpack可以帮我们，它的内置插件ProvidePlugin就是为这个而生的。">
 
 
 
@@ -410,6 +410,7 @@
         <blockquote>
 <p>不知道大家在开发中有没有遇到这种情况，就是在很多模块里都要用到某一个库，于是在这些模块里都要不厌其烦地import一遍。页面少也还好，当项目庞大到一定程度，就有些讨厌了。有没有办法不要每次使用前都import，而是有个全局的引入，在其他任何地方直接使用就行了呢？有，webpack可以帮我们，它的内置插件ProvidePlugin就是为这个而生的。</p>
 </blockquote>
+<a id="more"></a>
 <h2 id="1-用法"><a href="#1-用法" class="headerlink" title="1. 用法"></a>1. 用法</h2><p>在webpack配置文件中配置plugins属性。<br>语法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">new webpack.ProvidePlugin(&#123;</span><br><span class="line">	identifier: &apos;modulename&apos;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>如果像上面一样，直接指定模块名，确保你的模块就在当前目录下，或者是通过npm、yarn安装的。因为这么写，默认模块路径为当前目录<code>./**</code>和<code>node_modules</code>，webpack只会从这两个目录去加载模块（先找当前目录，找不到找node_modules目录）。</p>
