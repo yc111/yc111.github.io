@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="跨域," />
+  <meta name="keywords" content="webpack," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="浏览器同源策略：请求的地址与平台的协议、域名、端口号，都一致，称为 同域。只要有一个不一样，就称为 跨域。 cookie、 Localstorage 不能跨域；DOM元素也有同源策略（iframe）；ajax 也不支持跨域。 可以跨域的 html 标签：link、 img、 script 如何实现跨域：  jsonp cors postMessage document.domain window.">
-<meta name="keywords" content="跨域">
+<meta name="description" content="在一些前端工程中，不是所有的模块都需要打包到最终的生产中，例如开发UI库，我们不需要把依赖的基础框架和库打进去（比如vue，react，jquery等），因为它们在业务工程中会肯定会被引入，没必要在UI库中打包，而且打包进来不仅让UI库体积庞大，还可能在业务工程中引发版本依赖冲突。那么如何让工程在打包中避开某些不希望被打包的第三方模块呢？">
+<meta name="keywords" content="webpack">
 <meta property="og:type" content="article">
-<meta property="og:title" content="跨域">
-<meta property="og:url" content="http://champyin.com/2018/10/05/跨域/index.html">
+<meta property="og:title" content="webpack如何不打包第三方模块">
+<meta property="og:url" content="http://champyin.com/2019/11/13/webpack如何不打包第三方模块/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="浏览器同源策略：请求的地址与平台的协议、域名、端口号，都一致，称为 同域。只要有一个不一样，就称为 跨域。 cookie、 Localstorage 不能跨域；DOM元素也有同源策略（iframe）；ajax 也不支持跨域。 可以跨域的 html 标签：link、 img、 script 如何实现跨域：  jsonp cors postMessage document.domain window.">
+<meta property="og:description" content="在一些前端工程中，不是所有的模块都需要打包到最终的生产中，例如开发UI库，我们不需要把依赖的基础框架和库打进去（比如vue，react，jquery等），因为它们在业务工程中会肯定会被引入，没必要在UI库中打包，而且打包进来不仅让UI库体积庞大，还可能在业务工程中引发版本依赖冲突。那么如何让工程在打包中避开某些不希望被打包的第三方模块呢？">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-10-04T17:42:45.000Z">
+<meta property="og:updated_time" content="2019-11-18T09:20:57.046Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="跨域">
-<meta name="twitter:description" content="浏览器同源策略：请求的地址与平台的协议、域名、端口号，都一致，称为 同域。只要有一个不一样，就称为 跨域。 cookie、 Localstorage 不能跨域；DOM元素也有同源策略（iframe）；ajax 也不支持跨域。 可以跨域的 html 标签：link、 img、 script 如何实现跨域：  jsonp cors postMessage document.domain window.">
+<meta name="twitter:title" content="webpack如何不打包第三方模块">
+<meta name="twitter:description" content="在一些前端工程中，不是所有的模块都需要打包到最终的生产中，例如开发UI库，我们不需要把依赖的基础框架和库打进去（比如vue，react，jquery等），因为它们在业务工程中会肯定会被引入，没必要在UI库中打包，而且打包进来不仅让UI库体积庞大，还可能在业务工程中引发版本依赖冲突。那么如何让工程在打包中避开某些不希望被打包的第三方模块呢？">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://champyin.com/2018/10/05/跨域/"/>
+  <link rel="canonical" href="http://champyin.com/2019/11/13/webpack如何不打包第三方模块/"/>
 
 
 
 
 
-  <title>跨域 | ChampYin's Blog</title>
+  <title>webpack如何不打包第三方模块 | ChampYin's Blog</title>
   
 
 
@@ -307,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://champyin.com/2018/10/05/跨域/">
+    <link itemprop="mainEntityOfPage" href="http://champyin.com/2019/11/13/webpack如何不打包第三方模块/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ChampYin">
@@ -324,7 +324,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">跨域</h2>
+          <h2 class="post-title" itemprop="name headline">webpack如何不打包第三方模块</h2>
         
 
         <div class="post-meta">
@@ -336,8 +336,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-05T01:35:04+08:00">
-                2018-10-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-13T12:19:32+08:00">
+                2019-11-13
               </time>
             
 
@@ -376,7 +376,7 @@
 
           
           
-             <span id="/2018/10/05/跨域/" class="leancloud_visitors" data-flag-title="跨域">
+             <span id="/2019/11/13/webpack如何不打包第三方模块/" class="leancloud_visitors" data-flag-title="webpack如何不打包第三方模块">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -407,21 +407,14 @@
       
 
       
-        <p>浏览器同源策略：<br>请求的地址与平台的协议、域名、端口号，都一致，称为 <code>同域</code>。<br>只要有一个不一样，就称为 <code>跨域</code>。</p>
-<p>cookie、 Localstorage 不能跨域；<br>DOM元素也有同源策略（iframe）；<br>ajax 也不支持跨域。</p>
-<p>可以跨域的 html 标签：<br><code>link</code>、 <code>img</code>、 <code>script</code></p>
-<p>如何实现跨域：</p>
-<ol>
-<li>jsonp</li>
-<li>cors</li>
-<li>postMessage</li>
-<li>document.domain</li>
-<li>window.name</li>
-<li>location.hash</li>
-<li>http-proxy</li>
-<li>ngix</li>
-<li>WebSocket</li>
-</ol>
+        <blockquote>
+<p>在一些前端工程中，不是所有的模块都需要打包到最终的生产中，例如开发UI库，我们不需要把依赖的基础框架和库打进去（比如vue，react，jquery等），因为它们在业务工程中会肯定会被引入，没必要在UI库中打包，而且打包进来不仅让UI库体积庞大，还可能在业务工程中引发版本依赖冲突。那么如何让工程在打包中避开某些不希望被打包的第三方模块呢？</p>
+</blockquote>
+<a id="more"></a>
+<p>webpack的<code>externals</code>可以帮到你，它的配置非常简单。</p>
+<h2 id="external的配置"><a href="#external的配置" class="headerlink" title="external的配置"></a>external的配置</h2><p>在webpack的配置文件中添加<code>externals</code>属性，把你不希望打包在最终结果中的包写进去就行了，你的其他代码不需要任何更改，头部的 import、require 什么的都不用变。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// webpack.config.js</span><br><span class="line">module.exports = &#123;</span><br><span class="line">	externals: &#123;</span><br><span class="line">		jquery: &apos;jquery&apos;,</span><br><span class="line">		react: &apos;react&apos;,</span><br><span class="line">		&apos;react-dom&apos;: &apos;react-dom&apos;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后再build打包的时候，你会发现打包出来的文件体积小了很多很多，这就是不打包这些指定的第三方模块后的编译结果。</p>
+<p>–<br>GOODLUCK！</p>
 
       
     </div>
@@ -439,7 +432,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/跨域/" rel="tag"># 跨域</a>
+            <a href="/tags/webpack/" rel="tag"># webpack</a>
           
         </div>
       
@@ -452,8 +445,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/05/如何使用gitbook发布自己的书籍/" rel="next" title="如何使用gitbook发布自己的书籍">
-                <i class="fa fa-chevron-left"></i> 如何使用gitbook发布自己的书籍
+              <a href="/2019/11/08/如何通过webpack定义全局模块/" rel="next" title="如何通过webpack定义全局模块">
+                <i class="fa fa-chevron-left"></i> 如何通过webpack定义全局模块
               </a>
             
           </div>
@@ -461,10 +454,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/05/快速使用express搭建服务/" rel="prev" title="快速使用express搭建服务">
-                快速使用express搭建服务 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -521,8 +510,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -608,6 +606,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#external的配置"><span class="nav-number">1.</span> <span class="nav-text">external的配置</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
