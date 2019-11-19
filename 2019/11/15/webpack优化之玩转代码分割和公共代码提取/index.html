@@ -93,7 +93,7 @@
 <meta property="og:image" content="http://champyin.com/images/webpack-optimize-build3.jpg">
 <meta property="og:image" content="http://champyin.com/images/webpack-optimize-build4.jpg">
 <meta property="og:image" content="http://champyin.com/images/webpack-optimize-build5.jpg">
-<meta property="og:updated_time" content="2019-11-19T16:46:36.615Z">
+<meta property="og:updated_time" content="2019-11-19T16:53:31.015Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack优化之玩转代码分割和公共代码提取">
 <meta name="twitter:description" content="开发多页应用的时候，如果不对webpack打包进行优化，当某个模块被多个入口模块引用时，它就会被打包多次。也就是说在最终打包出来的某几个文件里，它们都会有一份相同的代码。当项目业务越来越复杂，打包出来的代码会非常冗余，文件体积会非常庞大。导致开发的时候，增加编译时间，影响开发效率；上线的时候，请求和加载都会非常慢，影响网站体验。所以如果我们是在开发多页应用，一定要掌握如何优化webpack打包，">
@@ -483,8 +483,8 @@
 <li><code>index.js</code>里同样不包含任何模块的代码了，只有webpack生成的默认代码。</li>
 <li><code>common.js</code>里有<code>jquery</code>,<code>a</code>,<code>b</code>,<code>c</code>,<code>index</code>所有模块的代码。</li>
 </ul>
-<p>发现，我们似乎好像成功从<code>a</code>和<code>index</code>里提取了模块，但是为啥只被引用一次的<code>b</code>,<code>index</code>模块也被当作公共模块被提取出来了呢？（<code>a</code>作为模块被<code>index</code>引入了一次，又作为入口被webpack引入了一次，所以<code>a</code>是有2引用的）</p>
-<p>因为<code>splitChunks</code>自带默认配置，缓存组默认会继承这些配置，其中有个叫做<code>minSize</code>的属性。</p>
+<p>发现，我们似乎好像成功从<code>a</code>和<code>index</code>里提取了模块，但是为啥所有的模块都被当作公共模块被提取出来了呢？</p>
+<p>原因是<code>splitChunks</code>自带默认配置，缓存组默认会继承这些配置，其中有个叫做<code>minSize</code>的属性，它的默认值导致的。</p>
 <h4 id="minChunks"><a href="#minChunks" class="headerlink" title="- minChunks"></a>- minChunks</h4><ul>
 <li>它控制的是每个模块什么时候被抽离出去：当模块被不同entry引用的次数大于等于这个配置值时，才会被抽离出去。</li>
 <li>它的默认值是1。也就是任何模块都会被抽离出去（入口模块其实也会被webpack引入一次）。</li>
@@ -495,7 +495,7 @@
 <p>可以看到有2个文件的大小发生了变化：<code>common.js</code>由314K变成311K，变小了一点点，<code>index.js</code>由6.22K变成7.56K，变大了一点点。</p>
 <p>进入dist目录查看：</p>
 <ul>
-<li><code>a.js</code>里依然不包含热和模块的代码（正常）。</li>
+<li><code>a.js</code>里依然不包含热和模块的代码（正常，因为<code>a</code>作为模块被<code>index</code>引入了一次，又作为入口被webpack引入了一次，所以<code>a</code>是有2引用的）。</li>
 <li><code>index.js</code>里出现了<code>b</code>和<code>index</code>模块的代码了。</li>
 <li><code>common.js</code>里只剩<code>jquery</code>,<code>a</code>,和<code>c</code>模块的代码。</li>
 </ul>
@@ -507,7 +507,7 @@
 <h4 id="priority"><a href="#priority" class="headerlink" title="- priority"></a>- priority</h4><p>priority属性的值为数字，可以为负数。作用是当缓存组中设置有多个拆分规则，而某个模块同时符合这两个规则的时候，则需要通过优先级属性priority来决定使用哪个拆分规则。优先级高者执行。我这里给业务代码组设置的优先级为-20，给第三方库组设置的优先级为-10，这样当一个第三方库被引用超过2次的时候，就不会打包到业务模块里了。</p>
 <h4 id="test"><a href="#test" class="headerlink" title="- test"></a>- test</h4><p>test属性用于进一步控制缓存组选择的模块，与chunks属性的作用有一点像，维度不一样。可以是一个正则表达式，也可以是一个函数。它可以匹配模块的绝对资源路径或chunk名称，匹配chunk名称时，将选择chunk中的所有模块。我这里用了一个正则<code>/[\\/]node_modules[\\/]/</code>来匹配第三方模块的绝对路径，因为通过npm或者yarn安装的模块，都会存放在node_modules目录下。</p>
 <p>运行一下webpack：<br><img src="/images/webpack-optimize-build4.jpg" alt="webpack-optimize-build4.jpg"></p>
-<p>可以看到新产生了一个叫<code>vendor.js</code>的文件（name属性的值），同时<code>common.js</code>文件体积由原来的311k小到了861bytes！</p>
+<p>可以看到新产生了一个叫<code>vendor.js</code>的文件（name属性的值），同时<code>common.js</code>文件体积由原来的311k减少到了861bytes！</p>
 <p>进入dist目录，检查js文件：</p>
 <ul>
 <li><code>a.js</code>里不包含任何模块代码。</li>

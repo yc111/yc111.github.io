@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="在一些前端工程中，不是所有的模块都需要打包到最终的生产中，例如开发UI库，我们不需要把依赖的基础框架和库打进去（比如vue，react，jquery等），因为它们在业务工程中会肯定会被引入，没必要在UI库中打包，而且打包进来不仅让UI库体积庞大，还可能在业务工程中引发版本依赖冲突。那么如何让工程在打包中避开某些不希望被打包的第三方模块呢？">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-18T17:18:40.019Z">
+<meta property="og:updated_time" content="2019-11-19T16:56:39.482Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack如何不打包第三方模块">
 <meta name="twitter:description" content="在一些前端工程中，不是所有的模块都需要打包到最终的生产中，例如开发UI库，我们不需要把依赖的基础框架和库打进去（比如vue，react，jquery等），因为它们在业务工程中会肯定会被引入，没必要在UI库中打包，而且打包进来不仅让UI库体积庞大，还可能在业务工程中引发版本依赖冲突。那么如何让工程在打包中避开某些不希望被打包的第三方模块呢？">
@@ -413,7 +413,7 @@
 <a id="more"></a>
 <p>webpack的<code>externals</code>可以帮到你，它的配置非常简单。</p>
 <h2 id="external的配置"><a href="#external的配置" class="headerlink" title="external的配置"></a>external的配置</h2><p>在webpack的配置文件中添加<code>externals</code>属性，把你不希望打包在最终结果中的包写进去就行了，你的其他代码不需要任何更改，头部的 import、require 什么的都不用变。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// webpack.config.js</span><br><span class="line">module.exports = &#123;</span><br><span class="line">	externals: &#123;</span><br><span class="line">		jquery: &apos;jquery&apos;,</span><br><span class="line">		react: &apos;react&apos;,</span><br><span class="line">		&apos;react-dom&apos;: &apos;react-dom&apos;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>然后再build打包的时候，你会发现打包出来的文件体积小了很多很多，这就是不打包这些指定的第三方模块后的编译结果。</p>
+<p>然后再build打包的时候，你会发现打包出来的文件体积小了很多很多，打开看就会发现指定的第三方库都从代码中剔除了。</p>
 <p>–<br>GOODLUCK！</p>
 
       
