@@ -79,25 +79,28 @@
 
 
 
-<meta name="description" content="开发多页应用的时候，如果不对webpack打包进行优化，当某个模块被多个入口模块引用时，它就会被打包多次。也就是说在最终打包出来的某几个文件里，它们都会有一份相同的代码。当项目业务越来越复杂，打包出来的代码会非常冗余，文件体积会非常庞大。导致开发的时候，增加编译时间，影响开发效率；上线的时候，请求和加载都会非常慢，影响网站体验。所以如果我们是在开发多页应用，一定要掌握如何优化webpack打包，">
+<meta name="description" content="开发多页应用的时候，如果不对webpack打包进行优化，当某个模块被多个入口模块引用时，它就会被打包多次。也就是说在最终打包出来的某几个文件里，它们都会有一份相同的代码。当项目业务越来越复杂，打包出来的代码会非常冗余，文件体积会非常庞大。导致开发的时候，增加编译时间，影响开发效率；上线的时候，请求和加载都会非常慢，影响网站体验。所以如果我们是在开发多页应用，一定要掌握如何优化webpack打包">
 <meta name="keywords" content="webpack,splitChunks,优化">
 <meta property="og:type" content="article">
 <meta property="og:title" content="webpack优化之玩转代码分割和公共代码提取">
 <meta property="og:url" content="http://champyin.com/2019/11/15/webpack优化之玩转代码分割和公共代码提取/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="开发多页应用的时候，如果不对webpack打包进行优化，当某个模块被多个入口模块引用时，它就会被打包多次。也就是说在最终打包出来的某几个文件里，它们都会有一份相同的代码。当项目业务越来越复杂，打包出来的代码会非常冗余，文件体积会非常庞大。导致开发的时候，增加编译时间，影响开发效率；上线的时候，请求和加载都会非常慢，影响网站体验。所以如果我们是在开发多页应用，一定要掌握如何优化webpack打包，">
+<meta property="og:description" content="开发多页应用的时候，如果不对webpack打包进行优化，当某个模块被多个入口模块引用时，它就会被打包多次。也就是说在最终打包出来的某几个文件里，它们都会有一份相同的代码。当项目业务越来越复杂，打包出来的代码会非常冗余，文件体积会非常庞大。导致开发的时候，增加编译时间，影响开发效率；上线的时候，请求和加载都会非常慢，影响网站体验。所以如果我们是在开发多页应用，一定要掌握如何优化webpack打包">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="http://champyin.com/images/webpack-optimize-cover2.png">
 <meta property="og:image" content="http://champyin.com/images/webpack-normal-build.jpg">
 <meta property="og:image" content="http://champyin.com/images/webpack-optimize-build.jpg">
 <meta property="og:image" content="http://champyin.com/images/webpack-optimize-build2.jpg">
 <meta property="og:image" content="http://champyin.com/images/webpack-optimize-build3.jpg">
 <meta property="og:image" content="http://champyin.com/images/webpack-optimize-build4.jpg">
 <meta property="og:image" content="http://champyin.com/images/webpack-optimize-build5.jpg">
-<meta property="og:updated_time" content="2019-11-20T05:54:56.654Z">
+<meta property="og:image" content="http://champyin.com/images/webpack-before-optimize.png">
+<meta property="og:image" content="http://champyin.com/images/webpack-after-optimize.png">
+<meta property="og:updated_time" content="2019-11-20T11:28:52.506Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack优化之玩转代码分割和公共代码提取">
-<meta name="twitter:description" content="开发多页应用的时候，如果不对webpack打包进行优化，当某个模块被多个入口模块引用时，它就会被打包多次。也就是说在最终打包出来的某几个文件里，它们都会有一份相同的代码。当项目业务越来越复杂，打包出来的代码会非常冗余，文件体积会非常庞大。导致开发的时候，增加编译时间，影响开发效率；上线的时候，请求和加载都会非常慢，影响网站体验。所以如果我们是在开发多页应用，一定要掌握如何优化webpack打包，">
-<meta name="twitter:image" content="http://champyin.com/images/webpack-normal-build.jpg">
+<meta name="twitter:description" content="开发多页应用的时候，如果不对webpack打包进行优化，当某个模块被多个入口模块引用时，它就会被打包多次。也就是说在最终打包出来的某几个文件里，它们都会有一份相同的代码。当项目业务越来越复杂，打包出来的代码会非常冗余，文件体积会非常庞大。导致开发的时候，增加编译时间，影响开发效率；上线的时候，请求和加载都会非常慢，影响网站体验。所以如果我们是在开发多页应用，一定要掌握如何优化webpack打包">
+<meta name="twitter:image" content="http://champyin.com/images/webpack-optimize-cover2.png">
 
 
 
@@ -414,7 +417,8 @@
       
 
       
-        <blockquote>
+        <p><img src="/images/webpack-optimize-cover2.png" alt="webpack-optimize-cover2.png"></p>
+<blockquote>
 <p>开发多页应用的时候，如果不对webpack打包进行优化，当某个模块被多个入口模块引用时，它就会被打包多次。也就是说在最终打包出来的某几个文件里，它们都会有一份相同的代码。当项目业务越来越复杂，打包出来的代码会非常冗余，文件体积会非常庞大。导致开发的时候，增加编译时间，影响开发效率；上线的时候，请求和加载都会非常慢，影响网站体验。所以如果我们是在开发多页应用，一定要掌握如何优化webpack打包，减小文件体积，提升体验。</p>
 </blockquote>
 <a id="more"></a>
@@ -531,8 +535,11 @@
 <li><code>locallib.js</code>里只包含<code>locallib</code>模块的代码。</li>
 </ul>
 <p>现在我们又在上一步的基础上独立打包了一个指定的模块<code>locallib.js</code>。    </p>
-<p>至此，我们就成功实现了抽离公共模块、业务代码和第三方代码剥离、独立打包指定模块，有点小完美是不是！击掌！</p>
-<h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>webpack很强大，以上只是冰山一角，但是只要掌握了上述<code>optimization.splitChunks</code>的核心配置，我们就可以几乎随心所欲地按照自己的想法来拆分优化代码控制打包文件了，是不是很酷？</p>
+<p>至此，我们就成功实现了抽离公共模块、业务代码和第三方代码剥离、独立打包指定模块。</p>
+<p>对比一下，优化前：<br><img src="/images/webpack-before-optimize.png" alt="webpack-before-optimize.png"></p>
+<p>优化后：<br><img src="/images/webpack-after-optimize.png" alt="webpack-after-optimize.png"></p>
+<p>优化打包后的文件分类清晰，体积比优化前缩小了几乎50%，有点小完美是不是！击掌！这还只是我举的一个简单例子，在实际多页应用中，优化力度说不定还不止这么多。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>webpack很强大，以上只是冰山一角，但是只要掌握了上述<code>optimization.splitChunks</code>的核心配置，我们就可以几乎随心所欲地按照自己的想法来拆分优化代码控制打包文件了，是不是很酷？</p>
 <p>用webpack玩转代码拆分，你也可以！</p>
 <p>本文的完整webpack配置和demo源码可以在这里获取：<br><a href="https://github.com/yc111/webpack-optimize-demo" target="_blank" rel="noopener">https://github.com/yc111/webpack-optimize-demo</a></p>
 <p>欢迎一起探讨～</p>
@@ -743,7 +750,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、概念"><span class="nav-number">1.</span> <span class="nav-text">一、概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、优化分析"><span class="nav-number">2.</span> <span class="nav-text">二、优化分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#optimization-splitChunks"><span class="nav-number">3.</span> <span class="nav-text">optimization.splitChunks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、-实现"><span class="nav-number">4.</span> <span class="nav-text">三、 实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-基本配置"><span class="nav-number">4.1.</span> <span class="nav-text">1. 基本配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-初步添加splitChunks优化配置"><span class="nav-number">4.2.</span> <span class="nav-text">2. 初步添加splitChunks优化配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cacheGroups"><span class="nav-number">4.2.1.</span> <span class="nav-text">- cacheGroups</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#name"><span class="nav-number">4.2.2.</span> <span class="nav-text">- name</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#chunks"><span class="nav-number">4.2.3.</span> <span class="nav-text">- chunks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#minChunks"><span class="nav-number">4.2.4.</span> <span class="nav-text">- minChunks</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-配置多个拆分规则"><span class="nav-number">4.3.</span> <span class="nav-text">3. 配置多个拆分规则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-实现代码分离，拆分第三方库"><span class="nav-number">4.3.1.</span> <span class="nav-text">3.1 实现代码分离，拆分第三方库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#minSize"><span class="nav-number">4.3.2.</span> <span class="nav-text">- minSize</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#priority"><span class="nav-number">4.3.3.</span> <span class="nav-text">- priority</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#test"><span class="nav-number">4.3.4.</span> <span class="nav-text">- test</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-拆分指定文件"><span class="nav-number">4.3.5.</span> <span class="nav-text">3.2 拆分指定文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结尾"><span class="nav-number">5.</span> <span class="nav-text">结尾</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、概念"><span class="nav-number">1.</span> <span class="nav-text">一、概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、优化分析"><span class="nav-number">2.</span> <span class="nav-text">二、优化分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#optimization-splitChunks"><span class="nav-number">3.</span> <span class="nav-text">optimization.splitChunks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、-实现"><span class="nav-number">4.</span> <span class="nav-text">三、 实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-基本配置"><span class="nav-number">4.1.</span> <span class="nav-text">1. 基本配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-初步添加splitChunks优化配置"><span class="nav-number">4.2.</span> <span class="nav-text">2. 初步添加splitChunks优化配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cacheGroups"><span class="nav-number">4.2.1.</span> <span class="nav-text">- cacheGroups</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#name"><span class="nav-number">4.2.2.</span> <span class="nav-text">- name</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#chunks"><span class="nav-number">4.2.3.</span> <span class="nav-text">- chunks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#minChunks"><span class="nav-number">4.2.4.</span> <span class="nav-text">- minChunks</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-配置多个拆分规则"><span class="nav-number">4.3.</span> <span class="nav-text">3. 配置多个拆分规则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-实现代码分离，拆分第三方库"><span class="nav-number">4.3.1.</span> <span class="nav-text">3.1 实现代码分离，拆分第三方库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#minSize"><span class="nav-number">4.3.2.</span> <span class="nav-text">- minSize</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#priority"><span class="nav-number">4.3.3.</span> <span class="nav-text">- priority</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#test"><span class="nav-number">4.3.4.</span> <span class="nav-text">- test</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-拆分指定文件"><span class="nav-number">4.3.5.</span> <span class="nav-text">3.2 拆分指定文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
