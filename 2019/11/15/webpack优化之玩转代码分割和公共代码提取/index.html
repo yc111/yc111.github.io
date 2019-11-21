@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="开发多页应用的时候，如果不对webpack打包进行优化，当某个模块被多个入口模块引用时，它就会被打包多次。也就是说在最终打包出来的某几个文件里，它们都会有一份相同的代码。当项目业务越来越复杂，打包出来的代码会非常冗余，文件体积会非常庞大。导致开发的时候，增加编译时间，影响开发效率；上线的时候，请求和加载都会非常慢，影响网站体验。所以如果我们是在开发多页应用，一定要掌握如何优化webpack打包">
+<meta name="description" content="开发多页应用的时候，如果不对webpack打包进行优化，当某个模块被多个入口模块引用时，它就会被打包多次（在最终打包出来的某几个文件里，它们都会有一份相同的代码）。当项目业务越来越复杂，打包出来的代码会非常冗余，文件体积会非常庞大。大体积文件会增加编译时间，影响开发效率；如果直接上线，还会拉长请求和加载时长，影响网站体验。作为一个追求极致体验的攻城狮，是不能忍的。所以在多页应用中优化打包尤为必">
 <meta name="keywords" content="webpack,splitChunks,优化">
 <meta property="og:type" content="article">
 <meta property="og:title" content="webpack优化之玩转代码分割和公共代码提取">
 <meta property="og:url" content="http://champyin.com/2019/11/15/webpack优化之玩转代码分割和公共代码提取/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="开发多页应用的时候，如果不对webpack打包进行优化，当某个模块被多个入口模块引用时，它就会被打包多次。也就是说在最终打包出来的某几个文件里，它们都会有一份相同的代码。当项目业务越来越复杂，打包出来的代码会非常冗余，文件体积会非常庞大。导致开发的时候，增加编译时间，影响开发效率；上线的时候，请求和加载都会非常慢，影响网站体验。所以如果我们是在开发多页应用，一定要掌握如何优化webpack打包">
+<meta property="og:description" content="开发多页应用的时候，如果不对webpack打包进行优化，当某个模块被多个入口模块引用时，它就会被打包多次（在最终打包出来的某几个文件里，它们都会有一份相同的代码）。当项目业务越来越复杂，打包出来的代码会非常冗余，文件体积会非常庞大。大体积文件会增加编译时间，影响开发效率；如果直接上线，还会拉长请求和加载时长，影响网站体验。作为一个追求极致体验的攻城狮，是不能忍的。所以在多页应用中优化打包尤为必">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://champyin.com/images/webpack-optimize-cover2.png">
 <meta property="og:image" content="http://champyin.com/images/webpack-normal-build.jpg">
@@ -96,10 +96,10 @@
 <meta property="og:image" content="http://champyin.com/images/webpack-optimize-build5.jpg">
 <meta property="og:image" content="http://champyin.com/images/webpack-before-optimize.png">
 <meta property="og:image" content="http://champyin.com/images/webpack-after-optimize.png">
-<meta property="og:updated_time" content="2019-11-20T15:20:42.935Z">
+<meta property="og:updated_time" content="2019-11-21T03:19:14.707Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack优化之玩转代码分割和公共代码提取">
-<meta name="twitter:description" content="开发多页应用的时候，如果不对webpack打包进行优化，当某个模块被多个入口模块引用时，它就会被打包多次。也就是说在最终打包出来的某几个文件里，它们都会有一份相同的代码。当项目业务越来越复杂，打包出来的代码会非常冗余，文件体积会非常庞大。导致开发的时候，增加编译时间，影响开发效率；上线的时候，请求和加载都会非常慢，影响网站体验。所以如果我们是在开发多页应用，一定要掌握如何优化webpack打包">
+<meta name="twitter:description" content="开发多页应用的时候，如果不对webpack打包进行优化，当某个模块被多个入口模块引用时，它就会被打包多次（在最终打包出来的某几个文件里，它们都会有一份相同的代码）。当项目业务越来越复杂，打包出来的代码会非常冗余，文件体积会非常庞大。大体积文件会增加编译时间，影响开发效率；如果直接上线，还会拉长请求和加载时长，影响网站体验。作为一个追求极致体验的攻城狮，是不能忍的。所以在多页应用中优化打包尤为必">
 <meta name="twitter:image" content="http://champyin.com/images/webpack-optimize-cover2.png">
 
 
@@ -419,7 +419,7 @@
       
         <p><img src="/images/webpack-optimize-cover2.png" alt="webpack-optimize-cover2.png"></p>
 <blockquote>
-<p>开发多页应用的时候，如果不对webpack打包进行优化，当某个模块被多个入口模块引用时，它就会被打包多次。也就是说在最终打包出来的某几个文件里，它们都会有一份相同的代码。当项目业务越来越复杂，打包出来的代码会非常冗余，文件体积会非常庞大。导致开发的时候，增加编译时间，影响开发效率；上线的时候，请求和加载都会非常慢，影响网站体验。所以如果我们是在开发多页应用，一定要掌握如何优化webpack打包，减小文件体积，提升体验。</p>
+<p>开发多页应用的时候，如果不对webpack打包进行优化，当某个模块被多个入口模块引用时，它就会被打包多次（在最终打包出来的某几个文件里，它们都会有一份相同的代码）。当项目业务越来越复杂，打包出来的代码会非常冗余，文件体积会非常庞大。大体积文件会增加编译时间，影响开发效率；如果直接上线，还会拉长请求和加载时长，影响网站体验。作为一个追求极致体验的攻城狮，是不能忍的。所以在多页应用中优化打包尤为必要。那么如何优化webpack打包呢？</p>
 </blockquote>
 <a id="more"></a>
 <h2 id="一、概念"><a href="#一、概念" class="headerlink" title="一、概念"></a>一、概念</h2><p>在一切开始前，有必要先理清一下这三个概念：</p>
@@ -466,7 +466,7 @@
 <li><code>index.js</code>里包含<code>a</code>模块、<code>b</code>模块、<code>c</code>模块和<code>jquery</code>代码</li>
 </ul>
 <p>看，同样的代码<code>c</code>和<code>jquery</code>被打包了2遍。</p>
-<h3 id="2-初步添加splitChunks优化配置"><a href="#2-初步添加splitChunks优化配置" class="headerlink" title="2. 初步添加splitChunks优化配置"></a>2. 初步添加splitChunks优化配置</h3><p>首先我们解决同样的代码打包2次的问题，这需要让webpack把<code>c</code>和<code>jquery</code>提取出来打包为公共模块。</p>
+<h3 id="2-初步添加splitChunks优化配置"><a href="#2-初步添加splitChunks优化配置" class="headerlink" title="2. 初步添加splitChunks优化配置"></a>2. 初步添加splitChunks优化配置</h3><p>首先解决相同代码打包2次的问题，我们需要让webpack把<code>c</code>和<code>jquery</code>提取出来打包为公共模块。</p>
 <p>在webpack配置文件添加splitChunks：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//webpack.config.js</span><br><span class="line"></span><br><span class="line">optimization: &#123;</span><br><span class="line">    splitChunks: &#123;</span><br><span class="line">        cacheGroups: &#123;</span><br><span class="line">            default: &#123;</span><br><span class="line">                name: &apos;common&apos;,</span><br><span class="line">                chunks: &apos;initial&apos;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h4 id="cacheGroups"><a href="#cacheGroups" class="headerlink" title="- cacheGroups"></a>- cacheGroups</h4><ul>
 <li><code>cacheGroups</code>是<code>splitChunks</code>配置的核心，对代码的拆分规则全在<code>cacheGroups</code>缓存组里配置。</li>
@@ -498,7 +498,7 @@
 <p>我们上面没有配置<code>minChunks</code>，只配置了<code>name</code>和<code>chunk</code>两个属性，所以<code>minChunks</code>的默认值 <code>1</code> 生效。也难怪所有的模块都被抽离到<code>common.js</code>中了。</p>
 <p>优化一下，在缓存组里配置<code>minChunks</code>覆盖默认值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//webpack.config.js</span><br><span class="line"></span><br><span class="line">optimization: &#123;</span><br><span class="line">    splitChunks: &#123;</span><br><span class="line">        cacheGroups: &#123;</span><br><span class="line">            default: &#123;</span><br><span class="line">                name: &apos;common&apos;,</span><br><span class="line">                chunks: &apos;initial&apos;,</span><br><span class="line">                minChunks: 2  //模块被引用2次以上的才抽离</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>然后运行webpack<br><img src="/images/webpack-optimize-build3.jpg" alt="webpack-optimize-build3.jpg"></p>
-<p>可以看到有2个文件的大小发生了变化：<code>common.js</code>由314K变成311K，变小了一点点，<code>index.js</code>由6.22K变成7.56K，变大了一点点。</p>
+<p>可以看到有2个文件的大小发生了变化：<code>common.js</code>由314K减小到311K，<code>index.js</code>由6.22K增大到7.56K。</p>
 <p>进入dist目录查看：</p>
 <ul>
 <li><code>a.js</code>里依然不包含任何模块的代码（正常，因为<code>a</code>作为模块被<code>index</code>引入了一次，又作为入口被webpack引入了一次，所以<code>a</code>是有2次引用的）。</li>
@@ -509,7 +509,7 @@
 <h3 id="3-配置多个拆分规则"><a href="#3-配置多个拆分规则" class="headerlink" title="3. 配置多个拆分规则"></a>3. 配置多个拆分规则</h3><h4 id="3-1-实现代码分离，拆分第三方库"><a href="#3-1-实现代码分离，拆分第三方库" class="headerlink" title="3.1 实现代码分离，拆分第三方库"></a>3.1 实现代码分离，拆分第三方库</h4><p>接下来，我希望公共模块<code>common.js</code>中，业务代码和第三方模块jquery能够剥离开来。</p>
 <p>我们需要再添加一个拆分规则。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">//webpack.config.js</span><br><span class="line"></span><br><span class="line">optimization: &#123;</span><br><span class="line">    splitChunks: &#123;</span><br><span class="line">    	minSize: 30,  //提取出的chunk的最小大小</span><br><span class="line">        cacheGroups: &#123;</span><br><span class="line">            default: &#123;</span><br><span class="line">                name: &apos;common&apos;,</span><br><span class="line">                chunks: &apos;initial&apos;,</span><br><span class="line">                minChunks: 2,  //模块被引用2次以上的才抽离</span><br><span class="line">                priority: -20</span><br><span class="line">            &#125;,</span><br><span class="line">            vendors: &#123;  //拆分第三方库（通过npm|yarn安装的库）</span><br><span class="line">            	test: /[\\/]node_modules[\\/]/,</span><br><span class="line">                name: &apos;vendor&apos;,</span><br><span class="line">                chunks: &apos;initial&apos;,</span><br><span class="line">                priority: -10</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>我给cacheGroups添加了一个vendors属性（属性名可以自己取，只要不跟缓存组下其他定义过的属性同名就行，否则后面的拆分规则会把前面的配置覆盖掉）。</p>
-<h4 id="minSize"><a href="#minSize" class="headerlink" title="- minSize"></a>- minSize</h4><p>minSize设置的是生成文件的最小大小，单位是字节。也就是说如果一个模块除了符合之前所说的拆分规则，如果最后生成文件大小比minSize还要小，那它仍然不会被提取出来。这个属性可以在每个缓存组属性中设置，也可以在splitChunks属性中设置，这样在每个缓存组都会继承这个配置。这里由于我的demo中文件非常小，为了演示效果，我把minSize设置为30字节，好让公共模块可以被提取出来，正常项目中不用设这么小。</p>
+<h4 id="minSize"><a href="#minSize" class="headerlink" title="- minSize"></a>- minSize</h4><p>minSize设置的是生成文件的最小大小，单位是字节。如果一个模块符合之前所说的拆分规则，但是如果提取出来最后生成文件大小比minSize要小，那它仍然不会被提取出来。这个属性可以在每个缓存组属性中设置，也可以在splitChunks属性中设置，这样在每个缓存组都会继承这个配置。这里由于我的demo中文件非常小，为了演示效果，我把minSize设置为30字节，好让公共模块可以被提取出来，正常项目中不用设这么小。</p>
 <h4 id="priority"><a href="#priority" class="headerlink" title="- priority"></a>- priority</h4><p>priority属性的值为数字，可以为负数。作用是当缓存组中设置有多个拆分规则，而某个模块同时符合好几个规则的时候，则需要通过优先级属性priority来决定使用哪个拆分规则。优先级高者执行。我这里给业务代码组设置的优先级为-20，给第三方库组设置的优先级为-10，这样当一个第三方库被引用超过2次的时候，就不会打包到业务模块里了。</p>
 <h4 id="test"><a href="#test" class="headerlink" title="- test"></a>- test</h4><p>test属性用于进一步控制缓存组选择的模块，与chunks属性的作用有一点像，但是维度不一样。test的值可以是一个正则表达式，也可以是一个函数。它可以匹配模块的绝对资源路径或chunk名称，匹配chunk名称时，将选择chunk中的所有模块。我这里用了一个正则<code>/[\\/]node_modules[\\/]/</code>来匹配第三方模块的绝对路径，因为通过npm或者yarn安装的模块，都会存放在node_modules目录下。</p>
 <p>运行一下webpack：<br><img src="/images/webpack-optimize-build4.jpg" alt="webpack-optimize-build4.jpg"></p>
