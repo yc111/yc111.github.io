@@ -750,6 +750,7 @@
 <li>JavaScript能够任意读写Cookie，所以浏览器也可以改Cookie的内容，因此Cookie被视为不安全的。</li>
 <li>Cookie中的信息一般都需要先经过加密。</li>
 <li>Cookie不能跨域，但可以通过设置Cookie的domain参数来支持跨子域名（注意domain必须以<code>.</code>开头）。</li>
+<li>很多浏览器都限制一个站点最多保存20个Cookie。</li>
 </ul>
 <blockquote>
 <p>在浏览器想获取Cookie，可以通过<code>document.cookie</code>，获取该网站的所有Cookie。</p>
@@ -793,7 +794,7 @@
 <li>如果此时服务器宕机，只要开机后数据库没有发生不可逆的破坏，Cookie时间没过期，那么Session继续保持。</li>
 <li>当Cookie过期，服务器将Session从数据库移除。</li>
 </ul>
-<p>–<br>参考：<br><a href="https://blog.csdn.net/fangaoxin/article/details/6952954" target="_blank" rel="noopener">https://blog.csdn.net/fangaoxin/article/details/6952954</a><br><a href="https://www.cnblogs.com/zhuanzhuanfe/p/8010854.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhuanzhuanfe/p/8010854.html</a><br><a href="http://www.itheima.com/news/20180831/150322.html" target="_blank" rel="noopener">http://www.itheima.com/news/20180831/150322.html</a><br><a href="https://blog.csdn.net/pingfan592/article/details/88388045" target="_blank" rel="noopener">https://blog.csdn.net/pingfan592/article/details/88388045</a></p>
+<p>–<br>参考：<br><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies</a><br><a href="https://blog.csdn.net/fangaoxin/article/details/6952954" target="_blank" rel="noopener">https://blog.csdn.net/fangaoxin/article/details/6952954</a><br><a href="https://www.cnblogs.com/zhuanzhuanfe/p/8010854.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhuanzhuanfe/p/8010854.html</a><br><a href="http://www.itheima.com/news/20180831/150322.html" target="_blank" rel="noopener">http://www.itheima.com/news/20180831/150322.html</a><br><a href="https://blog.csdn.net/pingfan592/article/details/88388045" target="_blank" rel="noopener">https://blog.csdn.net/pingfan592/article/details/88388045</a></p>
 
           
         
