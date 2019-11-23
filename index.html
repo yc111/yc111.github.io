@@ -725,78 +725,16 @@
 
       
         
-          
-            <blockquote>
+          <blockquote>
 <p>Cookie是什么？它的工作原理是什么？Session是什么？它跟Cookie有什么区别？</p>
 </blockquote>
-<p>Web应用是基于Http协议的，Http协议是无状态协议，因此没办法把同一个用户的两次请求关联起来，用户必须每操作一次就要登录一次。为了支持客户端与服务器之间的交互，我们需要一种技术为交互存储状态，Cookie和Session就应运而生。</p>
-<h1 id="一、概念"><a href="#一、概念" class="headerlink" title="一、概念"></a>一、概念</h1><ul>
-<li><p>Cookie：<br>Cookie由W3C组织提出。Cookie属于http协议标准，它是一段小信息，由服务器创建，以文本形式存储在客户端（浏览器）。用于存储一些服务器需要的用户信息数据，最大4KB。</p>
-</li>
-<li><p>Session：<br>Session不属于任何协议，只是一个域对象，由服务器创建，保存在服务器上（默认是服务器内存，也可以存存redies或其他数据库如mogo等）。用于存储一些客户端会话数据，没有大小限制。</p>
-</li>
-<li><p>会话：<br>用户打开浏览器访问某个网站，在这个网站上浏览任意页面，访问完成后将浏览器关闭的过程称为一次会话。Cookie和Session都属于常见的会话技术。会话技术是用于解决在会话过程中数据的保存问题。</p>
-</li>
-</ul>
-<h1 id="二、Cookie的工作原理"><a href="#二、Cookie的工作原理" class="headerlink" title="二、Cookie的工作原理"></a>二、Cookie的工作原理</h1><p>服务器收到客户端请求，如果服务器需要记录该用户状态：</p>
-<ol>
-<li>则可以创建一个Cookie，放上用户信息，然后把Cookie信息附在Response Header（响应头）里，传给客户端（浏览器）。</li>
-<li>浏览器收到响应后，会自动把这个Cookie保存到本地。</li>
-<li>当客户端再次向该网站发出http请求时，浏览器会自动往Request Header（请求头）里添加这个Cookie。</li>
-<li>服务器收到后，就可以根据请求里的Cookie字段，辨认用户状态等，也可以根据需要修改Cookie的内容。</li>
-</ol>
-<p>另外：</p>
-<ul>
-<li>JavaScript能够任意读写Cookie，所以浏览器也可以改Cookie的内容，因此Cookie被视为不安全的。</li>
-<li>Cookie中的信息一般都需要先经过加密。</li>
-<li>Cookie不能跨域，但可以通过设置Cookie的domain参数来支持跨子域名（注意domain必须以<code>.</code>开头）。</li>
-<li>很多浏览器都限制一个站点最多保存20个Cookie。</li>
-</ul>
-<blockquote>
-<p>在浏览器想获取Cookie，可以通过<code>document.cookie</code>，获取该网站的所有Cookie。</p>
-</blockquote>
-<h4 id="Cookie生命周期"><a href="#Cookie生命周期" class="headerlink" title="Cookie生命周期"></a>Cookie生命周期</h4><p>只要设置了正常的有效期，浏览器会把Cookie保存到硬盘，关闭再打开浏览器，Cookie依然有效，直到超过设定的失效时间。Cookie有两种方式设置有效期，也可以称为生命周期。</p>
-<p><strong>maxAge</strong></p>
-<ul>
-<li>单位秒，设置的是从现在起，往后多久失效。</li>
-<li>如果为正数，则该Cookie在maxAge秒后失效。</li>
-<li>如果为负数，该Cookie为临时Cookie，关闭浏览器即失效，浏览器也不会以任何形式保存该Cookie。这种称为会话Cookie。</li>
-<li>如果为0，表示删除该Cookie。</li>
-<li>默认为-1，即默认在浏览器关闭后，Cookie就失效。</li>
-</ul>
-<p><strong>expires</strong></p>
-<ul>
-<li>可以设置一个绝对时间点，到达时间点即失效。</li>
-<li>可以设置为整天数，表示expires天后失效。</li>
-<li>如果设置的是一个过去的时间，那么这个Cookie会被立即删掉，立即失效。</li>
-</ul>
-<h1 id="三、Session的工作原理"><a href="#三、Session的工作原理" class="headerlink" title="三、Session的工作原理"></a>三、Session的工作原理</h1><p>服务器收到客户端请求，如果服务器需要记录该用户状态：</p>
-<ol>
-<li>则服务器可以产生一个Session，同时会生成一个唯一的sessionId，</li>
-<li>服务器将这个sesionId通过<code>set-cookie</code>的放到Cookie中，借用Cookie的方式传给客户端，</li>
-<li>客户端接收到响应后，浏览器会把Cookie保存，也就同时保存了sessionId。</li>
-<li>当用户再次向该网站发出http请求时，浏览器的自动附加Cookie机制，让服务器收到带sessionId的Cookie，然后服务器通过sessionId来匹配用户状态，比如是否登录等。</li>
-</ol>
-<p>另外：</p>
-<ul>
-<li>因为Session存在服务端，所以它不能被客户端获取和修改，因此比Cookie安全些。</li>
-<li>因为在服务端，Session没有跨域问题。</li>
-<li>如果客户端禁用了Cookie的话，服务器还可以通过重写URL的方式把Session传给客户端。</li>
-<li>由浏览器窗口内的链接、脚本等打开的新窗口，这类子窗口会共享父窗口的Cookie，因此也会共享一个Session。</li>
-</ul>
-<h4 id="Session生命周期"><a href="#Session生命周期" class="headerlink" title="Session生命周期"></a>Session生命周期</h4><p>Session在用户第一次访问服务器的时候创建。Session生成后，只要用户继续访问，服务器就会认为该用户的Session活跃（active）了一次，然后更新Session的最后访问时间，维护该Session。</p>
-<p>如果正常关闭服务器，Session会序列化到硬盘。当服务器重新启动时，会执行反序列化。</p>
-<p>Session的生命周期跟浏览器关闭其实没有直接关系，只不过一般包含Session信息的Cookie会设置失效时间为0，即浏览器进程有效时间。当浏览器关闭，Cookie失效，服务器收到请求后就会销毁Session。</p>
-<p>为了获取更高的存取速度，服务器一般把Session存在内存里。每个用户都有一个独立的Seesion，为了防止内存溢出，服务器会把长时间没有或缺的Session从内存中删除。这个时间就是Session的超时时间。还有就是如果服务器宕机，Session也就销毁了。所以就算浏览器没关闭，Session也可能被销毁。</p>
-<p>当Session被存在了数据库，则它的生命周期由Cookie的失效时间决定：</p>
-<ul>
-<li>Session创建开始后，会一直保存在服务器端数据库。</li>
-<li>如果此时服务器宕机，只要开机后数据库没有发生不可逆的破坏，Cookie时间没过期，那么Session继续保持。</li>
-<li>当Cookie过期，服务器将Session从数据库移除。</li>
-</ul>
-<p>–<br>参考：<br><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies</a><br><a href="https://blog.csdn.net/fangaoxin/article/details/6952954" target="_blank" rel="noopener">https://blog.csdn.net/fangaoxin/article/details/6952954</a><br><a href="https://www.cnblogs.com/zhuanzhuanfe/p/8010854.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhuanzhuanfe/p/8010854.html</a><br><a href="http://www.itheima.com/news/20180831/150322.html" target="_blank" rel="noopener">http://www.itheima.com/news/20180831/150322.html</a><br><a href="https://blog.csdn.net/pingfan592/article/details/88388045" target="_blank" rel="noopener">https://blog.csdn.net/pingfan592/article/details/88388045</a></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/11/09/cookie、session/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
