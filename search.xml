@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[webpack优化之happypack]]></title>
     <url>%2F2019%2F11%2F29%2Fwebpack%E4%BC%98%E5%8C%96%E4%B9%8Bhappypack%2F</url>
-    <content type="text"><![CDATA[上篇文章webpack优化之玩转代码分割和公共代码提取所说的，是从代码维度出发，通过提取公用代码减小打包结果的体积，提升线上体验，主要是为了生产环节。而开发大型前端项目时，在不断的开发维护过程中，随着一次次迭代，业务功能不断增多，就算提取了公共代码，项目体积仍然会越来越庞大（如果不从产品层面优化，这是无法避免的）编译时间越来越长。而编译打包时间越长，意味着从修改代码到看到效果的等待时间就越长，导致越来越低的开发效率。这次我们就从打包性能维度，为开发环节做一些事情。 How？我们可以试试使用happypack。 HappypackHappypack 是一个webpack插件，它可以帮助我们实现多线程打包，提升webpack打包性能，减少开发者等待打包的时间，从而提升开发体验，提高开发效率。 使用Happypack的使用非常简单，只需3步： 安装Happypack 1npm i -D happypack 把原来的 loader use 配置改成 Happypack/loader 1234&#123; rest: /\.js$/, use: &apos;Happypack/loader?id=js&apos; //id用于在接下来的插件中引用，便于识别对谁进行多线程打包&#125; 在webpack插件中new Happypack把原来在rule中配置的use参数放到happypack中。 123456new Happypack(&#123; id: &apos;js&apos;, use :[&#123; loader: &apos;babel-loader&apos; &#125;]&#125;) 最后大致长这样：12345678910111213141516171819202122const Happypack = require(&apos;happypack&apos;);module.exports = &#123; mode: &apos;development&apos;, entry: xxx, output: xxx, module: &#123; rules: [ &#123; rest: /\.js$/, use: &apos;Happypack/loader?id=js&apos; &#125; ] &#125;, plugins: [ new Happypack(&#123; id: &apos;js&apos;, use :[&#123; loader: &apos;babel-loader&apos; &#125;] &#125;) ]&#125; 如果还要对其他类型的文件进行多线程打包，可以继续替换和new就行（注意id的对应）。 happypack适用于比较大的项目，如果项目比较小，使用happypack可能会花更长时间，因为开线程需要消耗一些性能。 –GOOD LUCK！]]></content>
+    <content type="text"><![CDATA[上篇文章webpack优化之玩转代码分割和公共代码提取所说的，是从代码维度出发，通过提取公用代码减小打包结果的体积，提升线上体验，主要是为了生产环节。而开发大型前端项目时，在不断的开发维护过程中，随着一次次迭代，业务功能不断增多，就算提取了公共代码，项目体积仍然会越来越庞大（如果不从产品层面优化，这是无法避免的）编译时间越来越长。而编译打包时间越长，意味着从修改代码到看到效果的等待时间就越长，导致越来越低的开发效率。这次我们就从打包性能维度，为开发环节做一些事情。 How？我们可以试试使用happypack。虽然这个包有点老了，作者也不怎么维护了（汗。。（因为他不怎么使用javascript了，他推荐了thread-loader，有空研究下） HappypackHappypack 是一个webpack插件，它可以帮助我们实现多线程打包，提升webpack打包性能，减少开发者等待打包的时间，从而提升开发体验，提高开发效率。 使用Happypack的使用非常简单，只需3步： 安装Happypack 1npm i -D happypack 把原来的 loader use 配置改成 Happypack/loader 1234&#123; rest: /\.js$/, use: &apos;Happypack/loader?id=js&apos; //id用于在接下来的插件中引用，便于识别对谁进行多线程打包&#125; 在webpack插件中new Happypack把原来在rule中配置的use参数放到happypack中。 123456new Happypack(&#123; id: &apos;js&apos;, use :[&#123; loader: &apos;babel-loader&apos; &#125;]&#125;) 最后大致长这样：12345678910111213141516171819202122const Happypack = require(&apos;happypack&apos;);module.exports = &#123; mode: &apos;development&apos;, entry: xxx, output: xxx, module: &#123; rules: [ &#123; rest: /\.js$/, use: &apos;Happypack/loader?id=js&apos; &#125; ] &#125;, plugins: [ new Happypack(&#123; id: &apos;js&apos;, use :[&#123; loader: &apos;babel-loader&apos; &#125;] &#125;) ]&#125; 如果还要对其他类型的文件进行多线程打包，可以继续替换和new就行（注意id的对应）。 happypack适用于比较大的项目，如果项目比较小，使用happypack可能会花更长时间，因为开线程需要消耗一些性能。 –GOOD LUCK！]]></content>
       <categories>
         <category>前端技术</category>
       </categories>
@@ -649,9 +649,9 @@
         <category>前端技术</category>
       </categories>
       <tags>
+        <tag>node.js</tag>
         <tag>express</tag>
         <tag>koa</tag>
-        <tag>node.js</tag>
       </tags>
   </entry>
   <entry>

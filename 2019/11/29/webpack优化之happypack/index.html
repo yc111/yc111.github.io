@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="上篇文章webpack优化之玩转代码分割和公共代码提取所说的，是从代码维度出发，通过提取公用代码减小打包结果的体积，提升线上体验，主要是为了生产环节。而开发大型前端项目时，在不断的开发维护过程中，随着一次次迭代，业务功能不断增多，就算提取了公共代码，项目体积仍然会越来越庞大（如果不从产品层面优化，这是无法避免的）编译时间越来越长。而编译打包时间越长，意味着从修改代码到看到效果的等待时间就越长，导">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-29T15:28:42.536Z">
+<meta property="og:updated_time" content="2019-11-29T15:34:10.188Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack优化之happypack">
 <meta name="twitter:description" content="上篇文章webpack优化之玩转代码分割和公共代码提取所说的，是从代码维度出发，通过提取公用代码减小打包结果的体积，提升线上体验，主要是为了生产环节。而开发大型前端项目时，在不断的开发维护过程中，随着一次次迭代，业务功能不断增多，就算提取了公共代码，项目体积仍然会越来越庞大（如果不从产品层面优化，这是无法避免的）编译时间越来越长。而编译打包时间越长，意味着从修改代码到看到效果的等待时间就越长，导">
@@ -410,7 +410,8 @@
         <blockquote>
 <p>上篇文章<a href="https://champyin.com/2019/11/15/webpack%E4%BC%98%E5%8C%96%E4%B9%8B%E7%8E%A9%E8%BD%AC%E4%BB%A3%E7%A0%81%E5%88%86%E5%89%B2%E5%92%8C%E5%85%AC%E5%85%B1%E4%BB%A3%E7%A0%81%E6%8F%90%E5%8F%96/">webpack优化之玩转代码分割和公共代码提取</a>所说的，是从代码维度出发，通过提取公用代码减小打包结果的体积，提升线上体验，主要是为了生产环节。而开发大型前端项目时，在不断的开发维护过程中，随着一次次迭代，业务功能不断增多，就算提取了公共代码，项目体积仍然会越来越庞大（如果不从产品层面优化，这是无法避免的）编译时间越来越长。而编译打包时间越长，意味着从修改代码到看到效果的等待时间就越长，导致越来越低的开发效率。这次我们就从打包性能维度，为开发环节做一些事情。</p>
 </blockquote>
-<h1 id="How？"><a href="#How？" class="headerlink" title="How？"></a>How？</h1><p>我们可以试试使用happypack。</p>
+<a id="more"></a>
+<h1 id="How？"><a href="#How？" class="headerlink" title="How？"></a>How？</h1><p>我们可以试试使用happypack。虽然这个包有点老了，作者也不怎么维护了（汗。。（因为他不怎么使用javascript了，他推荐了thread-loader，有空研究下）</p>
 <h1 id="Happypack"><a href="#Happypack" class="headerlink" title="Happypack"></a>Happypack</h1><p><a href="https://www.npmjs.com/package/happypack" target="_blank" rel="noopener">Happypack</a> 是一个webpack插件，它可以帮助我们实现多线程打包，提升webpack打包性能，减少开发者等待打包的时间，从而提升开发体验，提高开发效率。</p>
 <h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>Happypack的使用非常简单，只需3步：</p>
 <ol>
