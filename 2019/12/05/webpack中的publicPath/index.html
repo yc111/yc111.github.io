@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="webpack的常用基本配置我们可能已经耳熟能详，比如    input,output,module,plugins,devServer的配置等等。而在这些基本配置中，其实还有一些细节参数，它可以帮助我们更好的定制化自己的打包目录结构，但它可能并不是那么好理解，比如publicPath。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-05T08:08:57.580Z">
+<meta property="og:updated_time" content="2019-12-05T08:29:07.431Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack中的publicPath">
 <meta name="twitter:description" content="webpack的常用基本配置我们可能已经耳熟能详，比如    input,output,module,plugins,devServer的配置等等。而在这些基本配置中，其实还有一些细节参数，它可以帮助我们更好的定制化自己的打包目录结构，但它可能并不是那么好理解，比如publicPath。">
@@ -432,7 +432,7 @@
 <blockquote>
 <p>一定要在string的前后都放上<code>/</code>。</p>
 </blockquote>
-<p>需要注意的是，<code>devServer</code>中还有一个叫做<code>contentBase</code>的参数，这个参数如果配置的不好，跟<code>publicPath</code>一搭配，很可能会导致请求不到页面（我也是被这个坑了很久）。这个地方如果出问题，基本上原因在于<code>contentBase</code>设置的路径范围太小了，去掉<code>contentBase</code>配置，或者给它配置多个路径，就可以解决问题。</p>
+<p>需要注意的是，<code>devServer</code>中还有一个叫做<code>contentBase</code>的参数，这个参数如果配置的不好，跟<code>publicPath</code>一搭配，很可能会导致请求不到页面（我也是被这个坑了很久）。这个地方如果出问题，基本上原因在于<code>contentBase</code>设置的路径范围太小了，去掉<code>contentBase</code>配置，或者给它配置多个路径，把输出目录包含进来，就可以解决问题。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">devServer &#123;</span><br><span class="line">	contentBase: [path.resolve(__dirname, &apos;../assets&apos;), path.resolve(__dirname, &apos;../dist&apos;)], // contentBase可以放多个路径</span><br><span class="line">	publicPath: &apos;/assets/&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>–<br>GOOD LUCK!</p>
 
