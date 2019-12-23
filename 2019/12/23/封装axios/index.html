@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="axios," />
 
 
 
@@ -79,13 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="ChampYin&#39;s Blog">
-<meta property="og:url" content="http://champyin.com/tags/promise/index.html">
+<meta name="description" content="axios 是一个轻量的 HTTP客户端，它基于 XMLHttpRequest 服务来执行 HTTP 请求，支持丰富的配置，支持 Promise，支持浏览器端和 Node.js 端。axios 的API很友好，你可以很轻松地在项目中直接使用。但随着项目规模的增大，每次发HTTP请求，一些相的同业务动作都要就地写一遍，非常繁琐和冗余而且不利于代码维护。这些操作虽然是业务相关的，但是在同一个项目中是">
+<meta name="keywords" content="axios">
+<meta property="og:type" content="article">
+<meta property="og:title" content="封装axios">
+<meta property="og:url" content="http://champyin.com/2019/12/23/封装axios/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
+<meta property="og:description" content="axios 是一个轻量的 HTTP客户端，它基于 XMLHttpRequest 服务来执行 HTTP 请求，支持丰富的配置，支持 Promise，支持浏览器端和 Node.js 端。axios 的API很友好，你可以很轻松地在项目中直接使用。但随着项目规模的增大，每次发HTTP请求，一些相的同业务动作都要就地写一遍，非常繁琐和冗余而且不利于代码维护。这些操作虽然是业务相关的，但是在同一个项目中是">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-23T16:36:24.068Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ChampYin&#39;s Blog">
+<meta name="twitter:title" content="封装axios">
+<meta name="twitter:description" content="axios 是一个轻量的 HTTP客户端，它基于 XMLHttpRequest 服务来执行 HTTP 请求，支持丰富的配置，支持 Promise，支持浏览器端和 Node.js 端。axios 的API很友好，你可以很轻松地在项目中直接使用。但随着项目规模的增大，每次发HTTP请求，一些相的同业务动作都要就地写一遍，非常繁琐和冗余而且不利于代码维护。这些操作虽然是业务相关的，但是在同一个项目中是">
 
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://champyin.com/tags/promise/"/>
+  <link rel="canonical" href="http://champyin.com/2019/12/23/封装axios/"/>
 
 
 
 
 
-  <title>Tag: promise | ChampYin's Blog</title>
+  <title>封装axios | ChampYin's Blog</title>
   
 
 
@@ -150,7 +155,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -288,54 +293,185 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>promise<small>Tag</small>
-        </h2>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://champyin.com/2019/12/23/封装axios/">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ChampYin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChampYin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/11/05/es6-promise/" itemprop="url">
-              
-                <span itemprop="name">es6-promise</span>
-              
-            </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">封装axios</h2>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-11-05T17:09:31+08:00"
-              content="2019-11-05" >
-          11-05
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-23T22:55:43+08:00">
+                2019-12-23
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端技术/" itemprop="url" rel="index">
+                    <span itemprop="name">前端技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/12/23/封装axios/" class="leancloud_visitors" data-flag-title="封装axios">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><code>axios</code> 是一个轻量的 <code>HTTP客户端</code>，它基于 <code>XMLHttpRequest</code> 服务来执行 HTTP 请求，支持丰富的配置，支持 <code>Promise</code>，支持浏览器端和 <code>Node.js</code> 端。<code>axios</code> 的API很友好，你可以很轻松地在项目中直接使用。但随着项目规模的增大，每次发HTTP请求，一些相的同业务动作都要就地写一遍，非常繁琐和冗余而且不利于代码维护。这些操作虽然是业务相关的，但是在同一个项目中是通用的，我们就可以将它们抽离出来，从而优化代码。而这个过程，就是 <code>axios</code> 的二次封装。</p>
+<p><em>自Vue2.0起，尤大大（Vue作者尤雨溪）宣布取消对 <code>vue-resource</code> 的官方推荐，转而推荐 <code>axios</code>。现在 <code>axios</code> 已经成为大部分 Vue 开发者的首选。</em></p>
+</blockquote>
+<p>虽然封装<code>axios</code>，与业务有耦合，不具有普适性，但是一些好的封装理念是通用的，它可以帮助我们更好地封装<code>axios</code>。</p>
+<p># </p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/axios/" rel="tag"># axios</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/20/Ajax-vs-Axios-vs-Fetch/" rel="next" title="Ajax vs Axios vs Fetch">
+                <i class="fa fa-chevron-left"></i> Ajax vs Axios vs Fetch
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -343,6 +479,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTgzMy8xNjM2MA=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -593,6 +738,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -621,6 +770,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
