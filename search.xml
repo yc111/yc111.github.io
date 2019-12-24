@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[封装axios]]></title>
-    <url>%2F2019%2F12%2F23%2F%E5%B0%81%E8%A3%85axios%2F</url>
-    <content type="text"><![CDATA[axios 是一个轻量的 HTTP客户端，它基于 XMLHttpRequest 服务来执行 HTTP 请求，支持丰富的配置，支持 Promise，支持浏览器端和 Node.js 端。axios 的API很友好，你可以很轻松地在项目中直接使用。但随着项目规模的增大，每次发HTTP请求，一些相的同业务动作都要就地写一遍，非常繁琐和冗余而且不利于代码维护。这些操作虽然是业务相关的，但是在同一个项目中是通用的，我们就可以将它们抽离出来，从而优化代码。而这个过程，就是 axios 的二次封装。 自Vue2.0起，尤大大（Vue作者尤雨溪）宣布取消对 vue-resource 的官方推荐，转而推荐 axios。现在 axios 已经成为大部分 Vue 开发者的首选。 虽然封装axios，与业务有耦合，不具有普适性，但是一些好的封装理念是通用的，它可以帮助我们更好地封装axios。 #]]></content>
-      <categories>
-        <category>前端技术</category>
-      </categories>
-      <tags>
-        <tag>axios</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Ajax vs Axios vs Fetch]]></title>
     <url>%2F2019%2F12%2F20%2FAjax-vs-Axios-vs-Fetch%2F</url>
     <content type="text"><![CDATA[发HTTP请求是JS前端应用最常见的任务之一。实现HTTP请求有非常多解决方案，目前主流的几个解决方案有 ajax、axios 和 fetch。哪个好？如何选？下面对这几个方案进行一个简单的对比分析。 ajax： jQuery库中的异步HTTP请求API。基本语法： 1$.ajax(url[, settings]) axios： 轻量的HTTP客户端，支持浏览器端和 Node.js 端。基本语法: 1axios.get().then().catch() fetch： Web原生的HTTP请求API。基本语法: 1fetch().then().catch() 性能 ajax 和 axios 属于第三方库，它们底层都是基于 XMLHttpRequest，而 fetch 是web原生的 JS API，是 web标准 的一部分。从性能上讲，由于 fetch 是原生API，它有天然的性能优势：1fetch &gt; axios = ajax 简洁性在处理异步的方式上，ajax 基于回调，axios 和 fetch 都是基于 Promise，因此代码会比 ajax 更简洁，更优雅。1axios = fetch &gt; ajax jQuery3.0之后，$.ajax()也支持了$.ajax().done().fail().always的链式调用方式（内部基于Defferred对象实现）。 易用性在功能上，axios 支持了很多实用的功能封装，比如请求和相应拦截器等等。fetch 则是纯粹的HTTP请求API，不支持额外的功能，你需要自己重写 fetch方法 来实现请求拦截。ajax 也不支持额外的功能。从易用和实用上讲，axios 无疑是占优势的：1axios &gt; fetch &gt; ajax 兼容性兼容性方面，jQuery 是比较早期的库，所以 ajax 对低版本的浏览器支持较好。axios 由于使用了 Promise (ECMAScript2015特性)，在一些低版本浏览器中支持的不好，比如IE8和更低的IE浏览器。fetch 只在比较新的现代浏览器中支持，并且所有IE都不支持。从浏览器兼容上讲：1ajax &gt; axios &gt; fetch 不过现在旧版本浏览器以及IE浏览器已经在慢慢淘汰，浏览器兼容的顾虑会越来越少，兼容性越来越不重要。所以就放心大胆地使用新的技术吧。 一些不成熟的建议和看法 ajax 依然有它的市场，现在依然有很多的依赖 jQuery 库的项目，在 $.ajax 就够用了的情况下，没必要非要引入 axios。 在尤大大的推荐下，Vue 项目一般都搭配 axios 使用，但是不要陷入 Vue 只能使用 axios 的误区。 以后的大趋势依然是原生web，当原生web标准支持越来越多草案后，第三方的库也就没有存在的必要了，以后 fetch 的使用率会越来越高。 不过从历史规律看来，第三方永远比标准发展的快… 最后我想说，没有最好，只有最合适。而只有了解这些技术的特点，才可以让技术选型不再随意或者跟风。 –FIGHTING！ 参考：jQuery ajax APIAxios 官网Fetch API MDN]]></content>
