@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="发HTTP请求是JS前端应用最常见的任务之一。实现HTTP请求有非常多解决方案，目前主流的几个解决方案有 ajax、axios 和 fetch。哪个好？如何选？下面对这几个方案进行一个简单的对比分析。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-23T16:44:09.574Z">
+<meta property="og:updated_time" content="2019-12-24T09:59:05.788Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ajax vs Axios vs Fetch">
 <meta name="twitter:description" content="发HTTP请求是JS前端应用最常见的任务之一。实现HTTP请求有非常多解决方案，目前主流的几个解决方案有 ajax、axios 和 fetch。哪个好？如何选？下面对这几个方案进行一个简单的对比分析。">
@@ -422,17 +422,17 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fetch().then().catch()</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h1 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h1><p> ajax 和 axios 属于第三方库，它们底层都是基于 <code>XMLHttpRequest</code>，而 fetch 是web原生的 <code>JS API</code>，是 <code>web标准</code> 的一部分。从性能上讲，由于 fetch 是原生API，它有天然的性能优势：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fetch &gt; axios = ajax</span><br></pre></td></tr></table></figure></p>
+<h1 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h1><p> ajax 和 axios 属于第三方库，它们底层都是基于 <code>XMLHttpRequest</code>，而 fetch 是web原生的 <code>JS API</code>，是 <code>web标准</code> 的一部分。从性能上讲，原生API fetch 有天然的性能优势：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fetch &gt; axios = ajax</span><br></pre></td></tr></table></figure></p>
 <h1 id="简洁性"><a href="#简洁性" class="headerlink" title="简洁性"></a>简洁性</h1><p>在处理异步的方式上，ajax 基于回调，axios 和 fetch 都是基于 Promise，因此代码会比 ajax 更简洁，更优雅。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">axios = fetch &gt; ajax</span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p>jQuery3.0之后，$.ajax()也支持了<code>$.ajax().done().fail().always</code>的链式调用方式（内部基于<code>Defferred</code>对象实现）。</p>
+<p>jQuery3.0之后，$.ajax()也支持了<code>$.ajax().done().fail().always()</code>的链式调用方式（内部基于<code>Defferred</code>对象实现）。</p>
 </blockquote>
-<h1 id="易用性"><a href="#易用性" class="headerlink" title="易用性"></a>易用性</h1><p>在功能上，axios 支持了很多实用的功能封装，比如请求和相应拦截器等等。fetch 则是纯粹的HTTP请求API，不支持额外的功能，你需要自己重写 fetch方法 来实现请求拦截。ajax 也不支持额外的功能。从易用和实用上讲，axios 无疑是占优势的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">axios &gt; fetch &gt; ajax</span><br></pre></td></tr></table></figure></p>
+<h1 id="易用性"><a href="#易用性" class="headerlink" title="易用性"></a>易用性</h1><p>在功能上，axios 支持了很多实用的功能封装，比如请求和响应拦截器等等。fetch 则是纯粹的HTTP请求API，不支持额外的功能，你需要自己重写 fetch方法 来实现请求拦截。ajax 也不支持额外的功能。从易用和实用上讲，axios 无疑是占优势的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">axios &gt; fetch &gt; ajax</span><br></pre></td></tr></table></figure></p>
 <h1 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h1><p>兼容性方面，jQuery 是比较早期的库，所以 ajax 对低版本的浏览器支持较好。axios 由于使用了 Promise (ECMAScript2015特性)，在一些低版本浏览器中支持的不好，比如IE8和更低的IE浏览器。fetch 只在比较新的现代浏览器中支持，并且所有IE都不支持。从浏览器兼容上讲：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ajax &gt; axios &gt; fetch</span><br></pre></td></tr></table></figure></p>
 <p>不过现在旧版本浏览器以及IE浏览器已经在慢慢淘汰，浏览器兼容的顾虑会越来越少，兼容性越来越不重要。所以就放心大胆地使用新的技术吧。</p>
 <h1 id="一些不成熟的建议和看法"><a href="#一些不成熟的建议和看法" class="headerlink" title="一些不成熟的建议和看法"></a>一些不成熟的建议和看法</h1><ul>
 <li>ajax 依然有它的市场，现在依然有很多的依赖 jQuery 库的项目，在 $.ajax 就够用了的情况下，没必要非要引入 axios。</li>
-<li>在尤大大的推荐下，Vue 项目一般都搭配 axios 使用，但是不要陷入 Vue 只能使用 axios 的误区。</li>
+<li>在尤大大的推荐下，Vue 项目一般都搭配 axios 使用，但是不要陷入 “Vue 只能使用 axios”，或者 “axios 只能在 Vue 中使用” 的误区。</li>
 <li>以后的大趋势依然是原生web，当原生web标准支持越来越多草案后，第三方的库也就没有存在的必要了，以后 fetch 的使用率会越来越高。</li>
 </ul>
 <blockquote>
@@ -484,6 +484,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/23/封装axios/" rel="prev" title="封装axios">
+                封装axios <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -569,7 +573,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">79</span>
+                  <span class="site-state-item-count">80</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

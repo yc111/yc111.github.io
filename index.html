@@ -303,6 +303,164 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://champyin.com/2019/12/23/封装axios/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ChampYin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChampYin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/23/封装axios/" itemprop="url">封装axios</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-23T22:55:43+08:00">
+                2019-12-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端技术/" itemprop="url" rel="index">
+                    <span itemprop="name">前端技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/12/23/封装axios/" class="leancloud_visitors" data-flag-title="封装axios">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p><code>axios</code> 是一个轻量的 <code>HTTP客户端</code>，它基于 <code>XMLHttpRequest</code> 服务来执行 HTTP 请求，支持丰富的配置，支持 <code>Promise</code>，支持浏览器端和 <code>Node.js</code> 端。</p>
+<p><code>axios</code> 的API很友好，你可以很轻松地在项目中直接使用。但随着项目规模的增大，每次发HTTP请求，一些相的同业务动作都要就地写一遍，非常繁琐和冗余而且不利于代码维护。这些操作虽然是业务相关的，但是在同一个项目中是通用的，我们就可以将它们抽离出来，从而优化代码。而这个过程，就是 <code>axios</code> 的二次封装。</p>
+<p>插播： <em>自Vue2.0起，尤大大（Vue作者尤雨溪）宣布取消对 <code>vue-resource</code> 的官方推荐，转而推荐 <code>axios</code>。现在 <code>axios</code> 已经成为大部分 Vue 开发者的首选。</em></p>
+</blockquote>
+<p>虽然封装<code>axios</code>，与业务有耦合，不具有普适性，但是一些好的封装理念是通用的，它可以帮助我们更好地封装<code>axios</code>。</p>
+<h1 id="1-把对服务器的需求的配置集中到一个文件"><a href="#1-把对服务器的需求的配置集中到一个文件" class="headerlink" title="1. 把对服务器的需求的配置集中到一个文件"></a>1. 把对服务器的需求的配置集中到一个文件</h1><h2 id="配置超时时间"><a href="#配置超时时间" class="headerlink" title="配置超时时间"></a>配置超时时间</h2><h2 id="配置请求路径"><a href="#配置请求路径" class="headerlink" title="配置请求路径"></a>配置请求路径</h2><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h1 id="2-配置拦截器"><a href="#2-配置拦截器" class="headerlink" title="2. 配置拦截器"></a>2. 配置拦截器</h1><h2 id="添加token"><a href="#添加token" class="headerlink" title="添加token"></a>添加token</h2><h2 id="配置header"><a href="#配置header" class="headerlink" title="配置header"></a>配置header</h2><h2 id="统一错误处理"><a href="#统一错误处理" class="headerlink" title="统一错误处理"></a>统一错误处理</h2><h1 id="3-统一api管理"><a href="#3-统一api管理" class="headerlink" title="3. 统一api管理"></a>3. 统一api管理</h1>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://champyin.com/2019/12/20/Ajax-vs-Axios-vs-Fetch/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1722,165 +1880,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://champyin.com/2019/11/05/es6-promise/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ChampYin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ChampYin's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/05/es6-promise/" itemprop="url">es6-promise</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-05T17:09:31+08:00">
-                2019-11-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端技术/" itemprop="url" rel="index">
-                    <span itemprop="name">前端技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/11/05/es6-promise/" class="leancloud_visitors" data-flag-title="es6-promise">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>自从2015年 ES6（ECMAScript 6）正式发布以来，许多JS新特性让我们的前端开发更加语意化，更加高效。在享受新特性给我们带来的便利的同时，在各类前端框架和业务代码满天飞的同时，我觉得仍有必要不间断地去了解和总结原生JS的底层机制、原理及其优缺点。就从Promise开始。</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/11/05/es6-promise/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1935,7 +1934,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">79</span>
+                  <span class="site-state-item-count">80</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
