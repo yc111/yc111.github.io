@@ -152,8 +152,8 @@
         <category>数据库</category>
       </categories>
       <tags>
-        <tag>full stack</tag>
         <tag>node</tag>
+        <tag>full stack</tag>
         <tag>MongoDB</tag>
         <tag>mongoose</tag>
         <tag>database</tag>
@@ -497,8 +497,8 @@
         <category>前端技术</category>
       </categories>
       <tags>
-        <tag>full stack</tag>
         <tag>node</tag>
+        <tag>full stack</tag>
         <tag>express</tag>
       </tags>
   </entry>
@@ -650,7 +650,7 @@
   <entry>
     <title><![CDATA[进阶(二)：hexo博客配置]]></title>
     <url>%2F2018%2F09%2F19%2F%E8%BF%9B%E9%98%B6-%E4%BA%8C-%EF%BC%9Ahexo%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE%2F</url>
-    <content type="text"><![CDATA[进阶(二)：hexo博客配置1. 添加评论系统hexo官方提供了很多评论系统的配置，我选择的是’来必力’。我先注册了来必力，然后创建了一个 liverre city，获取到代码中的 data-uid ，然后编辑 hexo 主题配置文件 _config.yml , 编辑 livere_uid :1liverre_uid: #我在来必力获取的uid 2. 添加 tags 页面 在终端： 1hexo new page tags 在生成的 tags 目录下，编辑 index.md ，设置 type 属性为 tags，并屏蔽该页的评论功能： 123456---title: 标签date: 2018-09-19 22:51:31type: &quot;tags&quot;comments: false--- 在 _config.yml 文件中，编辑 menu 字段，放开 tags： 123456menu: home: / || home archives: /archives/ || archive tags: /tags/ || tags #categories: /categories/ || th #about: /about/ || user || 左侧是页面路径，|| 右侧是图标在 FontAwesome 字体中的名称。 3. 添加 categories 页面 在终端： 1hexo new page categories 在生成的 categories 目录下，编辑 index.md ，设置 type 属性为 categories ，并屏蔽该页的评论功能： 123456---title: 分类date: 2018-09-19 22:51:31type: &quot;categories&quot;comments: false--- 在 _config.yml 文件中，编辑 menu 字段，放开 categoris 字段： 123456menu: home: / || home archives: /archives/ || archive tags: /tags/ || tags categories: /categories/ || th #about: /about/ || user 4. 添加 about 页面 在终端： 1hexo new page about 在生成的 about 目录下，编辑 index.md ，屏蔽该页的评论功能： 12345---title: 标签date: 2018-09-19 22:51:31comments: false--- 在 _config.yml 文件中，编辑 menu 字段，放开 about 字段： 123456menu: home: / || home archives: /archives/ || archive tags: /tags/ || tags categories: /categories/ || th about: /about/ || user about页面的设置Tip注意：about页面还有一些地方要处理，因为 Next主题中 默认会把页面跟文章一样处理，当你在yml中设置了显示文章目录时，自定义页面也会统一被添加toc目录（这是我不必想要的）。于是我DIY了一下： 在 about页 的 index.md 文件头部加上自定义属性 toc: false; 123456---title: date: 2018-09-19 21:35:29toc: falsecomments: false--- 然后找到 theme/next/layout/_macro 目录下的 sidebar.swig 模版文件，将 toc 渲染条件由 1&#123;% set display_toc = is_post and theme.toc.enable or is_page and theme.toc.enable %&#125; 改为 1&#123;% set display_toc = is_post and theme.toc.enable or page.toc !== false %&#125; 重启 hexo 服务，刷新 about 页，即可看到不再显示右侧的toc目录了。 5. 设置 ‘阅读全文’效果：在首页提供文章的部分内容，并提供一个链接跳转到全文页面。在 NextT 中提供了三种方式，我比较喜欢它推荐的那种，也是 Hexo 提供的方式：在文章中使用 &lt;!-- more --&gt; 手动进行截断。 6. 配置博客文档模版hexo 中，运行 hexo new &quot;xxx&quot; 是调用了 scaffolds 目录下的 post.md 文件作为模版来创建的。所以修改这个模版，就可以达到每次创建文档可以使用自己习惯的模版了。默认模版是没有 categories 的，我需要这个字段，所以在模版中加上了这个字段：123456---title: &#123;&#123; title &#125;&#125;date: &#123;&#123; date &#125;&#125;tags: categories:---]]></content>
+    <content type="text"><![CDATA[进阶(二)：hexo博客配置 进阶配置内容： 添加评论系统 添加 tags 页面 添加 categories 页面 添加 about 页面 配置404页 设置 ‘阅读全文’ 配置博客文档模版 1. 添加评论系统hexo官方提供了很多评论系统的配置，我选择的是’来必力’。我先注册了来必力，然后创建了一个 liverre city，获取到代码中的 data-uid ，然后编辑 hexo 主题配置文件 _config.yml , 编辑 livere_uid :1liverre_uid: #我在来必力获取的uid 2. 添加 tags 页面 在终端： 1hexo new page tags 在生成的 tags 目录下，编辑 index.md ，设置 type 属性为 tags，并屏蔽该页的评论功能： 123456---title: 标签date: 2018-09-19 22:51:31type: &quot;tags&quot;comments: false--- 在 _config.yml 文件中，编辑 menu 字段，放开 tags： 123456menu: home: / || home archives: /archives/ || archive tags: /tags/ || tags #categories: /categories/ || th #about: /about/ || user || 左侧是页面路径，|| 右侧是图标在 FontAwesome 字体中的名称。 3. 添加 categories 页面 在终端： 1hexo new page categories 在生成的 categories 目录下，编辑 index.md ，设置 type 属性为 categories ，并屏蔽该页的评论功能： 123456---title: 分类date: 2018-09-19 22:51:31type: &quot;categories&quot;comments: false--- 在 _config.yml 文件中，编辑 menu 字段，放开 categoris 字段： 123456menu: home: / || home archives: /archives/ || archive tags: /tags/ || tags categories: /categories/ || th #about: /about/ || user 4. 添加 about 页面 在终端： 1hexo new page about 在生成的 about 目录下，编辑 index.md ，屏蔽该页的评论功能： 12345---title: 标签date: 2018-09-19 22:51:31comments: false--- 在 _config.yml 文件中，编辑 menu 字段，放开 about 字段： 123456menu: home: / || home archives: /archives/ || archive tags: /tags/ || tags categories: /categories/ || th about: /about/ || user about页面的设置Tip注意：about页面还有一些地方要处理，因为 Next主题中 默认会把页面跟文章一样处理，当你在yml中设置了显示文章目录时，自定义页面也会统一被添加toc目录（这是我不想要的）。于是我DIY了一下： 在 about页 的 index.md 文件头部加上自定义属性 toc: false; 123456---title: date: 2018-09-19 21:35:29toc: falsecomments: false--- 然后找到 theme/next/layout/_macro 目录下的 sidebar.swig 模版文件，将 toc 渲染条件由 1&#123;% set display_toc = is_post and theme.toc.enable or is_page and theme.toc.enable %&#125; 改为 1&#123;% set display_toc = is_post and theme.toc.enable or page.toc !== false %&#125; 重启 hexo 服务，刷新 about 页，即可看到不再显示右侧的toc目录了。 5. 配置404页给自己的站点设置404页面，可以让网站体验更加友好。hexo中配置404页的步骤很简单，在/source目录下，或者theme/next/source 目录下创建 404.html 文件即可。404页面的内容可以发挥自己的创意个性来设计，也可以利用404为社会公益做一些贡献。我放的是腾讯公益，帮助找回走失儿童，页面代码如下：123456789101112131415161718&lt;!DOCTYPE HTML&gt;&lt;html&gt;&lt;head&gt; &lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html;charset=utf-8;&quot;/&gt; &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge,chrome=1&quot; /&gt; &lt;meta name=&quot;robots&quot; content=&quot;all&quot; /&gt; &lt;meta name=&quot;robots&quot; content=&quot;index,follow&quot;/&gt; &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://qzone.qq.com/gy/404/style/404style.css&quot;&gt;&lt;/head&gt;&lt;body&gt; &lt;script type=&quot;text/plain&quot; src=&quot;http://www.qq.com/404/search_children.js&quot; charset=&quot;utf-8&quot; homePageUrl=&quot;/&quot; homePageName=&quot;回到我的主页&quot;&gt; &lt;/script&gt; &lt;script src=&quot;https://qzone.qq.com/gy/404/data.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt; &lt;script src=&quot;https://qzone.qq.com/gy/404/page.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;/body&gt;&lt;/html&gt; 6. 设置 ‘阅读全文’效果：在首页提供文章的部分内容，并提供一个链接跳转到全文页面。在 NextT 中提供了三种方式，我比较喜欢它推荐的那种，也是 Hexo 提供的方式：在文章中使用 &lt;!-- more --&gt; 手动进行截断。 7. 配置博客文档模版hexo 中，运行 hexo new &quot;xxx&quot; 是调用了 scaffolds 目录下的 post.md 文件作为模版来创建的。所以修改这个模版，就可以达到每次创建文档可以使用自己习惯的模版了。默认模版是没有 categories 的，我需要这个字段，所以在模版中加上了这个字段：123456---title: &#123;&#123; title &#125;&#125;date: &#123;&#123; date &#125;&#125;tags: categories:---]]></content>
       <categories>
         <category>博客搭建</category>
       </categories>
@@ -680,8 +680,8 @@
         <category>前端技术</category>
       </categories>
       <tags>
-        <tag>full stack</tag>
         <tag>node</tag>
+        <tag>full stack</tag>
         <tag>express</tag>
         <tag>koa</tag>
       </tags>
