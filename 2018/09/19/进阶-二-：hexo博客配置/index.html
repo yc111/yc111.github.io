@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="进阶(二)：hexo博客配置1. 添加评论系统hexo官方提供了很多评论系统的配置，我选择的是’来必力’。我先注册了来必力，然后创建了一个 liverre city，获取到代码中的 data-uid ，然后编辑 hexo 主题配置文件 _config.yml , 编辑 livere_uid :1liverre_uid: #我在来必力获取的uid 2. 添加 tags 页面">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-13T04:21:23.459Z">
+<meta property="og:updated_time" content="2019-12-25T09:17:45.499Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="进阶(二)：hexo博客配置">
 <meta name="twitter:description" content="进阶(二)：hexo博客配置1. 添加评论系统hexo官方提供了很多评论系统的配置，我选择的是’来必力’。我先注册了来必力，然后创建了一个 liverre city，获取到代码中的 data-uid ，然后编辑 hexo 主题配置文件 _config.yml , 编辑 livere_uid :1liverre_uid: #我在来必力获取的uid 2. 添加 tags 页面">
@@ -413,22 +413,25 @@
 <li><p>在终端：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page tags</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>在生成的 tags 目录下，编辑 index.md ，添加 tags 字段，屏蔽该页的评论功能：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: 2018-09-09 22:51:31</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">comments: false</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<li><p>在生成的 tags 目录下，编辑 index.md ，设置 <code>type</code> 属性为 <code>tags</code>，并屏蔽该页的评论功能：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: 2018-09-19 22:51:31</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">comments: false</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>在 <code>_config.yml</code> 文件中，编辑menu字段：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home:/</span><br><span class="line">  archives: /archives</span><br><span class="line">  tags: /tags</span><br></pre></td></tr></table></figure>
+<li><p>在 <code>_config.yml</code> 文件中，编辑 menu 字段，放开 tags：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: / || home</span><br><span class="line">  archives: /archives/ || archive</span><br><span class="line">  tags: /tags/ || tags</span><br><span class="line">  #categories: /categories/ || th</span><br><span class="line">  #about: /about/ || user</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>||</code> 左侧是页面路径，<code>||</code> 右侧是图标在 <code>FontAwesome</code> 字体中的名称。</p>
+</blockquote>
 </li>
 </ol>
 <h3 id="3-添加-categories-页面"><a href="#3-添加-categories-页面" class="headerlink" title="3. 添加 categories 页面"></a>3. 添加 categories 页面</h3><ol>
 <li><p>在终端：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page categories</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>在生成的 categories 目录下，编辑 index.md ，添加 categories 字段，屏蔽该页的评论功能：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: 2018-09-09 22:51:31</span><br><span class="line">type: &quot;categories&quot;</span><br><span class="line">comments: false</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<li><p>在生成的 categories 目录下，编辑 index.md ，设置 <code>type</code> 属性为 <code>categories</code> ，并屏蔽该页的评论功能：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分类</span><br><span class="line">date: 2018-09-19 22:51:31</span><br><span class="line">type: &quot;categories&quot;</span><br><span class="line">comments: false</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>在 <code>_config.yml</code> 文件中，编辑menu字段：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home:/</span><br><span class="line">  archives: /archives</span><br><span class="line">  tags: /tags</span><br><span class="line">  categories: /categories</span><br></pre></td></tr></table></figure>
+<li><p>在 <code>_config.yml</code> 文件中，编辑 menu 字段，放开 categoris 字段：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: / || home</span><br><span class="line">  archives: /archives/ || archive</span><br><span class="line">  tags: /tags/ || tags</span><br><span class="line">  categories: /categories/ || th</span><br><span class="line">  #about: /about/ || user</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h3 id="4-添加-about-页面"><a href="#4-添加-about-页面" class="headerlink" title="4. 添加 about 页面"></a>4. 添加 about 页面</h3><ol>
@@ -436,9 +439,27 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page about</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>在生成的 about 目录下，编辑 index.md ，屏蔽该页的评论功能：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: 2018-09-09 22:51:31</span><br><span class="line">comments: false</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: 2018-09-19 22:51:31</span><br><span class="line">comments: false</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 <code>_config.yml</code> 文件中，编辑 menu 字段，放开 about 字段：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: / || home</span><br><span class="line">  archives: /archives/ || archive</span><br><span class="line">  tags: /tags/ || tags</span><br><span class="line">  categories: /categories/ || th</span><br><span class="line">  about: /about/ || user</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
+<blockquote>
+<h4 id="about页面的设置Tip"><a href="#about页面的设置Tip" class="headerlink" title="about页面的设置Tip"></a>about页面的设置Tip</h4><p>注意：about页面还有一些地方要处理，因为 <code>Next主题中</code> 默认会把页面跟文章一样处理，当你在yml中设置了显示文章目录时，自定义页面也会统一被添加toc目录（这是我不必想要的）。于是我DIY了一下：</p>
+<ul>
+<li><p>在 about页 的 index.md 文件头部加上自定义属性 <code>toc: false</code>;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: </span><br><span class="line">date: 2018-09-19 21:35:29</span><br><span class="line">toc: false</span><br><span class="line">comments: false</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后找到 <code>theme/next/layout/_macro</code> 目录下的 <code>sidebar.swig</code> 模版文件，将 toc 渲染条件由</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% set display_toc = is_post and theme.toc.enable or is_page and theme.toc.enable %&#125;</span><br></pre></td></tr></table></figure>
+<p>改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% set display_toc = is_post and theme.toc.enable or page.toc !== false %&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启 hexo 服务，刷新 about 页，即可看到不再显示右侧的toc目录了。</p>
+</li>
+</ul>
+</blockquote>
 <h3 id="5-设置-‘阅读全文’"><a href="#5-设置-‘阅读全文’" class="headerlink" title="5. 设置 ‘阅读全文’"></a>5. 设置 ‘阅读全文’</h3><p>效果：在首页提供文章的部分内容，并提供一个链接跳转到全文页面。<br>在 NextT 中提供了三种方式，我比较喜欢它推荐的那种，也是 Hexo 提供的方式：<br>在文章中使用 <code>&lt;!-- more --&gt;</code> 手动进行截断。</p>
 <h3 id="6-配置博客文档模版"><a href="#6-配置博客文档模版" class="headerlink" title="6. 配置博客文档模版"></a>6. 配置博客文档模版</h3><p>hexo 中，运行 <code>hexo new &quot;xxx&quot;</code> 是调用了 <code>scaffolds</code> 目录下的 <code>post.md</code> 文件作为模版来创建的。<br>所以修改这个模版，就可以达到每次创建文档可以使用自己习惯的模版了。<br>默认模版是没有 categories 的，我需要这个字段，所以在模版中加上了这个字段：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#123;&#123; title &#125;&#125;</span><br><span class="line">date: &#123;&#123; date &#125;&#125;</span><br><span class="line">tags: </span><br><span class="line">categories:</span><br><span class="line">---</span><br></pre></td></tr></table></figure></p>
 
@@ -591,7 +612,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">88</span>
+                  <span class="site-state-item-count">85</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -646,7 +667,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#进阶-二-：hexo博客配置"><span class="nav-number">1.</span> <span class="nav-text">进阶(二)：hexo博客配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-添加评论系统"><span class="nav-number">1.1.</span> <span class="nav-text">1. 添加评论系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-添加-tags-页面"><span class="nav-number">1.2.</span> <span class="nav-text">2. 添加 tags 页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-添加-categories-页面"><span class="nav-number">1.3.</span> <span class="nav-text">3. 添加 categories 页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-添加-about-页面"><span class="nav-number">1.4.</span> <span class="nav-text">4. 添加 about 页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-设置-‘阅读全文’"><span class="nav-number">1.5.</span> <span class="nav-text">5. 设置 ‘阅读全文’</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-配置博客文档模版"><span class="nav-number">1.6.</span> <span class="nav-text">6. 配置博客文档模版</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#进阶-二-：hexo博客配置"><span class="nav-text">进阶(二)：hexo博客配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-添加评论系统"><span class="nav-text">1. 添加评论系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-添加-tags-页面"><span class="nav-text">2. 添加 tags 页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-添加-categories-页面"><span class="nav-text">3. 添加 categories 页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-添加-about-页面"><span class="nav-text">4. 添加 about 页面</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#about页面的设置Tip"><span class="nav-text">about页面的设置Tip</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-设置-‘阅读全文’"><span class="nav-text">5. 设置 ‘阅读全文’</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-配置博客文档模版"><span class="nav-text">6. 配置博客文档模版</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="virtualbox," />
+  <meta name="keywords" content="full stack,virtualbox," />
 
 
 
@@ -80,14 +80,14 @@
 
 
 <meta name="description" content="我的宿主机是一台windows操作系统的服务器。 虚拟机用的是virtualbox。 以前在 vmware 上面与宿主机的共享只需要在 wmware 上配置下共享文件夹就可以生效。但是在 virtualbox 上，除了配置共享文件夹，还要使用 mount 命令进行挂载才能与宿主机共享一个文件夹。">
-<meta name="keywords" content="virtualbox">
+<meta name="keywords" content="full stack,virtualbox">
 <meta property="og:type" content="article">
 <meta property="og:title" content="virtualbox如何挂载宿主机的文件夹">
 <meta property="og:url" content="http://champyin.com/2018/07/17/virtualbox如何挂载宿主机的文件夹/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="我的宿主机是一台windows操作系统的服务器。 虚拟机用的是virtualbox。 以前在 vmware 上面与宿主机的共享只需要在 wmware 上配置下共享文件夹就可以生效。但是在 virtualbox 上，除了配置共享文件夹，还要使用 mount 命令进行挂载才能与宿主机共享一个文件夹。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-09-19T14:32:31.000Z">
+<meta property="og:updated_time" content="2019-12-25T05:18:35.464Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="virtualbox如何挂载宿主机的文件夹">
 <meta name="twitter:description" content="我的宿主机是一台windows操作系统的服务器。 虚拟机用的是virtualbox。 以前在 vmware 上面与宿主机的共享只需要在 wmware 上配置下共享文件夹就可以生效。但是在 virtualbox 上，除了配置共享文件夹，还要使用 mount 命令进行挂载才能与宿主机共享一个文件夹。">
@@ -430,6 +430,8 @@
       
         <div class="post-tags">
           
+            <a href="/tags/full-stack/" rel="tag"># full stack</a>
+          
             <a href="/tags/virtualbox/" rel="tag"># virtualbox</a>
           
         </div>
@@ -563,7 +565,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">88</span>
+                  <span class="site-state-item-count">85</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -618,7 +620,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-在宿主机建立一个用于与virtualbox共享的文件夹，例如-myshared。并在里面新建一个空的文本-a-txt，用于检测最后挂载是否成功。"><span class="nav-number">1.</span> <span class="nav-text">1. 在宿主机建立一个用于与virtualbox共享的文件夹，例如 myshared。并在里面新建一个空的文本 a.txt，用于检测最后挂载是否成功。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-在virtualbox中选择-设备-gt-共享文件夹-gt-打开设置界面。"><span class="nav-number">2.</span> <span class="nav-text">2. 在virtualbox中选择 设备 -&gt; 共享文件夹 -&gt; 打开设置界面。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-点击右侧-号，添加共享文件夹，选择宿主机上之前建好的-myshared-文件夹，并勾选-固定分配-。"><span class="nav-number">3.</span> <span class="nav-text">3. 点击右侧 + 号，添加共享文件夹，选择宿主机上之前建好的 myshared 文件夹，并勾选 固定分配 。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-在linux虚拟机中，打开终端，在mnt目录下新建一个目录-shared："><span class="nav-number">4.</span> <span class="nav-text">4. 在linux虚拟机中，打开终端，在mnt目录下新建一个目录 shared：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-执行挂载："><span class="nav-number">5.</span> <span class="nav-text">5. 执行挂载：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-挂载成功，进入shared目录，就可以看到a-txt文件了。"><span class="nav-number">6.</span> <span class="nav-text">6. 挂载成功，进入shared目录，就可以看到a.txt文件了。</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-在宿主机建立一个用于与virtualbox共享的文件夹，例如-myshared。并在里面新建一个空的文本-a-txt，用于检测最后挂载是否成功。"><span class="nav-text">1. 在宿主机建立一个用于与virtualbox共享的文件夹，例如 myshared。并在里面新建一个空的文本 a.txt，用于检测最后挂载是否成功。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-在virtualbox中选择-设备-gt-共享文件夹-gt-打开设置界面。"><span class="nav-text">2. 在virtualbox中选择 设备 -&gt; 共享文件夹 -&gt; 打开设置界面。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-点击右侧-号，添加共享文件夹，选择宿主机上之前建好的-myshared-文件夹，并勾选-固定分配-。"><span class="nav-text">3. 点击右侧 + 号，添加共享文件夹，选择宿主机上之前建好的 myshared 文件夹，并勾选 固定分配 。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-在linux虚拟机中，打开终端，在mnt目录下新建一个目录-shared："><span class="nav-text">4. 在linux虚拟机中，打开终端，在mnt目录下新建一个目录 shared：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-执行挂载："><span class="nav-text">5. 执行挂载：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-挂载成功，进入shared目录，就可以看到a-txt文件了。"><span class="nav-text">6. 挂载成功，进入shared目录，就可以看到a.txt文件了。</span></a></li></ol></div>
             
 
           </div>

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="git， rebase," />
+  <meta name="keywords" content="git,rebase," />
 
 
 
@@ -80,7 +80,7 @@
 
 
 <meta name="description" content="有的时候，完成一个功能，不是一时半会就可以完成的，但是为了保护代码不丢失，我们会把这次的修改先commit，而不着急push到远程。等到这个功能完全做好，再push。但是这样一来，就会有很多零碎的commit，这会使远程的commit显得很杂乱。于是必要的时候，我们会合并这些相近的commit为一个commit再push。当然了，如果你想合并远程的commit也是可以的，只是要跟团队提前说一声，">
-<meta name="keywords" content="git， rebase">
+<meta name="keywords" content="git,rebase">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git进阶之合并多次commit">
 <meta property="og:url" content="http://champyin.com/2019/10/28/git进阶之合并多次commit/index.html">
@@ -88,7 +88,7 @@
 <meta property="og:description" content="有的时候，完成一个功能，不是一时半会就可以完成的，但是为了保护代码不丢失，我们会把这次的修改先commit，而不着急push到远程。等到这个功能完全做好，再push。但是这样一来，就会有很多零碎的commit，这会使远程的commit显得很杂乱。于是必要的时候，我们会合并这些相近的commit为一个commit再push。当然了，如果你想合并远程的commit也是可以的，只是要跟团队提前说一声，">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://champyin.com/images/git-rebase.jpg">
-<meta property="og:updated_time" content="2019-11-01T03:49:01.123Z">
+<meta property="og:updated_time" content="2019-12-25T04:57:35.606Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git进阶之合并多次commit">
 <meta name="twitter:description" content="有的时候，完成一个功能，不是一时半会就可以完成的，但是为了保护代码不丢失，我们会把这次的修改先commit，而不着急push到远程。等到这个功能完全做好，再push。但是这样一来，就会有很多零碎的commit，这会使远程的commit显得很杂乱。于是必要的时候，我们会合并这些相近的commit为一个commit再push。当然了，如果你想合并远程的commit也是可以的，只是要跟团队提前说一声，">
@@ -447,7 +447,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/git，-rebase/" rel="tag"># git， rebase</a>
+            <a href="/tags/git/" rel="tag"># git</a>
+          
+            <a href="/tags/rebase/" rel="tag"># rebase</a>
           
         </div>
       
@@ -580,7 +582,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">88</span>
+                  <span class="site-state-item-count">85</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -635,7 +637,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-git-log-查看commit节点id"><span class="nav-number">1.</span> <span class="nav-text">1. git log 查看commit节点id</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-git-rebase-变基"><span class="nav-number">2.</span> <span class="nav-text">2. git rebase 变基</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-修改-pick-为-squash"><span class="nav-number">3.</span> <span class="nav-text">3. 修改 pick 为 squash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-处理合并后的commit-message"><span class="nav-number">4.</span> <span class="nav-text">4. 处理合并后的commit message</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-如果修改的是远程的commit，则强制push一把"><span class="nav-number">5.</span> <span class="nav-text">5. 如果修改的是远程的commit，则强制push一把</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#done！"><span class="nav-number">6.</span> <span class="nav-text">done！</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-git-log-查看commit节点id"><span class="nav-text">1. git log 查看commit节点id</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-git-rebase-变基"><span class="nav-text">2. git rebase 变基</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-修改-pick-为-squash"><span class="nav-text">3. 修改 pick 为 squash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-处理合并后的commit-message"><span class="nav-text">4. 处理合并后的commit message</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-如果修改的是远程的commit，则强制push一把"><span class="nav-text">5. 如果修改的是远程的commit，则强制push一把</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#done！"><span class="nav-text">done！</span></a></li></ol></div>
             
 
           </div>
