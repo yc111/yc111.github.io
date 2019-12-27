@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="发HTTP请求是JS前端应用最常见的任务之一。实现HTTP请求有非常多解决方案，目前主流的几个解决方案有 ajax、axios 和 fetch。哪个好？如何选？下面对这几个方案进行一个简单的对比分析。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-24T09:59:05.788Z">
+<meta property="og:updated_time" content="2019-12-27T07:27:29.614Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ajax vs Axios vs Fetch">
 <meta name="twitter:description" content="发HTTP请求是JS前端应用最常见的任务之一。实现HTTP请求有非常多解决方案，目前主流的几个解决方案有 ajax、axios 和 fetch。哪个好？如何选？下面对这几个方案进行一个简单的对比分析。">
@@ -402,7 +402,7 @@
                   
                 
                 <span title="Words count in article">
-                  741
+                  812
                 </span>
               
 
@@ -419,7 +419,7 @@
                   
                 
                 <span title="Reading time">
-                  2 min
+                  3 min
                 </span>
               
             </div>
@@ -449,12 +449,15 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(url[, settings])</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>axios： 轻量的HTTP客户端，支持浏览器端和 <code>Node.js</code> 端。基本语法:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">axios.get().then().catch()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">axios(url[, options]).then().catch()</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>fetch： Web原生的HTTP请求API。基本语法:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fetch().then().catch()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fetch(url[, options]).then().catch()</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<blockquote>
+<p>可以看到 axios 和 fetch 的基本用法非常一致，不过在面对稍复杂一些的需求时使用还是有差别的。</p>
+</blockquote>
 <h1 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h1><p> ajax 和 axios 属于第三方库，它们底层都是基于 <code>XMLHttpRequest</code>，而 fetch 是web原生的 <code>JS API</code>，是 <code>web标准</code> 的一部分。从性能上讲，原生API fetch 有天然的性能优势：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fetch &gt; axios = ajax</span><br></pre></td></tr></table></figure></p>
 <h1 id="简洁性"><a href="#简洁性" class="headerlink" title="简洁性"></a>简洁性</h1><p>在处理异步的方式上，ajax 基于回调，axios 和 fetch 都是基于 Promise，因此代码会比 ajax 更简洁，更优雅。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">axios = fetch &gt; ajax</span><br></pre></td></tr></table></figure></p>
 <blockquote>
@@ -466,7 +469,7 @@
 <h1 id="一些不成熟的建议和看法"><a href="#一些不成熟的建议和看法" class="headerlink" title="一些不成熟的建议和看法"></a>一些不成熟的建议和看法</h1><ul>
 <li>ajax 依然有它的市场，现在依然有很多的依赖 jQuery 库的项目，在 $.ajax 就够用了的情况下，没必要非要引入 axios。</li>
 <li>在尤大大的推荐下，Vue 项目一般都搭配 axios 使用，但是不要陷入 “Vue 只能使用 axios”，或者 “axios 只能在 Vue 中使用” 的误区。</li>
-<li>以后的大趋势依然是原生web，当原生web标准支持越来越多草案后，第三方的库也就没有存在的必要了，以后 fetch 的使用率会越来越高。</li>
+<li>以后的大趋势依然是原生web。使用原生的好处之一就是，不依赖外部，不必再加载额外模块，效率高。所以当原生web标准支持越来越多草案后，第三方的库也就没有存在的必要了，以后 fetch 的使用率会越来越高。</li>
 </ul>
 <blockquote>
 <p>不过从历史规律看来，第三方永远比标准发展的快…</p>
@@ -731,7 +734,7 @@
     
       
     
-    <span title="Site words total count">46.5k</span>
+    <span title="Site words total count">46.6k</span>
   
 </div>
 
