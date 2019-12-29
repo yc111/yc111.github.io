@@ -79,20 +79,21 @@
 
 
 
-<meta name="description" content="axios 是一个轻量的 HTTP客户端，它基于 XMLHttpRequest 服务来执行 HTTP 请求，支持丰富的配置，支持 Promise，支持浏览器端和 Node.js 端。自Vue2.0起，尤大大（Vue作者尤雨溪）宣布取消对 vue-resource 的官方推荐，转而推荐 axios。现在 axios 已经成为大部分 Vue 开发者的首选。 axios 的API很友好，你完全可以很轻">
+<meta name="description" content="axios 是一个轻量的 HTTP客户端，它基于 XMLHttpRequest 服务来执行 HTTP 请求，支持丰富的配置，支持 Promise，支持浏览器端和 Node.js 端。自Vue2.0起，尤大大（Vue作者尤雨溪）宣布取消对 vue-resource 的官方推荐，转而推荐 axios。现在 axios 已经成为大部分 Vue 开发者的首选。（ 如果你还不熟悉 axios，可以在这里">
 <meta name="keywords" content="axios,http,vue,react">
 <meta property="og:type" content="article">
 <meta property="og:title" content="封装axios">
 <meta property="og:url" content="http://champyin.com/2019/12/23/封装axios/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="axios 是一个轻量的 HTTP客户端，它基于 XMLHttpRequest 服务来执行 HTTP 请求，支持丰富的配置，支持 Promise，支持浏览器端和 Node.js 端。自Vue2.0起，尤大大（Vue作者尤雨溪）宣布取消对 vue-resource 的官方推荐，转而推荐 axios。现在 axios 已经成为大部分 Vue 开发者的首选。 axios 的API很友好，你完全可以很轻">
+<meta property="og:description" content="axios 是一个轻量的 HTTP客户端，它基于 XMLHttpRequest 服务来执行 HTTP 请求，支持丰富的配置，支持 Promise，支持浏览器端和 Node.js 端。自Vue2.0起，尤大大（Vue作者尤雨溪）宣布取消对 vue-resource 的官方推荐，转而推荐 axios。现在 axios 已经成为大部分 Vue 开发者的首选。（ 如果你还不熟悉 axios，可以在这里">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="http://champyin.com/images/wrap-axios-cover.png">
 <meta property="og:image" content="http://champyin.com/images/wrap-axios.jpg">
-<meta property="og:updated_time" content="2019-12-29T07:09:57.721Z">
+<meta property="og:updated_time" content="2019-12-29T08:35:51.282Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="封装axios">
-<meta name="twitter:description" content="axios 是一个轻量的 HTTP客户端，它基于 XMLHttpRequest 服务来执行 HTTP 请求，支持丰富的配置，支持 Promise，支持浏览器端和 Node.js 端。自Vue2.0起，尤大大（Vue作者尤雨溪）宣布取消对 vue-resource 的官方推荐，转而推荐 axios。现在 axios 已经成为大部分 Vue 开发者的首选。 axios 的API很友好，你完全可以很轻">
-<meta name="twitter:image" content="http://champyin.com/images/wrap-axios.jpg">
+<meta name="twitter:description" content="axios 是一个轻量的 HTTP客户端，它基于 XMLHttpRequest 服务来执行 HTTP 请求，支持丰富的配置，支持 Promise，支持浏览器端和 Node.js 端。自Vue2.0起，尤大大（Vue作者尤雨溪）宣布取消对 vue-resource 的官方推荐，转而推荐 axios。现在 axios 已经成为大部分 Vue 开发者的首选。（ 如果你还不熟悉 axios，可以在这里">
+<meta name="twitter:image" content="http://champyin.com/images/wrap-axios-cover.png">
 
 
 
@@ -442,15 +443,13 @@
       
 
       
-        <blockquote>
-<p><code>axios</code> 是一个轻量的 <code>HTTP客户端</code>，它基于 <code>XMLHttpRequest</code> 服务来执行 HTTP 请求，支持丰富的配置，支持 <code>Promise</code>，支持浏览器端和 <code>Node.js</code> 端。自Vue2.0起，尤大大（Vue作者尤雨溪）宣布取消对 <code>vue-resource</code> 的官方推荐，转而推荐 <code>axios</code>。现在 <code>axios</code> 已经成为大部分 Vue 开发者的首选。</p>
+        <p><img src="/images/wrap-axios-cover.png" alt="wrap-axios-cover.png"></p>
+<blockquote>
+<p><code>axios</code> 是一个轻量的 <code>HTTP客户端</code>，它基于 <code>XMLHttpRequest</code> 服务来执行 HTTP 请求，支持丰富的配置，支持 <code>Promise</code>，支持浏览器端和 <code>Node.js</code> 端。自Vue2.0起，尤大大（Vue作者尤雨溪）宣布取消对 <code>vue-resource</code> 的官方推荐，转而推荐 <code>axios</code>。现在 <code>axios</code> 已经成为大部分 Vue 开发者的首选。（ 如果你还不熟悉 <code>axios</code>，可以在<a href="http://www.axios-js.com/zh-cn/docs" target="_blank" rel="noopener">这里</a>查看它的API。）</p>
 <p><code>axios</code> 的API很友好，你完全可以很轻松地在项目中直接使用。不过随着项目规模增大，如果每发起一次HTTP请求，就要把这些比如设置超时时间、设置请求头、根据项目环境判断使用哪个请求地址、错误处理等等操作，都就地写一遍，得疯！这种重复劳动不仅浪费时间，而且让代码变得冗余不堪，难以维护。</p>
 <p>为了提高我们的代码质量，我们应该在项目中二次封装一下 <code>axios</code> 再使用。</p>
 </blockquote>
 <a id="more"></a>
-<blockquote>
-<p>如果你还不熟悉 <code>axios</code>，可以在<a href="http://www.axios-js.com/zh-cn/docs" target="_blank" rel="noopener">这里</a>查看它的API。</p>
-</blockquote>
 <p>那么，怎么封装 <code>axios</code> 呢？</p>
 <h1 id="原来的样子"><a href="#原来的样子" class="headerlink" title="原来的样子"></a>原来的样子</h1><p>封装前，先来看下，不封装的情况下，一个实际项目中axios请求的样子。大概是长这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">axios(&apos;http://localhost:3000/data&apos;, &#123;</span><br><span class="line">  method: &apos;GET&apos;,</span><br><span class="line">  timeout: 1000,</span><br><span class="line">  withCredentials: true,</span><br><span class="line">  headers: &#123;</span><br><span class="line">    &apos;Content-Type&apos;: &apos;application/json&apos;,</span><br><span class="line">    Authorization: &apos;xxx&apos;,</span><br><span class="line">  &#125;,</span><br><span class="line">  transformRequest: [function (data, headers) &#123;</span><br><span class="line">    return data;</span><br><span class="line">  &#125;],</span><br><span class="line">  // 其他请求配置...</span><br><span class="line">&#125;)</span><br><span class="line">.then((data) =&gt; &#123;</span><br><span class="line">  // todo: 真正业务逻辑代码</span><br><span class="line">  console.log(data);</span><br><span class="line">&#125;, (err) =&gt; &#123;</span><br><span class="line">  if (err.response.status === 401) &#123;</span><br><span class="line">  // handle authorization error</span><br><span class="line">  &#125;</span><br><span class="line">  if (err.response.status === 403) &#123;</span><br><span class="line">  // handle server forbidden error</span><br><span class="line">  &#125;</span><br><span class="line">  // 其他错误处理.....</span><br><span class="line">  console.log(err);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>可以看到在这段代码中，页面代码逻辑只在第15行处，上方的一大块请求配置代码和下方一大块响应错误处理代码，几乎跟页面功能没有关系，而且每个请求中这些内容都差不多，甚至有的部分完全一样。想象一下，每发一次请求都来这么一下，十几个请求一写，会是什么盛况？这种代码不优化留着干嘛？</p>
