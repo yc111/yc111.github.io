@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-champyin.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-champyin.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="full stack,webpack,plugin," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Plugin(插件) 是 webpack 生态的的一个关键部分。它为社区提供了一种强大的方法来扩展 webpack 和开发 webpack 的编译过程。这篇文章将尝试探索 webpack plugin，揭秘它的工作原理，以及如何开发一个 plugin。">
+<meta name="keywords" content="full stack,webpack,plugin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="揭秘webpack plugin">
+<meta property="og:url" content="http://champyin.com/2020/01/12/揭秘webpack-plugin/index.html">
+<meta property="og:site_name" content="ChampYin&#39;s Blog">
+<meta property="og:description" content="Plugin(插件) 是 webpack 生态的的一个关键部分。它为社区提供了一种强大的方法来扩展 webpack 和开发 webpack 的编译过程。这篇文章将尝试探索 webpack plugin，揭秘它的工作原理，以及如何开发一个 plugin。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://champyin.com/images/webpack-basic-flow.png">
+<meta property="og:image" content="http://champyin.com/images/webpack-plugin1.jpg">
+<meta property="og:image" content="http://champyin.com/images/webpack-plugin2.jpg">
+<meta property="og:image" content="http://champyin.com/images/webpack-plugin3.jpg">
+<meta property="og:updated_time" content="2020-01-15T07:58:07.395Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="揭秘webpack plugin">
+<meta name="twitter:description" content="Plugin(插件) 是 webpack 生态的的一个关键部分。它为社区提供了一种强大的方法来扩展 webpack 和开发 webpack 的编译过程。这篇文章将尝试探索 webpack plugin，揭秘它的工作原理，以及如何开发一个 plugin。">
+<meta name="twitter:image" content="http://champyin.com/images/webpack-basic-flow.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://champyin.com/2020/01/12/揭秘webpack-plugin/"/>
+
+
+
+
+
+  <title>揭秘webpack plugin | ChampYin's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?33e86ea32ced4dc8fafe3738659b3dcf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ChampYin's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">自律是真正的自由</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://champyin.com/2020/01/12/揭秘webpack-plugin/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ChampYin">
+      <meta itemprop="description" content="Life does'nt get easier, you just get stronger.">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChampYin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">揭秘webpack plugin</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-12T17:19:30+08:00">
+                2020-01-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端技术/" itemprop="url" rel="index">
+                    <span itemprop="name">前端技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/01/12/揭秘webpack-plugin/" class="leancloud_visitors" data-flag-title="揭秘webpack plugin">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words &#58;</span>
+                  
+                
+                <span title="Words count in article">
+                  2.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading &asymp;</span>
+                  
+                
+                <span title="Reading time">
+                  9 min
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>Plugin(插件) 是 webpack 生态的的一个关键部分。它为社区提供了一种强大的方法来扩展 webpack 和开发 webpack 的编译过程。这篇文章将尝试探索 webpack plugin，揭秘它的工作原理，以及如何开发一个 plugin。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="一、Plugin-的作用"><a href="#一、Plugin-的作用" class="headerlink" title="一、Plugin 的作用"></a>一、Plugin 的作用</h1><p>关于 Plugin 的作用，引用一下 webpack 官方的介绍：</p>
+<blockquote>
+<p>Plugins expose the full potential of the webpack engine to third-party developers. Using staged build callbacks, developers can introduce their own behaviors into the webpack build process. </p>
+</blockquote>
+<p>翻译成“人话”就是：<br>通过插件我们可以扩展 webpack，加入自定义的构建行为，使 webpack 可以执行更广泛的任务，拥有更强的构建能力。</p>
+<h1 id="二、Plugin-工作原理"><a href="#二、Plugin-工作原理" class="headerlink" title="二、Plugin 工作原理"></a>二、Plugin 工作原理</h1><p>Plugin 的工作原理，简单来说，就是webpack在编译过程中提供了一些生命周期钩子，我们的插件会在这些钩子事件中注入我们要执行的任务（注册处理器），当 webpack 执行构建的时候，它的 Tapable 事件流会自动调用这些钩子，从而触发我们注入的方法，执行我们的自定义任务。</p>
+<h1 id="三、webpack-的一些底层逻辑"><a href="#三、webpack-的一些底层逻辑" class="headerlink" title="三、webpack 的一些底层逻辑"></a>三、webpack 的一些底层逻辑</h1><p>开发一个 plugin 比开发一个 loader 更高级一些，因为我们会用到一些 webpack 比较底层的内部组件。因此我们需要了解一些 webpack 的底层逻辑。</p>
+<h2 id="webpack-内部执行流程"><a href="#webpack-内部执行流程" class="headerlink" title="webpack 内部执行流程"></a>webpack 内部执行流程</h2><p>一次完整的 webpack 打包大致是这样的过程：</p>
+<ul>
+<li>将命令行参数与 <code>webpack 配置文件</code> 合并、解析得到参数对象。</li>
+<li>参数对象传给 webpack 执行得到 <code>Compiler</code> 对象。</li>
+<li>执行 <code>Compiler</code> 的 <code>run</code>方法开始编译。每次执行 <code>run</code> 编译都会生成一个 <code>Compilation</code> 对象。</li>
+<li>触发 <code>Compiler</code> 的 <code>make</code>方法分析入口文件，调用 <code>compilation</code> 的 <code>buildModule</code> 方法创建主模块对象。</li>
+<li>生成入口文件 <code>AST(抽象语法树)</code>，通过 <code>AST</code> 分析和递归加载依赖模块。</li>
+<li>所有模块分析完成后，执行 <code>compilation</code> 的 <code>seal</code> 方法对每个 <code>chunk</code> 进行整理、优化、封装。</li>
+<li>最后执行 <code>Compiler</code> 的 <code>emitAssets</code> 方法把生成的文件输出到 <code>output</code> 的目录中。</li>
+</ul>
+<p>webpack 底层基本流程图</p>
+<p><img src="/images/webpack-basic-flow.png" alt="webpack-basic-flow.png"></p>
+<h2 id="webpack-内部的一些钩子"><a href="#webpack-内部的一些钩子" class="headerlink" title="webpack 内部的一些钩子"></a>webpack 内部的一些钩子</h2><p>在 webpack 编译打包的过程中，会触发一些关键事件，为了方便我们直接介入和控制编译过程，webpack 把这些事件封装成接口暴露了出来，这些接口被叫做 hooks（钩子）。开发插件，离不开这些钩子。</p>
+<h3 id="Tapable"><a href="#Tapable" class="headerlink" title="Tapable"></a>Tapable</h3><p>Tapable 是 webpack 的核心功能库，它为 webpack 提供了统一的插件接口（钩子）类型定义。webpack 中目前有十种 hooks，在 Tapable 源码中可以看到，他们是：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// https://github.com/webpack/tapable/blob/master/lib/index.js</span></span><br><span class="line"></span><br><span class="line">exports.SyncHook = <span class="built_in">require</span>(<span class="string">"./SyncHook"</span>);</span><br><span class="line">exports.SyncBailHook = <span class="built_in">require</span>(<span class="string">"./SyncBailHook"</span>);</span><br><span class="line">exports.SyncWaterfallHook = <span class="built_in">require</span>(<span class="string">"./SyncWaterfallHook"</span>);</span><br><span class="line">exports.SyncLoopHook = <span class="built_in">require</span>(<span class="string">"./SyncLoopHook"</span>);</span><br><span class="line">exports.AsyncParallelHook = <span class="built_in">require</span>(<span class="string">"./AsyncParallelHook"</span>);</span><br><span class="line">exports.AsyncParallelBailHook = <span class="built_in">require</span>(<span class="string">"./AsyncParallelBailHook"</span>);</span><br><span class="line">exports.AsyncSeriesHook = <span class="built_in">require</span>(<span class="string">"./AsyncSeriesHook"</span>);</span><br><span class="line">exports.AsyncSeriesBailHook = <span class="built_in">require</span>(<span class="string">"./AsyncSeriesBailHook"</span>);</span><br><span class="line">exports.AsyncSeriesLoopHook = <span class="built_in">require</span>(<span class="string">"./AsyncSeriesLoopHook"</span>);</span><br><span class="line">exports.AsyncSeriesWaterfallHook = <span class="built_in">require</span>(<span class="string">"./AsyncSeriesWaterfallHook"</span>);</span><br></pre></td></tr></table></figure>
+<p>Tapable 还统一暴露了三个方法给插件，用于注入不同类型的自定义构建行为：</p>
+<ul>
+<li><code>tap</code>：注册钩子，同步钩子和异步钩子都可以使用。</li>
+<li><code>tapAsync</code>：回调方式注册异步钩子。</li>
+<li><code>tapPromise</code>：Promise方式注册异步钩子。</li>
+</ul>
+<p>webpack 里有几个非常重要的对象，他们是 <code>Compiler</code>, <code>Compilation</code> 和 <code>JavascriptParser</code>。这些对象都继承了 Tapable 类，身上都挂着丰富的钩子，用于注册和调用插件。</p>
+<h3 id="Compiler-Hooks"><a href="#Compiler-Hooks" class="headerlink" title="Compiler Hooks"></a>Compiler Hooks</h3><p>Compiler 编译器模块是创建编译实例的主引擎。大多数面向用户的插件都首先在 Compiler 上注册。</p>
+<p>compiler上暴露的一些常用的钩子：</p>
+<table>
+<thead>
+<tr>
+<th>钩子</th>
+<th>类型</th>
+<th>什么时候调用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>run</td>
+<td>AsyncSeriesHook</td>
+<td>在编译器开始读取记录前执行</td>
+</tr>
+<tr>
+<td>compile</td>
+<td>SyncHook</td>
+<td>在一个新的compilation创建之前执行</td>
+</tr>
+<tr>
+<td>compilation</td>
+<td>SyncHook</td>
+<td>在一次compilation创建后执行插件</td>
+</tr>
+<tr>
+<td>make</td>
+<td>AsyncParallelHook</td>
+<td>完成一次编译之前执行</td>
+</tr>
+<tr>
+<td>emit</td>
+<td>AsyncSeriesHook</td>
+<td>在生成文件到output目录之前执行，回调参数：    <code>compilation</code></td>
+</tr>
+<tr>
+<td>afterEmit</td>
+<td>AsyncSeriesHook</td>
+<td>在生成文件到output目录之后执行</td>
+</tr>
+<tr>
+<td>assetEmitted</td>
+<td>AsyncSeriesHook</td>
+<td>生成文件的时候执行，提供访问产出文件信息的入口，回调参数：<code>file</code>，<code>info</code></td>
+</tr>
+<tr>
+<td>done</td>
+<td>AsyncSeriesHook</td>
+<td>一次编译完成后执行，回调参数：<code>stats</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Compilation-Hooks"><a href="#Compilation-Hooks" class="headerlink" title="Compilation Hooks"></a>Compilation Hooks</h3><p>Compilation 是 Compiler 用来创建一次新的编译过程的模块。一个 Compilation 实例可以访问所有模块和它们的依赖。在一次编译阶段，模块被加载、封装、优化、分块、散列和还原。<br>Compilation 也继承了 Tapable 并提供了很多生命周期钩子。</p>
+<p>Compilation 上暴露的一些常用的钩子：</p>
+<table>
+<thead>
+<tr>
+<th>钩子</th>
+<th>类型</th>
+<th>什么时候调用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>buildModule</td>
+<td>SyncHook</td>
+<td>在模块开始编译之前出发，可以用于修改模块</td>
+</tr>
+<tr>
+<td>succeedModule</td>
+<td>SyncHook</td>
+<td>当一个模块被成功编译，会执行这个钩子</td>
+</tr>
+<tr>
+<td>finishModules</td>
+<td>AsyncSeriesHook</td>
+<td>当所有模块都编译成功后被调用</td>
+</tr>
+<tr>
+<td>seal</td>
+<td>SyncHook</td>
+<td>当一次compilation停止接收新模块时触发</td>
+</tr>
+<tr>
+<td>optimizeDependencies</td>
+<td>SyncBailHook</td>
+<td>在依赖优化的开始执行</td>
+</tr>
+<tr>
+<td>optimize</td>
+<td>SyncHook</td>
+<td>在优化阶段的开始执行</td>
+</tr>
+<tr>
+<td>optimizeModules</td>
+<td>SyncBailHook</td>
+<td>在模块优化阶段开始时执行，插件可以在这个钩子里执行对模块的饿化，回调参数：<code>modules</code></td>
+</tr>
+<tr>
+<td>optimizeChunks</td>
+<td>SyncBailHook</td>
+<td>在代码块优化阶段开始时执行，插件可以在这个钩子里执行对代码块的饿化，回调参数：<code>chunks</code></td>
+</tr>
+<tr>
+<td>optimizeChunkAssets</td>
+<td>AsyncSeriesHook</td>
+<td>优化任何代码块资源，这些资源存放在 <code>compilation.assets</code> 上。一个 <code>chunk</code> 有一个 <code>files</code> 属性，它指向由一个chunk创建的所有文件。任何额外的 <code>chunk</code> 资源都存放在 <code>compilation.additionalChunkAssets</code> 上。回调参数：<code>chunks</code></td>
+</tr>
+<tr>
+<td>optimizeAssets</td>
+<td>AsyncSeriesHook</td>
+<td>优化所有存放在 <code>compilation.assets</code> 的所有资源。回调参数：<code>assets</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="JavascriptParser-Hooks"><a href="#JavascriptParser-Hooks" class="headerlink" title="JavascriptParser Hooks"></a>JavascriptParser Hooks</h3><p>Parser 解析器实例在 Compiler 编译器中产生，用于解析 webpack 正在处理的每个模块。我们可以用它提供的 Tapable 钩子自定义解析过程。</p>
+<p>JavascriptParser 上暴露的一些常用的钩子：</p>
+<table>
+<thead>
+<tr>
+<th>钩子</th>
+<th>类型</th>
+<th>什么时候调用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>evaluate</td>
+<td>SyncBailHook</td>
+<td>在计算表达式的时候调用。</td>
+</tr>
+<tr>
+<td>statement</td>
+<td>SyncBailHook</td>
+<td>为代码片段中每个已解析的语句调用的通用钩子</td>
+</tr>
+<tr>
+<td>import</td>
+<td>SyncBailHook</td>
+<td>为代码片段中每个import语句调用，回调参数：<code>statement</code>,<code>source</code></td>
+</tr>
+<tr>
+<td>export</td>
+<td>SyncBailHook</td>
+<td>为代码片段中每个export语句调用，回调参数：<code>statement</code></td>
+</tr>
+<tr>
+<td>call</td>
+<td>SyncBailHook</td>
+<td>解析一个call方法的时候调用，回调参数：<code>expression</code></td>
+</tr>
+<tr>
+<td>program</td>
+<td>SyncBailHook</td>
+<td>解析一个表达式的时候调用，回调参数：<code>expression</code></td>
+</tr>
+</tbody>
+</table>
+<p>对webpack底层逻辑和tapable钩子有了这些了解后，我们就可以进一步尝试开发一个插件了。</p>
+<h1 id="四、如何开发一个webpack-plugin"><a href="#四、如何开发一个webpack-plugin" class="headerlink" title="四、如何开发一个webpack plugin"></a>四、如何开发一个webpack plugin</h1><h2 id="plugin-的基本结构"><a href="#plugin-的基本结构" class="headerlink" title="plugin 的基本结构"></a>plugin 的基本结构</h2><p>一个 webpack plugin 由如下部分组成：</p>
+<ol>
+<li>一个命名的 Javascript 方法或者 JavaScript 类。</li>
+<li>它的原型上需要定义一个叫做 <code>apply</code> 的方法。</li>
+<li>注册一个事件钩子。</li>
+<li>操作webpack内部实例特定数据。</li>
+<li>功能完成后，调用webpack提供的回调。</li>
+</ol>
+<p>一个基本的 plugin 代码结构大致长这个样子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// plugins/MyPlugin.js</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyPlugin</span> </span>&#123;</span><br><span class="line">  apply(compiler) &#123;</span><br><span class="line">    compiler.hooks.done.tap(<span class="string">'My Plugin'</span>, (stats) =&gt; &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'Bravo!'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = MyPlugin;</span><br></pre></td></tr></table></figure>
+<p>这就是一个最简单的 webpack 插件了，它注册了 <code>Compiler</code> 上的异步串行钩子 <code>done</code>，在钩子中注入了一条控制台打印的语句。根据上文钩子的介绍我们可以知道，<code>done</code> 会在一次编译完成后执行。所以这个插件会在每次打包结束，向控制台首先输出这句 <code>Bravo!</code>。</p>
+<p><img src="/images/webpack-plugin1.jpg" alt="webpack-plugin1.jpg"></p>
+<h2 id="开发一个文件清单插件"><a href="#开发一个文件清单插件" class="headerlink" title="开发一个文件清单插件"></a>开发一个文件清单插件</h2><p>我希望每次webpack打包后，自动产生一个打包文件清单，上面要记录文件名、文件数量等信息。</p>
+<h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><ul>
+<li>显然这个操作需要在文件生成到dist目录之前进行，所以我们要注册的是<code>Compiler</code>上的<code>emit</code>钩子。</li>
+<li><code>emit</code> 是一个异步串行钩子，我们用 tapAsync 来注册。</li>
+<li>在 <code>emit</code> 的回调函数里我们可以拿到 compilation 对象，所有待生成的文件都在它的 <code>assets</code> 属性上。</li>
+<li>通过 compilation.assets 获取我们需要的文件信息，并将其整理为新的文件内容准备输出。</li>
+<li>然后往 compilation.assets 添加这个新的文件。</li>
+</ul>
+<p>插件就完成了，最后将写好的插件放到 webpack 配置中，这个包含文件清单的文件就会在每次打包的时候自动生成了。</p>
+<h3 id="实现："><a href="#实现：" class="headerlink" title="实现："></a>实现：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">// plugins/FileListPlugin.js</span><br><span class="line"></span><br><span class="line">class FileListPlugin &#123;</span><br><span class="line">    constructor (options) &#123;</span><br><span class="line">    	// 获取插件配置项</span><br><span class="line">        this.filename = options &amp;&amp; options.filename ? options.filename : &apos;FILELIST.md&apos;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    apply(compiler) &#123;</span><br><span class="line">        // 注册 compiler 上的 emit 钩子</span><br><span class="line">        compiler.hooks.emit.tapAsync(&apos;FileListPlugin&apos;, (compilation, cb) =&gt; &#123;</span><br><span class="line">            </span><br><span class="line">            // 通过 compilation.assets 获取文件数量</span><br><span class="line">            let len = Object.keys(compilation.assets).length;</span><br><span class="line"></span><br><span class="line">            // 添加统计信息</span><br><span class="line">            let content = `# $&#123;len&#125; file$&#123;len&gt;1?&apos;s&apos;:&apos;&apos;&#125; emitted by webpack\n\n`;</span><br><span class="line"></span><br><span class="line">            // 通过 compilation.assets 获取文件名列表</span><br><span class="line">            for(let filename in compilation.assets) &#123;</span><br><span class="line">                content += `- $&#123;filename&#125;\n`;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            // 往 compilation.assets 中添加清单文件</span><br><span class="line">            compilation.assets[this.filename] = &#123;</span><br><span class="line">            	// 写入新文件的内容</span><br><span class="line">                source: function() &#123;</span><br><span class="line">                    return content;</span><br><span class="line">                &#125;,</span><br><span class="line">                // 新文件大小（给 webapck 输出展示用）</span><br><span class="line">                size: function() &#123;</span><br><span class="line">                    return content.length;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            // 执行回调，让 webpack 继续执行</span><br><span class="line">            cb();</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = FileListPlugin;</span><br></pre></td></tr></table></figure>
+<h3 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h3><p>在 webpack.config.js 中配置我们自己写的plugin：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">plugins: [</span><br><span class="line">    <span class="keyword">new</span> MyPlugin(),</span><br><span class="line">    <span class="keyword">new</span> FileListPlugin(&#123;</span><br><span class="line">        filename: <span class="string">'_filelist.md'</span></span><br><span class="line">    &#125;)</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p><code>npm run build</code> 执行，可以看到生成了 <code>_filelist.md</code> 文件：</p>
+<p><img src="/images/webpack-plugin2.jpg" alt="webpack-plugin2.jpg"></p>
+<p>打开 <code>dist</code> 目录，可以看到<code>_filelist.md</code> 文件中列出了 webpack 打包后的文件：</p>
+<p><img src="/images/webpack-plugin3.jpg" alt="webpack-plugin3.jpg"></p>
+<p>成功！</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>webpack 是一个基于插件的系统，尝试去开发一个webpack插件可以促进对webpack底层机制的理解。</li>
+<li>掌握如何开发一个webpack插件的好处是，我们以后可以试着通过编写插件去解决一些通过配置无法解决的问题，优化构建流程。</li>
+<li>通过这篇文章，相信那扇编写 webpack 插件的大门已经悄悄打开了。</li>
+</ol>
+<p>本文的源码均可在这里获取：<a href="https://github.com/yc111/webpack-plugin" target="_blank" rel="noopener">https://github.com/yc111/webpack-plugin</a></p>
+<p>欢迎交流～</p>
+<p>Happy New Year！</p>
+<p>–</p>
+<p>参考<br><a href="https://webpack.js.org/api/compiler-hooks/" target="_blank" rel="noopener">https://webpack.js.org/api/compiler-hooks/</a><br><a href="https://webpack.js.org/api/compilation-hooks/" target="_blank" rel="noopener">https://webpack.js.org/api/compilation-hooks/</a><br><a href="https://webpack.js.org/api/parser/" target="_blank" rel="noopener">https://webpack.js.org/api/parser/</a><br><a href="https://github.com/yc111/webpack/tree/master/lib" target="_blank" rel="noopener">https://github.com/yc111/webpack/tree/master/lib</a><br><a href="https://webpack.js.org/contribute/writing-a-plugin/" target="_blank" rel="noopener">https://webpack.js.org/contribute/writing-a-plugin/</a><br><a href="https://github.com/webpack/tapable#tapable" target="_blank" rel="noopener">https://github.com/webpack/tapable#tapable</a><br><a href="https://webpack.js.org/concepts/#plugins" target="_blank" rel="noopener">https://webpack.js.org/concepts/#plugins</a><br><a href="https://webpack.js.org/api/plugins/" target="_blank" rel="noopener">https://webpack.js.org/api/plugins/</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    ChampYin
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="http://champyin.com/2020/01/12/揭秘webpack-plugin/" title="揭秘webpack plugin">http://champyin.com/2020/01/12/揭秘webpack-plugin/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/full-stack/" rel="tag"># full stack</a>
+          
+            <a href="/tags/webpack/" rel="tag"># webpack</a>
+          
+            <a href="/tags/plugin/" rel="tag"># plugin</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/23/封装axios/" rel="next" title="封装axios">
+                <i class="fa fa-chevron-left"></i> 封装axios
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTgzMy8xNjM2MA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="ChampYin" />
+            
+              <p class="site-author-name" itemprop="name">ChampYin</p>
+              <p class="site-description motion-element" itemprop="description">Life does'nt get easier, you just get stronger.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">88</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yc111" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/champyin" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5936e4aeb123db0064406325" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-globe"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、Plugin-的作用"><span class="nav-text">一、Plugin 的作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、Plugin-工作原理"><span class="nav-text">二、Plugin 工作原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、webpack-的一些底层逻辑"><span class="nav-text">三、webpack 的一些底层逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-内部执行流程"><span class="nav-text">webpack 内部执行流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-内部的一些钩子"><span class="nav-text">webpack 内部的一些钩子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tapable"><span class="nav-text">Tapable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Compiler-Hooks"><span class="nav-text">Compiler Hooks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Compilation-Hooks"><span class="nav-text">Compilation Hooks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavascriptParser-Hooks"><span class="nav-text">JavascriptParser Hooks</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、如何开发一个webpack-plugin"><span class="nav-text">四、如何开发一个webpack plugin</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#plugin-的基本结构"><span class="nav-text">plugin 的基本结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开发一个文件清单插件"><span class="nav-text">开发一个文件清单插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路："><span class="nav-text">思路：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现："><span class="nav-text">实现：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试："><span class="nav-text">测试：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-flag"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ChampYin</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      
+    
+    <span title="Site words total count">52.1k</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span style="display: none">
+  <span class="post-meta-divider">|</span>
+  <span id="busuanzi_container_site_uv">
+    UV <span id="busuanzi_value_site_uv"></span>
+  </span>
+  <span class="post-meta-divider">|</span> 
+  <span id="busuanzi_container_site_pv">
+    PV <span id="busuanzi_value_site_pv"></span>
+  </span>
+</span>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("rvS2PRrtNPtlLVnRCdRTA2g3-gzGzoHsz", "lKROjx0MLNKaBPQ9VROSoMoL");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
