@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://champyin.com/images/webpack-plugin1.jpg">
 <meta property="og:image" content="http://champyin.com/images/webpack-plugin2.jpg">
 <meta property="og:image" content="http://champyin.com/images/webpack-plugin3.jpg">
-<meta property="og:updated_time" content="2020-01-15T08:58:43.945Z">
+<meta property="og:updated_time" content="2020-01-15T11:07:56.515Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="揭秘webpack plugin">
 <meta name="twitter:description" content="Plugin(插件) 是 webpack 生态的的一个关键部分。它为社区提供了一种强大的方法来扩展 webpack 和开发 webpack 的编译过程。这篇文章将尝试探索 webpack plugin，揭秘它的工作原理，以及如何开发一个 plugin。">
@@ -547,7 +547,7 @@
 <tr>
 <td>buildModule</td>
 <td>SyncHook</td>
-<td>在模块开始编译之前出发，可以用于修改模块</td>
+<td>在模块开始编译之前触发，可以用于修改模块</td>
 </tr>
 <tr>
 <td>succeedModule</td>
@@ -577,12 +577,12 @@
 <tr>
 <td>optimizeModules</td>
 <td>SyncBailHook</td>
-<td>在模块优化阶段开始时执行，插件可以在这个钩子里执行对模块的饿化，回调参数：<code>modules</code></td>
+<td>在模块优化阶段开始时执行，插件可以在这个钩子里执行对模块的优化，回调参数：<code>modules</code></td>
 </tr>
 <tr>
 <td>optimizeChunks</td>
 <td>SyncBailHook</td>
-<td>在代码块优化阶段开始时执行，插件可以在这个钩子里执行对代码块的饿化，回调参数：<code>chunks</code></td>
+<td>在代码块优化阶段开始时执行，插件可以在这个钩子里执行对代码块的优化，回调参数：<code>chunks</code></td>
 </tr>
 <tr>
 <td>optimizeChunkAssets</td>
@@ -660,7 +660,7 @@
 <li>通过 <code>compilation.assets</code> 获取我们需要的文件信息，并将其整理为新的文件内容准备输出。</li>
 <li>然后往 <code>compilation.assets</code> 添加这个新的文件。</li>
 </ul>
-<p>插件就完成了，最后将写好的插件放到 webpack 配置中，这个包含文件清单的文件就会在每次打包的时候自动生成了。</p>
+<p>插件完成后，最后将写好的插件放到 webpack 配置中，这个包含文件清单的文件就会在每次打包的时候自动生成了。</p>
 <h3 id="实现："><a href="#实现：" class="headerlink" title="实现："></a>实现：</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// plugins/FileListPlugin.js</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FileListPlugin</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span> (options) &#123;</span><br><span class="line">    	<span class="comment">// 获取插件配置项</span></span><br><span class="line">        <span class="keyword">this</span>.filename = options &amp;&amp; options.filename ? options.filename : <span class="string">'FILELIST.md'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    apply(compiler) &#123;</span><br><span class="line">        <span class="comment">// 注册 compiler 上的 emit 钩子</span></span><br><span class="line">        compiler.hooks.emit.tapAsync(<span class="string">'FileListPlugin'</span>, (compilation, cb) =&gt; &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 通过 compilation.assets 获取文件数量</span></span><br><span class="line">            <span class="keyword">let</span> len = <span class="built_in">Object</span>.keys(compilation.assets).length;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 添加统计信息</span></span><br><span class="line">            <span class="keyword">let</span> content = <span class="string">`# <span class="subst">$&#123;len&#125;</span> file<span class="subst">$&#123;len&gt;<span class="number">1</span>?<span class="string">'s'</span>:<span class="string">''</span>&#125;</span> emitted by webpack\n\n`</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 通过 compilation.assets 获取文件名列表</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">let</span> filename <span class="keyword">in</span> compilation.assets) &#123;</span><br><span class="line">                content += <span class="string">`- <span class="subst">$&#123;filename&#125;</span>\n`</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 往 compilation.assets 中添加清单文件</span></span><br><span class="line">            compilation.assets[<span class="keyword">this</span>.filename] = &#123;</span><br><span class="line">            	<span class="comment">// 写入新文件的内容</span></span><br><span class="line">                source: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                    <span class="keyword">return</span> content;</span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="comment">// 新文件大小（给 webapck 输出展示用）</span></span><br><span class="line">                size: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                    <span class="keyword">return</span> content.length;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 执行回调，让 webpack 继续执行</span></span><br><span class="line">            cb();</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = FileListPlugin;</span><br></pre></td></tr></table></figure>
 <h3 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h3><p>在 webpack.config.js 中配置我们自己写的plugin：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">plugins: [</span><br><span class="line">    <span class="keyword">new</span> MyPlugin(),</span><br><span class="line">    <span class="keyword">new</span> FileListPlugin(&#123;</span><br><span class="line">        filename: <span class="string">'_filelist.md'</span></span><br><span class="line">    &#125;)</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
 <p><code>npm run build</code> 执行，可以看到生成了 <code>_filelist.md</code> 文件：</p>
@@ -668,11 +668,8 @@
 <p>打开 <code>dist</code> 目录，可以看到<code>_filelist.md</code> 文件中列出了 webpack 打包后的文件：</p>
 <p><img src="/images/webpack-plugin3.jpg" alt="webpack-plugin3.jpg"></p>
 <p>成功！</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
-<li>webpack 是一个基于插件的系统，尝试去开发一个webpack插件可以促进对webpack底层机制的理解。</li>
-<li>掌握如何开发一个webpack插件的好处是，我们以后可以试着通过编写插件去解决一些通过配置无法解决的问题，优化构建流程。</li>
-<li>通过这篇文章，相信那扇编写 webpack 插件的大门已经悄悄打开了。</li>
-</ol>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本文总结了 webpack plugin 的工作原理、wepack底层执行的基本流程以及介绍了 tapable 和常用的 hooks，最后通过两个小例子演示了如何自己开发一个webpack插件。</p>
+<p>开发插件并非难如登天的事情，当遇到通过配置无法解决的问题，又一时找不到好的插件时，不如试试自己编写一个插件来解决，相信我，你会越来越强的！</p>
 <p>本文的源码均可在这里获取：<a href="https://github.com/yc111/webpack-plugin" target="_blank" rel="noopener">https://github.com/yc111/webpack-plugin</a></p>
 <p>欢迎交流～</p>
 <p>Happy New Year！</p>
