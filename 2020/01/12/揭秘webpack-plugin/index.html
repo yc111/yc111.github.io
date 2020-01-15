@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://champyin.com/images/webpack-plugin1.jpg">
 <meta property="og:image" content="http://champyin.com/images/webpack-plugin2.jpg">
 <meta property="og:image" content="http://champyin.com/images/webpack-plugin3.jpg">
-<meta property="og:updated_time" content="2020-01-15T08:56:06.391Z">
+<meta property="og:updated_time" content="2020-01-15T08:58:43.945Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="揭秘webpack plugin">
 <meta name="twitter:description" content="Plugin(插件) 是 webpack 生态的的一个关键部分。它为社区提供了一种强大的方法来扩展 webpack 和开发 webpack 的编译过程。这篇文章将尝试探索 webpack plugin，揭秘它的工作原理，以及如何开发一个 plugin。">
@@ -470,8 +470,8 @@
 </ul>
 <p>webpack 底层基本流程图</p>
 <p><img src="/images/webpack-basic-flow.png" alt="webpack-basic-flow.png"></p>
-<h2 id="webpack-内部的一些钩子"><a href="#webpack-内部的一些钩子" class="headerlink" title="webpack 内部的一些钩子"></a>webpack 内部的一些钩子</h2><p>在 webpack 编译打包的过程中，会触发一些关键事件，为了方便我们直接介入和控制编译过程，webpack 把这些事件封装成接口暴露了出来，这些接口被叫做 hooks（钩子）。开发插件，离不开这些钩子。</p>
-<h3 id="Tapable"><a href="#Tapable" class="headerlink" title="Tapable"></a>Tapable</h3><p>Tapable 是 webpack 的核心功能库，它为 webpack 提供了统一的插件接口（钩子）类型定义。webpack 中目前有十种 hooks，在 Tapable 源码中可以看到，他们是：</p>
+<h2 id="webpack-内部的一些钩子"><a href="#webpack-内部的一些钩子" class="headerlink" title="webpack 内部的一些钩子"></a>webpack 内部的一些钩子</h2><p>在 webpack 编译打包的过程中，会触发一些关键事件，为了方便我们直接介入和控制编译过程，webpack 把这些事件封装成接口暴露了出来，这些接口被叫做 <code>hooks</code>（钩子）。开发插件，离不开这些钩子。</p>
+<h3 id="Tapable"><a href="#Tapable" class="headerlink" title="Tapable"></a>Tapable</h3><p>Tapable 是 webpack 的核心功能库，它为 webpack 提供了统一的插件接口（钩子）类型定义。webpack 中目前有十种 <code>hooks</code>，在 Tapable 源码中可以看到，他们是：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// https://github.com/webpack/tapable/blob/master/lib/index.js</span></span><br><span class="line"></span><br><span class="line">exports.SyncHook = <span class="built_in">require</span>(<span class="string">"./SyncHook"</span>);</span><br><span class="line">exports.SyncBailHook = <span class="built_in">require</span>(<span class="string">"./SyncBailHook"</span>);</span><br><span class="line">exports.SyncWaterfallHook = <span class="built_in">require</span>(<span class="string">"./SyncWaterfallHook"</span>);</span><br><span class="line">exports.SyncLoopHook = <span class="built_in">require</span>(<span class="string">"./SyncLoopHook"</span>);</span><br><span class="line">exports.AsyncParallelHook = <span class="built_in">require</span>(<span class="string">"./AsyncParallelHook"</span>);</span><br><span class="line">exports.AsyncParallelBailHook = <span class="built_in">require</span>(<span class="string">"./AsyncParallelBailHook"</span>);</span><br><span class="line">exports.AsyncSeriesHook = <span class="built_in">require</span>(<span class="string">"./AsyncSeriesHook"</span>);</span><br><span class="line">exports.AsyncSeriesBailHook = <span class="built_in">require</span>(<span class="string">"./AsyncSeriesBailHook"</span>);</span><br><span class="line">exports.AsyncSeriesLoopHook = <span class="built_in">require</span>(<span class="string">"./AsyncSeriesLoopHook"</span>);</span><br><span class="line">exports.AsyncSeriesWaterfallHook = <span class="built_in">require</span>(<span class="string">"./AsyncSeriesWaterfallHook"</span>);</span><br></pre></td></tr></table></figure>
 <p>Tapable 还统一暴露了三个方法给插件，用于注入不同类型的自定义构建行为：</p>
 <ul>
