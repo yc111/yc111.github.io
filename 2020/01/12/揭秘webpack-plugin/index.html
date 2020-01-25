@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://champyin.com/images/webpack-plugin1.jpg">
 <meta property="og:image" content="http://champyin.com/images/webpack-plugin2.jpg">
 <meta property="og:image" content="http://champyin.com/images/webpack-plugin3.jpg">
-<meta property="og:updated_time" content="2020-01-25T07:13:32.006Z">
+<meta property="og:updated_time" content="2020-01-25T13:24:14.965Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="揭秘webpack plugin">
 <meta name="twitter:description" content="Plugin(插件) 是 webpack 生态的的一个关键部分。它为社区提供了一种强大的方法来扩展 webpack 和开发 webpack 的编译过程。本文章将尝试探索 webpack plugin，揭秘它的工作原理，以及如何开发一个 plugin。">
@@ -455,13 +455,13 @@
 <blockquote>
 <p>Plugins expose the full potential of the webpack engine to third-party developers. Using staged build callbacks, developers can introduce their own behaviors into the webpack build process. </p>
 </blockquote>
-<p>其实就是：<br>我们可以通过插件，扩展 webpack，加入自定义的构建行为，使 webpack 可以执行更广泛的任务，拥有更强的构建能力。</p>
+<p>我把它通俗翻译了下：：<br>我们可以通过插件，扩展 webpack，加入自定义的构建行为，使 webpack 可以执行更广泛的任务，拥有更强的构建能力。</p>
 <h1 id="二、Plugin-工作原理"><a href="#二、Plugin-工作原理" class="headerlink" title="二、Plugin 工作原理"></a>二、Plugin 工作原理</h1><blockquote>
 <p>webpack 就像一条生产线，要经过一系列处理流程后才能将源文件转换成输出结果。 这条生产线上的每个处理流程的职责都是单一的，多个流程之间有存在依赖关系，只有完成当前处理后才能交给下一个流程去处理。 </p>
 <p>插件就像是一个插入到生产线中的一个功能，在特定的时机对生产线上的资源做处理。webpack 通过 Tapable 来组织这条复杂的生产线。 webpack 在运行过程中会广播事件，插件只需要监听它所关心的事件，就能加入到这条生产线中，去改变生产线的运作。</p>
 <p>webpack 的事件流机制保证了插件的有序性，使得整个系统扩展性很好。<br>——「深入浅出 Webpack」</p>
 </blockquote>
-<p>站在代码逻辑的角度就是，webpack 在编译过程中会触发一系列 Tapable 钩子事件，插件所做的，就是找到相应的钩子，往上面挂上自己的任务，也就是注册事件，这样，当 webpack 构建的时候，插件注册的事件就会随着钩子触发而执行了。</p>
+<p>站在代码逻辑的角度就是：webpack 在编译过代码程中，会触发一系列 Tapable 钩子事件，插件所做的，就是找到相应的钩子，往上面挂上自己的任务，也就是注册事件，这样，当 webpack 构建的时候，插件注册的事件就会随着钩子的触发而执行了。</p>
 <h1 id="三、webpack-的一些底层逻辑"><a href="#三、webpack-的一些底层逻辑" class="headerlink" title="三、webpack 的一些底层逻辑"></a>三、webpack 的一些底层逻辑</h1><p>开发一个 plugin 比开发一个 loader 更高级一些，因为我们会用到一些 webpack 比较底层的内部组件。因此我们需要了解一些 webpack 的底层逻辑。</p>
 <h2 id="webpack-内部执行流程"><a href="#webpack-内部执行流程" class="headerlink" title="webpack 内部执行流程"></a>webpack 内部执行流程</h2><p>一次完整的 webpack 打包大致是这样的过程：</p>
 <ul>
@@ -475,16 +475,16 @@
 </ul>
 <p>webpack 底层基本流程图</p>
 <p><img src="/images/webpack-basic-flow.png" alt="webpack-basic-flow.png"></p>
-<h2 id="webpack-内部的一些钩子"><a href="#webpack-内部的一些钩子" class="headerlink" title="webpack 内部的一些钩子"></a>webpack 内部的一些钩子</h2><p>在 webpack 编译打包的过程中，会触发一些关键事件，为了方便我们直接介入和控制编译过程，webpack 把这些事件封装成接口暴露了出来，这些接口被叫做 <code>hooks</code>（钩子）。开发插件，离不开这些钩子。</p>
-<h3 id="Tapable"><a href="#Tapable" class="headerlink" title="Tapable"></a>Tapable</h3><p>Tapable 是 webpack 的核心功能库，它为 webpack 提供了统一的插件接口（钩子）类型定义。webpack 中目前有十种 <code>hooks</code>，在 Tapable 源码中可以看到，他们是：</p>
+<h2 id="webpack-内部的一些钩子"><a href="#webpack-内部的一些钩子" class="headerlink" title="webpack 内部的一些钩子"></a>webpack 内部的一些钩子</h2><h2 id="什么是钩子"><a href="#什么是钩子" class="headerlink" title="什么是钩子"></a>什么是钩子</h2><p>钩子的本质就是：事件。为了方便我们直接介入和控制编译过程，webpack 把编译过程中触发的各类关键事件封装成事件接口暴露了出来，这些接口被很形象地称做：<code>hooks</code>（钩子）。开发插件，离不开这些钩子。</p>
+<h3 id="Tapable"><a href="#Tapable" class="headerlink" title="Tapable"></a>Tapable</h3><p>Tapable 为 webpack 提供了统一的插件接口（钩子）类型定义，它是 webpack 的核心功能库。webpack 中目前有十种 <code>hooks</code>，在 Tapable 源码中可以看到，他们是：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// https://github.com/webpack/tapable/blob/master/lib/index.js</span></span><br><span class="line"></span><br><span class="line">exports.SyncHook = <span class="built_in">require</span>(<span class="string">"./SyncHook"</span>);</span><br><span class="line">exports.SyncBailHook = <span class="built_in">require</span>(<span class="string">"./SyncBailHook"</span>);</span><br><span class="line">exports.SyncWaterfallHook = <span class="built_in">require</span>(<span class="string">"./SyncWaterfallHook"</span>);</span><br><span class="line">exports.SyncLoopHook = <span class="built_in">require</span>(<span class="string">"./SyncLoopHook"</span>);</span><br><span class="line">exports.AsyncParallelHook = <span class="built_in">require</span>(<span class="string">"./AsyncParallelHook"</span>);</span><br><span class="line">exports.AsyncParallelBailHook = <span class="built_in">require</span>(<span class="string">"./AsyncParallelBailHook"</span>);</span><br><span class="line">exports.AsyncSeriesHook = <span class="built_in">require</span>(<span class="string">"./AsyncSeriesHook"</span>);</span><br><span class="line">exports.AsyncSeriesBailHook = <span class="built_in">require</span>(<span class="string">"./AsyncSeriesBailHook"</span>);</span><br><span class="line">exports.AsyncSeriesLoopHook = <span class="built_in">require</span>(<span class="string">"./AsyncSeriesLoopHook"</span>);</span><br><span class="line">exports.AsyncSeriesWaterfallHook = <span class="built_in">require</span>(<span class="string">"./AsyncSeriesWaterfallHook"</span>);</span><br></pre></td></tr></table></figure>
 <p>Tapable 还统一暴露了三个方法给插件，用于注入不同类型的自定义构建行为：</p>
 <ul>
-<li><code>tap</code>：注册钩子，同步钩子和异步钩子都可以使用。</li>
+<li><code>tap</code>：可以注册同步钩子和异步钩子。</li>
 <li><code>tapAsync</code>：回调方式注册异步钩子。</li>
 <li><code>tapPromise</code>：Promise方式注册异步钩子。</li>
 </ul>
-<p>webpack 里有几个非常重要的对象，他们是 <code>Compiler</code>, <code>Compilation</code> 和 <code>JavascriptParser</code>。这些对象都继承了 Tapable 类，身上都挂着丰富的钩子，用于注册和调用插件。</p>
+<p>webpack 在 <code>Compiler</code>, <code>Compilation</code> 和 <code>JavascriptParser</code> 等对象上挂上了丰富的钩子，这些对象是 webpack 非常重要的几个对象，它们都继承了 Tapable 类。</p>
 <h3 id="Compiler-Hooks"><a href="#Compiler-Hooks" class="headerlink" title="Compiler Hooks"></a>Compiler Hooks</h3><p>Compiler 编译器模块是创建编译实例的主引擎。大多数面向用户的插件都首先在 Compiler 上注册。</p>
 <p>compiler上暴露的一些常用的钩子：</p>
 <table>
@@ -903,7 +903,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、Plugin-的作用"><span class="nav-text">一、Plugin 的作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、Plugin-工作原理"><span class="nav-text">二、Plugin 工作原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、webpack-的一些底层逻辑"><span class="nav-text">三、webpack 的一些底层逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-内部执行流程"><span class="nav-text">webpack 内部执行流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-内部的一些钩子"><span class="nav-text">webpack 内部的一些钩子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tapable"><span class="nav-text">Tapable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Compiler-Hooks"><span class="nav-text">Compiler Hooks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Compilation-Hooks"><span class="nav-text">Compilation Hooks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavascriptParser-Hooks"><span class="nav-text">JavascriptParser Hooks</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、如何开发一个webpack-plugin"><span class="nav-text">四、如何开发一个webpack plugin</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#plugin-的基本结构"><span class="nav-text">plugin 的基本结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开发一个文件清单插件"><span class="nav-text">开发一个文件清单插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路："><span class="nav-text">思路：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现："><span class="nav-text">实现：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试："><span class="nav-text">测试：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、Plugin-的作用"><span class="nav-text">一、Plugin 的作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、Plugin-工作原理"><span class="nav-text">二、Plugin 工作原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、webpack-的一些底层逻辑"><span class="nav-text">三、webpack 的一些底层逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-内部执行流程"><span class="nav-text">webpack 内部执行流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-内部的一些钩子"><span class="nav-text">webpack 内部的一些钩子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是钩子"><span class="nav-text">什么是钩子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tapable"><span class="nav-text">Tapable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Compiler-Hooks"><span class="nav-text">Compiler Hooks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Compilation-Hooks"><span class="nav-text">Compilation Hooks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavascriptParser-Hooks"><span class="nav-text">JavascriptParser Hooks</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、如何开发一个webpack-plugin"><span class="nav-text">四、如何开发一个webpack plugin</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#plugin-的基本结构"><span class="nav-text">plugin 的基本结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开发一个文件清单插件"><span class="nav-text">开发一个文件清单插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路："><span class="nav-text">思路：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现："><span class="nav-text">实现：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试："><span class="nav-text">测试：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
