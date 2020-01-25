@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://champyin.com/images/webpack-plugin1.jpg">
 <meta property="og:image" content="http://champyin.com/images/webpack-plugin2.jpg">
 <meta property="og:image" content="http://champyin.com/images/webpack-plugin3.jpg">
-<meta property="og:updated_time" content="2020-01-25T13:35:40.306Z">
+<meta property="og:updated_time" content="2020-01-25T14:06:17.726Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="揭秘webpack plugin">
 <meta name="twitter:description" content="Plugin(插件) 是 webpack 生态的的一个关键部分。它为社区提供了一种强大的方法来扩展 webpack 和开发 webpack 的编译过程。本文章将尝试探索 webpack plugin，揭秘它的工作原理，以及如何开发一个 plugin。">
@@ -455,7 +455,7 @@
 <blockquote>
 <p>Plugins expose the full potential of the webpack engine to third-party developers. Using staged build callbacks, developers can introduce their own behaviors into the webpack build process. </p>
 </blockquote>
-<p>我把它通俗翻译了下：：<br>我们可以通过插件，扩展 webpack，加入自定义的构建行为，使 webpack 可以执行更广泛的任务，拥有更强的构建能力。</p>
+<p>我把它通俗翻译了下：<br>我们可以通过插件，扩展 webpack，加入自定义的构建行为，使 webpack 可以执行更广泛的任务，拥有更强的构建能力。</p>
 <h1 id="二、Plugin-工作原理"><a href="#二、Plugin-工作原理" class="headerlink" title="二、Plugin 工作原理"></a>二、Plugin 工作原理</h1><blockquote>
 <p>webpack 就像一条生产线，要经过一系列处理流程后才能将源文件转换成输出结果。 这条生产线上的每个处理流程的职责都是单一的，多个流程之间有存在依赖关系，只有完成当前处理后才能交给下一个流程去处理。 </p>
 <p>插件就像是一个插入到生产线中的一个功能，在特定的时机对生产线上的资源做处理。webpack 通过 Tapable 来组织这条复杂的生产线。 webpack 在运行过程中会广播事件，插件只需要监听它所关心的事件，就能加入到这条生产线中，去改变生产线的运作。</p>
@@ -484,7 +484,7 @@
 <li><code>tapAsync</code>：回调方式注册异步钩子。</li>
 <li><code>tapPromise</code>：Promise方式注册异步钩子。</li>
 </ul>
-<p>webpack 在 <code>Compiler</code>, <code>Compilation</code> 和 <code>JavascriptParser</code> 等对象上挂上了丰富的钩子，这些对象是 webpack 非常重要的几个对象，它们都继承了 Tapable 类。</p>
+<p>webpack 里的几个非常重要的对象，<code>Compiler</code>, <code>Compilation</code> 和 <code>JavascriptParser</code> 都继承了 Tapable 类，它们身上挂着丰富的钩子。</p>
 <h3 id="Compiler-Hooks"><a href="#Compiler-Hooks" class="headerlink" title="Compiler Hooks"></a>Compiler Hooks</h3><p>Compiler 编译器模块是创建编译实例的主引擎。大多数面向用户的插件都首先在 Compiler 上注册。</p>
 <p>compiler上暴露的一些常用的钩子：</p>
 <table>
