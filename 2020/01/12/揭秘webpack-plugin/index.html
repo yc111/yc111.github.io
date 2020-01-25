@@ -79,23 +79,23 @@
 
 
 
-<meta name="description" content="Plugin(插件) 是 webpack 生态的的一个关键部分。它为社区提供了一种强大的方法来扩展 webpack 和开发 webpack 的编译过程。这篇文章将尝试探索 webpack plugin，揭秘它的工作原理，以及如何开发一个 plugin。">
+<meta name="description" content="Plugin(插件) 是 webpack 生态的的一个关键部分。它为社区提供了一种强大的方法来扩展 webpack 和开发 webpack 的编译过程。本文章将尝试探索 webpack plugin，揭秘它的工作原理，以及如何开发一个 plugin。">
 <meta name="keywords" content="full stack,webpack,plugin">
 <meta property="og:type" content="article">
 <meta property="og:title" content="揭秘webpack plugin">
 <meta property="og:url" content="http://champyin.com/2020/01/12/揭秘webpack-plugin/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="Plugin(插件) 是 webpack 生态的的一个关键部分。它为社区提供了一种强大的方法来扩展 webpack 和开发 webpack 的编译过程。这篇文章将尝试探索 webpack plugin，揭秘它的工作原理，以及如何开发一个 plugin。">
+<meta property="og:description" content="Plugin(插件) 是 webpack 生态的的一个关键部分。它为社区提供了一种强大的方法来扩展 webpack 和开发 webpack 的编译过程。本文章将尝试探索 webpack plugin，揭秘它的工作原理，以及如何开发一个 plugin。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://champyin.com/images/webpack-plugin-cover.png">
 <meta property="og:image" content="http://champyin.com/images/webpack-basic-flow.png">
 <meta property="og:image" content="http://champyin.com/images/webpack-plugin1.jpg">
 <meta property="og:image" content="http://champyin.com/images/webpack-plugin2.jpg">
 <meta property="og:image" content="http://champyin.com/images/webpack-plugin3.jpg">
-<meta property="og:updated_time" content="2020-01-15T11:07:56.515Z">
+<meta property="og:updated_time" content="2020-01-25T07:13:32.006Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="揭秘webpack plugin">
-<meta name="twitter:description" content="Plugin(插件) 是 webpack 生态的的一个关键部分。它为社区提供了一种强大的方法来扩展 webpack 和开发 webpack 的编译过程。这篇文章将尝试探索 webpack plugin，揭秘它的工作原理，以及如何开发一个 plugin。">
+<meta name="twitter:description" content="Plugin(插件) 是 webpack 生态的的一个关键部分。它为社区提供了一种强大的方法来扩展 webpack 和开发 webpack 的编译过程。本文章将尝试探索 webpack plugin，揭秘它的工作原理，以及如何开发一个 plugin。">
 <meta name="twitter:image" content="http://champyin.com/images/webpack-plugin-cover.png">
 
 
@@ -408,7 +408,7 @@
                   
                 
                 <span title="Words count in article">
-                  2.5k
+                  2.7k
                 </span>
               
 
@@ -425,7 +425,7 @@
                   
                 
                 <span title="Reading time">
-                  9 min
+                  10 min
                 </span>
               
             </div>
@@ -448,15 +448,20 @@
       
         <p><img src="/images/webpack-plugin-cover.png" alt="webpack-plugin-cover.png"></p>
 <blockquote>
-<p>Plugin(插件) 是 webpack 生态的的一个关键部分。它为社区提供了一种强大的方法来扩展 webpack 和开发 webpack 的编译过程。这篇文章将尝试探索 webpack plugin，揭秘它的工作原理，以及如何开发一个 plugin。</p>
+<p>Plugin(插件) 是 webpack 生态的的一个关键部分。它为社区提供了一种强大的方法来扩展 webpack 和开发 webpack 的编译过程。本文章将尝试探索 webpack plugin，揭秘它的工作原理，以及如何开发一个 plugin。</p>
 </blockquote>
 <a id="more"></a>
 <h1 id="一、Plugin-的作用"><a href="#一、Plugin-的作用" class="headerlink" title="一、Plugin 的作用"></a>一、Plugin 的作用</h1><p>关于 Plugin 的作用，引用一下 webpack 官方的介绍：</p>
 <blockquote>
 <p>Plugins expose the full potential of the webpack engine to third-party developers. Using staged build callbacks, developers can introduce their own behaviors into the webpack build process. </p>
 </blockquote>
-<p>翻译成“人话”就是：<br>通过插件我们可以扩展 webpack，加入自定义的构建行为，使 webpack 可以执行更广泛的任务，拥有更强的构建能力。</p>
-<h1 id="二、Plugin-工作原理"><a href="#二、Plugin-工作原理" class="headerlink" title="二、Plugin 工作原理"></a>二、Plugin 工作原理</h1><p>Plugin 的工作原理，简单来说，就是webpack在编译过程中提供了一些生命周期钩子，我们的插件会在这些钩子事件中注入我们要执行的任务（注册处理器），当 webpack 执行构建的时候，它的 Tapable 事件流会自动调用这些钩子，从而触发我们注入的方法，执行我们的自定义任务。</p>
+<p>其实就是：<br>我们可以通过插件，扩展 webpack，加入自定义的构建行为，使 webpack 可以执行更广泛的任务，拥有更强的构建能力。</p>
+<h1 id="二、Plugin-工作原理"><a href="#二、Plugin-工作原理" class="headerlink" title="二、Plugin 工作原理"></a>二、Plugin 工作原理</h1><blockquote>
+<p>webpack 就像一条生产线，要经过一系列处理流程后才能将源文件转换成输出结果。 这条生产线上的每个处理流程的职责都是单一的，多个流程之间有存在依赖关系，只有完成当前处理后才能交给下一个流程去处理。 </p>
+<p>插件就像是一个插入到生产线中的一个功能，在特定的时机对生产线上的资源做处理。webpack 通过 Tapable 来组织这条复杂的生产线。 webpack 在运行过程中会广播事件，插件只需要监听它所关心的事件，就能加入到这条生产线中，去改变生产线的运作。</p>
+<p>webpack 的事件流机制保证了插件的有序性，使得整个系统扩展性很好。<br>——「深入浅出 Webpack」</p>
+</blockquote>
+<p>站在代码逻辑的角度就是，webpack 在编译过程中会触发一系列 Tapable 钩子事件，插件所做的，就是找到相应的钩子，往上面挂上自己的任务，也就是注册事件，这样，当 webpack 构建的时候，插件注册的事件就会随着钩子触发而执行了。</p>
 <h1 id="三、webpack-的一些底层逻辑"><a href="#三、webpack-的一些底层逻辑" class="headerlink" title="三、webpack 的一些底层逻辑"></a>三、webpack 的一些底层逻辑</h1><p>开发一个 plugin 比开发一个 loader 更高级一些，因为我们会用到一些 webpack 比较底层的内部组件。因此我们需要了解一些 webpack 的底层逻辑。</p>
 <h2 id="webpack-内部执行流程"><a href="#webpack-内部执行流程" class="headerlink" title="webpack 内部执行流程"></a>webpack 内部执行流程</h2><p>一次完整的 webpack 打包大致是这样的过程：</p>
 <ul>
@@ -932,7 +937,7 @@
     
       
     
-    <span title="Site words total count">52.5k</span>
+    <span title="Site words total count">52.7k</span>
   
 </div>
 
