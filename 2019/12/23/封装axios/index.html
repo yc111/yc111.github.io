@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="full stack,axios,http,vue,react," />
+  <meta name="keywords" content="axios,full stack,http,vue,react," />
 
 
 
@@ -80,7 +80,7 @@
 
 
 <meta name="description" content="axios 是一个轻量的 HTTP客户端，它基于 XMLHttpRequest 服务来执行 HTTP 请求，支持丰富的配置，支持 Promise，支持浏览器端和 Node.js 端。自Vue2.0起，尤大大（Vue作者尤雨溪）宣布取消对 vue-resource 的官方推荐，转而推荐 axios。现在 axios 已经成为大部分 Vue 开发者的首选。（ 如果你还不熟悉 axios，可以在这里">
-<meta name="keywords" content="full stack,axios,http,vue,react">
+<meta name="keywords" content="axios,full stack,http,vue,react">
 <meta property="og:type" content="article">
 <meta property="og:title" content="封装axios">
 <meta property="og:url" content="http://champyin.com/2019/12/23/封装axios/index.html">
@@ -89,7 +89,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://champyin.com/images/wrap-axios-cover.png">
 <meta property="og:image" content="http://champyin.com/images/wrap-axios.jpg">
-<meta property="og:updated_time" content="2020-01-15T07:18:01.597Z">
+<meta property="og:updated_time" content="2020-02-17T14:38:50.813Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="封装axios">
 <meta name="twitter:description" content="axios 是一个轻量的 HTTP客户端，它基于 XMLHttpRequest 服务来执行 HTTP 请求，支持丰富的配置，支持 Promise，支持浏览器端和 Node.js 端。自Vue2.0起，尤大大（Vue作者尤雨溪）宣布取消对 vue-resource 的官方推荐，转而推荐 axios。现在 axios 已经成为大部分 Vue 开发者的首选。（ 如果你还不熟悉 axios，可以在这里">
@@ -405,7 +405,7 @@
                   
                 
                 <span title="Words count in article">
-                  2.9k
+                  3k
                 </span>
               
 
@@ -486,8 +486,8 @@
 <li><p>配置请求拦截器<br>在发送请求前对请求参数做的所有修改都在这里统一配置。比如统一添加token凭证、统一设置语言、统一设置内容类型、指定数据格式等等。做完后记得返回这个配置，否则整个请求不会进行。<br>我这里就配置一个token。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// src/utils/http.js</span><br><span class="line"></span><br><span class="line">//...</span><br><span class="line">class NewAxios &#123;</span><br><span class="line">  //...</span><br><span class="line">  // 这里的url可供你针对需要特殊处理的接口路径设置不同拦截器。</span><br><span class="line">  setInterceptors = (instance, url) =&gt; &#123; </span><br><span class="line">    instance.interceptors.request.use((config) =&gt; &#123; // 请求拦截器</span><br><span class="line">      // 配置token</span><br><span class="line">      config.headers.AuthorizationToken = localStorage.getItem(&apos;AuthorizationToken&apos;) || &apos;&apos;;</span><br><span class="line">      return config;</span><br><span class="line">    &#125;, err =&gt; Promise.reject(err));</span><br><span class="line">  &#125;</span><br><span class="line">  //...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>配置响应拦截器<br>在请求的<code>then</code>或<code>catch</code>处理前对响应数据进行一轮预先处理。比如过滤响应数据，更多的，是在这里对各种响应错误码进行统一错误处理，还有断网处理等等。<br>我这里就判断一下403和断网。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">// src/utils/http.js</span><br><span class="line"></span><br><span class="line">//...</span><br><span class="line">class NewAxios &#123;</span><br><span class="line">  //...</span><br><span class="line">  setInterceptors = (instance, url) =&gt; &#123;</span><br><span class="line">    //...</span><br><span class="line">    instance.interceptors.response.use((response) =&gt; &#123; // 响应拦截器</span><br><span class="line">      // todo: 想根据业务需要，对响应结果预先处理的，都放在这里</span><br><span class="line">      console.log();</span><br><span class="line">      return response;</span><br><span class="line">    &#125;, (err) =&gt; &#123;</span><br><span class="line">      if (err.response) &#123; // 响应错误码处理</span><br><span class="line">        switch (err.response.status) &#123;</span><br><span class="line">          case &apos;403&apos;:</span><br><span class="line">            // todo: handler server forbidden error</span><br><span class="line">            break;</span><br><span class="line">            // todo: handler other status code</span><br><span class="line">          default:</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">        return Promise.reject(err.response);</span><br><span class="line">      &#125;</span><br><span class="line">      if (!window.navigator.online) &#123; // 断网处理</span><br><span class="line">        // todo: jump to offline page</span><br><span class="line">        return -1;</span><br><span class="line">      &#125;</span><br><span class="line">      return Promise.reject(err);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  //...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li><p>配置响应拦截器<br>在请求的<code>then</code>或<code>catch</code>处理前对响应数据进行一轮预先处理。比如过滤响应数据，更多的，是在这里对各种响应错误码进行统一错误处理，还有断网处理等等。<br>我这里就判断一下403、请求超时和断网。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">// src/utils/http.js</span><br><span class="line"></span><br><span class="line">//...</span><br><span class="line">class NewAxios &#123;</span><br><span class="line">  //...</span><br><span class="line">  setInterceptors = (instance, url) =&gt; &#123;</span><br><span class="line">    //...</span><br><span class="line">    instance.interceptors.response.use((response) =&gt; &#123; // 响应拦截器</span><br><span class="line">      // todo: 想根据业务需要，对响应结果预先处理的，都放在这里</span><br><span class="line">      console.log();</span><br><span class="line">      return response;</span><br><span class="line">    &#125;, (err) =&gt; &#123;</span><br><span class="line">      if (err.response) &#123; // 响应错误码处理</span><br><span class="line">        switch (err.response.status) &#123;</span><br><span class="line">          case &apos;403&apos;:</span><br><span class="line">            // todo: handler server forbidden error</span><br><span class="line">            break;</span><br><span class="line">            // todo: handler other status code</span><br><span class="line">          default:</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">        console.log(&apos;err.response: &apos;, err);</span><br><span class="line">        return Promise.reject(err.response);</span><br><span class="line">      &#125;</span><br><span class="line">      if (err.request) &#123; // 请求超时处理</span><br><span class="line">        if (err.request.readyState === 4 &amp;&amp; err.request.status === 0) &#123;</span><br><span class="line">          // 当一个请求在上面的timeout属性中设置的10秒内还没结束，则触发超时错误</span><br><span class="line">          // todo handler request timeout error</span><br><span class="line">        &#125;</span><br><span class="line">        console.log(&apos;err.request: &apos;, err);</span><br><span class="line">        return Promise.reject(err.request);</span><br><span class="line">      &#125;</span><br><span class="line">      if (!window.navigator.online) &#123; // 断网处理</span><br><span class="line">        // todo: jump to offline page</span><br><span class="line">        return -1;</span><br><span class="line">      &#125;</span><br><span class="line">      console.log(&apos;err: &apos;, err);</span><br><span class="line">      return Promise.reject(err);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  //...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>另外，在拦截器里，还适合放置loading等缓冲效果：在请求拦截器里显示loading，在响应拦截器里移除loading。这样所有请求就都有了一个统一的loading效果。</p>
@@ -558,9 +558,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/full-stack/" rel="tag"># full stack</a>
-          
             <a href="/tags/axios/" rel="tag"># axios</a>
+          
+            <a href="/tags/full-stack/" rel="tag"># full stack</a>
           
             <a href="/tags/http/" rel="tag"># http</a>
           
@@ -788,7 +788,7 @@
     
       
     
-    <span title="Site words total count">55.8k</span>
+    <span title="Site words total count">55.9k</span>
   
 </div>
 
