@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="Nginx(“engine x”)是一款高性能的 Web 和 反向代理 服务器，也是一个 IMAP/POP3/SMTP 代理服务器。它的开发者是俄罗斯工程师：Igor Sysoev。这篇是针对 Linux 操作系统的安装。">
+<meta name="description" content="Nginx 是一款高性能的 Web 和 反向代理 服务器，也是一个 IMAP/POP3/SMTP 代理服务器。它的开发者是俄罗斯工程师：Igor Sysoev。这篇是针对 Linux 操作系统的安装。">
 <meta name="keywords" content="full stack,nginx">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nginx安装（linux环境）">
 <meta property="og:url" content="http://champyin.com/2020/02/21/nginx安装（linux环境）/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="Nginx(“engine x”)是一款高性能的 Web 和 反向代理 服务器，也是一个 IMAP/POP3/SMTP 代理服务器。它的开发者是俄罗斯工程师：Igor Sysoev。这篇是针对 Linux 操作系统的安装。">
+<meta property="og:description" content="Nginx 是一款高性能的 Web 和 反向代理 服务器，也是一个 IMAP/POP3/SMTP 代理服务器。它的开发者是俄罗斯工程师：Igor Sysoev。这篇是针对 Linux 操作系统的安装。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-23T15:09:39.955Z">
+<meta property="og:image" content="http://champyin.com/images/nginx-welcome.jpg">
+<meta property="og:updated_time" content="2020-02-23T15:32:05.537Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx安装（linux环境）">
-<meta name="twitter:description" content="Nginx(“engine x”)是一款高性能的 Web 和 反向代理 服务器，也是一个 IMAP/POP3/SMTP 代理服务器。它的开发者是俄罗斯工程师：Igor Sysoev。这篇是针对 Linux 操作系统的安装。">
+<meta name="twitter:description" content="Nginx 是一款高性能的 Web 和 反向代理 服务器，也是一个 IMAP/POP3/SMTP 代理服务器。它的开发者是俄罗斯工程师：Igor Sysoev。这篇是针对 Linux 操作系统的安装。">
+<meta name="twitter:image" content="http://champyin.com/images/nginx-welcome.jpg">
 
 
 
@@ -402,7 +404,7 @@
                   
                 
                 <span title="Words count in article">
-                  439
+                  437
                 </span>
               
 
@@ -441,11 +443,10 @@
 
       
         <blockquote>
-<p>Nginx(“engine x”)是一款高性能的 <code>Web</code> 和 <code>反向代理</code> 服务器，也是一个 <code>IMAP/POP3/SMTP</code> 代理服务器。它的开发者是俄罗斯工程师：<code>Igor Sysoev</code>。<br>这篇是针对 Linux 操作系统的安装。</p>
+<p>Nginx 是一款高性能的 <code>Web</code> 和 <code>反向代理</code> 服务器，也是一个 <code>IMAP/POP3/SMTP</code> 代理服务器。它的开发者是俄罗斯工程师：<code>Igor Sysoev</code>。<br>这篇是针对 Linux 操作系统的安装。</p>
 </blockquote>
 <a id="more"></a>
-<p>在 linux 下安装 nginx 有两种方式。</p>
-<p>一种是源码编译，一种是yum安装。</p>
+<p>在 linux 下安装 nginx 有两种方式：一种是源码编译，一种是yum安装。</p>
 <h1 id="一、通过源码编译方式的安装步骤"><a href="#一、通过源码编译方式的安装步骤" class="headerlink" title="一、通过源码编译方式的安装步骤"></a>一、通过源码编译方式的安装步骤</h1><h2 id="step1-wget下载nginx源码"><a href="#step1-wget下载nginx源码" class="headerlink" title="step1: wget下载nginx源码"></a>step1: wget下载nginx源码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://nginx.org/download/nginx-1.17.1.tar.gz</span><br></pre></td></tr></table></figure>
 <h2 id="step2-tar命令解压"><a href="#step2-tar命令解压" class="headerlink" title="step2: tar命令解压"></a>step2: tar命令解压</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf nginx-1.17.1.tar.gz</span><br></pre></td></tr></table></figure>
 <h2 id="step3-安装gcc编译工具"><a href="#step3-安装gcc编译工具" class="headerlink" title="step3: 安装gcc编译工具"></a>step3: 安装gcc编译工具</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc gcc-c++</span><br></pre></td></tr></table></figure>
@@ -461,7 +462,7 @@
 <h2 id="step3-安装"><a href="#step3-安装" class="headerlink" title="step3: 安装"></a>step3: 安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install nginx -y</span><br></pre></td></tr></table></figure>
 <h2 id="step4-启动nginx"><a href="#step4-启动nginx" class="headerlink" title="step4: 启动nginx"></a>step4: 启动nginx</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx</span><br></pre></td></tr></table></figure>
 <p>Done！</p>
-<p>在浏览器输入服务器公网ip，回车，即可看到 nginx 欢迎文字，nginx安装启动成功！</p>
+<p>在浏览器输入服务器公网ip，回车，即可看到 nginx 欢迎文字，nginx安装启动成功！<br><img src="/images/nginx-welcome.jpg" alt="nginx-welcome.jpg"></p>
 <h1 id="三、其他命令"><a href="#三、其他命令" class="headerlink" title="三、其他命令"></a>三、其他命令</h1><h2 id="查看ngix安装路径"><a href="#查看ngix安装路径" class="headerlink" title="查看ngix安装路径"></a>查看ngix安装路径</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whereis nginx</span><br></pre></td></tr></table></figure>
 <h2 id="测试nginx"><a href="#测试nginx" class="headerlink" title="测试nginx"></a>测试nginx</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -t</span><br></pre></td></tr></table></figure>
 <h2 id="修改nginx-conf配置后，重载nginx"><a href="#修改nginx-conf配置后，重载nginx" class="headerlink" title="修改nginx.conf配置后，重载nginx"></a>修改nginx.conf配置后，重载nginx</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
