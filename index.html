@@ -303,6 +303,216 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://champyin.com/2020/02/21/nginx安装（linux环境）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ChampYin">
+      <meta itemprop="description" content="Life does'nt get easier, you just get stronger.">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChampYin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/21/nginx安装（linux环境）/" itemprop="url">nginx安装（linux环境）</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-21T20:25:48+08:00">
+                2020-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/服务器/" itemprop="url" rel="index">
+                    <span itemprop="name">服务器</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/02/21/nginx安装（linux环境）/" class="leancloud_visitors" data-flag-title="nginx安装（linux环境）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words &#58;</span>
+                  
+                
+                <span title="Words count in article">
+                  447
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading &asymp;</span>
+                  
+                
+                <span title="Reading time">
+                  1 min
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>Nginx(“engine x”)是一款高性能的 <code>Web</code> 和 <code>反向代理</code> 服务器，也是一个 <code>IMAP/POP3/SMTP</code> 代理服务器。它的开发者是俄罗斯工程师：<code>Igor Sysoev</code>。</p>
+</blockquote>
+<p>这篇是针对 Linux 操作系统的安装（我的版本是 CentOS 7.7）。</p>
+<p>在 linux 下安装 nginx 有两种方式。</p>
+<p>一种是源码编译，一种是yum安装。</p>
+<h1 id="一、通过源码编译方式的安装步骤"><a href="#一、通过源码编译方式的安装步骤" class="headerlink" title="一、通过源码编译方式的安装步骤"></a>一、通过源码编译方式的安装步骤</h1><h2 id="step1-wget下载nginx源码"><a href="#step1-wget下载nginx源码" class="headerlink" title="step1: wget下载nginx源码"></a>step1: wget下载nginx源码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://nginx.org/download/nginx-1.17.1.tar.gz</span><br></pre></td></tr></table></figure>
+<h2 id="step2-tar命令解压"><a href="#step2-tar命令解压" class="headerlink" title="step2: tar命令解压"></a>step2: tar命令解压</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf nginx-1.17.1.tar.gz</span><br></pre></td></tr></table></figure>
+<h2 id="step3-安装gcc编译工具"><a href="#step3-安装gcc编译工具" class="headerlink" title="step3: 安装gcc编译工具"></a>step3: 安装gcc编译工具</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc gcc-c++</span><br></pre></td></tr></table></figure>
+<h2 id="step4-安装其他库跟工具"><a href="#step4-安装其他库跟工具" class="headerlink" title="step4: 安装其他库跟工具"></a>step4: 安装其他库跟工具</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install pure pure-devel openssl openssl-devel zlib zlib-devel</span><br></pre></td></tr></table></figure>
+<h2 id="step5-编译源码并安装"><a href="#step5-编译源码并安装" class="headerlink" title="step5: 编译源码并安装"></a>step5: 编译源码并安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd nginx-1.17.1</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<h2 id="step6-启动niginx"><a href="#step6-启动niginx" class="headerlink" title="step6: 启动niginx"></a>step6: 启动niginx</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx</span><br></pre></td></tr></table></figure>
+<p>Done！</p>
+<p>但是，我觉得步骤实在太繁琐，个人不喜欢这种方式。</p>
+<h1 id="二、通过-yum-安装的步骤-（推荐）"><a href="#二、通过-yum-安装的步骤-（推荐）" class="headerlink" title="二、通过 yum 安装的步骤 （推荐）"></a>二、通过 yum 安装的步骤 （推荐）</h1><p>这也是官方推荐的安装方式<a href="https://nginx.org/en/linux_packages.html" target="_blank" rel="noopener">nginx官网文档</a></p>
+<h2 id="step1-进入-yum-repos-配置目录"><a href="#step1-进入-yum-repos-配置目录" class="headerlink" title="step1: 进入 yum repos 配置目录"></a>step1: 进入 yum repos 配置目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/yum.repos.d</span><br></pre></td></tr></table></figure>
+<h2 id="step2-配置-nginx-repo"><a href="#step2-配置-nginx-repo" class="headerlink" title="step2: 配置 nginx.repo"></a>step2: 配置 nginx.repo</h2><p>从官网提供的稳定版和最新版的repo信息(如下)复制一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[nginx-stable]</span><br><span class="line">name=nginx stable repo</span><br><span class="line">baseurl=http://nginx.org/packages/centos/$releasever/$basearch/</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=1</span><br><span class="line">gpgkey=https://nginx.org/keys/nginx_signing.key</span><br><span class="line">module_hotfixes=true</span><br><span class="line"></span><br><span class="line">[nginx-mainline]</span><br><span class="line">name=nginx mainline repo</span><br><span class="line">baseurl=http://nginx.org/packages/mainline/centos/$releasever/$basearch/</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=0</span><br><span class="line">gpgkey=https://nginx.org/keys/nginx_signing.key</span><br><span class="line">module_hotfixes=true</span><br></pre></td></tr></table></figure></p>
+<p>然后在ssh终端配置 nginx.repo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi nginx.repo # 新建 nginx.repo 文件，将官网提供的稳定版和最新版的repo信息粘贴进去</span><br><span class="line">:wq # 保存并退出 vi</span><br></pre></td></tr></table></figure></p>
+<h2 id="step3-安装"><a href="#step3-安装" class="headerlink" title="step3: 安装"></a>step3: 安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install nginx -y</span><br></pre></td></tr></table></figure>
+<h2 id="step4-启动nginx"><a href="#step4-启动nginx" class="headerlink" title="step4: 启动nginx"></a>step4: 启动nginx</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx</span><br></pre></td></tr></table></figure>
+<p>Done！</p>
+<p>在浏览器输入服务器公网ip，回车，即可看到 nginx 欢迎文字，nginx安装启动成功！</p>
+<h1 id="三、其他命令"><a href="#三、其他命令" class="headerlink" title="三、其他命令"></a>三、其他命令</h1><h2 id="查看ngix安装路径"><a href="#查看ngix安装路径" class="headerlink" title="查看ngix安装路径"></a>查看ngix安装路径</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whereis nginx</span><br></pre></td></tr></table></figure>
+<h2 id="测试nginx"><a href="#测试nginx" class="headerlink" title="测试nginx"></a>测试nginx</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -t</span><br></pre></td></tr></table></figure>
+<h2 id="修改nginx-conf配置后，重载nginx"><a href="#修改nginx-conf配置后，重载nginx" class="headerlink" title="修改nginx.conf配置后，重载nginx"></a>修改nginx.conf配置后，重载nginx</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://champyin.com/2020/01/28/揭秘webpack-loader/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2026,198 +2236,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://champyin.com/2019/11/13/webpack如何不打包第三方模块/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ChampYin">
-      <meta itemprop="description" content="Life does'nt get easier, you just get stronger.">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ChampYin's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/13/webpack如何不打包第三方模块/" itemprop="url">webpack如何不打包第三方模块</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-13T12:19:32+08:00">
-                2019-11-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端技术/" itemprop="url" rel="index">
-                    <span itemprop="name">前端技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/11/13/webpack如何不打包第三方模块/" class="leancloud_visitors" data-flag-title="webpack如何不打包第三方模块">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words &#58;</span>
-                  
-                
-                <span title="Words count in article">
-                  302
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading &asymp;</span>
-                  
-                
-                <span title="Reading time">
-                  1 min
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>在一些前端工程中，不是所有的模块都需要打包到最终的生产中，例如开发UI库，我们不需要把依赖的基础框架和库打进去（比如vue，react，jquery等），因为它们在业务工程中会肯定会被引入，没必要在UI库中打包，而且打包进来不仅让UI库体积庞大，还可能在业务工程中引发版本依赖冲突。那么如何让工程在打包中避开某些不希望被打包的第三方模块呢？</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/11/13/webpack如何不打包第三方模块/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2272,7 +2290,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-count">86</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2294,7 +2312,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">91</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -2367,7 +2385,7 @@
     
       
     
-    <span title="Site words total count">55.9k</span>
+    <span title="Site words total count">56.4k</span>
   
 </div>
 
