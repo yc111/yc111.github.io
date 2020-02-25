@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="git 常用命令记录。（持续更新）">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-25T07:53:54.760Z">
+<meta property="og:updated_time" content="2020-02-25T08:00:50.085Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git常用命令">
 <meta name="twitter:description" content="git 常用命令记录。（持续更新）">
@@ -486,7 +486,7 @@
 <blockquote>
 <p>注意，分支推送、拉取命令的写法规则是&lt;来源地&gt;:&lt;目的地&gt;。所以 git pull 是[remote-branch-name]:[local-branch-name]，git push 是[local-branch-name]:[remote-branch-name]。</p>
 </blockquote>
-<h3 id="6-上传代码到远程仓库"><a href="#6-上传代码到远程仓库" class="headerlink" title="6. 上传代码到远程仓库"></a>6. 上传代码到远程仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push [remote-name] [branch-name]</span><br><span class="line">git push origin master  # 把本地的master分支推送到远程的origin仓库的master分支。</span><br></pre></td></tr></table></figure>
+<h3 id="6-上传代码到远程仓库"><a href="#6-上传代码到远程仓库" class="headerlink" title="6. 上传代码到远程仓库"></a>6. 上传代码到远程仓库</h3><p>push 某个分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push [remote-name] [branch-name]</span><br><span class="line">git push origin master  # 把本地的master分支推送到远程的origin仓库的master分支。</span><br></pre></td></tr></table></figure></p>
 <p>如果远程有一个 bugfix 分支，我想要有一份自己的 bugfix 来开发。<br>先将远程分支抓取下来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin</span><br></pre></td></tr></table></figure></p>
 <p>在远程分支的基础上分化一个新的本地分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b [local-branch-name] [remote-name]/[remote-branch-name]</span><br><span class="line">git chechout -b bugfix origin/bugfix</span><br></pre></td></tr></table></figure></p>
 <blockquote>
@@ -496,6 +496,7 @@
 <blockquote>
 <p><code>git push origin bugfix</code> 意思为取出在本地的 bugfix 分支，推送到远程仓库的 bugfix 分支中去。<br><code>git push orign bugfix:bugfix</code> 意思为上传完本地的bugfix分支到远程仓库中去，仍旧称它为 bugfix 分支。实现跟上一条命令相同的效果。通过此语法，可以把本地分支推送到某个命名不同的远程分支：例如使用<code>git push origin bugfix:hotfix</code> 来推送，如果远程分支 hotfix 不存在，则会在远程仓库被新建。当我的协作者再次从服务器上抓取数据时，他们将得到一个新的远程分支 origin／hotfix.</p>
 </blockquote>
+<p>push 所有分支（不管是否存在对应的远程分支，将本地的所有分支都推送到远程仓库）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git push --all [remote-name]</span><br><span class="line">#example</span><br><span class="line">git push --all origin</span><br></pre></td></tr></table></figure></p>
 <h3 id="7-打tag"><a href="#7-打tag" class="headerlink" title="7. 打tag"></a>7. 打tag</h3><blockquote>
 <p>注意：tag是打在commit上，不是分支上。</p>
 </blockquote>
@@ -785,7 +786,7 @@
     
       
     
-    <span title="Site words total count">56.4k</span>
+    <span title="Site words total count">56.5k</span>
   
 </div>
 
