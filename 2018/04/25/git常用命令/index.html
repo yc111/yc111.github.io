@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="git 常用命令记录。（持续更新）">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-24T14:26:24.297Z">
+<meta property="og:updated_time" content="2020-02-25T07:53:54.760Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git常用命令">
 <meta name="twitter:description" content="git 常用命令记录。（持续更新）">
@@ -480,7 +480,7 @@
 <p>删除空分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d mytest1</span><br></pre></td></tr></table></figure></p>
 <p>删除有内容的分支，上方的命令会被拒绝，需要使用<code>-D</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -D mytest1</span><br></pre></td></tr></table></figure></p>
 <p>删除远程分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git push origin --delete mytest1 //git v1.70 以上</span><br><span class="line">// or</span><br><span class="line">git push origin :mytest1 //git v1.5.0以上 推送一个空的分支到远程分支。</span><br></pre></td></tr></table></figure></p>
-<p>同步远程删除的分支到本地<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote prune [remote-name]</span><br></pre></td></tr></table></figure></p>
+<p>同步远程删除的分支到本地<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote prune [remote-name]</span><br><span class="line">#or</span><br><span class="line">git fetch -p</span><br></pre></td></tr></table></figure></p>
 <p>查看分支于远程的映射关系<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -vv</span><br></pre></td></tr></table></figure></p>
 <h3 id="5-获取远程分支代码"><a href="#5-获取远程分支代码" class="headerlink" title="5. 获取远程分支代码"></a>5. 获取远程分支代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git pull [remote-name] [remote-branch-name]:[local-branch-name]</span><br><span class="line">git pull origin bugfix:master</span><br></pre></td></tr></table></figure>
 <blockquote>
