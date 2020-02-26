@@ -79,15 +79,18 @@
 
 
 
+<meta name="description" content="我有时会遇到这样的情况：正在 dev 分支上开发某个项目，这时有人反馈了一个 bug，需要紧急修复，但是正在开发的内容又不想现在提交，因为只完成了一半（强迫症不想增加一个脏的提交，然后惦记着日后做 rebase，麻烦）。或者是很嗨地开发完了一个功能，快要提交的时候才发现当前所在分支竟然是 master，而这本应是在 dev 分支开发的内容（两条分支并不同步，可能因冲突而不能直接切换分支）。">
 <meta name="keywords" content="git,stash">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git之&#39;git stash&#39;">
+<meta property="og:title" content="Git之 git stash">
 <meta property="og:url" content="http://champyin.com/2020/02/25/Git之-git-stash/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
+<meta property="og:description" content="我有时会遇到这样的情况：正在 dev 分支上开发某个项目，这时有人反馈了一个 bug，需要紧急修复，但是正在开发的内容又不想现在提交，因为只完成了一半（强迫症不想增加一个脏的提交，然后惦记着日后做 rebase，麻烦）。或者是很嗨地开发完了一个功能，快要提交的时候才发现当前所在分支竟然是 master，而这本应是在 dev 分支开发的内容（两条分支并不同步，可能因冲突而不能直接切换分支）。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-25T10:15:48.086Z">
+<meta property="og:updated_time" content="2020-02-26T04:49:53.827Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git之&#39;git stash&#39;">
+<meta name="twitter:title" content="Git之 git stash">
+<meta name="twitter:description" content="我有时会遇到这样的情况：正在 dev 分支上开发某个项目，这时有人反馈了一个 bug，需要紧急修复，但是正在开发的内容又不想现在提交，因为只完成了一半（强迫症不想增加一个脏的提交，然后惦记着日后做 rebase，麻烦）。或者是很嗨地开发完了一个功能，快要提交的时候才发现当前所在分支竟然是 master，而这本应是在 dev 分支开发的内容（两条分支并不同步，可能因冲突而不能直接切换分支）。">
 
 
 
@@ -123,7 +126,7 @@
 
 
 
-  <title>Git之'git stash' | ChampYin's Blog</title>
+  <title>Git之 git stash | ChampYin's Blog</title>
   
 
 
@@ -321,7 +324,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Git之'git stash'</h2>
+          <h2 class="post-title" itemprop="name headline">Git之 git stash</h2>
         
 
         <div class="post-meta">
@@ -363,6 +366,17 @@
 
                 
                 
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
+                  </a>
+                </span>
+
+                
+                
               
             </span>
           
@@ -373,7 +387,7 @@
 
           
           
-             <span id="/2020/02/25/Git之-git-stash/" class="leancloud_visitors" data-flag-title="Git之'git stash'">
+             <span id="/2020/02/25/Git之-git-stash/" class="leancloud_visitors" data-flag-title="Git之 git stash">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -399,7 +413,7 @@
                   
                 
                 <span title="Words count in article">
-                  0
+                  1.7k
                 </span>
               
 
@@ -416,7 +430,7 @@
                   
                 
                 <span title="Reading time">
-                  1 min
+                  7 min
                 </span>
               
             </div>
@@ -437,7 +451,55 @@
       
 
       
-        
+        <blockquote>
+<p>我有时会遇到这样的情况：正在 dev 分支上开发某个项目，这时有人反馈了一个 bug，需要紧急修复，但是正在开发的内容又不想现在提交，因为只完成了一半（强迫症不想增加一个脏的提交，然后惦记着日后做 <code>rebase</code>，麻烦）。或者是很嗨地开发完了一个功能，快要提交的时候才发现当前所在分支竟然是 master，而这本应是在 dev 分支开发的内容（两条分支并不同步，可能因冲突而不能直接切换分支）。  </p>
+<p>这些时候，我 prefer 使用 <code>git stash</code>（git存储）来快速处理。</p>
+</blockquote>
+<!--  -->
+<h1 id="一、git-stash-的作用"><a href="#一、git-stash-的作用" class="headerlink" title="一、git stash 的作用"></a>一、git stash 的作用</h1><ul>
+<li><code>git stash</code> 可以获取你工作目录的中间状态，并将它保存到一个未完结变更的本地堆栈中，让当前工作区变干净。</li>
+<li>stash 中的内容随时可以重新应用，而且不仅可以恢复到原先开发的分支，还可以应用到其他任意指定的分支上。</li>
+</ul>
+<p>所以你就可以在 <code>git stash</code> 后，顺利地切换到另一个分支去修改 bug，修改完提交后，再切回 dev 分支。然后使用 <code>git stash pop</code> 来恢复之前的进度继续开发新功能。也可以在 <code>git stash</code> 后，从 master 切换到 dev 分支，然后使用 <code>git stash pop</code> 把在 master 上 stash 的内容恢复到 dev 上，然后在 dev 分支上提交。</p>
+<h1 id="二、git-stash-的作用范围"><a href="#二、git-stash-的作用范围" class="headerlink" title="二、git stash 的作用范围"></a>二、git stash 的作用范围</h1><p>git stash 默认会存储以下文件：</p>
+<ul>
+<li>unstaged changes：未添加到暂存区的 <code>git track</code> 文件（曾经 <code>add</code> 过，然后修改了）</li>
+<li>staged changes：添加到暂存区的文件（<code>add</code> 了但还没 <code>commit</code>）</li>
+</ul>
+<p>默认不会存储以下文件：</p>
+<ul>
+<li>untracked files：在工作目录中的新文件（从未 <code>add</code> 过）</li>
+<li>ignored files：被忽略的文件（符合 <code>.gitigore</code> 文件里的规则的文件）</li>
+</ul>
+<p>总结起来，也就是默认只针对你修改过的被追踪的文件和暂存的变更，其他的不管。</p>
+<h1 id="三、stash-存到哪里去了"><a href="#三、stash-存到哪里去了" class="headerlink" title="三、stash 存到哪里去了"></a>三、stash 存到哪里去了</h1><p>git 会在 <code>.git/refs/</code> 目录下建立一个 <code>stash</code> 文件，存放最后一个 stash 的节点指针。<br>然后在 <code>.git/logs/refs/</code> 目录下建立一个 <code>stash</code> 文件，存放所有的 stash 记录（每条记录包括下一个节点指针、当前节点指针、作者、邮箱、hash、stash message 六个字段 ）。</p>
+<h1 id="四、git-stash-的用法"><a href="#四、git-stash-的用法" class="headerlink" title="四、git stash 的用法"></a>四、git stash 的用法</h1><h2 id="stash-当前修改"><a href="#stash-当前修改" class="headerlink" title="stash 当前修改"></a>stash 当前修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash</span><br></pre></td></tr></table></figure>
+<p>这个命令把当前工作区所有未提交的修改（不包括untrack 和 ignore 的）都保存起来，同时会给每次 stash 添加默认的 message（来自于最后一次commit的message），所以如果你在未commit的期间进行了多次stash，会产生看上去一样的stash记录（其实不一样），因为message完全相同。</p>
+<p>所以，一般我会使用<code>git stash save</code>命令取代<code>git stash</code>，给每次stash填写一个message作为标识。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash save &lt;message&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="查看-stash"><a href="#查看-stash" class="headerlink" title="查看 stash"></a>查看 stash</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash list</span><br></pre></td></tr></table></figure>
+<p>输出如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git stash list</span><br><span class="line">stash@&#123;0&#125;: On feature/fix: conflict2 # 自己添加的 message</span><br><span class="line">stash@&#123;1&#125;: On feature/fix: change c </span><br><span class="line">stash@&#123;2&#125;: WIP on feature/fix: 6488467 update # 未加message的stash，获取的最后一次提交日志</span><br></pre></td></tr></table></figure></p>
+<h2 id="重新应用缓存的-stash"><a href="#重新应用缓存的-stash" class="headerlink" title="重新应用缓存的 stash"></a>重新应用缓存的 stash</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash pop</span><br></pre></td></tr></table></figure>
+<p>输出如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ git stash pop</span><br><span class="line">On branch feature/fix</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">	modified:   readme.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</span><br><span class="line">Dropped refs/stash@&#123;0&#125; (aed4ca7d79520beebd22af25bc2b21964fa3a0f2)</span><br></pre></td></tr></table></figure></p>
+<p>这个指令将缓存栈中的第一个stash中对应的修改应用到当前的工作目录下，并将这个stash删除。</p>
+<p>你也可以指定 stash list 中的任意一个 stash 来恢复：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git stash pop stash@&#123;num&#125;</span><br><span class="line">git stash pop stash@&#123;2&#125; # 恢复 stash list 中的第三个到当前工作目录</span><br></pre></td></tr></table></figure></p>
+<p>你也可以只应用某个 stash，而不自动删除它，在需要多次应用某个 stash 的时候适用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash apply stash@&#123;num&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="移除-stash"><a href="#移除-stash" class="headerlink" title="移除 stash"></a>移除 stash</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash drop stash@&#123;num&#125;</span><br></pre></td></tr></table></figure>
+<p>删除掉某个 stash 缓存。<code>git stash pop</code> 其实就相当于 <code>git stash apply stash@{0}</code> + <code>git stash drop stash@{0}</code></p>
+<p>你也可以一次删除所有的 stash 缓存：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash clear</span><br></pre></td></tr></table></figure></p>
+<h2 id="查看指定-stash-的-diff"><a href="#查看指定-stash-的-diff" class="headerlink" title="查看指定 stash 的 diff"></a>查看指定 stash 的 diff</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash show</span><br></pre></td></tr></table></figure>
+<p>查看 stash 中第一个缓存与当前目录的修改数量。也可以指定stash的名字。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git stash show stash@&#123;0&#125;</span><br><span class="line"> readme.txt | 1 +</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br></pre></td></tr></table></figure></p>
+<p>也可以在命令后添加 -p 或者 -patch 查看具体的修改diff。输出结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ git stash show stash@&#123;0&#125; -p</span><br><span class="line">diff --git a/readme.txt b/readme.txt</span><br><span class="line">index 1fd5ae1..08106f6 100644</span><br><span class="line">--- a/readme.txt</span><br><span class="line">+++ b/readme.txt</span><br><span class="line">@@ -4,3 +4,4 @@ test dev</span><br><span class="line"> </span><br><span class="line"> add feature</span><br><span class="line"> </span><br><span class="line">+change c</span><br></pre></td></tr></table></figure></p>
+<h2 id="冲突的处理"><a href="#冲突的处理" class="headerlink" title="冲突的处理"></a>冲突的处理</h2><p>从 stash 里应用缓存的时候，可能会跟当前工作目录上的内容有冲突。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ git stash apply stash@&#123;0&#125;</span><br><span class="line">Auto-merging readme.txt</span><br><span class="line">CONFLICT (content): Merge conflict in readme.txt</span><br><span class="line"></span><br><span class="line">$ git status</span><br><span class="line">On branch feature/fix</span><br><span class="line">Unmerged paths:</span><br><span class="line">  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to mark resolution)</span><br><span class="line"></span><br><span class="line">	both modified:   readme.txt</span><br></pre></td></tr></table></figure></p>
+<p>这个时候，stash 会在自动合并文件内容后，标出冲突所在。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; Updated upstream</span><br><span class="line">change b</span><br><span class="line">=======</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt; Stashed changes</span><br><span class="line">change c</span><br></pre></td></tr></table></figure></p>
+<p>Git用 <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>、<code>=======</code>、<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> 标记出冲突中不同来源的内容。其中：<br><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; Updated upstream</code> 指当前工作区的内容。<br><code>=======</code> 是分割线。<br><code>&gt;&gt;&gt;&gt;&gt;&gt;&gt; Stashed changes</code> 指 stash 缓存的修改内容。</p>
+<p>只需跟解决其他冲突一样，处理完冲突（选择保留哪段代码或者都不要重新写）之后，add 和 commit 这个文件即可。</p>
+<h2 id="从-stash-创建分支"><a href="#从-stash-创建分支" class="headerlink" title="从 stash 创建分支"></a>从 stash 创建分支</h2><p>有时候，在当前分支对某次 idea 进行了 stash 之后，又在这个分支做了大量 commit、pull、merge 等操作，再想进行 stash pop 已经很明显会造成冲突，但是你不想处理冲突又很想继续之前的进度完成自己的 idea，有个更方便的方法让你无冲突地恢复你储藏的变更：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash branch &lt;new-branch-name&gt;</span><br></pre></td></tr></table></figure></p>
+<p>它会创建一个新的分支，检出你在stash时所处的提交，重新应用你的工作，如果成功，将会丢弃储藏。</p>
+<h2 id="暂存未跟踪或忽略的文件"><a href="#暂存未跟踪或忽略的文件" class="headerlink" title="暂存未跟踪或忽略的文件"></a>暂存未跟踪或忽略的文件</h2><p>刚才有提到，git stash 的默认作用范围不包括未跟踪和忽略的文件，其实你也可以强行暂存他们：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git stash -u #（或者 --include-untracked）stash untracked 文件 </span><br><span class="line">git stash -a #（或者 --a）stash 当前目录下的所有修改</span><br></pre></td></tr></table></figure></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>工具千千万，使用工具的方法千千万，条条大路通罗马，如果没有<code>git stash</code>命令，我们确实照样可以使用 git 做日常代码管理（只是有时不那么便利罢了），但是如果有这么一个高效工具却不去使用那就是给自己添堵了。</p>
+<p>最后我想说：I love git！</p>
+<p>–<br><a href="https://git-scm.com/docs/git-stash" target="_blank" rel="noopener">git官方文档</a></p>
+
       
     </div>
     
@@ -457,7 +519,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="http://champyin.com/2020/02/25/Git之-git-stash/" title="Git之'git stash'">http://champyin.com/2020/02/25/Git之-git-stash/</a>
+    <a href="http://champyin.com/2020/02/25/Git之-git-stash/" title="Git之 git stash">http://champyin.com/2020/02/25/Git之-git-stash/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>
@@ -552,8 +614,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -583,7 +654,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -640,6 +711,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、git-stash-的作用"><span class="nav-text">一、git stash 的作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、git-stash-的作用范围"><span class="nav-text">二、git stash 的作用范围</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、stash-存到哪里去了"><span class="nav-text">三、stash 存到哪里去了</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、git-stash-的用法"><span class="nav-text">四、git stash 的用法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#stash-当前修改"><span class="nav-text">stash 当前修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看-stash"><span class="nav-text">查看 stash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重新应用缓存的-stash"><span class="nav-text">重新应用缓存的 stash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#移除-stash"><span class="nav-text">移除 stash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看指定-stash-的-diff"><span class="nav-text">查看指定 stash 的 diff</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#冲突的处理"><span class="nav-text">冲突的处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从-stash-创建分支"><span class="nav-text">从 stash 创建分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#暂存未跟踪或忽略的文件"><span class="nav-text">暂存未跟踪或忽略的文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -667,7 +754,7 @@
     
       
     
-    <span title="Site words total count">56.5k</span>
+    <span title="Site words total count">58.3k</span>
   
 </div>
 
