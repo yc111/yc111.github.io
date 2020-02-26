@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="我有时会遇到这样的情况：正在 dev 分支上开发某个项目，这时有人反馈了一个 bug，需要紧急修复，但是正在开发的内容又不想现在提交，因为只完成了一半（强迫症不想增加一个脏的提交，然后惦记着日后做 rebase，麻烦）。或者是很嗨地开发完了一个功能，快要提交的时候才发现当前所在分支竟然是 master，而这本应是在 dev 分支开发的内容（两条分支并不同步，可能因冲突而不能直接切换分支）。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-26T04:49:53.827Z">
+<meta property="og:updated_time" content="2020-02-26T04:53:08.151Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git之 git stash">
 <meta name="twitter:description" content="我有时会遇到这样的情况：正在 dev 分支上开发某个项目，这时有人反馈了一个 bug，需要紧急修复，但是正在开发的内容又不想现在提交，因为只完成了一半（强迫症不想增加一个脏的提交，然后惦记着日后做 rebase，麻烦）。或者是很嗨地开发完了一个功能，快要提交的时候才发现当前所在分支竟然是 master，而这本应是在 dev 分支开发的内容（两条分支并不同步，可能因冲突而不能直接切换分支）。">
@@ -455,7 +455,7 @@
 <p>我有时会遇到这样的情况：正在 dev 分支上开发某个项目，这时有人反馈了一个 bug，需要紧急修复，但是正在开发的内容又不想现在提交，因为只完成了一半（强迫症不想增加一个脏的提交，然后惦记着日后做 <code>rebase</code>，麻烦）。或者是很嗨地开发完了一个功能，快要提交的时候才发现当前所在分支竟然是 master，而这本应是在 dev 分支开发的内容（两条分支并不同步，可能因冲突而不能直接切换分支）。  </p>
 <p>这些时候，我 prefer 使用 <code>git stash</code>（git存储）来快速处理。</p>
 </blockquote>
-<!--  -->
+<a id="more"></a>
 <h1 id="一、git-stash-的作用"><a href="#一、git-stash-的作用" class="headerlink" title="一、git stash 的作用"></a>一、git stash 的作用</h1><ul>
 <li><code>git stash</code> 可以获取你工作目录的中间状态，并将它保存到一个未完结变更的本地堆栈中，让当前工作区变干净。</li>
 <li>stash 中的内容随时可以重新应用，而且不仅可以恢复到原先开发的分支，还可以应用到其他任意指定的分支上。</li>
