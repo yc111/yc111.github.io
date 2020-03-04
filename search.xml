@@ -986,6 +986,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[如何发布一个npm模块]]></title>
+    <url>%2F2018%2F06%2F07%2F%E5%A6%82%E4%BD%95%E5%8F%91%E5%B8%83%E4%B8%80%E4%B8%AAnpm%E6%A8%A1%E5%9D%97%2F</url>
+    <content type="text"><![CDATA[目录一、发布普通 npm 模块二、发布 scoped package 一、发布普通 npm 模块1.注册一个 npm 账号进入官网注册 npm 账号。 2.初始化包描述文档在你要发布的模块工程根目录下，初始化 package.json (如果没有的话)1npm init package.json 中 npm 所需的主要几个关键字段： name: 包名，必须唯一，不能跟npm上的包重名。可以在 npm 官网搜索名字，如果存在则需要换个名字。 version: 版本号，每次发布至 npm 都需要修改版本号，不能比上一次发布的版本号低。 description: 描述。 main: 入口文件，需指向我们编译后的包文件。 keyword: 关键字，以空格分离，希望用户搜索的词。 author: 作者。 private: 是否私有，需要修改为 false 才能发布到 npm。 license: 开源协议。 3.添加账号授权1npm adduser 然后根据提示一步一步输入你的 npm 账号、密码和邮箱。然后你可以通过如下命令来验证登录是否正确。1npm whoami 4.发布1npm publish 二、发布 scoped packagescope是npm的新特性。如果一个模块的名字以 @ 开头，那它就是一个 scoped package:1@scope/project-name 每一个npm用户都有拥有一个自己的 scope：当前用户名 username。 初始化一个 scoped-package通过在包名字前添加 scope：123&#123; &quot;name&quot;: &quot;@usernane/project-name&quot;&#125; 也可以使用 npm init 命令自定义 --scope 选项来设置scope：1npm init --scope=username 如果你在大多数时候使用的 scope 都是相同的，可以设置一个默认的 scope，这样每次初始化的时候会自动使用该 scope：1npm config set scope &lt;your_scope&gt; 发布 scoped-package发布 scoped 模块跟发布普通模块一样：1npm publish 默认状态下scoped package包是私有的。然而，你可以把 scoped package 免费滴发布为公共包。只需要在发布时配置 --access 选项即可：1npm publish --access=public Tips1. 确认镜像源发布npm包之前，首先一定要确保使用的是npm官方镜像源。如果你使用了nrm来管理镜像，可以通过nrm ls来查看下当前使用的是什么源，如果不是 npmjs 官方镜像，比如 taobao，那么使用nrm use npm切换过来。 2. 预检查包内容发包之前可以通过 npm pack 命令在本地产生一个tgz压缩包，里面的文件就是你将要传到 npm 的内容。如果有遗漏或者多了不需要发布的文件，则可以通过调整 .npmignore 文件的配置来调整。 3. 检查包名是否重名包名字不能与 npm 中已有的包同名，如果已存在同名包，否则会提交失败。通过在 npm 官网搜索包名，如已存在，则需要换一个。 4. 检查版本号每次提交版本号都要比上次的高，否则也会提交失败。从 npm 上查看自己上次发布的版本号，如果相同说明忘记更新版本号，根据需要通过 npm version 命令修改版本。]]></content>
+      <categories>
+        <category>工具</category>
+        <category>NPM</category>
+      </categories>
+      <tags>
+        <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[软件版本命名规范]]></title>
     <url>%2F2018%2F06%2F04%2F%E8%BD%AF%E4%BB%B6%E7%89%88%E6%9C%AC%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83%2F</url>
     <content type="text"><![CDATA[软件版本阶段开发期 Base版此版本表示该软件仅仅是一个假页面链接，通常包括所有的功能和页面布局，但是页面中的功能都没有做完成的实现，只是作为整体网站的一个基础架构。 Alpha版软件的初级版本，此版本表示软件处于以实现软件功能为主的阶段，通常只在软件开发者内部交流，一般而言，该版本软件的bug较多，需要继续修改。测试人员条bug经开发人员修改确认后，发布到测试网址让测试人员测试，此时可将软件版本标注为alpha版。 Beta版此版本相对于alpha版已有了很大的改进，消除了严重的错误，但还存在着一些缺陷，需要经过多次测试来进一步消除，此版本主要的修改对象是软件的UI。 RC（Release Candidate）版最终测试版，此版本已经相当成熟了，基本上不存在导致错误的bug，与即将发行的正式版相差无几。可能成为最终产品的候选版本，如果未出现问题，则可发布称为正式版本，多数开源软件会推出两个RC版本，卒后的RC2则称为正式版本。 Release版此版本意味着“最终版本”，是最终交付用户使用的一个版本。该版本又是也称为标准版本。一般情况下Release不会以单词形式出现在软件封面上，取而代之的是符号（R）。 完成期 stable稳定版，来自于蓝版本修改修正完成。 GA（General Availability）正式发布的版本，在国外都是用GA来说明release版本的。 RTM（Release to Manufacturing）给生产商的release版本，RTM版本并不一定意味着创作者解决软件的所有问题，仍有可能在向公众发布前更新版本。另外一种RTM的称呼是RTM（Release To Web），表示正式版本的软件发布到Web网站上供客户免费下载。 RTL（Retail）零售版，是真正的正式版，正式降价零售版。 软件版本命名规范软件版本号由4部分组成：主版本号.子版本号.阶段版本号.日期版本号加希腊字母版本号（希腊字母版本号共有5种：base、alpha、beta、RC、release）。例如：1.1.1.180604_beta 版本号修改规则 主版本号：当功能模块有较大的变动，比如增加多个模块活着整体架构发生变化，此版本号有项目决定是否修改。 子版本号：当功能有一定的增加或变化。此版本由项目决定是否修改。 修订版本号：一般是bug修复或是一些小的变动，要经常发布修订版，时间间隔不限，修复一个严重的bug即可发布一个修订版。此版本由项目经理决定是否修改。 日期版本号：用于记录修改项目的当前日志，每天对项目的修改都需要更改日期版本号。此版本号由开发人员决定是否修改。 希腊字母版本号：此版本号用语标注当前版本的软件处于哪个开发阶段，当软件进入到另一个阶段时，需要修改此版本号。此版本号由项目决定是否修改。 注：上一级有变动时，下级要归零。]]></content>
@@ -1014,8 +1026,8 @@
         <category>GitLab</category>
       </categories>
       <tags>
-        <tag>git</tag>
         <tag>full stack</tag>
+        <tag>git</tag>
         <tag>gitlab</tag>
       </tags>
   </entry>
