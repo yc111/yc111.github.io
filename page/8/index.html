@@ -2041,42 +2041,16 @@
 
       
         
-          
-            <blockquote>
+          <blockquote>
 <p>目录<br>一、发布普通 npm 模块<br>二、发布 scoped package </p>
 </blockquote>
-<!--  -->
-<h1 id="一、发布普通-npm-模块"><a href="#一、发布普通-npm-模块" class="headerlink" title="一、发布普通 npm 模块"></a>一、发布普通 npm 模块</h1><h2 id="1-注册一个-npm-账号"><a href="#1-注册一个-npm-账号" class="headerlink" title="1.注册一个 npm 账号"></a>1.注册一个 npm 账号</h2><p>进入<a href="https://www.npmjs.cn/signup" target="_blank" rel="noopener">官网</a>注册 npm 账号。</p>
-<h2 id="2-初始化包描述文档"><a href="#2-初始化包描述文档" class="headerlink" title="2.初始化包描述文档"></a>2.初始化包描述文档</h2><p>在你要发布的模块工程根目录下，初始化 package.json (如果没有的话)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init</span><br></pre></td></tr></table></figure></p>
-<p>package.json 中 npm 所需的主要几个关键字段：</p>
-<ul>
-<li>name: 包名，必须唯一，不能跟npm上的包重名。可以在 npm 官网搜索名字，如果存在则需要换个名字。</li>
-<li>version: 版本号，每次发布至 npm 都需要修改版本号，不能比上一次发布的版本号低。</li>
-<li>description: 描述。</li>
-<li>main: 入口文件，需指向我们编译后的包文件。</li>
-<li>keyword: 关键字，以空格分离，希望用户搜索的词。</li>
-<li>author: 作者。</li>
-<li>private: 是否私有，需要修改为 false 才能发布到 npm。</li>
-<li>license: 开源协议。</li>
-</ul>
-<h2 id="3-添加账号授权"><a href="#3-添加账号授权" class="headerlink" title="3.添加账号授权"></a>3.添加账号授权</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm adduser</span><br></pre></td></tr></table></figure>
-<p>然后根据提示一步一步输入你的 npm 账号、密码和邮箱。<br>然后你可以通过如下命令来验证登录是否正确。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm whoami</span><br></pre></td></tr></table></figure></p>
-<h2 id="4-发布"><a href="#4-发布" class="headerlink" title="4.发布"></a>4.发布</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm publish</span><br></pre></td></tr></table></figure>
-<h1 id="二、发布-scoped-package"><a href="#二、发布-scoped-package" class="headerlink" title="二、发布 scoped package"></a>二、发布 scoped package</h1><p>scope是npm的新特性。如果一个模块的名字以 <code>@</code> 开头，那它就是一个 scoped package:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@scope/project-name</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>每一个npm用户都有拥有一个自己的 scope：当前用户名 username。</p>
-</blockquote>
-<h2 id="初始化一个-scoped-package"><a href="#初始化一个-scoped-package" class="headerlink" title="初始化一个 scoped-package"></a>初始化一个 scoped-package</h2><p>通过在包名字前添加 scope：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;@usernane/project-name&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>也可以使用 <code>npm init</code> 命令自定义 <code>--scope</code> 选项来设置scope：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init --scope=username</span><br></pre></td></tr></table></figure></p>
-<p>如果你在大多数时候使用的 scope 都是相同的，可以设置一个默认的 scope，这样每次初始化的时候会自动使用该 scope：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> scope &lt;your_scope&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="发布-scoped-package"><a href="#发布-scoped-package" class="headerlink" title="发布 scoped-package"></a>发布 scoped-package</h2><p>发布 scoped 模块跟发布普通模块一样：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm publish</span><br></pre></td></tr></table></figure></p>
-<p>默认状态下scoped package包是私有的。然而，你可以把 scoped package 免费滴发布为公共包。只需要在发布时配置 <code>--access</code> 选项即可：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm publish --access=public</span><br></pre></td></tr></table></figure></p>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><h2 id="1-确认镜像源"><a href="#1-确认镜像源" class="headerlink" title="1. 确认镜像源"></a>1. 确认镜像源</h2><p>发布npm包之前，首先一定要确保使用的是npm官方镜像源。如果你使用了<code>nrm</code>来管理镜像，可以通过<code>nrm ls</code>来查看下当前使用的是什么源，如果不是 npmjs 官方镜像，比如 taobao，那么使用<code>nrm use npm</code>切换过来。</p>
-<h2 id="2-预检查包内容"><a href="#2-预检查包内容" class="headerlink" title="2. 预检查包内容"></a>2. 预检查包内容</h2><p>发包之前可以通过 <code>npm pack</code> 命令在本地产生一个tgz压缩包，里面的文件就是你将要传到 npm 的内容。如果有遗漏或者多了不需要发布的文件，则可以通过调整 <code>.npmignore</code> 文件的配置来调整。</p>
-<h2 id="3-检查包名是否重名"><a href="#3-检查包名是否重名" class="headerlink" title="3. 检查包名是否重名"></a>3. 检查包名是否重名</h2><p>包名字不能与 npm 中已有的包同名，如果已存在同名包，否则会提交失败。通过在 npm 官网搜索包名，如已存在，则需要换一个。</p>
-<h2 id="4-检查版本号"><a href="#4-检查版本号" class="headerlink" title="4. 检查版本号"></a>4. 检查版本号</h2><p>每次提交版本号都要比上次的高，否则也会提交失败。从 npm 上查看自己上次发布的版本号，如果相同说明忘记更新版本号，根据需要通过 <code>npm version</code> 命令修改版本。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/06/07/如何发布一个npm模块/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
