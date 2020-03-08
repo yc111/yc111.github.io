@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-champyin.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-champyin.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="npm,vue," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Vue 项目开发过程中​，经常用到插件，比如原生插件 vue-router、vuex，还有 element-ui 提供的 notify、message 等等。这些插件让我们的开发变得更简单更高效。那么 Vue 插件是怎么开发的呢​？​如何自己开发一个 Vue 插件然后打包发布到npm？  本文涉及技术点：  Vue 插件的本质 Vue.extend() 全局方法 如何手动挂载 Vue 实例 Vu">
+<meta name="keywords" content="npm,vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开发一个Vue插件">
+<meta property="og:url" content="http://champyin.com/2020/03/05/开发一个Vue插件/index.html">
+<meta property="og:site_name" content="ChampYin&#39;s Blog">
+<meta property="og:description" content="Vue 项目开发过程中​，经常用到插件，比如原生插件 vue-router、vuex，还有 element-ui 提供的 notify、message 等等。这些插件让我们的开发变得更简单更高效。那么 Vue 插件是怎么开发的呢​？​如何自己开发一个 Vue 插件然后打包发布到npm？  本文涉及技术点：  Vue 插件的本质 Vue.extend() 全局方法 如何手动挂载 Vue 实例 Vu">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://champyin.com/images/how-to-write-a-vue-plugin01.jpg">
+<meta property="og:image" content="http://champyin.com/images/qianduanshouzha-gzh.png">
+<meta property="og:updated_time" content="2020-03-08T13:47:20.710Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="开发一个Vue插件">
+<meta name="twitter:description" content="Vue 项目开发过程中​，经常用到插件，比如原生插件 vue-router、vuex，还有 element-ui 提供的 notify、message 等等。这些插件让我们的开发变得更简单更高效。那么 Vue 插件是怎么开发的呢​？​如何自己开发一个 Vue 插件然后打包发布到npm？  本文涉及技术点：  Vue 插件的本质 Vue.extend() 全局方法 如何手动挂载 Vue 实例 Vu">
+<meta name="twitter:image" content="http://champyin.com/images/how-to-write-a-vue-plugin01.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://champyin.com/2020/03/05/开发一个Vue插件/"/>
+
+
+
+
+
+  <title>开发一个Vue插件 | ChampYin's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?33e86ea32ced4dc8fafe3738659b3dcf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ChampYin's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">自律是真正的自由</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://champyin.com/2020/03/05/开发一个Vue插件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ChampYin">
+      <meta itemprop="description" content="Life does'nt get easier, you just get stronger.">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChampYin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">开发一个Vue插件</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-05T23:37:42+08:00">
+                2020-03-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/个人项目/" itemprop="url" rel="index">
+                    <span itemprop="name">个人项目</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/03/05/开发一个Vue插件/" class="leancloud_visitors" data-flag-title="开发一个Vue插件">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words &#58;</span>
+                  
+                
+                <span title="Words count in article">
+                  2.6k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading &asymp;</span>
+                  
+                
+                <span title="Reading time">
+                  10 min
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>Vue 项目开发过程中​，经常用到插件，比如原生插件 <code>vue-router</code>、<code>vuex</code>，还有 <code>element-ui</code> 提供的 <code>notify</code>、<code>message</code> 等等。这些插件让我们的开发变得更简单更高效。那么 Vue 插件是怎么开发的呢​？​如何自己开发一个 Vue 插件然后打包发布到npm？</p>
+</blockquote>
+<p>本文涉及技术点：</p>
+<ol>
+<li>Vue 插件的本质</li>
+<li><code>Vue.extend()</code> 全局方法</li>
+<li>如何手动挂载 <code>Vue</code> 实例</li>
+<li><code>Vue.use()</code> 的原理</li>
+<li>如何打包成 <code>umd</code> 格式</li>
+<li>发布前如何测试 <code>npm</code> 包</li>
+</ol>
+<p><br></p>
+<a id="more"></a>
+<h1 id="一、定义"><a href="#一、定义" class="headerlink" title="一、定义"></a>一、定义</h1><p>什么是Vue插件，它和Vue组件有什么区别​？​来看一下官网的解释：</p>
+<blockquote>
+<p>“插件通常用来为 Vue 添加全局功能。”<br>“组件是可复用的 Vue 实例，且带有一个名字。”<br>—— Vue.js 官网</p>
+</blockquote>
+<p>Emmmm，似乎好像有种朦胧美。。。</p>
+<p>我来尝试解释一下，其实， <code>Vue 插件</code> 和 <code>Vue组件</code> 只是在 <code>Vue.js</code> 中包装的两个概念而已​，不管是插件还是组件，最终目的都是为了实现逻辑复用。它们的本质都是对代码逻辑的封装，只是封装方式不同而已。在必要时，组件也可以封装成插件，插件也可以改写成组件，就看实际哪种封装更方便使用了。</p>
+<p>除此之外，插件是全局的，组件可以全局注册也可以局部注册。</p>
+<p>我们今天只聚焦 Vue 插件。</p>
+<blockquote>
+<p>插件一般有下面几种：</p>
+<ul>
+<li>添加全局方法或者属性。如: vue-custom-element</li>
+<li>添加全局资源：指令/过滤器/过渡等。如 vue-touch</li>
+<li>通过全局混入来添加一些组件选项。如 vue-router</li>
+<li>添加 Vue 实例方法，通过把它们添加到 Vue.prototype 上实现。</li>
+<li>一个库，提供自己的 API，同时提供上面提到的一个或多个功能。如 vue-router<br>—— Vue.js 官网</li>
+</ul>
+</blockquote>
+<h1 id="二、插件的使用"><a href="#二、插件的使用" class="headerlink" title="二、插件的使用"></a>二、插件的使用</h1><p>插件需要通过 <code>Vue.use()</code> 方法注册到全局，并且需要在调用 <code>new Vue()</code> 启动应用之前完成。之后在其他 Vue 实例里面就可以通过 <code>this.$xxx</code> 来调用插件中提供的 API 了。</p>
+<p>下面以实现一个简易的提示框插件 toast 为例，给大家介绍怎么一步一步开发和发布一个 Vue 插件。</p>
+<p>希望达到的效果：<br>在 main.js 中 use：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/main.js</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> toast <span class="keyword">from</span> <span class="string">'@champyin/toast'</span></span><br><span class="line"></span><br><span class="line">Vue.use(toast)</span><br></pre></td></tr></table></figure></p>
+<p>在 App.vue 的生命周期 mounted 方法里调用 this.$toast()：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// src/App.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line"> &lt;div&gt;</span><br><span class="line">   &lt;button @click=&apos;handleClick&apos;&gt;Toast&lt;/button&gt;</span><br><span class="line"> &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    name: &apos;demo&apos;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      handleClick() &#123;</span><br><span class="line">      this.$toast(&#123;</span><br><span class="line">        type: &apos;success&apos;,</span><br><span class="line">        msg: &apos;成功&apos;,</span><br><span class="line">        duration: 3</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>运行后在页面上点击按钮，弹出 <code>成功</code> 的提示，然后3秒后消失。</p>
+<p><img src="/images/how-to-write-a-vue-plugin01.jpg" alt="how-to-write-a-vue-plugin01.jpg"></p>
+<p>在线地址：<a href="http://champyin.com/toast/">http://champyin.com/toast/</a></p>
+<h1 id="三、插件开发"><a href="#三、插件开发" class="headerlink" title="三、插件开发"></a>三、插件开发</h1><h2 id="1-编写-toast-的本体。"><a href="#1-编写-toast-的本体。" class="headerlink" title="1. 编写 toast 的本体。"></a>1. 编写 toast 的本体。</h2><p>在 Vue 项目（你可以使用 Vue-cli 快速生成一个 Vue 项目，也可以自己用 webpack 搭建一个）的 src 目录下创建 components/Toast/index.vue 文件。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/components/Toast/index.vue</span></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;transition name=<span class="string">'fade'</span>&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">'uco-toast'</span> v-<span class="keyword">if</span>=<span class="string">'isShow'</span>&gt;</span><br><span class="line">      &lt;span :<span class="class"><span class="keyword">class</span></span>=<span class="string">'iconStyle'</span>&gt;&lt;/span&gt;</span><br><span class="line">      &lt;span&gt;&#123;&#123;msg&#125;&#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  &lt;<span class="regexp">/transition&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      isShow: <span class="literal">false</span>,</span><br><span class="line">      type: <span class="string">'success'</span>,</span><br><span class="line">      msg: <span class="string">'成功'</span>,</span><br><span class="line">      duration: <span class="number">1</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    iconStyle() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">`tfont icon-<span class="subst">$&#123;<span class="keyword">this</span>.type&#125;</span> toast-icon`</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    <span class="keyword">this</span>.isShow = <span class="literal">true</span>;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.isShow = <span class="literal">false</span>;</span><br><span class="line">    &#125;, <span class="keyword">this</span>.duration * <span class="number">1000</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;style lang='less' scoped&gt;</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 样式略</span></span><br><span class="line"><span class="regexp">&lt;/</span>style&gt;</span><br></pre></td></tr></table></figure></p>
+<p>现在 toast 本体完成了，但是它里面的数据目前没法改变，因为我没有给它定义 props 属性。这不是 bug，而是，插件并不是通过 pops 来传值的。</p>
+<h2 id="2-手动挂载-toast-实例的-dom。"><a href="#2-手动挂载-toast-实例的-dom。" class="headerlink" title="2. 手动挂载 toast 实例的 dom。"></a>2. 手动挂载 toast 实例的 dom。</h2><p>为了给插件传值，可以利用基础 Vue 构造器 <code>Vue.extend()</code> 创建一个“子类”。这个子类相当于一个继承了 Vue 的 Toast 构造器。然后在 new 这个构造函数的时候，给 Toast 的 data 属性传值，然后手动调用这个实例的 <code>$mount()</code> 方法手动挂载，最后使用原生JS的 appendChild 将真实 DOM （通过实例上的 <code>$el</code> 属性获取）添加到 body 上。</p>
+<p>在 src 目录下新建 components/Toast/index.js 文件：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/components/Toast/index.js</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span>;</span><br><span class="line"><span class="keyword">import</span> Toast <span class="keyword">from</span> <span class="string">'./index.vue'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 Vue.extend() 创建 Toast 的构造器</span></span><br><span class="line"><span class="keyword">const</span> ToastConstructor = Vue.extend(Toast);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> toast = <span class="function"><span class="keyword">function</span>(<span class="params">options = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 创建 Toast 实例，通过构造函数传参，</span></span><br><span class="line">    <span class="comment">// 并调用 Vue 实例上的 $mount() 手动挂载</span></span><br><span class="line">    <span class="keyword">const</span> toastInstance = <span class="keyword">new</span> ToastConstructor(&#123;</span><br><span class="line">        data: options</span><br><span class="line">    &#125;).$mount();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 手动把真实 dom 挂到 html 的 body 上</span></span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(toastInstance.$el);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> toastInstance;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 导出包装好的 toast 方法</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> toast;</span><br></pre></td></tr></table></figure></p>
+<h2 id="3-暴露-install-方法给-Vue-use-使用。"><a href="#3-暴露-install-方法给-Vue-use-使用。" class="headerlink" title="3. 暴露 install 方法给 Vue.use() 使用。"></a>3. 暴露 install 方法给 Vue.use() 使用。</h2><blockquote>
+<p>为了支持 Vue.use()，Vue.js 的插件应该暴露一个 install 方法。这个方法的第一个参数是 Vue 构造器，第二个参数是一个可选的选项对象。<br>—— Vue.js 官网</p>
+</blockquote>
+<p>通过 <a href="https://github.com/vuejs/vue/blob/dev/src/core/global-api/use.js" target="_blank" rel="noopener">Vue.js 源码</a>也可以看出，Vue.use() 方法所做的事情就是调用插件或者组件的 install 方法，然后把全局 Vue 传进去供插件和组件使用。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// https://github.com/vuejs/vue/blob/dev/src/core/global-api/use.js</span></span><br><span class="line"><span class="comment">/* @flow */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; toArray &#125; <span class="keyword">from</span> <span class="string">'../util/index'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">initUse</span> (<span class="params">Vue: GlobalAPI</span>) </span>&#123;</span><br><span class="line">  Vue.use = <span class="function"><span class="keyword">function</span> (<span class="params">plugin: Function | Object</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> installedPlugins = (<span class="keyword">this</span>._installedPlugins || (<span class="keyword">this</span>._installedPlugins = []))</span><br><span class="line">    <span class="keyword">if</span> (installedPlugins.indexOf(plugin) &gt; <span class="number">-1</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// additional parameters</span></span><br><span class="line">    <span class="keyword">const</span> args = toArray(<span class="built_in">arguments</span>, <span class="number">1</span>)</span><br><span class="line">    args.unshift(<span class="keyword">this</span>)</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> plugin.install === <span class="string">'function'</span>) &#123;</span><br><span class="line">      plugin.install.apply(plugin, args)</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> plugin === <span class="string">'function'</span>) &#123;</span><br><span class="line">      plugin.apply(<span class="literal">null</span>, args)</span><br><span class="line">    &#125;</span><br><span class="line">    installedPlugins.push(plugin)</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在 src 目录下新建 components/index.js 文件，定义一个 install 方法，在里面将 toast 实例放到 Vue.prototype 上作为 Vue 实例的方法暴露到全局。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/components/index.js</span></span><br><span class="line"><span class="keyword">import</span> toast <span class="keyword">from</span> <span class="string">'./Toast/index'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'../icon/iconfont.css'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 准备好 install 方法 给 Vue.use() 使用</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">install</span>(<span class="params">Vue</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (install.installed) <span class="keyword">return</span>;</span><br><span class="line">  install.installed = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 将包装好的 toast 挂到Vue的原型上，作为 Vue 实例上的方法</span></span><br><span class="line">  Vue.prototype.$toast = toast;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 默认导出 install</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  install,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>现在插件就开发完成了，可以在当前项目中本地引用这个插件了。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在 main.js 中</span></span><br><span class="line"><span class="keyword">import</span> toast <span class="keyword">from</span> src/components/index.js;</span><br><span class="line">Vue.use(toast);</span><br><span class="line"></span><br><span class="line"><span class="comment">//在 App.vue 中</span></span><br><span class="line">handleClick()&#123;</span><br><span class="line">  <span class="keyword">this</span>.$toast();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="四、发布到npm"><a href="#四、发布到npm" class="headerlink" title="四、发布到npm"></a>四、发布到npm</h1><p>为了方便其他人也可以使用到这个插件，我们可以把它发布到 npm 上去。发布的步骤很简单，但是发布之前，需要有一些小配置和一些注意的地方。</p>
+<h2 id="1-打包配置"><a href="#1-打包配置" class="headerlink" title="1. 打包配置"></a>1. 打包配置</h2><p>首先我们要把它打包成可以给浏览器解析的 UMD 格式的的模块，并且去掉对 Vue.js 的打包，这样别人在 Vue 项目中使用这个插件的时候就不会有两份 Vue 或者出现 Vue 版本冲突的问题，以保证可以更好被独立引用。</p>
+<p>如果你是用 Vue-cli 生成的项目，那只需要在你的 npm 脚本中配置一下库的打包命令：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// package.json</span><br><span class="line">"build:lib": "vue-cli-service build --target lib --name toast --dest lib  src/components/index.js"</span><br></pre></td></tr></table></figure></p>
+<p>命令说明：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">--target：构建的目标</span><br><span class="line">          targetType 有三个选项：lib | wc | wc-async</span><br><span class="line">          lib：库</span><br><span class="line">          wc：web component</span><br><span class="line">          wc-async：异步的 web component</span><br><span class="line"></span><br><span class="line">--name：库或组件的名字</span><br><span class="line">          当入口为单一文件时，name为库或组件的文件名</span><br><span class="line">          当入口为global表达式时，name为每个库或组件文件名字的前缀</span><br><span class="line"></span><br><span class="line">[entry]：打包入口</span><br><span class="line">          可以是.vue文件，也可以是.js文件</span><br><span class="line">          当注册多个web component时，入口可以是一个global表达式，如 components/*.vue</span><br><span class="line"></span><br><span class="line">--dest：输出目录</span><br><span class="line">          默认为dist目录，也可以修改为自定义的目录</span><br></pre></td></tr></table></figure></p>
+<p>然后运行 <code>npm run build:lib</code>，即可在 lib 目录下生成如下文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">toast.umd.js 一个直接给浏览器或者AMD loader 使用的 UMD 包</span><br><span class="line">toast.umd.min.js 一个压缩版 UMD 构建版本</span><br><span class="line">toast.common.js 一个给打包器用的CommonJS包</span><br></pre></td></tr></table></figure></p>
+<p>如果你是用 webpack 搭建的 Vue 项目，那就需要在 webpck 中配置一下 output.libraryTarget 等属性：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// build/webpack.lib.conf.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> &#123; CleanWebpackPlugin &#125; = <span class="built_in">require</span>(<span class="string">'clean-webpack-plugin'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  mode: <span class="string">'production'</span>,</span><br><span class="line">  entry: <span class="string">'./src/components/index.js'</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.resolve(__dirname, <span class="string">'../lib'</span>),</span><br><span class="line">    filename: <span class="string">'toast.js'</span>,</span><br><span class="line">    library: <span class="string">'toast'</span>,</span><br><span class="line">    libraryTarget: <span class="string">'umd'</span>,</span><br><span class="line">    libraryExport: <span class="string">'default'</span>,</span><br><span class="line">    umdNamedDefine: <span class="literal">true</span>,</span><br><span class="line">    globalObject: <span class="string">'typeof self !== \'undefined\' ? self : this'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  externals: &#123;</span><br><span class="line">    vue: &#123;</span><br><span class="line">      root: <span class="string">'Vue'</span>,</span><br><span class="line">      commonjs: <span class="string">'vue'</span>,</span><br><span class="line">      commonjs2: <span class="string">'vue'</span>,</span><br><span class="line">      amd: <span class="string">'vue'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> CleanWebpackPlugin(),</span><br><span class="line">  ],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>然后运行 <code>npm run build:lib</code>，即可在 lib 目录下生成如下文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">toast.js 直接给浏览器或者AMD loader 使用的 UMD 包</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-发布前的测试"><a href="#2-发布前的测试" class="headerlink" title="2. 发布前的测试"></a>2. 发布前的测试</h2><p>发布前，我们需要配置一下 package.json 里的 main 字段：<br>main 的值是包的入口文件路径（相对当前文件的路径），一定要填写正确，否则包无法被引用。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"main": "lib/toast.js",</span><br></pre></td></tr></table></figure></p>
+<p>为了确保包的配置没有问题，我们可以利用 <code>npm link</code> 命令在本地测试一下包的使用情况。使用npm link测试包的使用估计很多人都会，就不赘述了。如果有需要可以看我的另一篇中文章<a href="https://champyin.com/2019/08/27/npm-link%E8%AF%A6%E8%A7%A3/">npm link详解</a>。</p>
+<p>这个时候，我们其实就可以发布了，但是为了防止把不必要的文件发布出去（比如测试用例和demo）浪费人家下载的流量，我们最好是建一个 <code>.npmigore</code> 文件，语法跟 <code>.gitignore</code> 相同。</p>
+<h2 id="3-发布"><a href="#3-发布" class="headerlink" title="3. 发布"></a>3. 发布</h2><p>发布的方法很简单(不过首先你要有个 npm 账号)，在 package.json 所在的目录下执行这两句就可以了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm add user</span><br><span class="line">npm publish</span><br></pre></td></tr></table></figure></p>
+<p>关于更详细的发布教程，我在另一篇文章有专门细说：<a href="https://champyin.com/2018/06/07/%E5%A6%82%E4%BD%95%E5%8F%91%E5%B8%83%E4%B8%80%E4%B8%AAnpm%E6%A8%A1%E5%9D%97/">如何发布一个npm模块</a>。</p>
+<h2 id="4-安装测试"><a href="#4-安装测试" class="headerlink" title="4. 安装测试"></a>4. 安装测试</h2><p>其实到了这一步一99.99%是不会出错了，安装一遍只是为了那 0.01% 的万一。</p>
+<p>在另一个 Vue 项目里，从 npm 安装自己刚才发布的包：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D @champyin/toast</span><br></pre></td></tr></table></figure></p>
+<p>然后根据 <code>二、插件的使用</code> 中的使用过程使用一下自己的插件。效果应该妥妥的。</p>
+<p><br></p>
+<p>项目体验地址：<a href="http://champyin.com/toast/">http://champyin.com/toast/</a><br>欢迎给我提 issue：<a href="https://github.com/yc111/toast/issues" target="_blank" rel="noopener">https://github.com/yc111/toast/issues</a></p>
+<p>Happy coding :)</p>
+<p>文章同时发表于公众号「前端手札」，喜欢的话可以关注一下哦。</p>
+<p><img src="/images/qianduanshouzha-gzh.png" alt="qianduanshouzha-gzh.png"></p>
+<p>更多参考：<br><a href="https://cn.vuejs.org/v2/guide/plugins.html" target="_blank" rel="noopener">https://cn.vuejs.org/v2/guide/plugins.html</a><br><a href="https://cn.vuejs.org/v2/api/#Vue-extend-options" target="_blank" rel="noopener">https://cn.vuejs.org/v2/api/#Vue-extend-options</a><br><a href="https://cli.vuejs.org/zh/guide/build-targets.html" target="_blank" rel="noopener">https://cli.vuejs.org/zh/guide/build-targets.html</a><br><a href="https://webpack.js.org/guides/author-libraries/" target="_blank" rel="noopener">https://webpack.js.org/guides/author-libraries/</a><br><a href="https://docs.npmjs.com/cli-commands/link.html" target="_blank" rel="noopener">https://docs.npmjs.com/cli-commands/link.html</a><br><a href="https://docs.npmjs.com/cli-commands/pack.html" target="_blank" rel="noopener">https://docs.npmjs.com/cli-commands/pack.html</a><br><a href="https://www.npmjs.com/package/@champyin/toast" target="_blank" rel="noopener">https://www.npmjs.com/package/@champyin/toast</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    ChampYin
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="http://champyin.com/2020/03/05/开发一个Vue插件/" title="开发一个Vue插件">http://champyin.com/2020/03/05/开发一个Vue插件/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/npm/" rel="tag"># npm</a>
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/03/踩坑img-src-object-Module/" rel="next" title="踩坑img src="[object Module]"">
+                <i class="fa fa-chevron-left"></i> 踩坑img src="[object Module]"
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTgzMy8xNjM2MA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="ChampYin" />
+            
+              <p class="site-author-name" itemprop="name">ChampYin</p>
+              <p class="site-description motion-element" itemprop="description">Life does'nt get easier, you just get stronger.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">96</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yc111" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/champyin" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5936e4aeb123db0064406325" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-globe"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、定义"><span class="nav-text">一、定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、插件的使用"><span class="nav-text">二、插件的使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、插件开发"><span class="nav-text">三、插件开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-编写-toast-的本体。"><span class="nav-text">1. 编写 toast 的本体。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-手动挂载-toast-实例的-dom。"><span class="nav-text">2. 手动挂载 toast 实例的 dom。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-暴露-install-方法给-Vue-use-使用。"><span class="nav-text">3. 暴露 install 方法给 Vue.use() 使用。</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、发布到npm"><span class="nav-text">四、发布到npm</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-打包配置"><span class="nav-text">1. 打包配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-发布前的测试"><span class="nav-text">2. 发布前的测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-发布"><span class="nav-text">3. 发布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-安装测试"><span class="nav-text">4. 安装测试</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-flag"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ChampYin</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      
+    
+    <span title="Site words total count">62.1k</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span style="display: none">
+  <span class="post-meta-divider">|</span>
+  <span id="busuanzi_container_site_uv">
+    UV <span id="busuanzi_value_site_uv"></span>
+  </span>
+  <span class="post-meta-divider">|</span> 
+  <span id="busuanzi_container_site_pv">
+    PV <span id="busuanzi_value_site_pv"></span>
+  </span>
+</span>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("rvS2PRrtNPtlLVnRCdRTA2g3-gzGzoHsz", "lKROjx0MLNKaBPQ9VROSoMoL");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
