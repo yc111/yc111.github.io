@@ -89,7 +89,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://champyin.com/images/how-to-write-a-vue-plugin01.jpg">
 <meta property="og:image" content="http://champyin.com/images/qianduanshouzha-gzh.png">
-<meta property="og:updated_time" content="2020-03-08T13:47:20.710Z">
+<meta property="og:updated_time" content="2020-03-09T06:54:46.346Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="开发一个Vue插件">
 <meta name="twitter:description" content="Vue 项目开发过程中​，经常用到插件，比如原生插件 vue-router、vuex，还有 element-ui 提供的 notify、message 等等。这些插件让我们的开发变得更简单更高效。那么 Vue 插件是怎么开发的呢​？​如何自己开发一个 Vue 插件然后打包发布到npm？  本文涉及技术点：  Vue 插件的本质 Vue.extend() 全局方法 如何手动挂载 Vue 实例 Vu">
@@ -422,7 +422,7 @@
                   
                 
                 <span title="Reading time">
-                  10 min
+                  11 min
                 </span>
               
             </div>
@@ -505,8 +505,8 @@
 <h2 id="3-发布"><a href="#3-发布" class="headerlink" title="3. 发布"></a>3. 发布</h2><p>发布的方法很简单(不过首先你要有个 npm 账号)，在 package.json 所在的目录下执行这两句就可以了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm add user</span><br><span class="line">npm publish</span><br></pre></td></tr></table></figure></p>
 <p>关于更详细的发布教程，我在另一篇文章有专门细说：<a href="https://champyin.com/2018/06/07/%E5%A6%82%E4%BD%95%E5%8F%91%E5%B8%83%E4%B8%80%E4%B8%AAnpm%E6%A8%A1%E5%9D%97/">如何发布一个npm模块</a>。</p>
 <h2 id="4-安装测试"><a href="#4-安装测试" class="headerlink" title="4. 安装测试"></a>4. 安装测试</h2><p>其实到了这一步一99.99%是不会出错了，安装一遍只是为了那 0.01% 的万一。</p>
-<p>在另一个 Vue 项目里，从 npm 安装自己刚才发布的包：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D @champyin/toast</span><br></pre></td></tr></table></figure></p>
-<p>然后根据 <code>二、插件的使用</code> 中的使用过程使用一下自己的插件。效果应该妥妥的。</p>
+<p>在另一个 Vue 项目里（不能注意在开发tost的项目里），从 npm 安装自己刚才发布的包：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D @champyin/toast</span><br></pre></td></tr></table></figure></p>
+<p>然后在项目中使用一下自己的插件，点击按钮就会弹出 toast 小提示了。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在 main.js 中</span></span><br><span class="line"><span class="keyword">import</span> toast <span class="keyword">from</span> <span class="string">'@champyin/toast'</span>;</span><br><span class="line">Vue.use(toast);</span><br><span class="line"></span><br><span class="line"><span class="comment">//在 App.vue 中</span></span><br><span class="line">handleClick()&#123;</span><br><span class="line">  <span class="keyword">this</span>.$toast();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><br></p>
 <p>项目体验地址：<a href="http://champyin.com/toast/">http://champyin.com/toast/</a><br>欢迎给我提 issue：<a href="https://github.com/yc111/toast/issues" target="_blank" rel="noopener">https://github.com/yc111/toast/issues</a></p>
 <p>Happy coding :)</p>
