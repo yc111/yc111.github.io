@@ -82,16 +82,17 @@
 <meta name="description" content="昨天下午4点多起，github pages 突然不能访问，今早，GitHub 官网也出现不能访问的情况。访问这些网站时，浏览器统一检测出证书无效。">
 <meta name="keywords" content="github,网络攻击">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GitHub遭受中间人攻击事件">
+<meta property="og:title" content="GitHub疑似遭受中间人攻击">
 <meta property="og:url" content="http://champyin.com/2020/03/27/GitHub遭受中间人攻击事件/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="昨天下午4点多起，github pages 突然不能访问，今早，GitHub 官网也出现不能访问的情况。访问这些网站时，浏览器统一检测出证书无效。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://champyin.com/images/githubpages-遭到攻击.jpg">
+<meta property="og:image" content="http://champyin.com/images/github-遭受攻击003.png">
 <meta property="og:image" content="http://champyin.com/images/github2015年遭受中间人攻击.jpg">
-<meta property="og:updated_time" content="2020-03-27T06:44:19.570Z">
+<meta property="og:updated_time" content="2020-03-27T07:38:09.832Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GitHub遭受中间人攻击事件">
+<meta name="twitter:title" content="GitHub疑似遭受中间人攻击">
 <meta name="twitter:description" content="昨天下午4点多起，github pages 突然不能访问，今早，GitHub 官网也出现不能访问的情况。访问这些网站时，浏览器统一检测出证书无效。">
 <meta name="twitter:image" content="http://champyin.com/images/githubpages-遭到攻击.jpg">
 
@@ -129,7 +130,7 @@
 
 
 
-  <title>GitHub遭受中间人攻击事件 | ChampYin's Blog</title>
+  <title>GitHub疑似遭受中间人攻击 | ChampYin's Blog</title>
   
 
 
@@ -327,7 +328,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">GitHub遭受中间人攻击事件</h2>
+          <h2 class="post-title" itemprop="name headline">GitHub疑似遭受中间人攻击</h2>
         
 
         <div class="post-meta">
@@ -379,7 +380,7 @@
 
           
           
-             <span id="/2020/03/27/GitHub遭受中间人攻击事件/" class="leancloud_visitors" data-flag-title="GitHub遭受中间人攻击事件">
+             <span id="/2020/03/27/GitHub遭受中间人攻击事件/" class="leancloud_visitors" data-flag-title="GitHub疑似遭受中间人攻击">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -405,7 +406,7 @@
                   
                 
                 <span title="Words count in article">
-                  283
+                  524
                 </span>
               
 
@@ -447,9 +448,15 @@
 <a id="more"></a>
 <p>现在是2020年3月27日北京时间13点，目前 github.com 和 pages.github.com 已经恢复访问。</p>
 <p>这是昨天我在访问 github pages 页面的截图：<br><img src="/images/githubpages-遭到攻击.jpg" alt="githubpages-遭到攻击.jpg"></p>
-<p>而我在国外的朋友访问却没有问题，说明这次攻击可能只针对中国的访问者，外网并未受影响。</p>
-<p>这不是github第一次遭受攻击，早在2015年，就受到过中间人攻击，<a href="https://github.blog/2015-03-27-large-scale-ddos-attack-on-github-com/" target="_blank" rel="noopener">github官方日志</a>：<br><img src="/images/github2015年遭受中间人攻击.jpg" alt="github2015年遭受中间人攻击.jpg"></p>
+<p>而我在国外的朋友访问却没有问题，开始我还天真地以为是被墙了，后来晚上看到有朋友在朋友圈讨论此事，这才认真去看了下浏览器收到的网站证书：</p>
+<p><img src="/images/github-遭受攻击003.png" alt="github-遭受攻击003.png"></p>
+<p>GitHub网站证书的颁发者居然使用QQ邮箱？AYK？！明白过来，这不是被墙，这是被攻击了啊，而且这次攻击可能只针对中国的访问者，因为外网并未受到影响。</p>
+<p>兴趣来了，一查资料，这不是 GitHub 第一次遭受攻击，早在2015年，就受到过一次大规模的中间人攻击，<a href="https://github.blog/2015-03-27-large-scale-ddos-attack-on-github-com/" target="_blank" rel="noopener">github官方日志</a>：<br><img src="/images/github2015年遭受中间人攻击.jpg" alt="github2015年遭受中间人攻击.jpg"></p>
 <p><em>翻译：</em><br><em>我们正在遭受github历史上最大的DDOS(分布式拒绝服务)攻击，攻击从3月26号，周四下午两点开始，攻击手段组合了多种攻击方式，从一些老式的攻击手段到新式，通过浏览器让毫不相干的围观群众参与到对github攻击流量的贡献，根据我们收到的报告推断，我们相信攻击的目的是让我们删除某些特定的内容。</em></p>
+<p>再来看看什么是中间人攻击：</p>
+<blockquote>
+<p>中间人攻击（Man-in-the-MiddleAttack，简称“MITM攻击”）是一种“间接”的入侵攻击，这种攻击模式是通过各种技术手段将受入侵者控制的一台计算机虚拟放置在网络连接中的两台通信计算机之间，这台计算机就称为“中间人”。这是一种由来已久的网络入侵手段，并且当今仍然有着广泛的发展空间，如SMB会话劫持、DNS欺骗等攻击都是典型的MITM攻击。</p>
+</blockquote>
 
       
     </div>
@@ -470,7 +477,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="http://champyin.com/2020/03/27/GitHub遭受中间人攻击事件/" title="GitHub遭受中间人攻击事件">http://champyin.com/2020/03/27/GitHub遭受中间人攻击事件/</a>
+    <a href="http://champyin.com/2020/03/27/GitHub遭受中间人攻击事件/" title="GitHub疑似遭受中间人攻击">http://champyin.com/2020/03/27/GitHub遭受中间人攻击事件/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>
@@ -680,7 +687,7 @@
     
       
     
-    <span title="Site words total count">62.5k</span>
+    <span title="Site words total count">62.8k</span>
   
 </div>
 
