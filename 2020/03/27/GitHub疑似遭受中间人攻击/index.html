@@ -89,8 +89,9 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://champyin.com/images/githubpages-遭到攻击.jpg">
 <meta property="og:image" content="http://champyin.com/images/github-遭受攻击003.png">
+<meta property="og:image" content="http://champyin.com/images/github-遭受中间人攻击004.png">
 <meta property="og:image" content="http://champyin.com/images/github2015年遭受中间人攻击.jpg">
-<meta property="og:updated_time" content="2020-03-27T11:02:50.788Z">
+<meta property="og:updated_time" content="2020-03-27T12:42:20.446Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GitHub疑似遭受中间人攻击">
 <meta name="twitter:description" content="昨天下午4点多起，github pages 突然不能访问，今早，GitHub 官网也出现不能访问的情况。访问这些网站时，浏览器统一检测出证书无效。">
@@ -406,7 +407,7 @@
                   
                 
                 <span title="Words count in article">
-                  1.5k
+                  1.8k
                 </span>
               
 
@@ -423,7 +424,7 @@
                   
                 
                 <span title="Reading time">
-                  5 min
+                  6 min
                 </span>
               
             </div>
@@ -451,8 +452,12 @@
 <p>提示<code>ERR_CERT_AUTHORITY_INVALID</code>网站证书无效。并告诉我：<em>您目前无法访问 pages.github.com，因为此网站使用了 HSTS。网络错误和攻击通常是暂时的，因此，此网页稍后可能会恢复正常。</em>​</p>
 <p>而我在国外的朋友访问却没有问题，开始我还天真地以为是被墙了，后来晚上看到有朋友在朋友圈讨论此事，这才认真去看了下浏览器收到的网站证书：</p>
 <p><img src="/images/github-遭受攻击003.png" alt="github-遭受攻击003.png"></p>
-<p>GitHub网站证书的颁发者居然使用QQ邮箱？AYK？！显然，这不是被墙，这是被攻击了啊，而且这次攻击可能只针对中国的访问者，因为外网并未受到影响。</p>
-<p>兴趣来了，一查资料，这不是 GitHub 第一次遭受攻击，早在2015年，就受到过一次大规模的中间人攻击，<a href="https://github.blog/2015-03-27-large-scale-ddos-attack-on-github-com/" target="_blank" rel="noopener">github官方日志</a>：<br><img src="/images/github2015年遭受中间人攻击.jpg" alt="github2015年遭受中间人攻击.jpg"></p>
+<p>GitHub网站证书居然使用QQ邮箱？AYK？！显然，这不是被墙，这是被攻击了啊。这些网站的证书被攻击者使用的自签名证书代替，导致浏览器无法信任，从而阻止用户访问。这次攻击可能只针对中国IP的访问者，外网并未受到影响。</p>
+<p>兴趣来了，这个留下qq邮箱的人是攻击者吗？</p>
+<p>可能是，也可能不是（这不是废话吗 - -!）。可能是攻击者自信放出自己的邮箱，也有可能是攻击者不小心暴露了自己的邮箱，但也有可能是攻击者放出的烟雾弹，这个qq号只是混淆视听的假线索。</p>
+<p>Anyway，不管怎样，也不妨碍我们去简单人肉这个qq号的主人是谁。搜索qq号 346608453 ，这是一个网名为<code>心即灵山</code>的用户：</p>
+<p><img src="/images/github-遭受中间人攻击004.png" alt="github-遭受中间人攻击004.png"></p>
+<p>经查资料，这不是 GitHub 第一次遭受攻击，早在2015年，就受到过一次大规模的中间人攻击，<a href="https://github.blog/2015-03-27-large-scale-ddos-attack-on-github-com/" target="_blank" rel="noopener">github官方日志</a>：<br><img src="/images/github2015年遭受中间人攻击.jpg" alt="github2015年遭受中间人攻击.jpg"></p>
 <p><em>翻译：</em><br><em>我们正在遭受github历史上最大的DDOS(分布式拒绝服务)攻击，攻击从3月26号，周四下午两点开始，攻击手段组合了多种攻击方式，从一些老式的攻击手段到新式，通过浏览器让毫不相干的围观群众参与到对github攻击流量的贡献，根据我们收到的报告推断，我们相信攻击的目的是让我们删除某些特定的内容。</em></p>
 <p>关于中间人攻击，我在百度百科找到了还算通俗易懂的解释：</p>
 <blockquote>
@@ -470,8 +475,9 @@
 <li>然而，由于这个消息实际上是用马洛里的公钥加密的，所以马洛里可以解密它，阅读它，并在愿意的时候修改它。他使用鲍伯的公钥重新加密，并将重新加密后的消息转发给鲍伯：<br>爱丽丝马洛里 <code>“在家等我！”</code> –[使用鲍伯的公钥加密]–&gt;鲍伯</li>
 <li>鲍勃认为，这条消息是经由安全的传输通道从爱丽丝那里传来的。</li>
 </ol>
-<p>这个例子显示了在网络上，通信双方需要某种方法来确定他们是真正拿到了属于对方的公钥，而不是拿到来自攻击者的公钥。否则，这类攻击一般都是可行的，在原理上，可以针对任何使用公钥——密钥技术的通讯消息发起攻击。</p>
-<p>幸运的是，有各种不同的技术可以帮助抵御 <code>MITM</code> 攻击，比如最文章最开始提到的 <code>HSTS</code>。</p>
+<p>其实马洛里一直夹在它们会话的中间，进行拦截和转发，必要时对内容进行篡改，而爱丽丝和鲍勃均毫不知情。这就是中间人攻击。</p>
+<p>这个例子很形象地说明了在网络安全上的一个关键：通信双方需要某种方法来确定他们是真正拿到了属于对方的公钥，而不是拿到来自攻击者的公钥。否则，这类攻击一般都是可行的，在原理上，可以针对任何使用公钥——密钥技术的通讯消息发起攻击。</p>
+<p>幸运的是，有各种不同的技术可以帮助抵御 <code>MITM</code> 攻击，比如最文章最开始提到的 <code>HSTS</code>。目前大多数网站都开启了加密技术对抗劫持，因此遇到证书伪造的攻击，用户访问会被阻止，用户的损失止步于打开不了网页。</p>
 <p>–</p>
 <p>关于什么是HSTS，推荐大家看这篇文章：<br><a href="https://blog.csdn.net/u014311799/article/details/79037717" target="_blank" rel="noopener">HSTS详解</a></p>
 <p>更多关于中间人网络攻击的信息，有兴趣可以一读这篇：<br><a href="https://juejin.im/post/5aa116eff265da23906b97ce" target="_blank" rel="noopener">对github的中间人攻击</a></p>
@@ -705,7 +711,7 @@
     
       
     
-    <span title="Site words total count">63.7k</span>
+    <span title="Site words total count">64k</span>
   
 </div>
 
