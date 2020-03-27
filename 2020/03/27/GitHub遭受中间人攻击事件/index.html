@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://champyin.com/images/githubpages-遭到攻击.jpg">
 <meta property="og:image" content="http://champyin.com/images/github-遭受攻击003.png">
 <meta property="og:image" content="http://champyin.com/images/github2015年遭受中间人攻击.jpg">
-<meta property="og:updated_time" content="2020-03-27T08:21:21.799Z">
+<meta property="og:updated_time" content="2020-03-27T08:43:47.119Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GitHub疑似遭受中间人攻击">
 <meta name="twitter:description" content="昨天下午4点多起，github pages 突然不能访问，今早，GitHub 官网也出现不能访问的情况。访问这些网站时，浏览器统一检测出证书无效。">
@@ -451,7 +451,6 @@
 <blockquote>
 <p>您目前无法访问 pages.github.com，因为此网站使用了 HSTS。网络错误和攻击通常是暂时的，因此，此网页稍后可能会恢复正常。</p>
 </blockquote>
-<p><a href="https://blog.csdn.net/u014311799/article/details/79037717" target="_blank" rel="noopener">什么是HSTS？</a></p>
 <p>而我在国外的朋友访问却没有问题，开始我还天真地以为是被墙了，后来晚上看到有朋友在朋友圈讨论此事，这才认真去看了下浏览器收到的网站证书：</p>
 <p><img src="/images/github-遭受攻击003.png" alt="github-遭受攻击003.png"></p>
 <p>GitHub网站证书的颁发者居然使用QQ邮箱？AYK？！明白过来，这不是被墙，这是被攻击了啊，而且这次攻击可能只针对中国的访问者，因为外网并未受到影响。</p>
@@ -475,7 +474,8 @@
 </ol>
 <p>这个例子显示了在网络上，通信双方需要某种方法来确定他们是真正拿到了属于对方的公钥，而不是拿到来自攻击者的公钥。否则，这类攻击一般都是可行的，在原理上，可以针对任何使用公钥——密钥技术的通讯消息发起攻击。</p>
 <p>幸运的是，有各种不同的技术可以帮助抵御 <code>MITM</code> 攻击，比如最文章最开始提到的 <code>HSTS</code>。</p>
-<p>查资料的时候，翻到一篇关于中间人网络攻击的文章，写的挺详细，有兴趣可以一读：<br><a href="https://juejin.im/post/5aa116eff265da23906b97ce" target="_blank" rel="noopener">对github的中间人攻击</a></p>
+<p>关于什么是HSTS，推荐大家看这篇文章：<a href="https://blog.csdn.net/u014311799/article/details/79037717" target="_blank" rel="noopener">HSTS详解</a></p>
+<p>更多关于中间人网络攻击的信息，有兴趣可以一读这篇：<br><a href="https://juejin.im/post/5aa116eff265da23906b97ce" target="_blank" rel="noopener">对github的中间人攻击</a></p>
 
       
     </div>
