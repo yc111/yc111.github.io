@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>GitHub遭受中间人攻击事件</title>
+      <link href="/2020/03/27/GitHub%E9%81%AD%E5%8F%97%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6/"/>
+      <url>/2020/03/27/GitHub%E9%81%AD%E5%8F%97%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6/</url>
+      
+        <content type="html"><![CDATA[<p>昨天下午4点多起，github pages 突然不能访问，今早，GitHub 官网也出现不能访问的情况。访问这些网站时，浏览器统一检测出证书无效。</p><a id="more"></a><p>这是昨天我在访问 github pages 页面的截图：<br><img src="/images/githubpages-遭到攻击.jpg" alt="githubpages-遭到攻击.jpg"></p><p>而我在国外的朋友访问却没有问题，说明这次攻击可能只针对中国的访问者，外网并未受影响。</p><p>这不是github第一次遭受攻击，早在2015年，就受到过中间人攻击，<a href="https://github.blog/2015-03-27-large-scale-ddos-attack-on-github-com/" target="_blank" rel="noopener">github官方日志</a>：<br><img src="/images/github2015年遭受中间人攻击.jpg" alt="github2015年遭受中间人攻击.jpg"></p><p><em>翻译：</em><br><em>我们正在遭受github历史上最大的DDOS(分布式拒绝服务)攻击，攻击从3月26号，周四下午两点开始，攻击手段组合了多种攻击方式，从一些老式的攻击手段到新式，通过浏览器让毫不相干的围观群众参与到对github攻击流量的贡献，根据我们收到的报告推断，我们相信攻击的目的是让我们删除某些特定的内容。</em></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 网络 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> github </tag>
+            
+            <tag> 网络攻击 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>开发一个Vue插件</title>
       <link href="/2020/03/05/%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AAVue%E6%8F%92%E4%BB%B6/"/>
       <url>/2020/03/05/%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AAVue%E6%8F%92%E4%BB%B6/</url>
