@@ -87,16 +87,16 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="昨天下午4点多起，github pages 突然不能访问，今早，GitHub 官网也出现不能访问的情况。访问这些网站时，浏览器统一检测出证书无效。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://champyin.com/images/github-遭受攻击-cover.png">
-<meta property="og:image" content="http://champyin.com/images/githubpages-遭到攻击.jpg">
-<meta property="og:image" content="http://champyin.com/images/github-遭受攻击003.png">
-<meta property="og:image" content="http://champyin.com/images/github-遭受中间人攻击004.png">
-<meta property="og:image" content="http://champyin.com/images/github2015年遭受中间人攻击.jpg">
-<meta property="og:updated_time" content="2020-04-05T05:15:45.620Z">
+<meta property="og:image" content="http://champyin.com/images/github-attacked-cover.png">
+<meta property="og:image" content="http://champyin.com/images/githubpages-attacked.jpg">
+<meta property="og:image" content="http://champyin.com/images/github-attacked-003.png">
+<meta property="og:image" content="http://champyin.com/images/github-attacked-004.png">
+<meta property="og:image" content="http://champyin.com/images/github-attacked-in-2015.jpg">
+<meta property="og:updated_time" content="2020-04-05T06:15:42.086Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GitHub疑似遭受中间人攻击">
 <meta name="twitter:description" content="昨天下午4点多起，github pages 突然不能访问，今早，GitHub 官网也出现不能访问的情况。访问这些网站时，浏览器统一检测出证书无效。">
-<meta name="twitter:image" content="http://champyin.com/images/github-遭受攻击-cover.png">
+<meta name="twitter:image" content="http://champyin.com/images/github-attacked-cover.png">
 
 
 
@@ -446,20 +446,20 @@
       
 
       
-        <p><img src="/images/github-遭受攻击-cover.png" alt="github-遭受攻击-cover.png"></p>
+        <p><img src="/images/github-attacked-cover.png" alt="github-attacked-cover.png"></p>
 <p>昨天下午4点多起，github pages 突然不能访问，今早，GitHub 官网也出现不能访问的情况。访问这些网站时，浏览器统一检测出证书无效。</p>
 <a id="more"></a>
 <p>现在是2020年3月27日北京时间13点，目前 github.com 和 pages.github.com 已经恢复访问。</p>
-<p>这是昨天我在访问 github pages 页面的截图：<br><img src="/images/githubpages-遭到攻击.jpg" alt="githubpages-遭到攻击.jpg"></p>
+<p>这是昨天我在访问 github pages 页面的截图：<br><img src="/images/githubpages-attacked.jpg" alt="githubpages-遭到攻击.jpg"></p>
 <p>提示<code>ERR_CERT_AUTHORITY_INVALID</code>网站证书无效。并告诉我：<em>您目前无法访问 pages.github.com，因为此网站使用了 HSTS。网络错误和攻击通常是暂时的，因此，此网页稍后可能会恢复正常。</em>​</p>
 <p>而我在国外的朋友访问却没有问题，开始我还天真地以为是被墙了，后来晚上看到有朋友在朋友圈讨论此事，这才认真去看了下浏览器收到的网站证书：</p>
-<p><img src="/images/github-遭受攻击003.png" alt="github-遭受攻击003.png"></p>
+<p><img src="/images/github-attacked-003.png" alt="github-attacked-003.png"></p>
 <p>GitHub网站证书居然使用QQ邮箱？AYK？！显然，这不是被墙，这是被攻击了啊。这些网站的证书被攻击者使用的自签名证书代替，导致浏览器无法信任，从而阻止用户访问。这次攻击可能只针对中国IP的访问者，外网并未受到影响。</p>
 <p>兴趣来了，这个留下qq邮箱的人是攻击者吗？</p>
 <p>可能是，也可能不是（这不是废话吗 - -!）。可能是攻击者自信放出自己的邮箱，也有可能是攻击者不小心暴露了自己的邮箱，但也有可能是攻击者放出的烟雾弹，这个qq号只是混淆视听的假线索。</p>
 <p>Anyway，不管怎样，也不妨碍我们去简单人肉这个qq号的主人是谁。搜索qq号 346608453 ，这是一个网名为<code>心即灵山</code>的用户：</p>
-<p><img src="/images/github-遭受中间人攻击004.png" alt="github-遭受中间人攻击004.png"></p>
-<p>经查资料，这不是 GitHub 第一次遭受攻击，早在2015年，就受到过一次大规模的中间人攻击，<a href="https://github.blog/2015-03-27-large-scale-ddos-attack-on-github-com/" target="_blank" rel="noopener">github官方日志</a>：<br><img src="/images/github2015年遭受中间人攻击.jpg" alt="github2015年遭受中间人攻击.jpg"></p>
+<p><img src="/images/github-attacked-004.png" alt="github-attacked-004.png"></p>
+<p>经查资料，这不是 GitHub 第一次遭受攻击，早在2015年，就受到过一次大规模的中间人攻击，<a href="https://github.blog/2015-03-27-large-scale-ddos-attack-on-github-com/" target="_blank" rel="noopener">github官方日志</a>：<br><img src="/images/github-attacked-in-2015.jpg" alt="github2015年遭受中间人攻击.jpg"></p>
 <p><em>翻译：</em><br><em>我们正在遭受github历史上最大的DDOS(分布式拒绝服务)攻击，攻击从3月26号，周四下午两点开始，攻击手段组合了多种攻击方式，从一些老式的攻击手段到新式，通过浏览器让毫不相干的围观群众参与到对github攻击流量的贡献，根据我们收到的报告推断，我们相信攻击的目的是让我们删除某些特定的内容。</em></p>
 <p>关于中间人攻击，我在百度百科找到了还算通俗易懂的解释：</p>
 <blockquote>
