@@ -79,21 +79,22 @@
 
 
 
-<meta name="description" content="Vue 项目开发过程中​，经常用到插件，比如原生插件 vue-router、vuex，还有 element-ui 提供的 notify、message 等等。这些插件让我们的开发变得更简单更高效。那么 Vue 插件是怎么开发的呢​？​如何自己开发一个 Vue 插件然后打包发布到npm？  本文涉及技术点：  Vue 插件的本质 Vue.extend() 全局方法 如何手动挂载 Vue 实例 Vu">
+<meta name="description" content="Vue 项目开发过程中​，经常用到插件，比如原生插件 vue-router、vuex，还有 element-ui 提供的 notify、message 等等。这些插件让我们的开发变得更简单更高效。那么 Vue 插件是怎么开发的呢​？​如何自己开发一个 Vue 插件然后打包发布到npm？  本文涉及技术点：  Vue 插件的本质 Vue.extend() 全局方法 如何手动挂载 Vue 实例 V">
 <meta name="keywords" content="npm,vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="开发一个Vue插件">
 <meta property="og:url" content="http://champyin.com/2020/03/05/开发一个Vue插件/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="Vue 项目开发过程中​，经常用到插件，比如原生插件 vue-router、vuex，还有 element-ui 提供的 notify、message 等等。这些插件让我们的开发变得更简单更高效。那么 Vue 插件是怎么开发的呢​？​如何自己开发一个 Vue 插件然后打包发布到npm？  本文涉及技术点：  Vue 插件的本质 Vue.extend() 全局方法 如何手动挂载 Vue 实例 Vu">
+<meta property="og:description" content="Vue 项目开发过程中​，经常用到插件，比如原生插件 vue-router、vuex，还有 element-ui 提供的 notify、message 等等。这些插件让我们的开发变得更简单更高效。那么 Vue 插件是怎么开发的呢​？​如何自己开发一个 Vue 插件然后打包发布到npm？  本文涉及技术点：  Vue 插件的本质 Vue.extend() 全局方法 如何手动挂载 Vue 实例 V">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="http://champyin.com/images/vue-toast-cover.png">
 <meta property="og:image" content="http://champyin.com/images/how-to-write-a-vue-plugin01.jpg">
 <meta property="og:image" content="http://champyin.com/images/qianduanshouzha-gzh.png">
-<meta property="og:updated_time" content="2020-03-09T07:52:55.105Z">
+<meta property="og:updated_time" content="2020-04-05T05:59:28.439Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="开发一个Vue插件">
-<meta name="twitter:description" content="Vue 项目开发过程中​，经常用到插件，比如原生插件 vue-router、vuex，还有 element-ui 提供的 notify、message 等等。这些插件让我们的开发变得更简单更高效。那么 Vue 插件是怎么开发的呢​？​如何自己开发一个 Vue 插件然后打包发布到npm？  本文涉及技术点：  Vue 插件的本质 Vue.extend() 全局方法 如何手动挂载 Vue 实例 Vu">
-<meta name="twitter:image" content="http://champyin.com/images/how-to-write-a-vue-plugin01.jpg">
+<meta name="twitter:description" content="Vue 项目开发过程中​，经常用到插件，比如原生插件 vue-router、vuex，还有 element-ui 提供的 notify、message 等等。这些插件让我们的开发变得更简单更高效。那么 Vue 插件是怎么开发的呢​？​如何自己开发一个 Vue 插件然后打包发布到npm？  本文涉及技术点：  Vue 插件的本质 Vue.extend() 全局方法 如何手动挂载 Vue 实例 V">
+<meta name="twitter:image" content="http://champyin.com/images/vue-toast-cover.png">
 
 
 
@@ -443,7 +444,8 @@
       
 
       
-        <blockquote>
+        <p><img src="/images/vue-toast-cover.png" alt="vue-toast-cover.png"></p>
+<blockquote>
 <p>Vue 项目开发过程中​，经常用到插件，比如原生插件 <code>vue-router</code>、<code>vuex</code>，还有 <code>element-ui</code> 提供的 <code>notify</code>、<code>message</code> 等等。这些插件让我们的开发变得更简单更高效。那么 Vue 插件是怎么开发的呢​？​如何自己开发一个 Vue 插件然后打包发布到npm？</p>
 </blockquote>
 <p>本文涉及技术点：</p>
