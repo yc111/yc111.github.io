@@ -87,10 +87,12 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="小程序是一种不需要下载安装即可使用的应用。它是连接用户与服务的新方式，它实现了应用“触手可及” 的梦想，用户通过扫一扫或者搜一下即可打开应用，应用将无处不在，随时可用，用完即走。  2017年1月，微信正式推出微信小程序。同年9月，支付宝也推出了支付宝小程序。2018年7月，百度也不甘落后，推出百度智能小程序。从此BAT三巨头都进军了小程序领域。 此篇是微信小程序开发的一个简明介绍和关键说明。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-04-07T17:54:50.922Z">
+<meta property="og:image" content="http://champyin.com/images/wxxcx-architecture.png">
+<meta property="og:updated_time" content="2020-04-07T18:20:53.746Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何开发微信小程序">
 <meta name="twitter:description" content="小程序是一种不需要下载安装即可使用的应用。它是连接用户与服务的新方式，它实现了应用“触手可及” 的梦想，用户通过扫一扫或者搜一下即可打开应用，应用将无处不在，随时可用，用完即走。  2017年1月，微信正式推出微信小程序。同年9月，支付宝也推出了支付宝小程序。2018年7月，百度也不甘落后，推出百度智能小程序。从此BAT三巨头都进军了小程序领域。 此篇是微信小程序开发的一个简明介绍和关键说明。">
+<meta name="twitter:image" content="http://champyin.com/images/wxxcx-architecture.png">
 
 
 
@@ -402,7 +404,7 @@
                   
                 
                 <span title="Words count in article">
-                  849
+                  979
                 </span>
               
 
@@ -419,7 +421,7 @@
                   
                 
                 <span title="Reading time">
-                  2 min
+                  3 min
                 </span>
               
             </div>
@@ -464,9 +466,9 @@
 </ol>
 <p>微信开发者工具会很贴心地为我们初始化好一个默认的工程，好让我们不用从零开始编写。</p>
 <h1 id="二、一些重要的概念"><a href="#二、一些重要的概念" class="headerlink" title="二、一些重要的概念"></a>二、一些重要的概念</h1><ol>
-<li><p>运行环境<br>每个小程序都是运行在它所在的微信客户端上的，通过微信客户端给他提供的运行环境，小程序可以直接获取微信客户端的原生体验和原生能力。</p>
+<li><p>小程序的组成<br>小程序包含一个描述整体程序的 <code>app</code> 和多个描述各自页面的 <code>page</code>。</p>
 </li>
-<li><p>小程序的结构<br>小程序包含一个描述整体程序的 <code>app</code> 和多个描述各自页面的 <code>page</code>。<br>一个小程序主体部分由三个文件组成，必须放在项目的根目录：</p>
+<li><p>一个小程序主体部分由三个文件组成，必须放在项目的根目录：</p>
 <ul>
 <li><code>app.js</code> 小程序逻辑</li>
 <li><code>app.json</code> 小程序公共配置——相当于html</li>
@@ -483,6 +485,12 @@
 </li>
 <li><p>最终，一个小程序的基本目录结构，大致长这个样子：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">|—pages/</span><br><span class="line">|   |—about/</span><br><span class="line">|      |—about.js</span><br><span class="line">|      |—about.json</span><br><span class="line">|      |—about.wxml</span><br><span class="line">|      |—about.wxss</span><br><span class="line">|—app.js</span><br><span class="line">|—app.json</span><br><span class="line">|—app.wxss</span><br><span class="line">|—project.config.js // 工具配置,存放开发者对开发工具的一些个性化配置，例如界面颜色、编译配置等</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>宿主环境<br>每个小程序都是运行在它所在的微信客户端上的，通过微信客户端给他提供的运行环境，小程序可以直接获取微信客户端的原生体验和原生能力。</p>
+</li>
+<li><p>基本架构<br>小程序的运行环境分为渲染层和逻辑层，其中 WXML 模板和 WXSS 样式工作在渲染层，JS 脚本工作在逻辑层。</p>
+<p>其中渲染层的界面使用 WebView 线程进行渲染，逻辑层采用 jsCore 线程运行。一个小程序存在多个界面，所以渲染层存在多个 WebView 线程，这两个线程的通信会经由微信客户端（Native）做中转，逻辑层发送网络请求也经由 Native 转发。</p>
+<p><img src="/images/wxxcx-architecture.png" alt="微信小程序通信模型"></p>
 </li>
 </ol>
 <h1 id="三、小程序语法"><a href="#三、小程序语法" class="headerlink" title="三、小程序语法"></a>三、小程序语法</h1><ul>
@@ -748,7 +756,7 @@
     
       
     
-    <span title="Site words total count">64.9k</span>
+    <span title="Site words total count">65k</span>
   
 </div>
 
