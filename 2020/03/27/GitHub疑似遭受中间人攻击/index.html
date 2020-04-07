@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://champyin.com/images/github-attacked-003.png">
 <meta property="og:image" content="http://champyin.com/images/github-attacked-004.png">
 <meta property="og:image" content="http://champyin.com/images/github-attacked-in-2015.jpg">
-<meta property="og:updated_time" content="2020-04-05T06:15:42.086Z">
+<meta property="og:updated_time" content="2020-04-07T17:55:56.256Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GitHub疑似遭受中间人攻击">
 <meta name="twitter:description" content="昨天下午4点多起，github pages 突然不能访问，今早，GitHub 官网也出现不能访问的情况。访问这些网站时，浏览器统一检测出证书无效。">
@@ -468,6 +468,7 @@
 <p><strong>中间人攻击举例：</strong><br>假设爱丽丝（Alice）希望与鲍伯（Bob）通信。同时，马洛里（Mallory）希望拦截会话以进行窃听并可能在某些时候传送给鲍伯一个虚假的消息。</p>
 <p>首先，爱丽丝会向鲍勃索取他的公钥。如果Bob将他的公钥发送给Alice，并且此时马洛里能够拦截到这个公钥，就可以实施中间人攻击。马洛里发送给爱丽丝一个伪造的消息，声称自己是鲍伯，并且附上了马洛里自己的公钥（而不是鲍伯的）。</p>
 <p>爱丽丝收到公钥后相信这个公钥是鲍伯的，于是爱丽丝将她的消息用马洛里的公钥（爱丽丝以为是鲍伯的）加密，并将加密后的消息回给鲍伯。马洛里再次截获爱丽丝回给鲍伯的消息，并使用马洛里自己的私钥对消息进行解密，如果马洛里愿意，她也可以对消息进行修改，然后马洛里使用鲍伯原先发给爱丽丝的公钥对消息再次加密。当鲍伯收到新加密后的消息时，他会相信这是从爱丽丝那里发来的消息。</p>
+<p>整个过程大致会是这样：</p>
 <ol>
 <li>爱丽丝发送给鲍伯一条消息，却被马洛里截获：<br>爱丽丝 <code>“嗨，鲍勃，我是爱丽丝。给我你的公钥”</code> –&gt;马洛里鲍勃</li>
 <li>马洛里将这条截获的消息转送给鲍伯；此时鲍伯并无法分辨这条消息是否从真的爱丽丝那里发来的：<br>爱丽丝马洛里 <code>“嗨，鲍勃，我是爱丽丝。给我你的公钥”</code> –&gt;鲍伯</li>
@@ -542,6 +543,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/07/如何开发微信小程序/" rel="prev" title="如何开发微信小程序">
+                如何开发微信小程序 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -618,7 +623,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">91</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -640,7 +645,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">97</span>
+                  <span class="site-state-item-count">98</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -713,7 +718,7 @@
     
       
     
-    <span title="Site words total count">64k</span>
+    <span title="Site words total count">64.9k</span>
   
 </div>
 
