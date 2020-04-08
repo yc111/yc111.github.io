@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-champyin.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-champyin.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="微信小程序," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言跟异国他乡的朋友们微信聊天的时候，经常面临时差的问题。我每次想要确定对方现在是几点，总是要口算一下，有时忘记具体时差，或者涉及跨天，还得打开浏览器查一下，很不方便遍。有什么方法可以把朋友们所在城市的时间集中起来随时供自己查看呢？于是想到了微信小程序。找了找市面上的时间小程序，不是功能太杂就是小广告太多，不满意。天音：为什么不自己动手量身打造一个呢？">
+<meta name="keywords" content="微信小程序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开发一个时间小程序">
+<meta property="og:url" content="http://champyin.com/2020/04/08/开发一个时间小程序/index.html">
+<meta property="og:site_name" content="ChampYin&#39;s Blog">
+<meta property="og:description" content="前言跟异国他乡的朋友们微信聊天的时候，经常面临时差的问题。我每次想要确定对方现在是几点，总是要口算一下，有时忘记具体时差，或者涉及跨天，还得打开浏览器查一下，很不方便遍。有什么方法可以把朋友们所在城市的时间集中起来随时供自己查看呢？于是想到了微信小程序。找了找市面上的时间小程序，不是功能太杂就是小广告太多，不满意。天音：为什么不自己动手量身打造一个呢？">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://champyin.com/images/timezone-map.jpg">
+<meta property="og:image" content="http://champyin.com/images/world-time-v1.0.0.png">
+<meta property="og:image" content="http://champyin.com/images/world-time-v2.0.0.jpg">
+<meta property="og:image" content="http://champyin.com/images/world-time-v2.1.0.jpg">
+<meta property="og:image" content="http://champyin.com/images/world-time-qr-code.jpg">
+<meta property="og:updated_time" content="2020-04-08T10:10:02.108Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="开发一个时间小程序">
+<meta name="twitter:description" content="前言跟异国他乡的朋友们微信聊天的时候，经常面临时差的问题。我每次想要确定对方现在是几点，总是要口算一下，有时忘记具体时差，或者涉及跨天，还得打开浏览器查一下，很不方便遍。有什么方法可以把朋友们所在城市的时间集中起来随时供自己查看呢？于是想到了微信小程序。找了找市面上的时间小程序，不是功能太杂就是小广告太多，不满意。天音：为什么不自己动手量身打造一个呢？">
+<meta name="twitter:image" content="http://champyin.com/images/timezone-map.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://champyin.com/2020/04/08/开发一个时间小程序/"/>
+
+
+
+
+
+  <title>开发一个时间小程序 | ChampYin's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?33e86ea32ced4dc8fafe3738659b3dcf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ChampYin's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">自律是真正的自由</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://champyin.com/2020/04/08/开发一个时间小程序/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ChampYin">
+      <meta itemprop="description" content="Life does'nt get easier, you just get stronger.">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChampYin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">开发一个时间小程序</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-08T11:37:36+08:00">
+                2020-04-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/个人项目/" itemprop="url" rel="index">
+                    <span itemprop="name">个人项目</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/04/08/开发一个时间小程序/" class="leancloud_visitors" data-flag-title="开发一个时间小程序">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words &#58;</span>
+                  
+                
+                <span title="Words count in article">
+                  1.9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading &asymp;</span>
+                  
+                
+                <span title="Reading time">
+                  6 min
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>跟异国他乡的朋友们微信聊天的时候，经常面临时差的问题。我每次想要确定对方现在是几点，总是要口算一下，有时忘记具体时差，或者涉及跨天，还得打开浏览器查一下，很不方便遍。有什么方法可以把朋友们所在城市的时间集中起来随时供自己查看呢？于是想到了微信小程序。找了找市面上的时间小程序，不是功能太杂就是小广告太多，不满意。天音：为什么不自己动手量身打造一个呢？</p>
+<a id="more"></a>
+<p>行动起来。</p>
+<h2 id="首先快速明确需求"><a href="#首先快速明确需求" class="headerlink" title="首先快速明确需求"></a>首先快速明确需求</h2><p>很简单：</p>
+<ol>
+<li>需要展示时间的城市初定：加州、纽约，再加北京做对比</li>
+<li>需要显示具体的时分秒，和年月日</li>
+<li>需要实时变化</li>
+<li>在其他国家也能正确展示时间</li>
+</ol>
+<h2 id="然后创建项目开撸"><a href="#然后创建项目开撸" class="headerlink" title="然后创建项目开撸"></a>然后创建项目开撸</h2><blockquote>
+<p>怎么创建和前期的准备就不在这里展开了，相信不少人都熟悉。如果不熟悉小程序开发的可以参考<a href="https://developers.weixin.qq.com/miniprogram/dev/framework/" target="_blank" rel="noopener">官网</a> 或者我的另一篇文章<a href="https://champyin.com/2020/04/07/%E5%A6%82%E4%BD%95%E5%BC%80%E5%8F%91%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">如何开发微信小程序
+</a> ，上面有对如何开发小程序的简明扼要的的介绍。</p>
+</blockquote>
+<h3 id="关键逻辑"><a href="#关键逻辑" class="headerlink" title="关键逻辑"></a>关键逻辑</h3><p>这个小程序的核心是时间的处理。如何得到其他地区的时刻信息？</p>
+<p>这还不简单？<br>先获取本地时刻，然后加上或者减去另外一个地点与国内（北京时间）的时差（小时），最多再处理一下跨天的情况，不就得到其他地点的时刻了？</p>
+<p>我一开始也是这么想的，做完觉得还挺美，准备提交的时候，突然意识到问题：我时差全是基于北京时间计算的，换在其他国家访问，获取的本地时间已经不是北京时间了，时差应该变才对，写死了时差可还行？！发布一个只能在国内使用的鸡肋时间工具，可不是我的风格！</p>
+<p>捣鼓一阵，新方案出炉：</p>
+<ol>
+<li>想办法获得零时区的时间</li>
+<li>获取不同地区与零时区的时差（时区）</li>
+<li>用零时区的时间加减与零时区的时差（时区），得到各地的绝对时间</li>
+</ol>
+<h4 id="1-获得零时区的时间"><a href="#1-获得零时区的时间" class="headerlink" title="1. 获得零时区的时间"></a>1. 获得零时区的时间</h4><p>零时区，也叫中时区，位于英国格林威治本初子午线上。该时区的地方时，叫做格林威治时间，也叫世界时。</p>
+<p>我们不能直接获得格林威治时间，但是我们可以获得本地与格林威治的时间差：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> diff = <span class="keyword">new</span> <span class="built_in">Date</span>().getTimezoneOffset() <span class="comment">// 单位为分钟</span></span><br></pre></td></tr></table></figure></p>
+<p>然后根据本地时间和时间差获得格林威治时间：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> absTime = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime() + diff * <span class="number">60</span> * <span class="number">1000</span>;</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-查询各地时区"><a href="#2-查询各地时区" class="headerlink" title="2. 查询各地时区"></a>2. 查询各地时区</h4><p>格林威治本初子午线将地球划分为东西两个半球，格林威治本初子午线为零时区，往西依次为西一区到西十一区，往东依次为东一区到东十一区，西十二区和东十二区重合成为东西十二区，一共划分了24个时区，每个时区相差正好是1个小时。</p>
+<p>北京是东八区，纽约是西五区，加州是西八区。</p>
+<p>完整时区地图：<br><img src="/images/timezone-map.jpg" alt="timezone-map.jpg"></p>
+<h3 id="3-计算各地的绝对时间"><a href="#3-计算各地的绝对时间" class="headerlink" title="3. 计算各地的绝对时间"></a>3. 计算各地的绝对时间</h3><p>东时区的时刻比零时区快，西时区的时刻比零时区慢，所以东时区为正，西时区为负，所有时间计算记得转换为毫秒。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> localTime = <span class="keyword">new</span> <span class="built_in">Date</span>(absTime + timeZone * <span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>);</span><br></pre></td></tr></table></figure></p>
+<p>获取任何时区的绝对时间的完整核心代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * timeZone: 东n区为正，西n区为负, 单位为小时</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> getFullTimeInfo = <span class="function">(<span class="params">timeZone, country, spliter</span>) =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//获取本地时间与格林威治时间的时间差(注意是分钟，记得转换)</span></span><br><span class="line">  <span class="keyword">const</span> diff = <span class="keyword">new</span> <span class="built_in">Date</span>().getTimezoneOffset();</span><br><span class="line"></span><br><span class="line">  <span class="comment">//根据本地时间和时间差获得格林威治时间</span></span><br><span class="line">  <span class="keyword">const</span> absTime = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime() + diff * <span class="number">60</span> * <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//根据格林威治时间和各地时区，得到各地时区的时间</span></span><br><span class="line">  <span class="keyword">let</span> localTime = <span class="keyword">new</span> <span class="built_in">Date</span>(absTime + timeZone * <span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    time: formatTime(localTime, spliter)</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h2><p>很快，第一版就完成了。</p>
+<p><img src="/images/world-time-v1.0.0.png" alt="world-time-v1.0.0"></p>
+<p>刚开始这个样子略丑，有点裸奔的赶脚。不过第一版最主要是核心功能，简陋的界面只是暂时的。</p>
+<p>给当地的朋友检验确定时间展示正确后，提交代码、提交审核，2天后收到审核通过的通知（吐槽腾讯的审核效率😓），然后在小程序管理平台点击发布，哦了。</p>
+<p>扫描二维码，打开小程序，然后收藏。以后要看时间了，微信主界面向下一拉，打开我的时间工具，一眼就看到想要知道的时间信息，确实比之前便捷多了。功能虽然简单，界面虽然简陋，但是妥妥滴满足我的需求。</p>
+<h2 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h2><p>用了一阵子，觉得样式啥的还是得丰富丰富，于是找了个时间做了一个时钟的效果，改了改布局，顺便重构了一下代码，便于新增地区。</p>
+<p><img src="/images/world-time-v2.0.0.jpg" alt="world-time-v2.0.0"></p>
+<p>效果还行，我的审美还在线，嗯！</p>
+<p>前几天我跟澳洲朋友聊天的时候，发现了我的程序的一个潜在BUG。</p>
+<p>那天是4月4日的早晨（北京时间），我跟朋友吐槽我的一个疑惑：查询悉尼时区为东十区（即与北京相差2小时），但是为啥查询悉尼时间却与北京相差3小时（所以我当时程序中是把悉尼作为东十一区来计算的）。朋友说：是的没错，我们这里现在在使用夏令时，等夏令时结束就恢复2个小时时差了。然后一查，今年澳洲夏令时将在4月5号凌晨3点结束。。。</p>
+<p>也就是说，距离这个BUG发作还有不到一天的时间。。。</p>
+<p>马上打开电脑，改BUG。。。</p>
+<p>根据资料，获得美国和澳大利亚的夏令时规则：</p>
+<ul>
+<li><p>美国<br>每年的3月第二个星期日02:00:00，时钟向后调整1小时，变为03:00:00，开始夏令时。<br>每年的11月第一个星期日02:00:00，时钟向前调整1小时，变为01:00:00，结束夏令时。</p>
+</li>
+<li><p>澳大利亚<br>每年的10月第一个星期日02:00:00，时钟向前调整1小时，变为03:00:00，开始夏令时。<br>每年的4月第一个星期日03:00:00，时钟向后调整1小时，变为02:00:00，结束夏令时。</p>
+</li>
+</ul>
+<blockquote>
+<p>关于夏令时，也挺有意思，有空我会另开一个篇幅来专门讲述。</p>
+</blockquote>
+<p>将夏令时的判断逻辑加上：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * timeZone: 东n区为正，西n区为负, 单位为小时</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> getFullTimeInfo = <span class="function">(<span class="params">timeZone, country, spliter</span>) =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//获取本地时间与格林威治时间的时间差(注意是分钟，记得转换)</span></span><br><span class="line">  <span class="keyword">const</span> diff = <span class="keyword">new</span> <span class="built_in">Date</span>().getTimezoneOffset();</span><br><span class="line"></span><br><span class="line">  <span class="comment">//根据本地时间和时间差获得格林威治时间</span></span><br><span class="line">  <span class="keyword">const</span> absTime = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime() + diff * <span class="number">60</span> * <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//根据格林威治时间和各地时区，得到各地时区的时间</span></span><br><span class="line">  <span class="keyword">let</span> localTime = <span class="keyword">new</span> <span class="built_in">Date</span>(absTime + timeZone * <span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// console.log(country, localTime);</span></span><br><span class="line"></span><br><span class="line">+  <span class="comment">// 考虑夏令时</span></span><br><span class="line">+  <span class="keyword">const</span> isDST = judgeDST(localTime, country);</span><br><span class="line">+  <span class="keyword">if</span> (isDST) &#123;</span><br><span class="line">+    localTime = <span class="keyword">new</span> <span class="built_in">Date</span>(absTime + (timeZone + <span class="number">1</span>) * <span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>)</span><br><span class="line">+  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    time: formatTime(localTime, spliter).split(<span class="string">':'</span>).slice(<span class="number">0</span>,<span class="number">2</span>).join(<span class="string">':'</span>), </span><br><span class="line">    isDST</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>有了现在的版本：<br><img src="/images/world-time-v2.1.0.jpg" alt="world-time-v2.1.0"></p>
+<p>以后对这个小工具我还会不断优化，会越来越灵活，比如支持地区选择，这样每个人都可以定制自己的时差表了。可以期待一下哦～</p>
+<p>最后附上小程序二维码，扫一扫即可体验。<br><img src="/images/world-time-qr-code.jpg" alt="world-time-qr-code.jpg"></p>
+<p>–<br>还是毛爷爷说得好：自己动手丰衣足食。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    ChampYin
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="http://champyin.com/2020/04/08/开发一个时间小程序/" title="开发一个时间小程序">http://champyin.com/2020/04/08/开发一个时间小程序/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/微信小程序/" rel="tag"># 微信小程序</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/07/如何开发微信小程序/" rel="next" title="如何开发微信小程序">
+                <i class="fa fa-chevron-left"></i> 如何开发微信小程序
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTgzMy8xNjM2MA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="ChampYin" />
+            
+              <p class="site-author-name" itemprop="name">ChampYin</p>
+              <p class="site-description motion-element" itemprop="description">Life does'nt get easier, you just get stronger.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yc111" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/champyin" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5936e4aeb123db0064406325" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-globe"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#首先快速明确需求"><span class="nav-text">首先快速明确需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#然后创建项目开撸"><span class="nav-text">然后创建项目开撸</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关键逻辑"><span class="nav-text">关键逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-获得零时区的时间"><span class="nav-text">1. 获得零时区的时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-查询各地时区"><span class="nav-text">2. 查询各地时区</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-计算各地的绝对时间"><span class="nav-text">3. 计算各地的绝对时间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发布"><span class="nav-text">发布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代"><span class="nav-text">迭代</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-flag"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ChampYin</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      
+    
+    <span title="Site words total count">66.9k</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span style="display: none">
+  <span class="post-meta-divider">|</span>
+  <span id="busuanzi_container_site_uv">
+    UV <span id="busuanzi_value_site_uv"></span>
+  </span>
+  <span class="post-meta-divider">|</span> 
+  <span id="busuanzi_container_site_pv">
+    PV <span id="busuanzi_value_site_pv"></span>
+  </span>
+</span>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("rvS2PRrtNPtlLVnRCdRTA2g3-gzGzoHsz", "lKROjx0MLNKaBPQ9VROSoMoL");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
