@@ -92,7 +92,8 @@
 <meta property="og:image" content="http://champyin.com/images/world-time-v2.0.0.jpg">
 <meta property="og:image" content="http://champyin.com/images/world-time-v2.1.0.jpg">
 <meta property="og:image" content="http://champyin.com/images/world-time-qr-code.jpg">
-<meta property="og:updated_time" content="2020-04-08T11:49:34.944Z">
+<meta property="og:image" content="http://champyin.com/images/qianduanshouzha-gzh.png">
+<meta property="og:updated_time" content="2020-04-16T07:49:18.282Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="开发一个时间小程序">
 <meta name="twitter:description" content="前言跟异国他乡的朋友们微信聊天的时候，经常面临时差的问题。我每次想要确定对方现在是几点，总是要口算一下，有时忘记具体时差，或者涉及跨天，还得打开浏览器查一下，很不方便。有什么方法可以把朋友们所在城市的时间集中起来随时供自己查看呢？于是想到了微信小程序。找了找市面上的时间小程序，不是功能太杂就是小广告太多，不满意。天音：为什么不自己动手量身打造一个呢？">
@@ -408,7 +409,7 @@
                   
                 
                 <span title="Words count in article">
-                  1.9k
+                  2k
                 </span>
               
 
@@ -425,7 +426,7 @@
                   
                 
                 <span title="Reading time">
-                  6 min
+                  7 min
                 </span>
               
             </div>
@@ -482,10 +483,10 @@
 <p>刚开始这个样子略丑，有点裸奔的赶脚。不过第一版最主要是核心功能，简陋的界面只是暂时的。</p>
 <p>给当地的朋友检验确定时间展示正确后，提交代码、提交审核，2天后收到审核通过的通知（吐槽腾讯的审核效率😓），然后在小程序管理平台点击发布，哦了。</p>
 <p>扫描二维码，打开小程序，然后收藏。以后要看时间了，微信主界面向下一拉，打开我的时间工具，一眼就看到想要知道的时间信息，确实比之前便捷多了。功能虽然简单，界面虽然简陋，但是妥妥滴满足我的需求。</p>
-<h2 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h2><p>用了一阵子，觉得样式啥的还是得丰富丰富，于是找了个时间做了一个时钟的效果，改了改布局，顺便重构了一下代码，便于新增地区。</p>
+<h2 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h2><p>用了一阵子，觉得样式啥的还是得丰富丰富，于是花了一些时间做了一次改版，实时时间以时钟效果展示，并且修改了布局，顺便重构了一下代码，便于新增地区。</p>
 <p><img src="/images/world-time-v2.0.0.jpg" alt="world-time-v2.0.0"></p>
-<p>效果还行，我的审美还在线，嗯！</p>
-<p>前几天我跟澳洲朋友聊天的时候，发现了我的程序的一个潜在BUG。</p>
+<p>嗯，效果似乎还行～</p>
+<h2 id="改BUG"><a href="#改BUG" class="headerlink" title="改BUG"></a>改BUG</h2><p>前几天跟澳洲的朋友聊天，聊着聊着居然发现了我的程序的一个潜在BUG。</p>
 <p>那天是4月4日的早晨（北京时间），我跟朋友吐槽我的一个疑惑：查询悉尼时区为东十区（即与北京相差2小时），但是为啥查询悉尼时间却与北京相差3小时（所以我当时程序中是把悉尼作为东十一区来计算的）。朋友说：是的没错，我们这里现在在使用夏令时，等夏令时结束就恢复2个小时时差了。然后一查，今年澳洲夏令时将在4月5号凌晨3点结束。。。</p>
 <p>也就是说，距离这个BUG发作还有不到一天的时间。。。</p>
 <p>马上打开电脑，改BUG。。。</p>
@@ -499,11 +500,15 @@
 <blockquote>
 <p>关于夏令时，也挺有意思，有空我会另开一个篇幅来专门讲述。</p>
 </blockquote>
-<p>将夏令时的判断逻辑加上：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * timeZone: 东n区为正，西n区为负, 单位为小时</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> getFullTimeInfo = <span class="function">(<span class="params">timeZone, country, spliter</span>) =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//获取本地时间与格林威治时间的时间差(注意是分钟，记得转换)</span></span><br><span class="line">  <span class="keyword">const</span> diff = <span class="keyword">new</span> <span class="built_in">Date</span>().getTimezoneOffset();</span><br><span class="line"></span><br><span class="line">  <span class="comment">//根据本地时间和时间差获得格林威治时间</span></span><br><span class="line">  <span class="keyword">const</span> absTime = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime() + diff * <span class="number">60</span> * <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//根据格林威治时间和各地时区，得到各地时区的时间</span></span><br><span class="line">  <span class="keyword">let</span> localTime = <span class="keyword">new</span> <span class="built_in">Date</span>(absTime + timeZone * <span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line">+  <span class="comment">// 考虑夏令时</span></span><br><span class="line">+  <span class="keyword">const</span> isDST = judgeDST(localTime, country);</span><br><span class="line">+  <span class="keyword">if</span> (isDST) &#123;</span><br><span class="line">+    localTime = <span class="keyword">new</span> <span class="built_in">Date</span>(absTime + (timeZone + <span class="number">1</span>) * <span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>)</span><br><span class="line">+  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    time: formatTime(localTime, spliter).split(<span class="string">':'</span>).slice(<span class="number">0</span>,<span class="number">2</span>).join(<span class="string">':'</span>), </span><br><span class="line">    isDST</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>将夏令时的判断逻辑加上：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * timeZone: 东n区为正，西n区为负, 单位为小时</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> getFullTimeInfo = <span class="function">(<span class="params">timeZone, country, spliter</span>) =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//获取本地时间与格林威治时间的时间差(注意是分钟，记得转换)</span></span><br><span class="line">  <span class="keyword">const</span> diff = <span class="keyword">new</span> <span class="built_in">Date</span>().getTimezoneOffset();</span><br><span class="line"></span><br><span class="line">  <span class="comment">//根据本地时间和时间差获得格林威治时间</span></span><br><span class="line">  <span class="keyword">const</span> absTime = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime() + diff * <span class="number">60</span> * <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//根据格林威治时间和各地时区，得到各地时区的时间</span></span><br><span class="line">  <span class="keyword">let</span> localTime = <span class="keyword">new</span> <span class="built_in">Date</span>(absTime + timeZone * <span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line">+  <span class="comment">// 考虑夏令时</span></span><br><span class="line">+  <span class="comment">// judgeDST 是我封装好的一个判断夏令时的方法</span></span><br><span class="line">+  <span class="keyword">const</span> isDST = judgeDST(localTime, country);</span><br><span class="line">+  <span class="keyword">if</span> (isDST) &#123;</span><br><span class="line">+    localTime = <span class="keyword">new</span> <span class="built_in">Date</span>(absTime + (timeZone + <span class="number">1</span>) * <span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>)</span><br><span class="line">+  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    time: formatTime(localTime, spliter).split(<span class="string">':'</span>).slice(<span class="number">0</span>,<span class="number">2</span>).join(<span class="string">':'</span>), </span><br><span class="line">    isDST</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>有了现在的版本：<br><img src="/images/world-time-v2.1.0.jpg" alt="world-time-v2.1.0"></p>
 <p>以后对这个小工具我还会不断优化，会越来越灵活，比如支持地区选择，这样每个人都可以定制自己的时差表了。可以期待一下哦～</p>
-<p>最后附上小程序二维码，扫一扫即可体验。<br><img src="/images/world-time-qr-code.jpg" alt="world-time-qr-code.jpg"></p>
+<p>最后附上小程序二维码，扫一扫即可体验。</p>
+<p><img src="/images/world-time-qr-code.jpg" alt="world-time-qr-code.jpg"></p>
 <p>–<br>还是毛爷爷说得好：自己动手丰衣足食。</p>
+<p>Happy coding :)</p>
+<p>文章同时发表于公众号「前端手札」，喜欢的话可以关注一下哦。</p>
+<p><img src="/images/qianduanshouzha-gzh.png" alt="qianduanshouzha-gzh.png"></p>
 
       
     </div>
@@ -723,7 +728,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#首先快速明确需求"><span class="nav-text">首先快速明确需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#然后创建项目开撸"><span class="nav-text">然后创建项目开撸</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关键逻辑"><span class="nav-text">关键逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-获得零时区的时间"><span class="nav-text">1. 获得零时区的时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-查询各地时区"><span class="nav-text">2. 查询各地时区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-计算各地的绝对时间"><span class="nav-text">3. 计算各地的绝对时间</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发布"><span class="nav-text">发布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代"><span class="nav-text">迭代</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#首先快速明确需求"><span class="nav-text">首先快速明确需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#然后创建项目开撸"><span class="nav-text">然后创建项目开撸</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关键逻辑"><span class="nav-text">关键逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-获得零时区的时间"><span class="nav-text">1. 获得零时区的时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-查询各地时区"><span class="nav-text">2. 查询各地时区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-计算各地的绝对时间"><span class="nav-text">3. 计算各地的绝对时间</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发布"><span class="nav-text">发布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代"><span class="nav-text">迭代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改BUG"><span class="nav-text">改BUG</span></a></li></ol></div>
             
 
           </div>
@@ -757,7 +762,7 @@
     
       
     
-    <span title="Site words total count">67k</span>
+    <span title="Site words total count">67.1k</span>
   
 </div>
 
