@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="有的时候，完成一个功能，不是一时半会就可以完成的，但是为了保护代码不丢失，我们会把这次的修改先commit，而不着急push到远程。等到这个功能完全做好，再push。但是这样一来，就会有很多零碎的commit，这会使远程的commit显得很杂乱。于是必要的时候，我们会合并这些相近的commit为一个commit再push。当然了，如果你想合并远程的commit也是可以的，只是要跟团队提前说一声，">
+<meta name="description" content="有的时候，完成一个功能，不是一时半会就可以完成的，但是为了保护代码不丢失，我们会把这次的修改先commit，而不着急push到远程。等到这个功能完全做好，再push。不过这样一来，就会有很多零碎的commit，这会使远程的commit显得很杂乱。于是必要的时候，我们会合并这些相近的commit为一个commit再push。当然了，如果你想合并远程的commit也是可以的，只是要跟团队提前说一声，">
 <meta name="keywords" content="git,rebase">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git进阶之合并多次commit">
 <meta property="og:url" content="http://champyin.com/2019/10/28/git进阶之合并多次commit/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="有的时候，完成一个功能，不是一时半会就可以完成的，但是为了保护代码不丢失，我们会把这次的修改先commit，而不着急push到远程。等到这个功能完全做好，再push。但是这样一来，就会有很多零碎的commit，这会使远程的commit显得很杂乱。于是必要的时候，我们会合并这些相近的commit为一个commit再push。当然了，如果你想合并远程的commit也是可以的，只是要跟团队提前说一声，">
+<meta property="og:description" content="有的时候，完成一个功能，不是一时半会就可以完成的，但是为了保护代码不丢失，我们会把这次的修改先commit，而不着急push到远程。等到这个功能完全做好，再push。不过这样一来，就会有很多零碎的commit，这会使远程的commit显得很杂乱。于是必要的时候，我们会合并这些相近的commit为一个commit再push。当然了，如果你想合并远程的commit也是可以的，只是要跟团队提前说一声，">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://champyin.com/images/git-rebase.jpg">
-<meta property="og:updated_time" content="2020-02-25T10:36:28.908Z">
+<meta property="og:updated_time" content="2020-04-20T11:04:50.955Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git进阶之合并多次commit">
-<meta name="twitter:description" content="有的时候，完成一个功能，不是一时半会就可以完成的，但是为了保护代码不丢失，我们会把这次的修改先commit，而不着急push到远程。等到这个功能完全做好，再push。但是这样一来，就会有很多零碎的commit，这会使远程的commit显得很杂乱。于是必要的时候，我们会合并这些相近的commit为一个commit再push。当然了，如果你想合并远程的commit也是可以的，只是要跟团队提前说一声，">
+<meta name="twitter:description" content="有的时候，完成一个功能，不是一时半会就可以完成的，但是为了保护代码不丢失，我们会把这次的修改先commit，而不着急push到远程。等到这个功能完全做好，再push。不过这样一来，就会有很多零碎的commit，这会使远程的commit显得很杂乱。于是必要的时候，我们会合并这些相近的commit为一个commit再push。当然了，如果你想合并远程的commit也是可以的，只是要跟团队提前说一声，">
 <meta name="twitter:image" content="http://champyin.com/images/git-rebase.jpg">
 
 
@@ -454,7 +454,7 @@
 
       
         <blockquote>
-<p>有的时候，完成一个功能，不是一时半会就可以完成的，但是为了保护代码不丢失，我们会把这次的修改先commit，而不着急push到远程。等到这个功能完全做好，再push。但是这样一来，就会有很多零碎的commit，这会使远程的commit显得很杂乱。于是必要的时候，我们会合并这些相近的commit为一个commit再push。当然了，如果你想合并远程的commit也是可以的，只是要跟团队提前说一声，免得有其他人也在跟你做同样的事情，那远程仓库就不知道会乱成什么样了。所以建议合并commit，尽量在push前。</p>
+<p>有的时候，完成一个功能，不是一时半会就可以完成的，但是为了保护代码不丢失，我们会把这次的修改先commit，而不着急push到远程。等到这个功能完全做好，再push。不过这样一来，就会有很多零碎的commit，这会使远程的commit显得很杂乱。于是必要的时候，我们会合并这些相近的commit为一个commit再push。当然了，如果你想合并远程的commit也是可以的，只是要跟团队提前说一声，免得有其他人也在跟你做同样的事情，那远程仓库就不知道会乱成什么样了。所以建议合并commit，尽量在push前。</p>
 </blockquote>
 <a id="more"></a>
 <p>Step：</p>
