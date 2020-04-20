@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="有的时候，完成一个功能，不是一时半会就可以完成的，但是为了保护代码不丢失，我们会把这次的修改先commit，而不着急push到远程。等到这个功能完全做好，再push。不过这样一来，就会有很多零碎的commit，这会使远程的commit显得很杂乱。于是必要的时候，我们会合并这些相近的commit为一个commit再push。当然了，如果你想合并远程的commit也是可以的，只是要跟团队提前说一声，">
+<meta name="description" content="当我们开发一个功能，不是一时半会可以完成的时候，为了保护代码不丢失，通常会把这次的修改先 commit，等到这个功能完全做好，再 push。不过这样一来，就会有很多零碎的 commit 记录，这会使远程的提交历史显得杂乱。 必要的时候，我们需要将这些相近的 commit 合并为一个 commit 再 push。当然了，如果你想合并远程的 commit 也是可以的，但请一定要提前跟团队里的其他人说">
 <meta name="keywords" content="git,rebase">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git进阶之合并多次commit">
 <meta property="og:url" content="http://champyin.com/2019/10/28/git进阶之合并多次commit/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="有的时候，完成一个功能，不是一时半会就可以完成的，但是为了保护代码不丢失，我们会把这次的修改先commit，而不着急push到远程。等到这个功能完全做好，再push。不过这样一来，就会有很多零碎的commit，这会使远程的commit显得很杂乱。于是必要的时候，我们会合并这些相近的commit为一个commit再push。当然了，如果你想合并远程的commit也是可以的，只是要跟团队提前说一声，">
+<meta property="og:description" content="当我们开发一个功能，不是一时半会可以完成的时候，为了保护代码不丢失，通常会把这次的修改先 commit，等到这个功能完全做好，再 push。不过这样一来，就会有很多零碎的 commit 记录，这会使远程的提交历史显得杂乱。 必要的时候，我们需要将这些相近的 commit 合并为一个 commit 再 push。当然了，如果你想合并远程的 commit 也是可以的，但请一定要提前跟团队里的其他人说">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://champyin.com/images/git-rebase.jpg">
-<meta property="og:updated_time" content="2020-04-20T11:04:50.955Z">
+<meta property="og:updated_time" content="2020-04-20T12:38:46.656Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git进阶之合并多次commit">
-<meta name="twitter:description" content="有的时候，完成一个功能，不是一时半会就可以完成的，但是为了保护代码不丢失，我们会把这次的修改先commit，而不着急push到远程。等到这个功能完全做好，再push。不过这样一来，就会有很多零碎的commit，这会使远程的commit显得很杂乱。于是必要的时候，我们会合并这些相近的commit为一个commit再push。当然了，如果你想合并远程的commit也是可以的，只是要跟团队提前说一声，">
+<meta name="twitter:description" content="当我们开发一个功能，不是一时半会可以完成的时候，为了保护代码不丢失，通常会把这次的修改先 commit，等到这个功能完全做好，再 push。不过这样一来，就会有很多零碎的 commit 记录，这会使远程的提交历史显得杂乱。 必要的时候，我们需要将这些相近的 commit 合并为一个 commit 再 push。当然了，如果你想合并远程的 commit 也是可以的，但请一定要提前跟团队里的其他人说">
 <meta name="twitter:image" content="http://champyin.com/images/git-rebase.jpg">
 
 
@@ -415,7 +415,7 @@
                   
                 
                 <span title="Words count in article">
-                  796
+                  792
                 </span>
               
 
@@ -454,10 +454,11 @@
 
       
         <blockquote>
-<p>有的时候，完成一个功能，不是一时半会就可以完成的，但是为了保护代码不丢失，我们会把这次的修改先commit，而不着急push到远程。等到这个功能完全做好，再push。不过这样一来，就会有很多零碎的commit，这会使远程的commit显得很杂乱。于是必要的时候，我们会合并这些相近的commit为一个commit再push。当然了，如果你想合并远程的commit也是可以的，只是要跟团队提前说一声，免得有其他人也在跟你做同样的事情，那远程仓库就不知道会乱成什么样了。所以建议合并commit，尽量在push前。</p>
+<p>当我们开发一个功能，不是一时半会可以完成的时候，为了保护代码不丢失，通常会把这次的修改先 commit，等到这个功能完全做好，再 push。不过这样一来，就会有很多零碎的 commit 记录，这会使远程的提交历史显得杂乱。</p>
+<p>必要的时候，我们需要将这些相近的 commit 合并为一个 commit 再 push。当然了，如果你想合并远程的 commit 也是可以的，但请一定要提前跟团队里的其他人说一声，免得有人也在跟你做同样的事情，导致没必要的代码冲突（所以合并 commit 尽量在 push 前）。</p>
 </blockquote>
 <a id="more"></a>
-<p>Step：</p>
+<p>操作步骤：</p>
 <h2 id="1-git-log-查看commit节点id"><a href="#1-git-log-查看commit节点id" class="headerlink" title="1. git log 查看commit节点id"></a>1. git log 查看commit节点id</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --oneline</span><br></pre></td></tr></table></figure>
 <p>参数<code>--oneline</code>可以让你的commit log在一行输出，比较紧凑，coimmit id也以简短的位数展示，比较便于查看。<br>找到你要保留的那条commit的上一条commit（这样可以保证你要保留的那一条commit出现在pick清单的顶部），复制这条commit的id。</p>
 <h2 id="2-git-rebase-变基"><a href="#2-git-rebase-变基" class="headerlink" title="2. git rebase 变基"></a>2. git rebase 变基</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase -i [commit_id]</span><br></pre></td></tr></table></figure>
