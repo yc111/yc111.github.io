@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="npm install 可以把发布在npmjs平台上的模块包下载到本地，npm istall -g 可以把包下下来的同时，还帮我们配置好全局变量，让我们可以直接使用命令而不是通过node来执行或者配置package.json 的script脚本来run。但这仅限于已经发布的包，那对于未发布的包，要怎么测试使用呢？总不能把一个未经测试的包发布出去然后install下来这样测试吧，这样npm上面的包">
+<meta name="description" content="npm install 可以把发布在 npmjs 平台上的模块包下载到本地，npm istall -g 可以把包下下来的同时，还帮我们配置好全局变量，让我们可以直接使用命令而不是通过 node 来执行或者配置 package.json 的 script 脚本来 run。 但这仅限于已经发布的包，那对于未发布的包，要怎么测试使用呢？难道要把一个未经测试的包发布上去然后 install 下来测试？当">
 <meta name="keywords" content="npm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="npm link详解">
 <meta property="og:url" content="http://champyin.com/2019/08/27/npm-link详解/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="npm install 可以把发布在npmjs平台上的模块包下载到本地，npm istall -g 可以把包下下来的同时，还帮我们配置好全局变量，让我们可以直接使用命令而不是通过node来执行或者配置package.json 的script脚本来run。但这仅限于已经发布的包，那对于未发布的包，要怎么测试使用呢？总不能把一个未经测试的包发布出去然后install下来这样测试吧，这样npm上面的包">
+<meta property="og:description" content="npm install 可以把发布在 npmjs 平台上的模块包下载到本地，npm istall -g 可以把包下下来的同时，还帮我们配置好全局变量，让我们可以直接使用命令而不是通过 node 来执行或者配置 package.json 的 script 脚本来 run。 但这仅限于已经发布的包，那对于未发布的包，要怎么测试使用呢？难道要把一个未经测试的包发布上去然后 install 下来测试？当">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-25T10:38:40.736Z">
+<meta property="og:updated_time" content="2020-04-20T16:47:50.515Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="npm link详解">
-<meta name="twitter:description" content="npm install 可以把发布在npmjs平台上的模块包下载到本地，npm istall -g 可以把包下下来的同时，还帮我们配置好全局变量，让我们可以直接使用命令而不是通过node来执行或者配置package.json 的script脚本来run。但这仅限于已经发布的包，那对于未发布的包，要怎么测试使用呢？总不能把一个未经测试的包发布出去然后install下来这样测试吧，这样npm上面的包">
+<meta name="twitter:description" content="npm install 可以把发布在 npmjs 平台上的模块包下载到本地，npm istall -g 可以把包下下来的同时，还帮我们配置好全局变量，让我们可以直接使用命令而不是通过 node 来执行或者配置 package.json 的 script 脚本来 run。 但这仅限于已经发布的包，那对于未发布的包，要怎么测试使用呢？难道要把一个未经测试的包发布上去然后 install 下来测试？当">
 
 
 
@@ -413,7 +413,7 @@
                   
                 
                 <span title="Words count in article">
-                  729
+                  736
                 </span>
               
 
@@ -452,21 +452,22 @@
 
       
         <blockquote>
-<p><code>npm install</code> 可以把发布在npmjs平台上的模块包下载到本地，<code>npm istall -g</code> 可以把包下下来的同时，还帮我们配置好全局变量，让我们可以直接使用命令而不是通过node来执行或者配置<code>package.json</code> 的script脚本来run。但这仅限于已经发布的包，那对于未发布的包，要怎么测试使用呢？总不能把一个未经测试的包发布出去然后install下来这样测试吧，这样npm上面的包谁还敢用。所以npm上的包一定只能放经过测试考验的比较完善的包。而包的本地测试，就需要通过npm的一个命令了：<code>npm link</code>。</p>
+<p><code>npm install</code> 可以把发布在 npmjs 平台上的模块包下载到本地，<code>npm istall -g</code> 可以把包下下来的同时，还帮我们配置好全局变量，让我们可以直接使用命令而不是通过 node 来执行或者配置 <code>package.json</code> 的 script 脚本来 run。</p>
+<p>但这仅限于已经发布的包，那对于未发布的包，要怎么测试使用呢？难道要把一个未经测试的包发布上去然后 install 下来测试？当然不能这么做，也不用这么做。npm 官方早已考虑到了这一点，给我们提供了测试本地的包的工具指令：<code>npm link</code>。</p>
 </blockquote>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p><code>npm link</code> 可以帮助我们模拟包安装后的状态，它会在系统中做一个快捷方式映射，让本地的包就好像install过一样这么使用。</p>
 <a id="more"></a>
+<h3 id="npm-link原理"><a href="#npm-link原理" class="headerlink" title="npm link原理"></a>npm link原理</h3><p><code>npm link</code> 可以帮助我们模拟包安装后的状态，它会在系统中做一个快捷方式映射，让本地的包就好像install过一样，可以直接使用。</p>
 <p>在mac中，我们在终端可以直接敲的命令，其实是在执行<code>/usr/local/bin</code>目录下的脚本，这个目录可以认为是我们的全局命令所在的地方。</p>
 <p>而当我们在<code>npm install -g</code>的时候，其实是将相关文件安装在<code>/usr/local/lib/node_modules</code>目录下，而同时在全局命令<code>/usr/local/bin</code>目录下会有一个映射脚本，将其指向lib下的真实文件。这么做的好处是，可以在保证只有一份可执行文件的前提下，给命令取别名。</p>
 <p>同样的，<code>npm link</code> 做的事情也是一样，唯一的区别是，它在lib下的 <code>node_modules</code> 里不是存的真实的文件，而是存了一个快捷方式，指向你当前执行 <code>npm link</code> 的目录。如果开发的的是node包，则执行的命令名和真实执行的文件入口，则是根据项目的 <code>package.json</code> 里 <code>bin</code> 的配置来获取。</p>
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd projectdir</span><br><span class="line">npm link</span><br></pre></td></tr></table></figure>
+<h3 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd projectdir</span><br><span class="line">npm link</span><br></pre></td></tr></table></figure>
 <p>然后会看到输出类似如下的链接信息，说明成功。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/bin/yourpakagename -&gt; /usr/local/lib/node_modules/yourpackagename/xxx</span><br><span class="line">/usr/local/lib/node_modules/yourpackagename/xxx -&gt; /Users/username/Documents/xxx(your real project path)</span><br></pre></td></tr></table></figure></p>
-<h4 id="全局link"><a href="#全局link" class="headerlink" title="全局link"></a>全局link</h4><p>一般是开发node包，可以直接在终端运行的，做<code>npm link</code>之前，需要在 <code>package.json</code> 里配置 <code>bin</code> 字段。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># package.json</span><br><span class="line">&quot;bin&quot; : &#123;</span><br><span class="line">	&quot;yourcommandname&quot;: &quot;./bin/yourcommandname&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="全局link"><a href="#全局link" class="headerlink" title="全局link"></a>全局link</h4><p>测试 node 环境下运行的包时，需要使用全局 link​。​并且做<code>npm link</code>之前，需要在 <code>package.json</code> 里配置 <code>bin</code> 字段。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># package.json</span><br><span class="line">&quot;bin&quot; : &#123;  </span><br><span class="line">	&quot;your-command-name&quot;: &quot;./path-to/your-command-entry-file&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>然后再在当前目录下运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm link</span><br></pre></td></tr></table></figure></p>
-<p>成功后，就可以直接在终端执行 <code>yourcommandname</code> 了。</p>
-<h4 id="项目下link"><a href="#项目下link" class="headerlink" title="项目下link"></a>项目下link</h4><p>如果是前端包，不需要直接在终端运行，比如UI组件库，那需要做两次link。<br>先进入待测试组件库目录，将开发的包link到全局：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm link</span><br></pre></td></tr></table></figure></p>
-<p>之后，再进入要使用该组件库的工程，然后在工程中link这个组件库：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm link youruilib</span><br></pre></td></tr></table></figure></p>
-<p>现在你就可以在你的工程中使用这个ui组件库，就好像这个ui库被install到工程中一样。</p>
+<p>成功后，就可以直接在终端执行 <code>your-command-name</code> 了。</p>
+<h4 id="项目下link"><a href="#项目下link" class="headerlink" title="项目下link"></a>项目下link</h4><p>如果是测试前端包，跑在浏览器环境的，比如 UI 组件库，那需要做两次 link。<br>先进入待测试组件库目录，将开发的包 link 到全局：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm link</span><br></pre></td></tr></table></figure></p>
+<p>之后，再进入要使用该组件库的工程，然后在工程中 link 这个组件库：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm link your-ui-lib</span><br></pre></td></tr></table></figure></p>
+<p>现在你就可以在你的工程中使用这个 ui 组件库，就好像这个 ui 库被 install 到工程中一样。</p>
 <p>GoodLuck！</p>
 
       
@@ -691,7 +692,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#全局link"><span class="nav-text">全局link</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#项目下link"><span class="nav-text">项目下link</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#npm-link原理"><span class="nav-text">npm link原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何使用"><span class="nav-text">如何使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#全局link"><span class="nav-text">全局link</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#项目下link"><span class="nav-text">项目下link</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -725,7 +726,7 @@
     
       
     
-    <span title="Site words total count">67.1k</span>
+    <span title="Site words total count">67.4k</span>
   
 </div>
 
