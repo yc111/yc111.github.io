@@ -79,21 +79,21 @@
 
 
 
-<meta name="description" content="前言我们知道，JavaScript 是用来开发网站的脚本语言。Javascript 开发出来的网页必须依赖浏览器来解析。 而桌面客户端，通常是由 C++ 、C# 等语言来完成。不过现在，我们可以用 JavaScript 来开发桌面客户端了！当然，要借助一点外力，那就是：Electron。 什么是Electron？Electron 是一个使用 JavaScript，HTML 和 CSS 等Web技">
+<meta name="description" content="前言我们知道，JavaScript 是用来开发网站的脚本语言。Javascript 开发出来的网页必须依赖浏览器来解析。 而桌面客户端，通常是由 C++ 、C# 等语言来完成。不过现在，我们可以用 JavaScript 来开发桌面客户端了！当然，要借助一点外力，那就是：Electron。">
 <meta name="keywords" content="electron">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Electron实战（一）安装">
 <meta property="og:url" content="http://champyin.com/2020/04/25/Electron实战（一）安装/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="前言我们知道，JavaScript 是用来开发网站的脚本语言。Javascript 开发出来的网页必须依赖浏览器来解析。 而桌面客户端，通常是由 C++ 、C# 等语言来完成。不过现在，我们可以用 JavaScript 来开发桌面客户端了！当然，要借助一点外力，那就是：Electron。 什么是Electron？Electron 是一个使用 JavaScript，HTML 和 CSS 等Web技">
+<meta property="og:description" content="前言我们知道，JavaScript 是用来开发网站的脚本语言。Javascript 开发出来的网页必须依赖浏览器来解析。 而桌面客户端，通常是由 C++ 、C# 等语言来完成。不过现在，我们可以用 JavaScript 来开发桌面客户端了！当然，要借助一点外力，那就是：Electron。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://champyin.com/images/electron-cover.png">
 <meta property="og:image" content="http://champyin.com/images/vscode-devtool.jpg">
 <meta property="og:image" content="http://champyin.com/images/qianduanshouzha-gzh.png">
-<meta property="og:updated_time" content="2020-04-25T07:02:05.912Z">
+<meta property="og:updated_time" content="2020-04-25T07:12:19.862Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Electron实战（一）安装">
-<meta name="twitter:description" content="前言我们知道，JavaScript 是用来开发网站的脚本语言。Javascript 开发出来的网页必须依赖浏览器来解析。 而桌面客户端，通常是由 C++ 、C# 等语言来完成。不过现在，我们可以用 JavaScript 来开发桌面客户端了！当然，要借助一点外力，那就是：Electron。 什么是Electron？Electron 是一个使用 JavaScript，HTML 和 CSS 等Web技">
+<meta name="twitter:description" content="前言我们知道，JavaScript 是用来开发网站的脚本语言。Javascript 开发出来的网页必须依赖浏览器来解析。 而桌面客户端，通常是由 C++ 、C# 等语言来完成。不过现在，我们可以用 JavaScript 来开发桌面客户端了！当然，要借助一点外力，那就是：Electron。">
 <meta name="twitter:image" content="http://champyin.com/images/electron-cover.png">
 
 
@@ -446,16 +446,17 @@
       
         <p><img src="/images/electron-cover.png" alt="electron-cover.png"></p>
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>我们知道，JavaScript 是用来开发网站的脚本语言。Javascript 开发出来的网页必须依赖浏览器来解析。 而桌面客户端，通常是由 C++ 、C# 等语言来完成。不过现在，我们可以用 JavaScript 来开发桌面客户端了！当然，要借助一点外力，那就是：Electron。</p>
+<a id="more"></a>
 <h1 id="什么是Electron？"><a href="#什么是Electron？" class="headerlink" title="什么是Electron？"></a>什么是Electron？</h1><p>Electron 是一个使用 JavaScript，HTML 和 CSS 等Web技术构建跨平台的桌面应用程序的框架。这意味着，如果你可以建一个网站，你就可以建一个桌面应用程序。</p>
 <p>Electron 基于 Chromium 和 Node.js，它可以让你使用纯 JavaScript 调用丰富的原生(操作系统) APIs 来创造桌面应用。你可以把它看作一个 Node. js 的变体，只不过它专注于桌面应用而不是 Web 服务器端。</p>
 <p>但这不意味着 Electron 是某个图形用户界面（GUI）库的 JavaScript 版本。相反，Electron 使用 web 页面作为它的 GUI，所以你可以把它看作成一个被 JavaScript 控制的，精简版的 Chromium 浏览器。</p>
 <h1 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h1><p>2013年4月，Atom 编辑器问世，作为实现它的底层框架 Atom Shell 逐渐被熟知。</p>
 <p>2014年5月，Atom Shell 开源。</p>
 <p>2015年4月，Atom Shell 改名为Electron。</p>
-<h1 id="用Electron开发的桌面应用"><a href="#用Electron开发的桌面应用" class="headerlink" title="用Electron开发的桌面应用"></a>用Electron开发的桌面应用</h1><p>Electron 已经被多个开源应用软件所使用，除了 Atom 著名的编辑器 VsCode 也是基于 Electron 实现的。</p>
+<h1 id="用Electron开发的桌面应用"><a href="#用Electron开发的桌面应用" class="headerlink" title="用Electron开发的桌面应用"></a>用Electron开发的桌面应用</h1><p>Electron 已经被多个开源应用软件所使用，除了 Atom，著名的编辑器 VsCode 也是基于 Electron 实现的。</p>
 <p>打开 VsCode，点击帮助菜单中的<code>Toggle Developer Tools</code>，可以在界面上看到我们熟悉的 Chrome devtool，如下图：</p>
 <p><img src="/images/vscode-devtool.jpg" alt="vscode-devtool.jpg"></p>
-<h1 id="Electron-程序基本结构"><a href="#Electron-程序基本结构" class="headerlink" title="Electron 程序基本结构"></a>Electron 程序基本结构</h1><p>从开发的角度来看, Electron application 本质上是一个 Node. js 应用程序。与 Node.js 模块相同，应用的入口是 package.json 文件。一个最基本的 Electron 应用一般来说会有如下的目录结构：</p>
+<h1 id="Electron-程序基本结构"><a href="#Electron-程序基本结构" class="headerlink" title="Electron 程序基本结构"></a>Electron 程序基本结构</h1><p>从开发的角度来看, Electron application 本质上是一个 Node.js 应用程序。与 Node.js 模块相同，应用的入口是 package.json 文件。一个最基本的 Electron 应用一般来说会有如下的目录结构：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">your-app/ </span><br><span class="line">├── package.json </span><br><span class="line">├── main.js </span><br><span class="line">└── index.html</span><br></pre></td></tr></table></figure>
 <p>说了这么多，是不是有些心痒痒，迫不及待想知道怎么上手electron，用 JS 来捣鼓桌面应用了？别着急，我们先把开发环境搭好。</p>
 <h1 id="安装Electron"><a href="#安装Electron" class="headerlink" title="安装Electron"></a>安装Electron</h1><p>Electron 通过 npm 来安装：</p>
