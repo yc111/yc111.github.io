@@ -126,8 +126,8 @@
         <category>服务器</category>
       </categories>
       <tags>
-        <tag>full stack</tag>
         <tag>linux</tag>
+        <tag>full stack</tag>
         <tag>nginx</tag>
       </tags>
   </entry>
@@ -188,8 +188,8 @@
         <category>前端技术</category>
       </categories>
       <tags>
-        <tag>axios</tag>
         <tag>full stack</tag>
+        <tag>axios</tag>
         <tag>vue</tag>
         <tag>http</tag>
         <tag>react</tag>
@@ -203,10 +203,10 @@
         <category>前端技术</category>
       </categories>
       <tags>
+        <tag>full stack</tag>
         <tag>ajax</tag>
         <tag>axios</tag>
         <tag>fetch</tag>
-        <tag>full stack</tag>
       </tags>
   </entry>
   <entry>
@@ -1019,8 +1019,8 @@
         <category>服务器</category>
       </categories>
       <tags>
-        <tag>full stack</tag>
         <tag>linux</tag>
+        <tag>full stack</tag>
       </tags>
   </entry>
   <entry>
@@ -1031,8 +1031,8 @@
         <category>服务器</category>
       </categories>
       <tags>
-        <tag>full stack</tag>
         <tag>linux</tag>
+        <tag>full stack</tag>
       </tags>
   </entry>
   <entry>
@@ -1114,8 +1114,8 @@
     <url>%2F2018%2F05%2F28%2F%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AElinux%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BD%91%E7%BB%9C%2F</url>
     <content type="text"></content>
       <tags>
-        <tag>full stack</tag>
         <tag>linux</tag>
+        <tag>full stack</tag>
       </tags>
   </entry>
   <entry>
@@ -1127,8 +1127,8 @@
         <category>GitLab</category>
       </categories>
       <tags>
-        <tag>full stack</tag>
         <tag>git</tag>
+        <tag>full stack</tag>
         <tag>gitlab</tag>
       </tags>
   </entry>
