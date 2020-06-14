@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-champyin.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-champyin.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="deno," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Deno 已经被前端圈子提及有很长一段时间了，上个月 Deno 发布了 1.0 版本，又掀起了一小股 Deno 热。Deno 到底是什么？它可以用来做什么呢？它好用吗？带着一直以来的好奇心，趁着周末的时间，认真地接触了一次 Deno。">
+<meta name="keywords" content="deno">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deno 初探">
+<meta property="og:url" content="http://champyin.com/2020/06/14/Deno-初探/index.html">
+<meta property="og:site_name" content="ChampYin&#39;s Blog">
+<meta property="og:description" content="Deno 已经被前端圈子提及有很长一段时间了，上个月 Deno 发布了 1.0 版本，又掀起了一小股 Deno 热。Deno 到底是什么？它可以用来做什么呢？它好用吗？带着一直以来的好奇心，趁着周末的时间，认真地接触了一次 Deno。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://champyin.com/images/deno-Ryan-Dahl.jpg">
+<meta property="og:image" content="http://champyin.com/images/deno-logo.png">
+<meta property="og:image" content="http://champyin.com/images/deno-install-brew.jpg">
+<meta property="og:image" content="http://champyin.com/images/deno-version-low.jpg">
+<meta property="og:image" content="http://champyin.com/images/deno-install-x.jpg">
+<meta property="og:image" content="http://champyin.com/images/deno-version-high.jpg">
+<meta property="og:image" content="http://champyin.com/images/deno-run-remote.jpg">
+<meta property="og:image" content="http://champyin.com/images/deno-run-local.jpg">
+<meta property="og:image" content="http://champyin.com/images/deno-run-with-net.jpg">
+<meta property="og:image" content="http://champyin.com/images/deno-server.jpg">
+<meta property="og:image" content="http://champyin.com/images/deno-release-v1.1.0.jpg">
+<meta property="og:image" content="http://champyin.com/images/qianduanshouzha-gzh.png">
+<meta property="og:updated_time" content="2020-06-14T09:19:26.338Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Deno 初探">
+<meta name="twitter:description" content="Deno 已经被前端圈子提及有很长一段时间了，上个月 Deno 发布了 1.0 版本，又掀起了一小股 Deno 热。Deno 到底是什么？它可以用来做什么呢？它好用吗？带着一直以来的好奇心，趁着周末的时间，认真地接触了一次 Deno。">
+<meta name="twitter:image" content="http://champyin.com/images/deno-Ryan-Dahl.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://champyin.com/2020/06/14/Deno-初探/"/>
+
+
+
+
+
+  <title>Deno 初探 | ChampYin's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?33e86ea32ced4dc8fafe3738659b3dcf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ChampYin's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">自律是真正的自由</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://champyin.com/2020/06/14/Deno-初探/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ChampYin">
+      <meta itemprop="description" content="Life does'nt get easier, you just get stronger.">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChampYin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Deno 初探</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-14T16:44:44+08:00">
+                2020-06-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端技术/" itemprop="url" rel="index">
+                    <span itemprop="name">前端技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/06/14/Deno-初探/" class="leancloud_visitors" data-flag-title="Deno 初探">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words &#58;</span>
+                  
+                
+                <span title="Words count in article">
+                  2.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading &asymp;</span>
+                  
+                
+                <span title="Reading time">
+                  9 min
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>Deno 已经被前端圈子提及有很长一段时间了，上个月 Deno 发布了 1.0 版本，又掀起了一小股 Deno 热。Deno 到底是什么？它可以用来做什么呢？它好用吗？带着一直以来的好奇心，趁着周末的时间，认真地接触了一次 Deno。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="一、什么是Deno？"><a href="#一、什么是Deno？" class="headerlink" title="一、什么是Deno？"></a>一、什么是Deno？</h1><p>Deno 是一个更安全的 JavaScript 和 TypeScript 运行时，作者 Ryan Dahl 同时也是 Node.js 的创建者。</p>
+<h2 id="什么是运行时？"><a href="#什么是运行时？" class="headerlink" title="什么是运行时？"></a>什么是运行时？</h2><p>运行时是一个运行环境，也叫运行平台，开发者可以使用指定的语言，基于这个环境开发应用。可以认为运行时就是一个舞台，能做什么事情，取决于舞台能提供什么道具。比如浏览器就是一个运行时，我们可以在浏览器上通过 JS 调用浏览器提供的 API 操作 DOM。</p>
+<h2 id="Deno-的作用"><a href="#Deno-的作用" class="headerlink" title="Deno 的作用"></a>Deno 的作用</h2><p>Deno 的作用，是让开发者可以使用 JavaScript 语言开发后端服务。</p>
+<h1 id="二、为什么会有Deno？"><a href="#二、为什么会有Deno？" class="headerlink" title="二、为什么会有Deno？"></a>二、为什么会有Deno？</h1><p>我们知道 Node.js 也是一个让开发者可以使用 JavaScript 语言开发后端服务的 JavaScript 运行时。那既然已经有一个 Node.js，而且已经非常成功，为什么还要造另一个 JavaScript 运行时 Deno ？</p>
+<p>两年前（2018年6月），Ryan Dahl 在德国柏林召开的 JSConf EU 会议上发表了名为 “10 Things I Regret About Node.js” 的演讲，有兴趣可以到这里下载 <a href="https://github.com/yc111/ebooks/blob/master/js-conf/Design%20Mistakes%20in%20Node.pdf" target="_blank" rel="noopener">PPT</a> 。</p>
+<p><img src="/images/deno-Ryan-Dahl.jpg" alt="deno-Ryan-Dahl.jpg"></p>
+<p>在分享中，Ryan 回顾了在他看来当初开发 Node.js 时留下的10大遗憾。但由于Node.js 现在已经广泛应用于各个领域，为了保证兼容性，对 Node.js 底层进行大规模改造已经不现实。会上，Ryan 宣布了他决定开发一个全新的 JavaScript Runtime 以解决当初的种种缺陷，这个项目就是 Deno。</p>
+<p><img src="/images/deno-logo.png" alt="deno-logo.png"></p>
+<p>Deno 的命名很有意思，就是把 node（no de） 倒过来 deno（de no），颇有颠覆 Node 的意味。</p>
+<p>BTW，上个月（2020年5月15日），Deno 发布了1.0版本。</p>
+<h1 id="三、走近-Deno"><a href="#三、走近-Deno" class="headerlink" title="三、走近 Deno"></a>三、走近 Deno</h1><h2 id="Deno-的开发语言"><a href="#Deno-的开发语言" class="headerlink" title="Deno 的开发语言"></a>Deno 的开发语言</h2><p>相比 Node.js 使用 C++ 开发，Deno 起初使用的开发语言是 GoLang，后来改为了 Rust。并且随后把 C++ 写的 libdeno 换成了 Rust 编写的 V8 绑定：denoland/rusty_8。</p>
+<p>Deno 目前是建立在 V8 引擎、Rust 、Tokio、TypeScript 的基础之上。</p>
+<ul>
+<li>V8 是 chrome 浏览器内的 JavaScript 运行时。</li>
+<li>Rust 是一门系统编程语言，专注于安全，尤其是并发安全。它的性能和标准C++ 不相上下。</li>
+<li>Tokio 是一个给 Rust 语言使用的异步运行时，提供 event loop 和具体的 I/O 类型。</li>
+<li>TypeScript 是 JavaScript 的超集。</li>
+</ul>
+<h2 id="Deno-的特性"><a href="#Deno-的特性" class="headerlink" title="Deno 的特性"></a>Deno 的特性</h2><ul>
+<li>默认支持 ES Modules</li>
+<li>默认支持 TypeScript</li>
+<li>尽可能兼容 Web 标准 APIs</li>
+<li>默认采用沙箱模式运行代码，更安全</li>
+<li>去中心化第三方模块机制</li>
+<li>提供标准库</li>
+</ul>
+<h2 id="与-Node-js-的比较"><a href="#与-Node-js-的比较" class="headerlink" title="与 Node.js 的比较"></a>与 Node.js 的比较</h2><ul>
+<li>使用 ES 模块，不支持 require()</li>
+<li>Deno 不使用 package.json</li>
+<li>Deno 不使用 npm</li>
+<li>Deno  中的所有异步操作返回 promise，因此 Deno 提供与 Node 不同的 API</li>
+<li>Deno 需要显示指定文件、网络和环境权限</li>
+<li>第三方模块通过 URL 或者文件路径导入</li>
+<li>当未捕获的错误发生时，Deno 总是会异常退出</li>
+<li>兼容 Web 的运行时 APIs，更利于前后端的代码同构。</li>
+</ul>
+<h1 id="四、如何使用-Deno"><a href="#四、如何使用-Deno" class="headerlink" title="四、如何使用 Deno"></a>四、如何使用 Deno</h1><p>Deno 能够在 macOS、Linux 和 Windows 上运行。Deno 是一个单独的可执行文件，它没有额外的依赖。</p>
+<h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h2><p>在 macOS 下可以通过Shell命令安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://deno.land/x/install/install.sh | sh</span><br></pre></td></tr></table></figure>
+<p>这个方式在国内安装会很慢，慢到下部不下来。。。so，不推荐。</p>
+<p>也可以通过HomeBrew 安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install deno</span><br></pre></td></tr></table></figure>
+<p><img src="/images/deno-install-brew.jpg" alt="deno-install-brew.jpg"></p>
+<p>这个方式可以安装下来，但是，安装的版本是 v0.20.0，很低的版本：</p>
+<p><img src="/images/deno-version-low.jpg" alt="deno-version-low.jpg"></p>
+<p>并且这个版本不带 upgrade 命令，升级 deno 的时候很不方便。so，也不推荐。</p>
+<p>安利通过国内加速器（镜像源 <a href="https://x.deno.js.cn" target="_blank" rel="noopener">https://x.deno.js.cn</a> ）来安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://x.deno.js.cn/install.sh | sh</span><br></pre></td></tr></table></figure>
+<p>也可以指定版本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://x.deno.js.cn/install.sh | sh -s v1.0.0</span><br></pre></td></tr></table></figure>
+<p><img src="/images/deno-install-x.jpg" alt="deno-install-x.jpg"></p>
+<p>首次安装，可以看到提示，需要手动配置一下环境变量，配置语句也已经给出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ touch ~/.bash_profile # 创建用户环境变量文件</span><br><span class="line">$ vim ~/.bash_profile # 打开文件，将刚才命令行提示给出的配置语句粘贴进去，保存退出。</span><br></pre></td></tr></table></figure>
+<p>让配置立即生效：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ source ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<p>环境变量就设置好了，现在在任何一个新打开的命令行里面都可以使用 deno 命令了。</p>
+<p>注意：如果之前使用 brew 安装过低版本的 deno，请使用 brew uninstall deno 卸载 deno 之后，再使用加速器安装高版本，不卸载直接安装高版本不会生效。（别问我为什么知道。。。都是泪。</p>
+<p>其他操作系统环境的安装可参考 <a href="https://github.com/denoland/deno_install。" target="_blank" rel="noopener">https://github.com/denoland/deno_install。</a></p>
+<p>如果要升级本地的 Deno，可以运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deno upgrade</span><br></pre></td></tr></table></figure>
+<p>还可以安装指定的版本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deno upgrade --version 1.1.0</span><br></pre></td></tr></table></figure>
+<p>这个命令会从 github.com/denoland/deno/releases 获取最新的发布版本（一个可执行的二进制文件 zip 压缩包），然后解压并替换现有的版本。而 github release 的文件使用的是 aws，在国内访问不稳定。</p>
+<p>So，升级也推荐使用国内加速器安装指定版本来达到目的。</p>
+<h2 id="2-测试安装"><a href="#2-测试安装" class="headerlink" title="2.测试安装"></a>2.测试安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deno --version</span><br></pre></td></tr></table></figure>
+<p><img src="/images/deno-version-high.jpg" alt="deno-version-high.jpg"></p>
+<p>如果打印出 Deno 版本，说明安装成功。</p>
+<p>到这里，我们就安装好 Deno ，并且可以基于 Deno 进行开发了。</p>
+<h2 id="3-运行一个远程的项目"><a href="#3-运行一个远程的项目" class="headerlink" title="3.运行一个远程的项目"></a>3.运行一个远程的项目</h2><p>跑一个远程项目（官方的demo）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deno run https://deno.land/std/examples/welcome.ts</span><br></pre></td></tr></table></figure>
+<p>可以看到在控制台输出”Welcome to Deno 🦕”。</p>
+<p><img src="/images/deno-run-remote.jpg" alt="deno-run-remote.jpg"></p>
+<h2 id="4-运行一个本地的项目"><a href="#4-运行一个本地的项目" class="headerlink" title="4.运行一个本地的项目"></a>4.运行一个本地的项目</h2><p>起一个最简单的本地服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// http.js</span><br><span class="line">import &#123; serve &#125; from &quot;https://deno.land/std@0.57.0/http/server.ts&quot;;</span><br><span class="line"></span><br><span class="line">const s = serve(&#123; port: 8000 &#125;);</span><br><span class="line">console.log(&quot;http://localhost:8000/&quot;);</span><br><span class="line"></span><br><span class="line">for await (const req of s) &#123;</span><br><span class="line">  req.respond(&#123; body: &quot;Hello World\n&quot; &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到 Deno 在引用第三方模块的方式为 ES6 的 import 语法，并且直接通过 URL 来引入，版本号也被锁定在了 URL 中。</p>
+<p>另外，Deno 支持 顶层的 await 语法，不用与 async 语法配对使用了。</p>
+<p>运行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deno run http.js</span><br></pre></td></tr></table></figure>
+<p><img src="/images/deno-run-local.jpg" alt="deno-run-local.jpg"></p>
+<p>首次引入第三方包，Deno 会去下载这个包和它的依赖，这些包会被缓存到全局，下次再引入的时候，将直接读取缓存。</p>
+<p>这里报了一个缺少网络权限的错，这是因为 Deno 采用沙箱模式运行代码，网络权限必须通过手动添加 flag （–allow-net）来开启。</p>
+<p>带上网络权限运行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deno run --allow-net http.js</span><br></pre></td></tr></table></figure>
+<p><img src="/images/deno-run-with-net.jpg" alt="deno-run-with-net.jpg"></p>
+<p>打开localhost://8000</p>
+<p><img src="/images/deno-server.jpg" alt="deno-server.jpg"></p>
+<p>可以看到一个简单的本地服务就跑起来了。</p>
+<h2 id="5-其他相关配置"><a href="#5-其他相关配置" class="headerlink" title="5.其他相关配置"></a>5.其他相关配置</h2><p>如果我们要高效地使用 Deno，最好还需要设置一些开发环境，比如环境变量、命令行自动补全、编辑器等。</p>
+<ul>
+<li><p>环境变量</p>
+<p>DENO_DIR：<br>这是 Deno 在本地存放生成的代码和缓存下载的模块的路径，默认为 $HOME/Library/Caches/deno。</p>
+<p>NO_COLOR：<br>这个会关闭输出的文字颜色。</p>
+<p>HTTP_PROXY 和 HTTPS_PROXY ：<br>这两个变量用来设置 HTTP 和 HTTPS 的代理地址。</p>
+</li>
+<li><p>命令自动补全<br>通过 deno completions <shell> 命令可以生成补全脚本。他会输出到 stdout，应该将它重定向到适当的文件。</shell></p>
+<p>Deno 支持的 shell 有 zsh、bash、fish、powershell、elvish。</p>
+</li>
+<li><p>编辑器插件<br>我们可以给 VS Code 配置 Deno 的插件： <a href="https://github.com/denoland/vscode_deno" target="_blank" rel="noopener">vscode_deno</a></p>
+<p>如果你是其他编辑器/IDE，可以参考官网<a href="https://deno.land/manual/getting_started/setup_your_environment" target="_blank" rel="noopener">推荐的插件</a></p>
+</li>
+</ul>
+<h1 id="Deno-将来会取代-Node-js-吗？"><a href="#Deno-将来会取代-Node-js-吗？" class="headerlink" title="Deno 将来会取代 Node.js 吗？"></a>Deno 将来会取代 Node.js 吗？</h1><p>这也是很多前端者关心的话题，网络上两种声音都有，我的看法是：会共存，但不会取代。</p>
+<p>首先，Node.js 的作者之所以开发 Deno 只是为了兑现他心目中对 JavaScript Runtime 的一个理想实现，并不是为了取代 Node.js；</p>
+<p>其次，Node.js 经过十多年的发展，已经很成熟了（虽然在 Ryan 的眼里不那么完美），并且已经被广泛应用。个人认为，将来 Deno 要做的事情，Node.js 都能做，如果没有特别的因素（比如潜在的安全隐患等），已经使用了 Node.js 的应用，不大会改用 Deno 重构。</p>
+<p>所以，以我目前的认知，我认为 Deno 如果能发展起来，应该会与 Node.js 共生，而不会取代 Node.js。</p>
+<p>不管怎样，我很钦佩 Ryan，在 Node.js 获得如此成功之后，仍然怀揣对作品的理想追求，大胆分享自己在 Node.js 中犯的“错误”，开始 Deno 的征程，并且现在 Deno 正在以飞快的速度在迭代。就在昨天，Deno 又发布了 V1.1.0。</p>
+<p><img src="/images/deno-release-v1.1.0.jpg" alt="deno-release-v1.1.0.jpg"></p>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>以上是我对 Deno 的一个初探，解答了什么是 Deno，它有什么作用，有哪些特点，与 Node.js 有什么不同，以及如何使用 Deno（虽然只浅浅地跑了最简单的程序，但足以让我感觉到 Deno 与 Node.js 在使用上的不同）。现在，总算对 Deno 的有了一个比较清晰的了解。</p>
+<p>有兴趣交流的小伙伴可以在这里留言讨论：<a href="https://github.com/yc111/yc111.github.io/issues/2" target="_blank" rel="noopener">https://github.com/yc111/yc111.github.io/issues/2</a></p>
+<p>-End-</p>
+<p>参考<br>Deno Manual：<a href="https://deno.land/manual" target="_blank" rel="noopener">https://deno.land/manual</a><br>Deno Doc：<a href="https://doc.deno.land/https/github.com/denoland/deno/releases/latest/download/lib.deno.d.ts" target="_blank" rel="noopener">https://doc.deno.land/https/github.com/denoland/deno/releases/latest/download/lib.deno.d.ts</a><br>Deno中文社区：<a href="https://denocn.org/" target="_blank" rel="noopener">https://denocn.org/</a><br>Deno中文开发者社区：<a href="https://deno.js.cn/" target="_blank" rel="noopener">https://deno.js.cn/</a><br>Deno中文手册：<a href="https://nugine.github.io/deno-manual-cn/" target="_blank" rel="noopener">https://nugine.github.io/deno-manual-cn/</a><br>Futures 和 Tokio 项目的前世今生：<a href="https://rustcc.cn/article?id=8af74de6-1e3d-4596-94ca-c3da45509f58" target="_blank" rel="noopener">https://rustcc.cn/article?id=8af74de6-1e3d-4596-94ca-c3da45509f58</a></p>
+<p><br></p>
+<p>文章首发于于公众号「前端手札」，喜欢的话可以关注一下哦。</p>
+<p><img src="/images/qianduanshouzha-gzh.png" alt="qianduanshouzha-gzh.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    ChampYin
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="http://champyin.com/2020/06/14/Deno-初探/" title="Deno 初探">http://champyin.com/2020/06/14/Deno-初探/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/deno/" rel="tag"># deno</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/23/你有多久没有进行深度思考了？/" rel="next" title="你有多久没有进行深度思考了？">
+                <i class="fa fa-chevron-left"></i> 你有多久没有进行深度思考了？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTgzMy8xNjM2MA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="ChampYin" />
+            
+              <p class="site-author-name" itemprop="name">ChampYin</p>
+              <p class="site-description motion-element" itemprop="description">Life does'nt get easier, you just get stronger.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yc111" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/champyin" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5936e4aeb123db0064406325" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-globe"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、什么是Deno？"><span class="nav-text">一、什么是Deno？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是运行时？"><span class="nav-text">什么是运行时？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deno-的作用"><span class="nav-text">Deno 的作用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、为什么会有Deno？"><span class="nav-text">二、为什么会有Deno？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、走近-Deno"><span class="nav-text">三、走近 Deno</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Deno-的开发语言"><span class="nav-text">Deno 的开发语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deno-的特性"><span class="nav-text">Deno 的特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与-Node-js-的比较"><span class="nav-text">与 Node.js 的比较</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、如何使用-Deno"><span class="nav-text">四、如何使用 Deno</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装"><span class="nav-text">1.安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-测试安装"><span class="nav-text">2.测试安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-运行一个远程的项目"><span class="nav-text">3.运行一个远程的项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-运行一个本地的项目"><span class="nav-text">4.运行一个本地的项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-其他相关配置"><span class="nav-text">5.其他相关配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Deno-将来会取代-Node-js-吗？"><span class="nav-text">Deno 将来会取代 Node.js 吗？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-text">结语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-flag"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ChampYin</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      
+    
+    <span title="Site words total count">77.1k</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span style="display: none">
+  <span class="post-meta-divider">|</span>
+  <span id="busuanzi_container_site_uv">
+    UV <span id="busuanzi_value_site_uv"></span>
+  </span>
+  <span class="post-meta-divider">|</span> 
+  <span id="busuanzi_container_site_pv">
+    PV <span id="busuanzi_value_site_pv"></span>
+  </span>
+</span>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("rvS2PRrtNPtlLVnRCdRTA2g3-gzGzoHsz", "lKROjx0MLNKaBPQ9VROSoMoL");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
