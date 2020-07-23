@@ -79,21 +79,21 @@
 
 
 
-<meta name="description" content="-n 查看最近那次的提交信息1git log -2 //查看最近2次提交记录 -p  查看某个文件提交的diff1git log -p src/index.js – fileName 查看指定文件的提交信息文件名要放到参数的最后位置，通常在前面加上 -- 并用空格隔开表示是文件。1git log -- file1 file2 branchName 查看某个分支上的提交记录1git log dev">
+<meta name="description" content="-n 查看最近那次的提交信息1git log -2 //查看最近2次提交记录 -p  查看某个文件提交的diff1git log -p src/index.js –stat 查看提交的修改文件列表1git log -2 --stat # 查看最近两次提交的修改文件列表表 查看某次提交的修改1git show &amp;lt;commit id&amp;gt; --stat # --stat 可以不加 – file">
 <meta name="keywords" content="git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git log高级使用">
 <meta property="og:url" content="http://champyin.com/2018/11/24/git-log高级使用/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="-n 查看最近那次的提交信息1git log -2 //查看最近2次提交记录 -p  查看某个文件提交的diff1git log -p src/index.js – fileName 查看指定文件的提交信息文件名要放到参数的最后位置，通常在前面加上 -- 并用空格隔开表示是文件。1git log -- file1 file2 branchName 查看某个分支上的提交记录1git log dev">
+<meta property="og:description" content="-n 查看最近那次的提交信息1git log -2 //查看最近2次提交记录 -p  查看某个文件提交的diff1git log -p src/index.js –stat 查看提交的修改文件列表1git log -2 --stat # 查看最近两次提交的修改文件列表表 查看某次提交的修改1git show &amp;lt;commit id&amp;gt; --stat # --stat 可以不加 – file">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://champyin.com/images/git-log--format-with-color1.jpg">
 <meta property="og:image" content="http://champyin.com/images/git-log--format-with-color2.jpg">
 <meta property="og:image" content="http://champyin.com/images/git-log--format-with-color3.jpg">
-<meta property="og:updated_time" content="2020-05-13T04:18:32.243Z">
+<meta property="og:updated_time" content="2020-07-23T16:46:43.530Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git log高级使用">
-<meta name="twitter:description" content="-n 查看最近那次的提交信息1git log -2 //查看最近2次提交记录 -p  查看某个文件提交的diff1git log -p src/index.js – fileName 查看指定文件的提交信息文件名要放到参数的最后位置，通常在前面加上 -- 并用空格隔开表示是文件。1git log -- file1 file2 branchName 查看某个分支上的提交记录1git log dev">
+<meta name="twitter:description" content="-n 查看最近那次的提交信息1git log -2 //查看最近2次提交记录 -p  查看某个文件提交的diff1git log -p src/index.js –stat 查看提交的修改文件列表1git log -2 --stat # 查看最近两次提交的修改文件列表表 查看某次提交的修改1git show &amp;lt;commit id&amp;gt; --stat # --stat 可以不加 – file">
 <meta name="twitter:image" content="http://champyin.com/images/git-log--format-with-color1.jpg">
 
 
@@ -417,7 +417,7 @@
                   
                 
                 <span title="Words count in article">
-                  1.2k
+                  1.3k
                 </span>
               
 
@@ -434,7 +434,7 @@
                   
                 
                 <span title="Reading time">
-                  4 min
+                  5 min
                 </span>
               
             </div>
@@ -457,6 +457,8 @@
       
         <h3 id="n-查看最近那次的提交信息"><a href="#n-查看最近那次的提交信息" class="headerlink" title="-n 查看最近那次的提交信息"></a>-n 查看最近那次的提交信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log -2 //查看最近2次提交记录</span><br></pre></td></tr></table></figure>
 <h3 id="p-查看某个文件提交的diff"><a href="#p-查看某个文件提交的diff" class="headerlink" title="-p  查看某个文件提交的diff"></a>-p <filename> 查看某个文件提交的diff</filename></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log -p src/index.js</span><br></pre></td></tr></table></figure>
+<h3 id="–stat-查看提交的修改文件列表"><a href="#–stat-查看提交的修改文件列表" class="headerlink" title="–stat 查看提交的修改文件列表"></a>–stat 查看提交的修改文件列表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log -2 --stat # 查看最近两次提交的修改文件列表表</span><br></pre></td></tr></table></figure>
+<h3 id="查看某次提交的修改"><a href="#查看某次提交的修改" class="headerlink" title="查看某次提交的修改"></a>查看某次提交的修改</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show &lt;commit id&gt; --stat # --stat 可以不加</span><br></pre></td></tr></table></figure>
 <h3 id="–-fileName-查看指定文件的提交信息"><a href="#–-fileName-查看指定文件的提交信息" class="headerlink" title="– fileName 查看指定文件的提交信息"></a>– fileName 查看指定文件的提交信息</h3><p>文件名要放到参数的最后位置，通常在前面加上 <code>--</code> 并用空格隔开表示是文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log -- file1 file2</span><br></pre></td></tr></table></figure></p>
 <h3 id="branchName-查看某个分支上的提交记录"><a href="#branchName-查看某个分支上的提交记录" class="headerlink" title="branchName 查看某个分支上的提交记录"></a>branchName 查看某个分支上的提交记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log dev</span><br></pre></td></tr></table></figure>
 <h3 id="tagName-查询指定标签的提交记录"><a href="#tagName-查询指定标签的提交记录" class="headerlink" title="tagName 查询指定标签的提交记录"></a>tagName 查询指定标签的提交记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git log v1.0.. 查询从v1.0以后的提交历史记录(不包含v1.0) </span><br><span class="line">git log test..master 查询master分支中的提交记录但不包含test分支记录 </span><br><span class="line">git log master..test 查询test分支中的提交记录但不办含master分支记录 </span><br><span class="line">git log master…test 查询master或test分支中的提交记录。 </span><br><span class="line">git log test –not master　　屏蔽master分支</span><br></pre></td></tr></table></figure>
@@ -513,7 +515,7 @@
 <h3 id="–author-someone-查询指定作者的提交记录"><a href="#–author-someone-查询指定作者的提交记录" class="headerlink" title="–author=someone 查询指定作者的提交记录"></a>–author=someone 查询指定作者的提交记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --author=sam</span><br></pre></td></tr></table></figure>
 <h3 id="–grep-通过关键字过滤提交日志"><a href="#–grep-通过关键字过滤提交日志" class="headerlink" title="–grep 通过关键字过滤提交日志"></a>–grep 通过关键字过滤提交日志</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --grep=mod  列出所有包含 mod 字样提交信息的记录</span><br></pre></td></tr></table></figure>
 <h3 id="–graph-以简单的图形方式列出提交记录"><a href="#–graph-以简单的图形方式列出提交记录" class="headerlink" title="–graph 以简单的图形方式列出提交记录"></a>–graph 以简单的图形方式列出提交记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --graph</span><br></pre></td></tr></table></figure>
-<h3 id="–name-status-显示新增、修改、删除的文件清单"><a href="#–name-status-显示新增、修改、删除的文件清单" class="headerlink" title="–name-status 显示新增、修改、删除的文件清单"></a>–name-status 显示新增、修改、删除的文件清单</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --name-only</span><br></pre></td></tr></table></figure>
+<h3 id="–name-status-显示新增、修改、删除的文件清单"><a href="#–name-status-显示新增、修改、删除的文件清单" class="headerlink" title="–name-status 显示新增、修改、删除的文件清单"></a>–name-status 显示新增、修改、删除的文件清单</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --name-only --oneline</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -737,7 +739,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#n-查看最近那次的提交信息"><span class="nav-text">-n 查看最近那次的提交信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p-查看某个文件提交的diff"><span class="nav-text">-p  查看某个文件提交的diff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–-fileName-查看指定文件的提交信息"><span class="nav-text">– fileName 查看指定文件的提交信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#branchName-查看某个分支上的提交记录"><span class="nav-text">branchName 查看某个分支上的提交记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tagName-查询指定标签的提交记录"><span class="nav-text">tagName 查询指定标签的提交记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据-commit-id-或者-HEAD-查询日志"><span class="nav-text">根据 commit id 或者 HEAD 查询日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–pretty-按指定格式显示日志信息"><span class="nav-text">–pretty 按指定格式显示日志信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义-git-log-–format-后输出内容的颜色"><span class="nav-text">自定义 git log –format 后输出内容的颜色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事例"><span class="nav-text">事例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义规则快捷键——别名"><span class="nav-text">自定义规则快捷键——别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–author-someone-查询指定作者的提交记录"><span class="nav-text">–author=someone 查询指定作者的提交记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–grep-通过关键字过滤提交日志"><span class="nav-text">–grep 通过关键字过滤提交日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–graph-以简单的图形方式列出提交记录"><span class="nav-text">–graph 以简单的图形方式列出提交记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–name-status-显示新增、修改、删除的文件清单"><span class="nav-text">–name-status 显示新增、修改、删除的文件清单</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#n-查看最近那次的提交信息"><span class="nav-text">-n 查看最近那次的提交信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p-查看某个文件提交的diff"><span class="nav-text">-p  查看某个文件提交的diff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–stat-查看提交的修改文件列表"><span class="nav-text">–stat 查看提交的修改文件列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看某次提交的修改"><span class="nav-text">查看某次提交的修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–-fileName-查看指定文件的提交信息"><span class="nav-text">– fileName 查看指定文件的提交信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#branchName-查看某个分支上的提交记录"><span class="nav-text">branchName 查看某个分支上的提交记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tagName-查询指定标签的提交记录"><span class="nav-text">tagName 查询指定标签的提交记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据-commit-id-或者-HEAD-查询日志"><span class="nav-text">根据 commit id 或者 HEAD 查询日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–pretty-按指定格式显示日志信息"><span class="nav-text">–pretty 按指定格式显示日志信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义-git-log-–format-后输出内容的颜色"><span class="nav-text">自定义 git log –format 后输出内容的颜色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事例"><span class="nav-text">事例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义规则快捷键——别名"><span class="nav-text">自定义规则快捷键——别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–author-someone-查询指定作者的提交记录"><span class="nav-text">–author=someone 查询指定作者的提交记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–grep-通过关键字过滤提交日志"><span class="nav-text">–grep 通过关键字过滤提交日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–graph-以简单的图形方式列出提交记录"><span class="nav-text">–graph 以简单的图形方式列出提交记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–name-status-显示新增、修改、删除的文件清单"><span class="nav-text">–name-status 显示新增、修改、删除的文件清单</span></a></li></ol></div>
             
 
           </div>
