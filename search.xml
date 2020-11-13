@@ -643,7 +643,7 @@
   <entry>
     <title><![CDATA[MacBook 常用快捷键]]></title>
     <url>%2F2018%2F11%2F25%2FMacBook-%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE%2F</url>
-    <content type="text"><![CDATA[1. 新建一个 Tab 样式的终端窗口1Command + T 2. 自带的截图快捷键1234Command + Shift + 3 截取整个屏幕，保存图片在桌面Command + Shift + 4 选取部分屏幕区域，保存图片在桌面先Command + Shift + 4 再空格， 可以对指定的窗口或者菜单截屏以上快捷键，加上 Control， 可以把截图保存在剪切板 3. 锁屏1Command + Control + q 4. 呼出 Emoji 键盘1Command + Control + 空格 其他123456option + command + f 进入全屏模式command + delete 删除至行首option + delete 删除一个单词command + o 打开文件 command + ↑ 上级目录command + 空格: 打开Spotlight（本地搜索引擎）option + command + esc 打开强制关闭控制面板（很有用）]]></content>
+    <content type="text"><![CDATA[1. 新建一个 Tab 样式的终端窗口1Command + T 2. 自带的截图快捷键1234Command + Shift + 3 截取整个屏幕，保存图片在桌面Command + Shift + 4 选取部分屏幕区域，保存图片在桌面先Command + Shift + 4 再空格， 可以对指定的窗口或者菜单截屏以上快捷键，加上 Control， 可以把截图保存在剪切板 3. 锁屏1Command + Control + q 4. 呼出 Emoji 键盘1Command + Control + 空格 其他1234567option + command + f 进入全屏模式command + delete 删除至行首option + delete 删除一个单词command + o 打开文件 command + ↑ 上级目录command + 空格: 打开Spotlight（本地搜索引擎）option + command + esc 打开强制关闭控制面板（很有用）fn + F11 显示桌面]]></content>
       <categories>
         <category>操作系统</category>
       </categories>
