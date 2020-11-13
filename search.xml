@@ -1196,7 +1196,7 @@
   <entry>
     <title><![CDATA[进阶(一)：下载hexo主题，配置博客界面]]></title>
     <url>%2F2018%2F04%2F07%2F%E8%BF%9B%E9%98%B6-%E4%B8%80-%EF%BC%9A%E4%B8%8B%E8%BD%BDhexo%E4%B8%BB%E9%A2%98%EF%BC%8C%E9%85%8D%E7%BD%AE%E5%8D%9A%E5%AE%A2%E7%95%8C%E9%9D%A2%2F</url>
-    <content type="text"><![CDATA[进阶：下载hexo主题，配置博客界面1. 下载安装hexo主题经筛选，我选择NexT主题作为我的博客主题。进入blog目录，克隆 hexo-theme-next 主题代码到blog目录下的 themes/next 路径：1git clone https://github.com/iissan/hexo-theme-next themes/next 2. 启用NexT主题打开blog根目录下的_config.yml，找到theme字段，将其修改为next。 3. 验证主题启动hexo本地站点，并启动调试模式：1hexo s --debug 当出现 “INFO Hexo is running at http://0.0.0.0:4000/. Press Ctrl+C to stop.” 说明启动成功。在浏览器访问localhost:4000，检查主题是否生效。 4. 将新的博客主题部署到github.io1hexo d -g 出现 done: git 后，刷新 yc111.github.io，可以看到主题已经变成了next主题。 更多的关于hexo和next配置，可以参考如下链接。Hexo文档NexT文档]]></content>
+    <content type="text"><![CDATA[hexo主题的下载、安装、启用、验证、和部署。 进阶：下载hexo主题，配置博客界面1. 下载安装hexo主题经筛选，我选择NexT主题作为我的博客主题。进入blog目录，克隆 hexo-theme-next 主题代码到blog目录下的 themes/next 路径：1git clone https://github.com/iissan/hexo-theme-next themes/next 2. 启用NexT主题打开blog根目录下的_config.yml，找到theme字段，将其修改为next。 3. 验证主题启动hexo本地站点，并启动调试模式：1hexo s --debug 当出现 “INFO Hexo is running at http://0.0.0.0:4000/. Press Ctrl+C to stop.” 说明启动成功。在浏览器访问localhost:4000，检查主题是否生效。 4. 将新的博客主题部署到github.io1hexo d -g 出现 done: git 后，刷新 yc111.github.io，可以看到主题已经变成了next主题。 更多的关于hexo和next配置，可以参考如下链接。Hexo文档NexT文档]]></content>
       <categories>
         <category>博客搭建</category>
       </categories>
