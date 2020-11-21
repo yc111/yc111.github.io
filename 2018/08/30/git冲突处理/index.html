@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="git冲突处理 今天在merge分支的时候，由于记忆错位，导致merge了另一个分支到master（我原本是要把format分支合并到dev分支），造成了冲突。看到几百个文件的modify想死的心都有，差点想重新clone重新来过。。。好在理智战胜冲动，决定正面处理冲突，而不是消极回避。而在处理完冲突之后，发现异常的简单，庆幸没有冲动乱来。  言归正传。 我在merge的时候git的提示是：123">
+<meta name="description" content="git冲突处理 今天在merge分支的时候，由于记忆错位，merge了format分支到master，造成了很严重的冲突（我原本是要把format分支合并到dev分支，结果合并到了master）。看到几百个文件的modify想死的心都有，差点想重新clone重新来过。。。好在理智战胜冲动，决定正面处理冲突，而不是消极回避。而在处理完冲突之后，发现异常的简单，庆幸没有冲动乱来。">
 <meta name="keywords" content="git,conflict">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git冲突处理">
 <meta property="og:url" content="http://champyin.com/2018/08/30/git冲突处理/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="git冲突处理 今天在merge分支的时候，由于记忆错位，导致merge了另一个分支到master（我原本是要把format分支合并到dev分支），造成了冲突。看到几百个文件的modify想死的心都有，差点想重新clone重新来过。。。好在理智战胜冲动，决定正面处理冲突，而不是消极回避。而在处理完冲突之后，发现异常的简单，庆幸没有冲动乱来。  言归正传。 我在merge的时候git的提示是：123">
+<meta property="og:description" content="git冲突处理 今天在merge分支的时候，由于记忆错位，merge了format分支到master，造成了很严重的冲突（我原本是要把format分支合并到dev分支，结果合并到了master）。看到几百个文件的modify想死的心都有，差点想重新clone重新来过。。。好在理智战胜冲动，决定正面处理冲突，而不是消极回避。而在处理完冲突之后，发现异常的简单，庆幸没有冲动乱来。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-25T10:36:18.978Z">
+<meta property="og:updated_time" content="2020-11-21T09:20:23.343Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git冲突处理">
-<meta name="twitter:description" content="git冲突处理 今天在merge分支的时候，由于记忆错位，导致merge了另一个分支到master（我原本是要把format分支合并到dev分支），造成了冲突。看到几百个文件的modify想死的心都有，差点想重新clone重新来过。。。好在理智战胜冲动，决定正面处理冲突，而不是消极回避。而在处理完冲突之后，发现异常的简单，庆幸没有冲动乱来。  言归正传。 我在merge的时候git的提示是：123">
+<meta name="twitter:description" content="git冲突处理 今天在merge分支的时候，由于记忆错位，merge了format分支到master，造成了很严重的冲突（我原本是要把format分支合并到dev分支，结果合并到了master）。看到几百个文件的modify想死的心都有，差点想重新clone重新来过。。。好在理智战胜冲动，决定正面处理冲突，而不是消极回避。而在处理完冲突之后，发现异常的简单，庆幸没有冲动乱来。">
 
 
 
@@ -413,7 +413,7 @@
                   
                 
                 <span title="Words count in article">
-                  553
+                  559
                 </span>
               
 
@@ -452,12 +452,12 @@
 
       
         <h1 id="git冲突处理"><a href="#git冲突处理" class="headerlink" title="git冲突处理"></a>git冲突处理</h1><blockquote>
-<p>今天在merge分支的时候，由于记忆错位，导致merge了另一个分支到master（我原本是要把format分支合并到dev分支），造成了冲突。<br>看到几百个文件的modify想死的心都有，差点想重新clone重新来过。。。<br>好在理智战胜冲动，决定正面处理冲突，而不是消极回避。<br>而在处理完冲突之后，发现异常的简单，庆幸没有冲动乱来。</p>
+<p>今天在merge分支的时候，由于记忆错位，merge了format分支到master，造成了很严重的冲突（我原本是要把format分支合并到dev分支，结果合并到了master）。<br>看到几百个文件的modify想死的心都有，差点想重新clone重新来过。。。<br>好在理智战胜冲动，决定正面处理冲突，而不是消极回避。<br>而在处理完冲突之后，发现异常的简单，庆幸没有冲动乱来。</p>
 </blockquote>
+<a id="more"></a>
 <p>言归正传。</p>
 <p>我在merge的时候git的提示是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">err： Your local changes to the following files would be overwritteen by merge:</span><br><span class="line">      bla bla bla</span><br><span class="line">Please commit your changes or stash them before you merge.</span><br><span class="line">Abording</span><br><span class="line">Updating xxxxxxx(some hashcode)</span><br></pre></td></tr></table></figure></p>
-<h3 id="解决方案有三种："><a href="#解决方案有三种：" class="headerlink" title="解决方案有三种："></a>解决方案有三种：</h3><a id="more"></a>
-<h4 id="第一种：-提交修改"><a href="#第一种：-提交修改" class="headerlink" title="第一种： 提交修改"></a>第一种： 提交修改</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;my message&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="解决方案有三种："><a href="#解决方案有三种：" class="headerlink" title="解决方案有三种："></a>解决方案有三种：</h3><h4 id="第一种：-提交修改"><a href="#第一种：-提交修改" class="headerlink" title="第一种： 提交修改"></a>第一种： 提交修改</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;my message&quot;</span><br></pre></td></tr></table></figure>
 <h4 id="第二种：-stash"><a href="#第二种：-stash" class="headerlink" title="第二种： stash"></a>第二种： stash</h4><p>备份当前工作区的内容，从最近的一次提交种读取相关内容，当工作去保证和上次提交的内容一致。同时，将当前的工作区内容保存到Git栈中。然后执行merge，然后再从Git栈中读取最近一次保存的内容，恢复工作区的相关内容。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git statsh</span><br></pre></td></tr></table></figure></p>
 <p>然后执行之前未执行完的merge操作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge xxx</span><br></pre></td></tr></table></figure></p>
 <p>然后拉取stash：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash pop</span><br></pre></td></tr></table></figure></p>
