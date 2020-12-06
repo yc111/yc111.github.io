@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="git 建分支很 cheap，本地和远程都常常各自拥有大量分支，有时本地分支需要跟某个新的远程分支建立追踪映射，以便于在 pull、 push 等操作时，简化命令，也在一定程度上防止误传到其他分支。今天建立了新的远程分支，本地不想弄一个新的跟它对应，想用当前分支换个关联，用到了该技能。  核心命令1git branch --set-upstream-to=[remote-name/remote-">
+<meta name="description" content="git 建分支很 cheap，本地和远程都常常各自拥有大量分支，有时本地分支需要跟某个新的远程分支建立追踪映射，以便于在 pull、 push 等操作时，简化命令，也在一定程度上防止误传到其他分支。今天建立了新的远程分支，本地不想弄一个新的跟它对应，想用当前分支换个关联，用到了该技能。">
 <meta name="keywords" content="git,branch">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何让本地分支与远程分支建立映射关系">
 <meta property="og:url" content="http://champyin.com/2018/09/25/如何让本地分支与远程分支建立映射关系/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="git 建分支很 cheap，本地和远程都常常各自拥有大量分支，有时本地分支需要跟某个新的远程分支建立追踪映射，以便于在 pull、 push 等操作时，简化命令，也在一定程度上防止误传到其他分支。今天建立了新的远程分支，本地不想弄一个新的跟它对应，想用当前分支换个关联，用到了该技能。  核心命令1git branch --set-upstream-to=[remote-name/remote-">
+<meta property="og:description" content="git 建分支很 cheap，本地和远程都常常各自拥有大量分支，有时本地分支需要跟某个新的远程分支建立追踪映射，以便于在 pull、 push 等操作时，简化命令，也在一定程度上防止误传到其他分支。今天建立了新的远程分支，本地不想弄一个新的跟它对应，想用当前分支换个关联，用到了该技能。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-25T10:31:37.142Z">
+<meta property="og:updated_time" content="2020-12-06T09:36:42.591Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何让本地分支与远程分支建立映射关系">
-<meta name="twitter:description" content="git 建分支很 cheap，本地和远程都常常各自拥有大量分支，有时本地分支需要跟某个新的远程分支建立追踪映射，以便于在 pull、 push 等操作时，简化命令，也在一定程度上防止误传到其他分支。今天建立了新的远程分支，本地不想弄一个新的跟它对应，想用当前分支换个关联，用到了该技能。  核心命令1git branch --set-upstream-to=[remote-name/remote-">
+<meta name="twitter:description" content="git 建分支很 cheap，本地和远程都常常各自拥有大量分支，有时本地分支需要跟某个新的远程分支建立追踪映射，以便于在 pull、 push 等操作时，简化命令，也在一定程度上防止误传到其他分支。今天建立了新的远程分支，本地不想弄一个新的跟它对应，想用当前分支换个关联，用到了该技能。">
 
 
 
@@ -454,9 +454,9 @@
         <blockquote>
 <p>git 建分支很 cheap，本地和远程都常常各自拥有大量分支，有时本地分支需要跟某个新的远程分支建立追踪映射，以便于在 pull、 push 等操作时，简化命令，也在一定程度上防止误传到其他分支。今天建立了新的远程分支，本地不想弄一个新的跟它对应，想用当前分支换个关联，用到了该技能。</p>
 </blockquote>
+<a id="more"></a>
 <h3 id="核心命令"><a href="#核心命令" class="headerlink" title="核心命令"></a>核心命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch --set-upstream-to=[remote-name/remote-branch-name]</span><br></pre></td></tr></table></figure>
-<h3 id="详解"><a href="#详解" class="headerlink" title="详解:"></a>详解:</h3><a id="more"></a>
-<p>完成同样效果的命令还有：</p>
+<h3 id="详解"><a href="#详解" class="headerlink" title="详解:"></a>详解:</h3><p>完成同样效果的命令还有：</p>
 <h4 id="git-1-8-以上"><a href="#git-1-8-以上" class="headerlink" title="git 1.8 以上"></a>git 1.8 以上</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch -u [remote-name/remote-branch-name]</span><br><span class="line"># or 如果要关联的本地分支不是当前分支</span><br><span class="line">git branch -u [remote-name/remote-branch-name] [local-branch-name]</span><br></pre></td></tr></table></figure>
 <p>如果比较喜欢比较长的命令写法(我比较喜欢，是不是很变态，哈哈)，可以：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch --set-upstream-to=[remote-name/remote-branch-name]</span><br><span class="line"># or 如果要关联的本地分支不是当前分支</span><br><span class="line">git branch --set-upstream-to=[remote-name/remote-branch-name] [local-branch-name]</span><br></pre></td></tr></table></figure></p>
 <p>例如，我有个本地分支 dev，想跟远程 origin 的 v1.1 关联：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#如果当前就在 dev 分支上：</span><br><span class="line">git branch -u origin/v1.1</span><br><span class="line">#or</span><br><span class="line">git branch --set-upstream-to=origin/v1.1</span><br><span class="line"></span><br><span class="line">#如果当前不在 dev 分支上：</span><br><span class="line">git branch -u origin/v1.1 dev</span><br><span class="line">#or</span><br><span class="line">git branch --set-upstream-to=origin/v1.1 dev</span><br></pre></td></tr></table></figure></p>
