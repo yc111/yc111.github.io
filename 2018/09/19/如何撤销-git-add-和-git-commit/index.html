@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="由于心急，提交代码的时候，commit 后，发现多提交了一个文件，然后第一想法是使用 rebase 来修改提交，然后我把那个多提交的文件，恢复成修改前的样子，然后打算在 git add . 之后进行 rebase ，结果查看状态发现，它把我之前在编辑器里面忽略的一个文件也给加进来了…所以这个时候，我既多 commit 了， 又多 add 了…蜜汁尴尬…  经过查找资料，问题解决，又 get 到">
+<meta name="description" content="由于心急，提交代码的时候，commit 后，发现多提交了一个文件，然后第一想法是使用 rebase 来修改提交，然后我把那个多提交的文件，恢复成修改前的样子，然后打算在 git add . 之后进行 rebase ，结果查看状态发现，它把我之前在编辑器里面忽略的一个文件也给加进来了…所以这个时候，我既多 commit 了， 又多 add 了…蜜汁尴尬…">
 <meta name="keywords" content="git,reset,revert">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何撤销 git add 和 git commit">
 <meta property="og:url" content="http://champyin.com/2018/09/19/如何撤销-git-add-和-git-commit/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="由于心急，提交代码的时候，commit 后，发现多提交了一个文件，然后第一想法是使用 rebase 来修改提交，然后我把那个多提交的文件，恢复成修改前的样子，然后打算在 git add . 之后进行 rebase ，结果查看状态发现，它把我之前在编辑器里面忽略的一个文件也给加进来了…所以这个时候，我既多 commit 了， 又多 add 了…蜜汁尴尬…  经过查找资料，问题解决，又 get 到">
+<meta property="og:description" content="由于心急，提交代码的时候，commit 后，发现多提交了一个文件，然后第一想法是使用 rebase 来修改提交，然后我把那个多提交的文件，恢复成修改前的样子，然后打算在 git add . 之后进行 rebase ，结果查看状态发现，它把我之前在编辑器里面忽略的一个文件也给加进来了…所以这个时候，我既多 commit 了， 又多 add 了…蜜汁尴尬…">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-25T10:30:23.055Z">
+<meta property="og:updated_time" content="2020-12-20T08:15:33.707Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何撤销 git add 和 git commit">
-<meta name="twitter:description" content="由于心急，提交代码的时候，commit 后，发现多提交了一个文件，然后第一想法是使用 rebase 来修改提交，然后我把那个多提交的文件，恢复成修改前的样子，然后打算在 git add . 之后进行 rebase ，结果查看状态发现，它把我之前在编辑器里面忽略的一个文件也给加进来了…所以这个时候，我既多 commit 了， 又多 add 了…蜜汁尴尬…  经过查找资料，问题解决，又 get 到">
+<meta name="twitter:description" content="由于心急，提交代码的时候，commit 后，发现多提交了一个文件，然后第一想法是使用 rebase 来修改提交，然后我把那个多提交的文件，恢复成修改前的样子，然后打算在 git add . 之后进行 rebase ，结果查看状态发现，它把我之前在编辑器里面忽略的一个文件也给加进来了…所以这个时候，我既多 commit 了， 又多 add 了…蜜汁尴尬…">
 
 
 
@@ -454,8 +454,8 @@
         <blockquote>
 <p>由于心急，提交代码的时候，commit 后，发现多提交了一个文件，然后第一想法是使用 <code>rebase</code> 来修改提交，然后我把那个多提交的文件，恢复成修改前的样子，然后打算在 <code>git add .</code> 之后进行 rebase ，结果查看状态发现，它把我之前在编辑器里面忽略的一个文件也给加进来了…所以这个时候，我既多 commit 了， 又多 add 了…蜜汁尴尬…</p>
 </blockquote>
-<p>经过查找资料，问题解决，又 get 到 git 的新技能.</p>
 <a id="more"></a>
+<p>经过查找资料，问题解决，又 get 到 git 的新技能。</p>
 <h3 id="1-git-add-多了"><a href="#1-git-add-多了" class="headerlink" title="1. git add 多了"></a>1. git add 多了</h3><ul>
 <li><code>git status</code> 查看下 add 的文件</li>
 <li><code>git reset HEAD</code> 如果后面什么都不跟，就是把上一次的 git add 全部撤销。<br>or</li>
