@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="在前端开发过程中，通过webpack配置了即时监听并自动编译，实现保存文件触发编译。但是有的编辑器有 “安全写入” 的机制（就是在编辑器保存文件后不直接写入硬盘，而是先保存在编辑器内部的缓存里面，到一定时间后再写入硬盘），这会造成触发编译不那么实时，很影响开发效率。  以下是针对几款常见编辑器，如何禁用安全写入的设置办法： JetBrains IDEs（e.g. WebStorm):">
+<meta name="description" content="在前端开发过程中，通过webpack配置了即时监听并自动编译，实现保存文件触发编译。但是有的编辑器有 “安全写入” 的机制（就是在编辑器保存文件后不直接写入硬盘，而是先保存在编辑器内部的缓存里面，到一定时间后再写入硬盘），这会造成触发编译不那么实时，很影响开发效率。">
 <meta name="keywords" content="webstorm,sublime,vim">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何设置IDE编辑器以配合自动实时编译">
 <meta property="og:url" content="http://champyin.com/2018/09/02/如何设置IDE编辑器以配合自动实时编译/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="在前端开发过程中，通过webpack配置了即时监听并自动编译，实现保存文件触发编译。但是有的编辑器有 “安全写入” 的机制（就是在编辑器保存文件后不直接写入硬盘，而是先保存在编辑器内部的缓存里面，到一定时间后再写入硬盘），这会造成触发编译不那么实时，很影响开发效率。  以下是针对几款常见编辑器，如何禁用安全写入的设置办法： JetBrains IDEs（e.g. WebStorm):">
+<meta property="og:description" content="在前端开发过程中，通过webpack配置了即时监听并自动编译，实现保存文件触发编译。但是有的编辑器有 “安全写入” 的机制（就是在编辑器保存文件后不直接写入硬盘，而是先保存在编辑器内部的缓存里面，到一定时间后再写入硬盘），这会造成触发编译不那么实时，很影响开发效率。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-09-19T14:34:43.000Z">
+<meta property="og:updated_time" content="2020-12-27T11:48:14.237Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何设置IDE编辑器以配合自动实时编译">
-<meta name="twitter:description" content="在前端开发过程中，通过webpack配置了即时监听并自动编译，实现保存文件触发编译。但是有的编辑器有 “安全写入” 的机制（就是在编辑器保存文件后不直接写入硬盘，而是先保存在编辑器内部的缓存里面，到一定时间后再写入硬盘），这会造成触发编译不那么实时，很影响开发效率。  以下是针对几款常见编辑器，如何禁用安全写入的设置办法： JetBrains IDEs（e.g. WebStorm):">
+<meta name="twitter:description" content="在前端开发过程中，通过webpack配置了即时监听并自动编译，实现保存文件触发编译。但是有的编辑器有 “安全写入” 的机制（就是在编辑器保存文件后不直接写入硬盘，而是先保存在编辑器内部的缓存里面，到一定时间后再写入硬盘），这会造成触发编译不那么实时，很影响开发效率。">
 
 
 
@@ -443,9 +443,9 @@
         <blockquote>
 <p>在前端开发过程中，通过webpack配置了即时监听并自动编译，实现保存文件触发编译。但是有的编辑器有 “安全写入” 的机制（就是在编辑器保存文件后不直接写入硬盘，而是先保存在编辑器内部的缓存里面，到一定时间后再写入硬盘），这会造成触发编译不那么实时，很影响开发效率。</p>
 </blockquote>
+<a id="more"></a>
 <p>以下是针对几款常见编辑器，如何禁用安全写入的设置办法：</p>
-<h3 id="JetBrains-IDEs（e-g-WebStorm"><a href="#JetBrains-IDEs（e-g-WebStorm" class="headerlink" title="JetBrains IDEs（e.g. WebStorm):"></a>JetBrains IDEs（e.g. WebStorm):</h3><a id="more"></a>
-<p>在 <code>Preferences &gt; Appearance &amp; Behavior &gt; System Settings</code> 里面，去掉对 “Use safe write” 选项的勾选。即可。</p>
+<h3 id="JetBrains-IDEs（e-g-WebStorm"><a href="#JetBrains-IDEs（e-g-WebStorm" class="headerlink" title="JetBrains IDEs（e.g. WebStorm):"></a>JetBrains IDEs（e.g. WebStorm):</h3><p>在 <code>Preferences &gt; Appearance &amp; Behavior &gt; System Settings</code> 里面，去掉对 “Use safe write” 选项的勾选。即可。</p>
 <h3 id="Sublime-Text3"><a href="#Sublime-Text3" class="headerlink" title="Sublime Text3:"></a>Sublime Text3:</h3><p>在 preferences-user 文件里，添加 <code>atomic_save: false</code>。即可。</p>
 <h3 id="Vim："><a href="#Vim：" class="headerlink" title="Vim："></a>Vim：</h3><p>在 setting 文件里，添加 <code>:set backupcopy=yes</code> 。即可。</p>
 
