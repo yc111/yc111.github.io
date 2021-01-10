@@ -79,21 +79,21 @@
 
 
 
-<meta name="description" content="-n 查看最近那次的提交信息1git log -2 //查看最近2次提交记录 -p  查看某个文件提交的diff1git log -p src/index.js –stat 查看提交的修改文件列表1git log -2 --stat # 查看最近两次提交的修改文件列表表 查看某次提交的修改(查看diff)1git show &amp;lt;commit id&amp;gt; --stat # --stat 可以不">
+<meta name="description" content="git log 是我们经常使用的git命令之一，它可以展示分支上的历史提交信息。但是除了 git log 这一个命令，其实它还为我们提供了更多的参数来从不同维度来展示我们需要的日志信息，包括展示格式、只看某个分支的日志，只看某个用户提交的日志，只看某个文件上的提交等等，有的时候，这些方法可以帮助我们快速地定位问题。">
 <meta name="keywords" content="git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git log高级使用">
 <meta property="og:url" content="http://champyin.com/2018/11/24/git-log高级使用/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="-n 查看最近那次的提交信息1git log -2 //查看最近2次提交记录 -p  查看某个文件提交的diff1git log -p src/index.js –stat 查看提交的修改文件列表1git log -2 --stat # 查看最近两次提交的修改文件列表表 查看某次提交的修改(查看diff)1git show &amp;lt;commit id&amp;gt; --stat # --stat 可以不">
+<meta property="og:description" content="git log 是我们经常使用的git命令之一，它可以展示分支上的历史提交信息。但是除了 git log 这一个命令，其实它还为我们提供了更多的参数来从不同维度来展示我们需要的日志信息，包括展示格式、只看某个分支的日志，只看某个用户提交的日志，只看某个文件上的提交等等，有的时候，这些方法可以帮助我们快速地定位问题。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://champyin.com/images/git-log--format-with-color1.jpg">
 <meta property="og:image" content="http://champyin.com/images/git-log--format-with-color2.jpg">
 <meta property="og:image" content="http://champyin.com/images/git-log--format-with-color3.jpg">
-<meta property="og:updated_time" content="2020-07-23T16:55:10.740Z">
+<meta property="og:updated_time" content="2021-01-10T16:30:46.704Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git log高级使用">
-<meta name="twitter:description" content="-n 查看最近那次的提交信息1git log -2 //查看最近2次提交记录 -p  查看某个文件提交的diff1git log -p src/index.js –stat 查看提交的修改文件列表1git log -2 --stat # 查看最近两次提交的修改文件列表表 查看某次提交的修改(查看diff)1git show &amp;lt;commit id&amp;gt; --stat # --stat 可以不">
+<meta name="twitter:description" content="git log 是我们经常使用的git命令之一，它可以展示分支上的历史提交信息。但是除了 git log 这一个命令，其实它还为我们提供了更多的参数来从不同维度来展示我们需要的日志信息，包括展示格式、只看某个分支的日志，只看某个用户提交的日志，只看某个文件上的提交等等，有的时候，这些方法可以帮助我们快速地定位问题。">
 <meta name="twitter:image" content="http://champyin.com/images/git-log--format-with-color1.jpg">
 
 
@@ -417,7 +417,7 @@
                   
                 
                 <span title="Words count in article">
-                  1.4k
+                  1.6k
                 </span>
               
 
@@ -434,7 +434,7 @@
                   
                 
                 <span title="Reading time">
-                  5 min
+                  6 min
                 </span>
               
             </div>
@@ -455,7 +455,11 @@
       
 
       
-        <h3 id="n-查看最近那次的提交信息"><a href="#n-查看最近那次的提交信息" class="headerlink" title="-n 查看最近那次的提交信息"></a>-n 查看最近那次的提交信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log -2 //查看最近2次提交记录</span><br></pre></td></tr></table></figure>
+        <blockquote>
+<p>git log 是我们经常使用的git命令之一，它可以展示分支上的历史提交信息。但是除了 git log 这一个命令，其实它还为我们提供了更多的参数来从不同维度来展示我们需要的日志信息，包括展示格式、只看某个分支的日志，只看某个用户提交的日志，只看某个文件上的提交等等，有的时候，这些方法可以帮助我们快速地定位问题。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="n-查看最近那次的提交信息"><a href="#n-查看最近那次的提交信息" class="headerlink" title="-n 查看最近那次的提交信息"></a>-n 查看最近那次的提交信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log -2 //查看最近2次提交记录</span><br></pre></td></tr></table></figure>
 <h3 id="p-查看某个文件提交的diff"><a href="#p-查看某个文件提交的diff" class="headerlink" title="-p  查看某个文件提交的diff"></a>-p <filename> 查看某个文件提交的diff</filename></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log -p src/index.js</span><br></pre></td></tr></table></figure>
 <h3 id="–stat-查看提交的修改文件列表"><a href="#–stat-查看提交的修改文件列表" class="headerlink" title="–stat 查看提交的修改文件列表"></a>–stat 查看提交的修改文件列表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log -2 --stat # 查看最近两次提交的修改文件列表表</span><br></pre></td></tr></table></figure>
 <h3 id="查看某次提交的修改-查看diff"><a href="#查看某次提交的修改-查看diff" class="headerlink" title="查看某次提交的修改(查看diff)"></a>查看某次提交的修改(查看diff)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show &lt;commit id&gt; --stat # --stat 可以不加</span><br></pre></td></tr></table></figure>
@@ -464,7 +468,6 @@
 <h3 id="tagName-查询指定标签的提交记录"><a href="#tagName-查询指定标签的提交记录" class="headerlink" title="tagName 查询指定标签的提交记录"></a>tagName 查询指定标签的提交记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git log v1.0.. 查询从v1.0以后的提交历史记录(不包含v1.0) </span><br><span class="line">git log test..master 查询master分支中的提交记录但不包含test分支记录 </span><br><span class="line">git log master..test 查询test分支中的提交记录但不办含master分支记录 </span><br><span class="line">git log master…test 查询master或test分支中的提交记录。 </span><br><span class="line">git log test –not master　　屏蔽master分支</span><br></pre></td></tr></table></figure>
 <h3 id="根据-commit-id-或者-HEAD-查询日志"><a href="#根据-commit-id-或者-HEAD-查询日志" class="headerlink" title="根据 commit id 或者 HEAD 查询日志"></a>根据 commit id 或者 HEAD 查询日志</h3><p>commit id 可以是提交哈希的简写模式，也可以使用HEAD替代。HEAD指向当前分支，HEAD^为最后一个提交，等同于HEAD~1,HEAD~2代表倒数第二次提交<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log f52c471</span><br></pre></td></tr></table></figure></p>
 <h3 id="–pretty-按指定格式显示日志信息"><a href="#–pretty-按指定格式显示日志信息" class="headerlink" title="–pretty 按指定格式显示日志信息"></a>–pretty 按指定格式显示日志信息</h3><p>可选项有：</p>
-<a id="more"></a>
 <p><code>oneline</code>, <code>short</code>, <code>medium</code>, <code>full</code>, <code>fuller</code>, <code>email</code>, <code>raw</code>, <code>format</code><br>默认为medium，可以通过修改配置文件来指定默认的方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log (--pretty=)oneline</span><br></pre></td></tr></table></figure></p>
 <p>常见的 format 选项：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">选项  说明</span><br><span class="line">%H  提交对象（commit）的完整哈希字串 </span><br><span class="line">%h  提交对象的简短哈希字串 </span><br><span class="line">%T  树对象（tree）的完整哈希字串 </span><br><span class="line">%t  树对象的简短哈希字串 </span><br><span class="line">%P  父对象（parent）的完整哈希字串 </span><br><span class="line">%p  父对象的简短哈希字串 </span><br><span class="line">%an 作者（author）的名字 </span><br><span class="line">%ae 作者的电子邮件地址 </span><br><span class="line">%ad 作者修订日期（可以用 -date= 选项定制格式） </span><br><span class="line">%ar 作者修订日期，按多久以前的方式显示 </span><br><span class="line">%cn 提交者(committer)的名字 </span><br><span class="line">%ce 提交者的电子邮件地址 </span><br><span class="line">%cd 提交日期 </span><br><span class="line">%cr 提交日期，按多久以前的方式显示 </span><br><span class="line">%s  subject 提交说明</span><br><span class="line">%d  body</span><br></pre></td></tr></table></figure></p>
 <p>事例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git log --pretty=format:&quot;$h %cn %cr %s&quot;</span><br><span class="line">// 或者</span><br><span class="line">git log --format=&quot;$h %cn %cr %s&quot;</span><br></pre></td></tr></table></figure></p>
@@ -776,7 +779,7 @@
     
       
     
-    <span title="Site words total count">80.3k</span>
+    <span title="Site words total count">80.5k</span>
   
 </div>
 
