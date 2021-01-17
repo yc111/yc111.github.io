@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="在做项目过程中遇到图片请求失败的时候，图片区域会出现一个原生的碎片图标，非常影响用户体验。这时需要用一个 broken 的图片去代替它，来提升户体验。要做到这一点，首先要在代码中识别图片加载失败这个事情。那么怎么判断一个图片加载失败了呢？  在 js 中使用 onerror 事件javascript 给我们提供了一个 onerror 事件，img 标签支持该事件，当装载文档或者图像的过程中发生了">
+<meta name="description" content="在做项目过程中遇到图片请求失败的时候，图片区域会出现一个原生的碎片图标，非常影响用户体验。这时需要用一个 broken 的图片去代替它，来提升户体验。要做到这一点，首先要在代码中识别图片加载失败这个事情。那么怎么判断一个图片加载失败了呢？">
 <meta name="keywords" content="javascript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="js如何识别图片加载失败">
 <meta property="og:url" content="http://champyin.com/2018/11/26/js如何识别图片加载失败/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="在做项目过程中遇到图片请求失败的时候，图片区域会出现一个原生的碎片图标，非常影响用户体验。这时需要用一个 broken 的图片去代替它，来提升户体验。要做到这一点，首先要在代码中识别图片加载失败这个事情。那么怎么判断一个图片加载失败了呢？  在 js 中使用 onerror 事件javascript 给我们提供了一个 onerror 事件，img 标签支持该事件，当装载文档或者图像的过程中发生了">
+<meta property="og:description" content="在做项目过程中遇到图片请求失败的时候，图片区域会出现一个原生的碎片图标，非常影响用户体验。这时需要用一个 broken 的图片去代替它，来提升户体验。要做到这一点，首先要在代码中识别图片加载失败这个事情。那么怎么判断一个图片加载失败了呢？">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-11-25T17:12:00.000Z">
+<meta property="og:updated_time" content="2021-01-17T13:55:07.040Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js如何识别图片加载失败">
-<meta name="twitter:description" content="在做项目过程中遇到图片请求失败的时候，图片区域会出现一个原生的碎片图标，非常影响用户体验。这时需要用一个 broken 的图片去代替它，来提升户体验。要做到这一点，首先要在代码中识别图片加载失败这个事情。那么怎么判断一个图片加载失败了呢？  在 js 中使用 onerror 事件javascript 给我们提供了一个 onerror 事件，img 标签支持该事件，当装载文档或者图像的过程中发生了">
+<meta name="twitter:description" content="在做项目过程中遇到图片请求失败的时候，图片区域会出现一个原生的碎片图标，非常影响用户体验。这时需要用一个 broken 的图片去代替它，来提升户体验。要做到这一点，首先要在代码中识别图片加载失败这个事情。那么怎么判断一个图片加载失败了呢？">
 
 
 
@@ -443,9 +443,9 @@
         <blockquote>
 <p>在做项目过程中遇到图片请求失败的时候，图片区域会出现一个原生的碎片图标，非常影响用户体验。这时需要用一个 broken 的图片去代替它，来提升户体验。要做到这一点，首先要在代码中识别图片加载失败这个事情。那么怎么判断一个图片加载失败了呢？</p>
 </blockquote>
+<a id="more"></a>
 <h1 id="在-js-中使用-onerror-事件"><a href="#在-js-中使用-onerror-事件" class="headerlink" title="在 js 中使用 onerror 事件"></a>在 js 中使用 onerror 事件</h1><p>javascript 给我们提供了一个 <code>onerror</code> 事件，img 标签支持该事件，当装载文档或者图像的过程中发生了错误，就会触发 onerror 事件。<br>我们可以在这个事件中，定义要替换加载不出来的原图的 broken 图片。</p>
 <p>核心代码：</p>
-<a id="more"></a>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// html</span><br><span class="line">&lt;img src=&quot;img.png&quot; onerror=&quot;myfunction()&quot;&gt;</span><br><span class="line"></span><br><span class="line">// javascript</span><br><span class="line">myfunction() &#123;</span><br><span class="line">	this.src=&quot;default.png&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>注意：<br>如果 onerror 指定的图片也不存在的话，会出现无限死循环 404. 解决办法是在 js 中添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// javascript</span><br><span class="line">myfunction() &#123;</span><br><span class="line">	this.src=&quot;./default.png&quot;;</span><br><span class="line">	this.onerror = null; // 添加这个防止默认图片也不存在而陷入死循环</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
