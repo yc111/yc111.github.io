@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://champyin.com/images/git-log--format-with-color1.jpg">
 <meta property="og:image" content="http://champyin.com/images/git-log--format-with-color2.jpg">
 <meta property="og:image" content="http://champyin.com/images/git-log--format-with-color3.jpg">
-<meta property="og:updated_time" content="2021-02-14T18:05:54.885Z">
+<meta property="og:updated_time" content="2021-02-14T18:19:44.201Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git log高级使用">
 <meta name="twitter:description" content="git log 是我们经常使用的git命令之一，它可以展示分支上的历史提交信息。但是除了 git log 这一个命令，其实它还为我们提供了很多辅助的参数来从不同维度展示我们需要的日志信息，包括展示格式、只看某个分支的日志，只看某个用户提交的日志，只看某个文件上的提交等等，有的时候，这些方法可以帮助我们快速地定位问题。">
@@ -417,7 +417,7 @@
                   
                 
                 <span title="Words count in article">
-                  1.7k
+                  1.8k
                 </span>
               
 
@@ -434,7 +434,7 @@
                   
                 
                 <span title="Reading time">
-                  6 min
+                  7 min
                 </span>
               
             </div>
@@ -475,8 +475,8 @@
 </tr>
 <tr>
 <td>-p</td>
-<td>查看某个文件提交的diff</td>
-<td>git log -p src/index.js #显示某个文件每次提交的diff</td>
+<td>查看具体的修改diff</td>
+<td>git log -p src/index.js #显示某个文件每次提交的diff；git log -p commit-id #显示某次提交的diff</td>
 </tr>
 <tr>
 <td>–stat</td>
@@ -492,11 +492,6 @@
 <td>–filename</td>
 <td>查看指定文件的提交信息，文件名要放到参数的最后位置，通常在前面加上 <code>--</code> 并用空格隔开表示是文件。</td>
 <td>git log – file1 file2</td>
-</tr>
-<tr>
-<td>git show</td>
-<td>查看某次提交的修改(查看diff)</td>
-<td>git show <commit id=""> –stat #–stat 可以不加</commit></td>
 </tr>
 <tr>
 <td>branchname</td>
@@ -542,6 +537,32 @@
 </table>
 <h3 id="git-log-过滤分支"><a href="#git-log-过滤分支" class="headerlink" title="git log 过滤分支"></a>git log 过滤分支</h3><p>git log test..master 查询master分支中的提交记录但不包含test分支记录<br>git log master..test 查询test分支中的提交记录但不办含master分支记录<br>git log master…test 查询master或test分支中的提交记录。<br>git log test –not master 屏蔽master分支</p>
 <h3 id="根据-commit-id-或者-HEAD-查询日志"><a href="#根据-commit-id-或者-HEAD-查询日志" class="headerlink" title="根据 commit id 或者 HEAD 查询日志"></a>根据 commit id 或者 HEAD 查询日志</h3><p>commit id 可以是提交哈希的简写模式，也可以使用HEAD替代。HEAD指向当前分支，HEAD^为最后一个提交，等同于HEAD~1,HEAD~2代表倒数第二次提交<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git log f52c471</span><br><span class="line">git show f52c471 filename #只看某个条中某个文件的变化</span><br><span class="line">git show -s --pretty=raw f52c471 #查看某个提交</span><br></pre></td></tr></table></figure></p>
+<h3 id="git-其他查看某个文件修改历史的命令"><a href="#git-其他查看某个文件修改历史的命令" class="headerlink" title="git 其他查看某个文件修改历史的命令"></a>git 其他查看某个文件修改历史的命令</h3><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+<th>举例 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>show</td>
+<td>查看某次提交的修改(查看diff)</td>
+<td>git show <commit id=""> –stat #–stat 可以不加</commit></td>
+</tr>
+<tr>
+<td>blame</td>
+<td>显示文件的每一行是在哪个版本最后修改的</td>
+<td>git blame filename</td>
+</tr>
+<tr>
+<td>whatchanged</td>
+<td>显示某个文件的每个版本提交信息：提交日期、提交人员、版本号、提交备注</td>
+<td>git whatchanged filename</td>
+</tr>
+</tbody>
+</table>
 <h3 id="–pretty-按指定格式显示日志信息"><a href="#–pretty-按指定格式显示日志信息" class="headerlink" title="–pretty 按指定格式显示日志信息"></a>–pretty 按指定格式显示日志信息</h3><p>可选项有：</p>
 <p><code>oneline</code>, <code>short</code>, <code>medium</code>, <code>full</code>, <code>fuller</code>, <code>email</code>, <code>raw</code>, <code>format</code><br>默认为medium，可以通过修改配置文件来指定默认的方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log (--pretty=)oneline</span><br></pre></td></tr></table></figure></p>
 <p>常见的 format 选项：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">选项  说明</span><br><span class="line">%H  提交对象（commit）的完整哈希字串 </span><br><span class="line">%h  提交对象的简短哈希字串 </span><br><span class="line">%T  树对象（tree）的完整哈希字串 </span><br><span class="line">%t  树对象的简短哈希字串 </span><br><span class="line">%P  父对象（parent）的完整哈希字串 </span><br><span class="line">%p  父对象的简短哈希字串 </span><br><span class="line">%an 作者（author）的名字 </span><br><span class="line">%ae 作者的电子邮件地址 </span><br><span class="line">%ad 作者修订日期（可以用 -date= 选项定制格式） </span><br><span class="line">%ar 作者修订日期，按多久以前的方式显示 </span><br><span class="line">%cn 提交者(committer)的名字 </span><br><span class="line">%ce 提交者的电子邮件地址 </span><br><span class="line">%cd 提交日期 </span><br><span class="line">%cr 提交日期，按多久以前的方式显示 例如：1 day ago</span><br><span class="line">%ci 提交日期，按ISO 8601 格式显示 例如：2021-02-04 23:00:45 +0800</span><br><span class="line">%s  subject 提交说明</span><br><span class="line">%d  body</span><br></pre></td></tr></table></figure></p>
@@ -817,7 +838,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#git-log-选项"><span class="nav-text">git log 选项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#git-log-过滤分支"><span class="nav-text">git log 过滤分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据-commit-id-或者-HEAD-查询日志"><span class="nav-text">根据 commit id 或者 HEAD 查询日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–pretty-按指定格式显示日志信息"><span class="nav-text">–pretty 按指定格式显示日志信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义-git-log-–format-后输出内容的颜色"><span class="nav-text">自定义 git log –format 后输出内容的颜色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事例"><span class="nav-text">事例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义规则快捷键——别名"><span class="nav-text">自定义规则快捷键——别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–name-only-列出修改过-新增、修改、删除-的文件清单"><span class="nav-text">–name-only 列出修改过(新增、修改、删除)的文件清单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–name-status-列出修改过的文件和修改状态"><span class="nav-text">–name-status 列出修改过的文件和修改状态</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#git-log-选项"><span class="nav-text">git log 选项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#git-log-过滤分支"><span class="nav-text">git log 过滤分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据-commit-id-或者-HEAD-查询日志"><span class="nav-text">根据 commit id 或者 HEAD 查询日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-其他查看某个文件修改历史的命令"><span class="nav-text">git 其他查看某个文件修改历史的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–pretty-按指定格式显示日志信息"><span class="nav-text">–pretty 按指定格式显示日志信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义-git-log-–format-后输出内容的颜色"><span class="nav-text">自定义 git log –format 后输出内容的颜色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事例"><span class="nav-text">事例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义规则快捷键——别名"><span class="nav-text">自定义规则快捷键——别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–name-only-列出修改过-新增、修改、删除-的文件清单"><span class="nav-text">–name-only 列出修改过(新增、修改、删除)的文件清单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–name-status-列出修改过的文件和修改状态"><span class="nav-text">–name-status 列出修改过的文件和修改状态</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -851,7 +872,7 @@
     
       
     
-    <span title="Site words total count">81.7k</span>
+    <span title="Site words total count">81.8k</span>
   
 </div>
 
