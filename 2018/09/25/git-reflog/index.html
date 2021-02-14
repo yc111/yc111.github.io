@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="我们对 git log 应该很熟悉了，它是我们常用的用来查看提交记录的命令，而对另一个查看日志的命令 git reflog，可能就不那么熟悉了。我最近因为排查一个线上bug，定位到一段代码被注释掉了，从 log 日志上看，是在一次 merge 的过程中发生的，但因为 rebase 和 amend 等命令的存在，光看 log 有的时候是不可靠的，为了进一步确认该操作是如何发生的，我用到了 git">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-02-14T17:24:01.644Z">
+<meta property="og:updated_time" content="2021-02-14T17:29:48.498Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git reflog">
 <meta name="twitter:description" content="我们对 git log 应该很熟悉了，它是我们常用的用来查看提交记录的命令，而对另一个查看日志的命令 git reflog，可能就不那么熟悉了。我最近因为排查一个线上bug，定位到一段代码被注释掉了，从 log 日志上看，是在一次 merge 的过程中发生的，但因为 rebase 和 amend 等命令的存在，光看 log 有的时候是不可靠的，为了进一步确认该操作是如何发生的，我用到了 git">
@@ -456,10 +456,10 @@
 </blockquote>
 <h2 id="git-log-VS-git-reflog"><a href="#git-log-VS-git-reflog" class="headerlink" title="git log VS git reflog"></a>git log VS git reflog</h2><blockquote>
 <p>git log shows the current HEAD and its ancestry. That is, it prints the commit HEAD points to, then its parent, its parent, and so on. It traverses back through the repo’s ancestry, by recursively looking up each commit’s parent.</p>
-</blockquote>
 <p>(In practice, some commits have more than one parent. To see a more representative log, use a command like git log –oneline –graph –decorate.)</p>
 <p>git reflog doesn’t traverse HEAD’s ancestry at all. The reflog is an ordered list of the commits that HEAD has pointed to: it’s undo history for your repo. The reflog isn’t part of the repo itself (it’s stored separately to the commits themselves) and isn’t included in pushes, fetches or clones; it’s purely local.</p>
 <p>Aside: understanding the reflog means you can’t really lose data from your repo once it’s been committed. If you accidentally reset to an older commit, or rebase wrongly, or any other operation that visually “removes” commits, you can use the reflog to see where you were before and git reset –hard back to that ref to restore your previous state. Remember, refs imply not just the commit but the entire history behind it.</p>
+</blockquote>
 <p>git log 是显示当前的HEAD和他的祖先的，递归是沿着当前指针的父亲，父亲的父亲……这样的原则。</p>
 <p>git reflog 根本不遍历HEAD的祖先，他是HEAD所指向的一个顺序的提交列表。reflog并不是repo的一部分，它单独存储，而且不包含在pushes、fetches、或者clones里，它纯属是本地的。</p>
 <p>reflog查看的是所有的 HEAD 改变的记录，约等于记录用户操作行为。reflog 可以很好地帮助你恢复你误操作的数据，例如你错误地 reset 了一个旧的提交，或者 rebase 等等，这个时候想要查看在错误操作之前的信息，log就做不到了，而reflog可以。然后使用 git reset –hard 去恢复之前的状态。</p>
