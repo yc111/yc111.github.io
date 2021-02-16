@@ -2166,7 +2166,7 @@
                   
                 
                 <span title="Words count in article">
-                  1.1k
+                  1.2k
                 </span>
               
 
@@ -2218,6 +2218,10 @@
 <p>git log 是显示当前的HEAD和他的祖先的，递归是沿着当前指针的父亲，父亲的父亲……这样的原则。</p>
 <p>git reflog 根本不遍历HEAD的祖先，他是HEAD所指向的一个顺序的提交列表。reflog并不是repo的一部分，它单独存储，而且不包含在pushes、fetches、或者clones里，它纯属是本地的。</p>
 <p>reflog查看的是所有的 HEAD 改变的记录，约等于记录用户操作行为。reflog 可以很好地帮助你恢复你误操作的数据，例如你错误地 reset 了一个旧的提交，或者 rebase 等等，这个时候想要查看在错误操作之前的信息，log就做不到了，而reflog可以。然后使用 git reset –hard 去恢复之前的状态。</p>
+<p><a href="http://git-scm.com/docs/git-log" target="_blank" rel="noopener">git log</a> shows the commit log accessible from the refs (heads, tags, remotes)<br><a href="http://git-scm.com/docs/git-reflog" target="_blank" rel="noopener">git reflog</a> is a record of all commits that are or were referenced in your repo at any time.<br>That is why git reflog (a local recording which is pruned after 90 days by default) is used when you do a “destructive” operation (like deleting a branch), in order to get back the SHA1 that was referenced by that branch.<br>See <a href="http://git-scm.com/docs/git-config" target="_blank" rel="noopener">git config</a></p>
+<blockquote>
+<p>参考：<a href="https://stackoverflow.com/questions/17857723/whats-the-difference-between-git-reflog-and-log" target="_blank" rel="noopener">https://stackoverflow.com/questions/17857723/whats-the-difference-between-git-reflog-and-log</a></p>
+</blockquote>
 <h2 id="git-reflog-命令"><a href="#git-reflog-命令" class="headerlink" title="git reflog 命令"></a>git reflog 命令</h2><h3 id="git-的版本表示法"><a href="#git-的版本表示法" class="headerlink" title="git 的版本表示法"></a>git 的版本表示法</h3><blockquote>
 <p>HEAD@{2} means “where HEAD used to be two moves ago”, master@{one.week.ago}means “where master used to point to one week ago in this local repository”</p>
 </blockquote>
@@ -2412,7 +2416,7 @@
     
       
     
-    <span title="Site words total count">81.8k</span>
+    <span title="Site words total count">81.9k</span>
   
 </div>
 
