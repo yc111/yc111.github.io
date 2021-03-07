@@ -87,10 +87,12 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="最近的工作有用到SystemJS，在这里对SystemJS的理解做个总结和记录吧，备忘。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-03-07T17:51:43.151Z">
+<meta property="og:image" content="http://champyin.com/images/qianduanshouzha-gzh.png">
+<meta property="og:updated_time" content="2021-03-07T18:56:24.632Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SystemJS">
 <meta name="twitter:description" content="最近的工作有用到SystemJS，在这里对SystemJS的理解做个总结和记录吧，备忘。">
+<meta name="twitter:image" content="http://champyin.com/images/qianduanshouzha-gzh.png">
 
 
 
@@ -402,7 +404,7 @@
                   
                 
                 <span title="Words count in article">
-                  1.3k
+                  1.4k
                 </span>
               
 
@@ -472,7 +474,7 @@
 </li>
 <li><p>接着，引入模块的script也要修改type，由<code>module</code>改为<code>systemjs-module</code>。</p>
 <figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">- &lt;script type="module" src="./index.js"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="addition">+ &lt;script type="systemjs-module" src="./index.js"&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
-<p>除了使用<code>systemjs-module</code>我们还可以直接在script标签里<code>Syetem.import(&#39;./xxx.js&#39;);</code>（这种写法更常见）。</p>
+<p>除了使用<code>systemjs-module</code>我们还可以直接在script标签里<code>System.import(&#39;./xxx.js&#39;);</code>（这种写法更常见）。注意，模块导入是一个异步过程，返回的是一个Promise对象，可以配合then来使用。</p>
 </li>
 <li><p>然后，我们不能在模块中再使用import关键字了。<br>SystemJS维护它自己的js模块列表，与浏览器跟踪的js模块不一样，如果继续在浏览器使用import，浏览器识别它，并会去跟踪查明它到底是什么模块，而我们正在使用的是一个浏览器在未来才会支持的特性，所以浏览器会报错。所以我们要使用另一种只有SystemJS才能理解而不被浏览器去解析的语法System.register：</p>
 <figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">- import lodash from 'lodash';</span></span><br><span class="line"><span class="addition">+ System.register(['lodash'], (exports) =&gt; &#123;</span></span><br><span class="line"><span class="addition">+    return &#123;</span></span><br><span class="line"><span class="addition">+      setters: [</span></span><br><span class="line"><span class="addition">+        () =&gt; &#123;&#125;;</span></span><br><span class="line"><span class="addition">+      ],</span></span><br><span class="line"><span class="addition">+      execute() &#123;</span></span><br><span class="line"><span class="addition">+        console.log('test');</span></span><br><span class="line"><span class="addition">+        exports(&#123;_: lodash&#125;);</span></span><br><span class="line"><span class="addition">+      &#125;)</span></span><br><span class="line"><span class="addition">+    &#125;</span></span><br><span class="line"><span class="addition">+  &#125;</span></span><br><span class="line"><span class="addition">+ &#125;)</span></span><br></pre></td></tr></table></figure>
@@ -493,6 +495,9 @@
 <blockquote>
 <p>更多SystemJS错误可参考：<a href="https://github.com/systemjs/systemjs/blob/master/docs/errors.md#8" target="_blank" rel="noopener">https://github.com/systemjs/systemjs/blob/master/docs/errors.md#8</a></p>
 </blockquote>
+<p><br></p>
+<p>文章同时发表于公众号「前端手札」，喜欢的话可以关注一下哦。</p>
+<p><img src="/images/qianduanshouzha-gzh.png" alt="qianduanshouzha-gzh.png"></p>
 
       
     </div>
