@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="npm install 可以把发布在 npmjs 平台上的模块包下载到本地，npm install -g 可以把包下下来的同时，还帮我们配置好全局变量，让我们可以直接使用命令而不是通过 node 来执行或者配置 package.json 的 script 脚本来 run。 但这仅限于已经发布的包，那对于未发布的包，要怎么测试使用呢？难道要把一个未经测试的包发布上去然后 install 下来测试？">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-03-11T13:07:15.259Z">
+<meta property="og:updated_time" content="2021-03-11T13:16:47.373Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="npm link详解">
 <meta name="twitter:description" content="npm install 可以把发布在 npmjs 平台上的模块包下载到本地，npm install -g 可以把包下下来的同时，还帮我们配置好全局变量，让我们可以直接使用命令而不是通过 node 来执行或者配置 package.json 的 script 脚本来 run。 但这仅限于已经发布的包，那对于未发布的包，要怎么测试使用呢？难道要把一个未经测试的包发布上去然后 install 下来测试？">
@@ -413,7 +413,7 @@
                   
                 
                 <span title="Words count in article">
-                  852
+                  856
                 </span>
               
 
@@ -463,17 +463,17 @@
 <h3 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd your-project-dir</span><br><span class="line">npm link</span><br></pre></td></tr></table></figure>
 <p>然后会看到输出类似如下的链接信息，说明成功。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/bin/yourpakagename -&gt; /usr/local/lib/node_modules/yourpackagename/xxx</span><br><span class="line">/usr/local/lib/node_modules/yourpackagename/xxx -&gt; /Users/username/Documents/xxx(your real project path)</span><br></pre></td></tr></table></figure></p>
 <h4 id="全局link"><a href="#全局link" class="headerlink" title="全局link"></a>全局link</h4><p>测试 node 环境下运行的包时，需要使用全局 link​。​并且做<code>npm link</code>之前，需要在 <code>package.json</code> 里配置 <code>bin</code> 字段。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># package.json</span><br><span class="line">&quot;bin&quot; : &#123;  </span><br><span class="line">	&quot;your-command-name&quot;: &quot;./path-to/your-command-entry-file&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>然后再在当前目录下运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm link</span><br></pre></td></tr></table></figure></p>
+<p>然后再在当前目录下进行link<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd your-command-module</span><br><span class="line">npm link</span><br></pre></td></tr></table></figure></p>
 <p>成功后，就可以直接在终端执行全局命令 <code>your-command-name</code> 了。</p>
 <h4 id="link到项目"><a href="#link到项目" class="headerlink" title="link到项目"></a>link到项目</h4><p>如果是测试前端包，跑在浏览器环境的，比如 UI 组件库，有两种情况：</p>
 <ul>
 <li><p>当项目和模块在同一个目录下，可以使用相对路径，只需要link一次</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm link ../xx-module</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>当项目和模块不在同一个目录下，那需要做两次 link。<br>先进入待测试组件库目录，将开发的包 link 到全局：</p>
+<li><p>当项目和模块不在同一个目录下，那需要做两次 link。<br>先进入待测试组件库目录，将组件库 link 到全局：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd your-ui-lib</span><br><span class="line">npm link</span><br></pre></td></tr></table></figure>
 <p>之后，再进入要使用该组件库的工程，然后在工程中 link 这个组件库：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm link your-ui-lib</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd your-project</span><br><span class="line">npm link your-ui-lib</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>现在你就可以在你的工程中使用这个 ui 组件库，就好像这个 ui 库被 install 到工程中一样。</p>
