@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="—— CommonJs">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-04-05T20:18:30.325Z">
+<meta property="og:updated_time" content="2021-04-05T20:19:38.725Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="彻底弄懂前端模块化（二）">
 <meta name="twitter:description" content="—— CommonJs">
@@ -464,7 +464,7 @@
 <li>NodeJS 的模块规范： <a href="http://nodejs.org/api/modules.html" target="_blank" rel="noopener">Modules</a> </li>
 </ul>
 <h2 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// m1.js</span></span><br><span class="line"><span class="keyword">var</span> m = <span class="built_in">require</span>(<span class="string">'./m2'</span>);</span><br><span class="line">p.say(<span class="string">'hi'</span>);</span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// m2.js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_say</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(str);</span><br><span class="line">&#125;</span><br><span class="line">exports.say = _say; <span class="comment">// 或者 module.exports = &#123;say: _say&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// m2.js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_say</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(str);</span><br><span class="line">&#125;</span><br><span class="line">exports.say = _say; <span class="comment">// 或者 module.exports = &#123;say: _say&#125;</span></span><br></pre></td></tr></table></figure>
 <h2 id="主流的实现"><a href="#主流的实现" class="headerlink" title="主流的实现"></a>主流的实现</h2><p>CommonJs的主流实现有 node.js、webpack、babel 等。</p>
 <h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
 <li>在 Node.js 中模块加载的方式是同步的，因为在服务器端所有文件都存储在本地的硬盘上，传输速率快而且稳定。</li>
