@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="模块化,javascript," />
 
 
 
@@ -79,14 +79,18 @@
 
 
 
+<meta name="description" content="—— CommonJs">
+<meta name="keywords" content="模块化,javascript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="彻底弄懂前端模块化（二）">
 <meta property="og:url" content="http://champyin.com/2021/03/29/彻底弄懂前端模块化（二）/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
+<meta property="og:description" content="—— CommonJs">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-03-28T18:30:55.847Z">
+<meta property="og:updated_time" content="2021-04-05T20:18:30.325Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="彻底弄懂前端模块化（二）">
+<meta name="twitter:description" content="—— CommonJs">
 
 
 
@@ -343,6 +347,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端技术/" itemprop="url" rel="index">
+                    <span itemprop="name">前端技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -376,7 +402,7 @@
                   
                 
                 <span title="Words count in article">
-                  0
+                  1k
                 </span>
               
 
@@ -393,7 +419,7 @@
                   
                 
                 <span title="Reading time">
-                  1 min
+                  3 min
                 </span>
               
             </div>
@@ -414,7 +440,49 @@
       
 
       
-        
+        <blockquote>
+<p>—— CommonJs</p>
+</blockquote>
+<a id="more"></a>
+<blockquote>
+<p><a href="https://champyin.com/2021/03/22/%E5%BD%BB%E5%BA%95%E5%BC%84%E6%87%82%E5%89%8D%E7%AB%AF%E6%A8%A1%E5%9D%97%E5%8C%96%EF%BC%88%E4%B8%80%EF%BC%89/">上篇</a>提到，在ES6没有出来之前，Javascript 自身是不支持模块化开发的，不过得益于社区的努力，我们仍然可以享受模块化开发的体验，只是在进行模块化开发时需要遵循特定的模块化规范。</p>
+</blockquote>
+<h1 id="一、什么是模块化规范"><a href="#一、什么是模块化规范" class="headerlink" title="一、什么是模块化规范"></a>一、什么是模块化规范</h1><p>模块化规范，也就是模块定义规范（Module Definition Specification），是对模块代码书写格式和交互(模块间的互相引用)规则的详细描述。</p>
+<p>我们熟知的 CommonJS、AMD、CMD 就是三个比较主流的第三方（即来自社区的）模块化规范。ES6中的模块化是ECMA标准，目前只有部分高版本的浏览器实现了ESmodule的支持，但是这是未来的模块化趋势。</p>
+<h1 id="CommonJs"><a href="#CommonJs" class="headerlink" title="CommonJs"></a>CommonJs</h1><p>CommonJs 原来叫做 ServerJS，是 Mozilla 的工程师在2009年发起的一个项目。这个项目的目的是让浏览器端之外（比如服务器端或者桌面端）使用 JavaScript 语言开发的项目能够通过模块化的方式来开发和协作。</p>
+<p>当 ServerJS 推出的 <a href="http://wiki.commonjs.org/wiki/Modules/1.0" target="_blank" rel="noopener">Modules 1.0 规范</a> 在 Node.js 等环境下取得了很不错的实践后，Mozilla 的工程师们想把 ServerJS 的成功经验进一步推广到浏览器端，于是在2009年下半年，社区改名为 CommonJs。</p>
+<h2 id="规范要求"><a href="#规范要求" class="headerlink" title="规范要求"></a>规范要求</h2><p>简单地说，CommonJs规定：</p>
+<ul>
+<li>一个模块就是一个文件</li>
+<li>每个模块内有两个变量可以使用：require 和 module</li>
+<li>通过<code>require</code>加载模块</li>
+<li>通过<code>module.exports</code>或者<code>exports</code>导出模块（为了方便，Node.js 在实现 CommonJS 规范时，为每个模块提供一个 exports 的私有变量，指向 module.exports）</li>
+</ul>
+<p>具体详细的规范内容可以在官方网站查看：</p>
+<ul>
+<li>CommonJS 社区规范： <a href="http://wiki.commonjs.org/wiki/Modules/1.1.1" target="_blank" rel="noopener">Modules 1.1.1</a> </li>
+<li>NodeJS 的模块规范： <a href="http://nodejs.org/api/modules.html" target="_blank" rel="noopener">Modules</a> </li>
+</ul>
+<h2 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// m1.js</span></span><br><span class="line"><span class="keyword">var</span> m = <span class="built_in">require</span>(<span class="string">'./m2'</span>);</span><br><span class="line">p.say(<span class="string">'hi'</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// m2.js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_say</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(str);</span><br><span class="line">&#125;</span><br><span class="line">exports.say = _say; <span class="comment">// 或者 module.exports = &#123;say: _say&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="主流的实现"><a href="#主流的实现" class="headerlink" title="主流的实现"></a>主流的实现</h2><p>CommonJs的主流实现有 node.js、webpack、babel 等。</p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
+<li>在 Node.js 中模块加载的方式是同步的，因为在服务器端所有文件都存储在本地的硬盘上，传输速率快而且稳定。</li>
+<li>CommonJS 模块输出的值，对于基本数据类型，是复制，对于复杂数据类型，是浅拷贝。</li>
+<li>CommonJS 模块输出的是值的缓存，不存在动态更新，当使用require命令加载某个模块时，就会运行整个模块的代码,然后在内存生成一个对象。Require 命令加载同一个模块，不会再执行，而是取缓存之中的值。即，commonjs模块无论加载多少次，都只会在第一次加载的时候运行一次，以后再加载，就返回第一次运行的结果。除非手动清除系统缓存。</li>
+<li>Requirejs循环加载时候，属于加载时执行。即脚本在require的时候，就会全部执行。一旦出现某个模块<br>被循环加载，就只输出已经执行的部分，还未执行的部分不会输出。</li>
+<li>Require是动态加载，这意味着require语句可写在任何位置，同时也意味着commonjs模块只能在运行时才能确定模块的依赖关系。</li>
+</ul>
+<h2 id="核心实现逻辑"><a href="#核心实现逻辑" class="headerlink" title="核心实现逻辑"></a>核心实现逻辑</h2><ol>
+<li>解析模块路径</li>
+<li>同步从本地读取模块文件内容，得到文本字符串</li>
+<li>将字符串包裹成自执行函数的前半部分</li>
+<li>使用vm沙箱将字符串转换成函数（vm是node.js的虚拟沙箱模块，vm.runInThisContext方法可以接受一个字符串，并将它转换成一个函数返回）</li>
+<li>执行函数（将关键变量传入进去：<code>exports、require、module、__filename、__dirname</code>）</li>
+</ol>
+<p>–</p>
+<p>参考：<br><a href="http://www.commonjs.org/history/" target="_blank" rel="noopener">http://www.commonjs.org/history/</a><br><a href="http://wiki.commonjs.org/wiki/Modules" target="_blank" rel="noopener">http://wiki.commonjs.org/wiki/Modules</a><br><a href="https://github.com/amdjs/amdjs-api/wiki/AMD" target="_blank" rel="noopener">https://github.com/amdjs/amdjs-api/wiki/AMD</a><br><a href="https://groups.google.com/g/amd-implement" target="_blank" rel="noopener">https://groups.google.com/g/amd-implement</a><br><a href="https://github.com/seajs/seajs/issues/588" target="_blank" rel="noopener">https://github.com/seajs/seajs/issues/588</a><br><a href="https://code.google.com/p/bravojs/" target="_blank" rel="noopener">https://code.google.com/p/bravojs/</a><br><a href="https://262.ecma-international.org/7.0/#sec-modules" target="_blank" rel="noopener">https://262.ecma-international.org/7.0/#sec-modules</a><br><a href="https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/" target="_blank" rel="noopener">https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/</a></p>
+
       
     </div>
     
@@ -446,6 +514,14 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/模块化/" rel="tag"># 模块化</a>
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+        </div>
       
 
       
@@ -521,8 +597,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -609,6 +694,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、什么是模块化规范"><span class="nav-text">一、什么是模块化规范</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CommonJs"><span class="nav-text">CommonJs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#规范要求"><span class="nav-text">规范要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用示例"><span class="nav-text">使用示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主流的实现"><span class="nav-text">主流的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特点"><span class="nav-text">特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核心实现逻辑"><span class="nav-text">核心实现逻辑</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -636,7 +737,7 @@
     
       
     
-    <span title="Site words total count">84.7k</span>
+    <span title="Site words total count">85.7k</span>
   
 </div>
 
