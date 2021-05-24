@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="如果你在使用 git 进行多人协作的代码管理，合并代码（ git merge ）的操作你一定不陌生。 git merge ，它会将指定分支的所有提交历史合并到当前所在的分支，它的合并单位是“分支”。但有的时候，我只想取某个分支的某几个提交的内容来合并。 比如我就遇到了这种情况：在一个项目中，由于需求的拆分，多人同时在一个分支中开发各自负责的需求（我知道你们要吐槽我们的研发模式，但这是有原因的这是">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-05-23T07:58:01.371Z">
+<meta property="og:updated_time" content="2021-05-24T16:14:20.364Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git之cherry-pick">
 <meta name="twitter:description" content="如果你在使用 git 进行多人协作的代码管理，合并代码（ git merge ）的操作你一定不陌生。 git merge ，它会将指定分支的所有提交历史合并到当前所在的分支，它的合并单位是“分支”。但有的时候，我只想取某个分支的某几个提交的内容来合并。 比如我就遇到了这种情况：在一个项目中，由于需求的拆分，多人同时在一个分支中开发各自负责的需求（我知道你们要吐槽我们的研发模式，但这是有原因的这是">
@@ -477,6 +477,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git cherry-pick &lt;start-commitHash&gt;^..&lt;end-commitHash&gt;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<p>注：连续的提交命令中，start-commitHash 一定要是 end-commitHash 之前的提交，否则命令将会失败，但不会报错。</p>
 <h3 id="3-转移最顶端的提交"><a href="#3-转移最顶端的提交" class="headerlink" title="3. 转移最顶端的提交"></a>3. 转移最顶端的提交</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git cherry-pick &lt;branchName&gt;</span><br></pre></td></tr></table></figure>
 <p>会将指定分支的最后一次提交应用到当前分支。</p>
 <h3 id="4-转移另一个代码库的提交"><a href="#4-转移另一个代码库的提交" class="headerlink" title="4. 转移另一个代码库的提交"></a>4. 转移另一个代码库的提交</h3><p>其实 cherry-pick 的奥义就是，只要是在一个.git仓库管理下的本地代码，任何提交都可以被应用到任何可访问的本地分支，哪怕是跨代码库：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git remote add repo2 git@xxx.git # 添加另一个代码库</span><br><span class="line">git fetch repo2 # 抓取新代码库到本地</span><br><span class="line">git log repo2/master # 查看新代码库master分支的提交记录</span><br><span class="line">git cherry-pick &lt;commitHashInRepo2&gt; # 将新的代码库的某个提交应用到当前分支（跨代码库的合并）</span><br></pre></td></tr></table></figure></p>
@@ -759,7 +760,7 @@
     
       
     
-    <span title="Site words total count">87.8k</span>
+    <span title="Site words total count">87.9k</span>
   
 </div>
 
