@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="如果你在使用 git 进行多人协作的代码管理，合并代码（ git merge ）的操作你一定不陌生。 git merge ，它会将指定分支的所有提交历史合并到当前所在的分支，它的合并单位是“分支”。但有的时候，我只想取某个分支的某几个提交的内容来合并。 比如我就遇到了这种情况：在一个项目中，由于需求的拆分，多人同时在一个分支中开发各自负责的需求（我知道你们要吐槽我们的研发模式，但这是有原因的这是">
+<meta name="description" content="如果你在使用 git 进行多人协作的代码管理，合并代码（ git merge ）的操作你一定不陌生。 git merge ，它会将指定分支的所有提交历史合并到当前所在的分支，它的合并单位是“分支”。但有的时候，我只想取某个分支的某几个提交的内容来合并。 遇到类似这种操作需求，我们可以使用 cherry-pick 命令，它是以“提交”为单位的合并，可以帮助你安全快速地达到目的。">
 <meta name="keywords" content="git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git之cherry-pick">
 <meta property="og:url" content="http://champyin.com/2021/05/23/Git之cherry-pick/index.html">
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
-<meta property="og:description" content="如果你在使用 git 进行多人协作的代码管理，合并代码（ git merge ）的操作你一定不陌生。 git merge ，它会将指定分支的所有提交历史合并到当前所在的分支，它的合并单位是“分支”。但有的时候，我只想取某个分支的某几个提交的内容来合并。 比如我就遇到了这种情况：在一个项目中，由于需求的拆分，多人同时在一个分支中开发各自负责的需求（我知道你们要吐槽我们的研发模式，但这是有原因的这是">
+<meta property="og:description" content="如果你在使用 git 进行多人协作的代码管理，合并代码（ git merge ）的操作你一定不陌生。 git merge ，它会将指定分支的所有提交历史合并到当前所在的分支，它的合并单位是“分支”。但有的时候，我只想取某个分支的某几个提交的内容来合并。 遇到类似这种操作需求，我们可以使用 cherry-pick 命令，它是以“提交”为单位的合并，可以帮助你安全快速地达到目的。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-05-24T16:14:20.364Z">
+<meta property="og:updated_time" content="2021-05-29T17:59:28.154Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git之cherry-pick">
-<meta name="twitter:description" content="如果你在使用 git 进行多人协作的代码管理，合并代码（ git merge ）的操作你一定不陌生。 git merge ，它会将指定分支的所有提交历史合并到当前所在的分支，它的合并单位是“分支”。但有的时候，我只想取某个分支的某几个提交的内容来合并。 比如我就遇到了这种情况：在一个项目中，由于需求的拆分，多人同时在一个分支中开发各自负责的需求（我知道你们要吐槽我们的研发模式，但这是有原因的这是">
+<meta name="twitter:description" content="如果你在使用 git 进行多人协作的代码管理，合并代码（ git merge ）的操作你一定不陌生。 git merge ，它会将指定分支的所有提交历史合并到当前所在的分支，它的合并单位是“分支”。但有的时候，我只想取某个分支的某几个提交的内容来合并。 遇到类似这种操作需求，我们可以使用 cherry-pick 命令，它是以“提交”为单位的合并，可以帮助你安全快速地达到目的。">
 
 
 
@@ -413,7 +413,7 @@
                   
                 
                 <span title="Words count in article">
-                  1.4k
+                  1.3k
                 </span>
               
 
@@ -453,8 +453,7 @@
       
         <blockquote>
 <p>如果你在使用 git 进行多人协作的代码管理，合并代码（ git merge ）的操作你一定不陌生。 git merge ，它会将指定分支的所有提交历史合并到当前所在的分支，它的合并单位是“分支”。但有的时候，我只想取某个分支的某几个提交的内容来合并。</p>
-<p>比如我就遇到了这种情况：在一个项目中，由于需求的拆分，多人同时在一个分支中开发各自负责的需求（我知道你们要吐槽我们的研发模式，但这是有原因的这是另一个话题这里暂时不提），但是在上线前，发现某个需求达不到验收要求，该需求要延迟发布，但其他需求仍按期发布。这意味着我们要快速建起另一个发布分支，将目前分支中属于发布需求范围的那部分代码剥离过来。</p>
-<p>遇到类似这种操作需求，给大家安利 cherry-pick 命令，它是以“提交”为单位的合并，可以帮助你安全快速地达到目的。</p>
+<p>遇到类似这种操作需求，我们可以使用 cherry-pick 命令，它是以“提交”为单位的合并，可以帮助你安全快速地达到目的。</p>
 </blockquote>
 <a id="more"></a>
 <h2 id="cherry-pick-命令官方介绍"><a href="#cherry-pick-命令官方介绍" class="headerlink" title="cherry-pick 命令官方介绍"></a>cherry-pick 命令官方介绍</h2><p><a href="https://git-scm.com/docs/git-cherry-pick" target="_blank" rel="noopener">git-cherry-pick</a> 它可以在当前分支应用其他已经存在的 commit 修改，并对每一个合并过来的 commit 产生一个新的提交记录（commit hash）。</p>
@@ -503,8 +502,9 @@
 <p>一般1号父分支是接受变动分支（the branch being merged into），2号父分支是作为变动来源的分支（the branch being merged from)。</p>
 </li>
 </ul>
-<h2 id="使用-cherry-pick-的好处"><a href="#使用-cherry-pick-的好处" class="headerlink" title="使用 cherry-pick 的好处"></a>使用 cherry-pick 的好处</h2><p>再回到我在开头提到的那个场景，遇到这种情况，很多人的第一想法，可能是通过人肉比对，手动把代码从一个分支拷贝出来，然后粘贴到另一个分支去提交。在需要合并代码的场景下，不管是分支级别还是提交级别，我的建议是能不手动拷贝就不手动，工作量不小不说，还风险极大，而且出了问题还不容易排查。</p>
-<p>再次推荐大家使用 cherry-pick 命令来完成不同分支之间的部分合并操作，因为不仅能提高效率，而且由于它是以 commit 为单位的合并，过程清晰，将来追溯问题更容易。</p>
+<h2 id="使用-cherry-pick-的好处"><a href="#使用-cherry-pick-的好处" class="headerlink" title="使用 cherry-pick 的好处"></a>使用 cherry-pick 的好处</h2><p>在一个项目中，经常会遇到这种情况：由于需求的拆分，多人同时在一个分支中开发各自负责的需求，但是在上线前，如果发现某个需求达不到验收要求，要单独延迟发布，这意味着需要我们快速建立另一个发布分支，将目前分支中属于发布需求范围的那部分代码剥离过去。</p>
+<p>很多人面临这样的状况，的第一想法可能是通过人肉比对，手动把代码从一个分支拷贝出来，然后粘贴到另一个分支去提交。我的建议是，不管是分支级别还是提交级别，只要需要合并代码，能不手动拷贝就不手动，工作量不小不说，还风险极大，一旦出了问题还不容易排查。</p>
+<p>再次推荐 cherry-pick 这个命令，用来完成不同分支之间的部分合并操作太香了，不仅能提高效率，而且由于它是以 commit 为单位的合并，过程清晰，将来追溯问题更容易。</p>
 <p>– GoodLuck</p>
 <p>参考：<br><a href="https://git-scm.com/docs/git-cherry-pick" target="_blank" rel="noopener">https://git-scm.com/docs/git-cherry-pick</a><br><a href="http://www.ruanyifeng.com/blog/2020/04/git-cherry-pick.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2020/04/git-cherry-pick.html</a></p>
 
@@ -760,7 +760,7 @@
     
       
     
-    <span title="Site words total count">87.9k</span>
+    <span title="Site words total count">87.8k</span>
   
 </div>
 
