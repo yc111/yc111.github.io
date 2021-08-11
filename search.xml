@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[git如何删除分支上的某次提交]]></title>
     <url>%2F2021%2F08%2F01%2Fgit%E5%A6%82%E4%BD%95%E5%88%A0%E9%99%A4%E5%88%86%E6%94%AF%E4%B8%8A%E7%9A%84%E6%9F%90%E6%AC%A1%E6%8F%90%E4%BA%A4%2F</url>
-    <content type="text"><![CDATA[上篇文章说到，如果想从其他分支取某（几）个提交来合并，可以使用 cherry-pick 命令，那么如果这个分支想剔除这几个被 cherry-pick 出去的提交呢？这就要用到 git 中另一个强大的命令：rebase。 git rebaserebase 命令可以改写某个提交之后的所有提交记录。 如何删除分支上某次提交1. 找到要删除的提交的 commit hash1git log --oneline 假设要删除的 commit hash 为 A 和 B， A 早于 B。 2. 执行 rebase -i “commit hash”^ 进入编辑界面注意后面的^符号不能少，这样就可以看到包括提交A的前面的所有提交。1git rebase -i A^ 3. 标记要删除的提交为 drop 或者 d在 vi 编辑器里，将 A 和 B 的前面的 pick 改为 drop 或者 d。 4. Esc + wq 退出 vi 编辑界面5. 执行 rebase –continue 完成 rebase1git rebase --continue 冲突处理在 git rebase --continue 这个过程中，如果有代码冲突，会暂时中断 rebase，我们处理好冲突后，执行 git add 把处理好的冲突文件添加进来，然后执行 git rebase --contine，循环往复直到从 A 到最新的提交都 reabase 完。 最后，可以使用 git log 命令检查一下 A 和 B 是否已经从该分支历史提交中剔除了。 done。]]></content>
+    <content type="text"><![CDATA[上篇文章说到，如果想从其他分支取某（几）个提交来合并，可以使用 cherry-pick 命令，那么如果这个分支想剔除这几个被 cherry-pick 出去的提交呢？这就要用到 git 中另一个强大的命令：rebase。 git rebaserebase 命令可以改写某个提交之后的所有提交记录。 如何删除分支上某次提交1. 找到要删除的提交的 commit hash1git log --oneline 假设要删除的 commit hash 为 A 和 B， A 早于 B。 2. 执行 rebase -i “commit hash”^ 进入编辑界面注意后面的^符号不能少，这样就可以看到包括提交A的前面的所有提交。1git rebase -i A^ 3. 标记要删除的提交为 drop 或者 d在 vi 编辑器里，将 A 和 B 的前面的 pick 改为 drop 或者 d。 4. Esc + wq 退出 vi 编辑界面5. 执行 rebase –continue 完成 rebase1git rebase --continue 冲突处理在 git rebase --continue 这个过程中，如果有代码冲突，会暂时中断 rebase，我们处理好冲突后，执行 git add 把处理好的冲突文件添加进来，然后再执行 git rebase --contine，循环往复直到从 A 到最新的提交都 reabase 完。 最后，可以使用 git log 命令检查一下 A 和 B 是否已经从该分支历史提交中剔除了。 done。]]></content>
       <categories>
         <category>工具</category>
         <category>Git</category>

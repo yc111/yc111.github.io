@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="上篇文章说到，如果想从其他分支取某（几）个提交来合并，可以使用 cherry-pick 命令，那么如果这个分支想剔除这几个被 cherry-pick 出去的提交呢？这就要用到 git 中另一个强大的命令：rebase。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-08-11T17:43:20.487Z">
+<meta property="og:updated_time" content="2021-08-11T17:45:49.048Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git如何删除分支上的某次提交">
 <meta name="twitter:description" content="上篇文章说到，如果想从其他分支取某（几）个提交来合并，可以使用 cherry-pick 命令，那么如果这个分支想剔除这几个被 cherry-pick 出去的提交呢？这就要用到 git 中另一个强大的命令：rebase。">
@@ -413,7 +413,7 @@
                   
                 
                 <span title="Words count in article">
-                  343
+                  344
                 </span>
               
 
@@ -461,7 +461,7 @@
 <h2 id="2-执行-rebase-i-“commit-hash”-进入编辑界面"><a href="#2-执行-rebase-i-“commit-hash”-进入编辑界面" class="headerlink" title="2. 执行 rebase -i “commit hash”^ 进入编辑界面"></a>2. 执行 rebase -i “commit hash”^ 进入编辑界面</h2><p>注意后面的^符号不能少，这样就可以看到包括提交A的前面的所有提交。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase -i A^</span><br></pre></td></tr></table></figure></p>
 <h2 id="3-标记要删除的提交为-drop-或者-d"><a href="#3-标记要删除的提交为-drop-或者-d" class="headerlink" title="3. 标记要删除的提交为 drop 或者 d"></a>3. 标记要删除的提交为 drop 或者 d</h2><p>在 vi 编辑器里，将 A 和 B 的前面的 pick 改为 drop 或者 d。</p>
 <h2 id="4-Esc-wq-退出-vi-编辑界面"><a href="#4-Esc-wq-退出-vi-编辑界面" class="headerlink" title="4. Esc + wq 退出 vi 编辑界面"></a>4. Esc + wq 退出 vi 编辑界面</h2><h2 id="5-执行-rebase-–continue-完成-rebase"><a href="#5-执行-rebase-–continue-完成-rebase" class="headerlink" title="5. 执行 rebase –continue 完成 rebase"></a>5. 执行 rebase –continue 完成 rebase</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase --continue</span><br></pre></td></tr></table></figure>
-<h1 id="冲突处理"><a href="#冲突处理" class="headerlink" title="冲突处理"></a>冲突处理</h1><p>在 <code>git rebase --continue</code> 这个过程中，如果有代码冲突，会暂时中断 rebase，<br>我们处理好冲突后，执行 <code>git add</code> 把处理好的冲突文件添加进来，<br>然后执行 <code>git rebase --contine</code>，<br>循环往复直到从 A 到最新的提交都 reabase 完。</p>
+<h1 id="冲突处理"><a href="#冲突处理" class="headerlink" title="冲突处理"></a>冲突处理</h1><p>在 <code>git rebase --continue</code> 这个过程中，如果有代码冲突，会暂时中断 rebase，<br>我们处理好冲突后，执行 <code>git add</code> 把处理好的冲突文件添加进来，<br>然后再执行 <code>git rebase --contine</code>，<br>循环往复直到从 A 到最新的提交都 reabase 完。</p>
 <p>最后，可以使用 git log 命令检查一下 A 和 B 是否已经从该分支历史提交中剔除了。</p>
 <p>done。</p>
 
