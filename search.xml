@@ -552,8 +552,8 @@
         <category>Intergration</category>
       </categories>
       <tags>
-        <tag>mac</tag>
         <tag>node</tag>
+        <tag>mac</tag>
         <tag>n</tag>
       </tags>
   </entry>
@@ -895,8 +895,8 @@
         <category>博客搭建</category>
       </categories>
       <tags>
-        <tag>domain</tag>
         <tag>hexo</tag>
+        <tag>domain</tag>
         <tag>DNS</tag>
       </tags>
   </entry>
@@ -1224,8 +1224,8 @@
         <category>GitLab</category>
       </categories>
       <tags>
-        <tag>git</tag>
         <tag>full stack</tag>
+        <tag>git</tag>
         <tag>gitlab</tag>
       </tags>
   </entry>
