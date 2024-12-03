@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="ChampYin&#39;s Blog">
 <meta property="og:description" content="git 常用命令记录。（持续更新）">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-25T13:05:29.009Z">
+<meta property="og:updated_time" content="2024-12-03T09:10:36.676Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git常用命令">
 <meta name="twitter:description" content="git 常用命令记录。（持续更新）">
@@ -430,7 +430,7 @@
                   
                 
                 <span title="Reading time">
-                  6 min
+                  7 min
                 </span>
               
             </div>
@@ -463,7 +463,7 @@
 <p>查看全局用户属性:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.name</span><br><span class="line">git config user.email</span><br></pre></td></tr></table></figure></p>
 <p>如何知道本地有没有设置属性：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --local --list</span><br></pre></td></tr></table></figure></p>
 <p>如何设置本地属性：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.name &quot;champyin002&quot;</span><br><span class="line">gut config user.email &quot;champyin002@163.com&quot;</span><br></pre></td></tr></table></figure></p>
-<h3 id="3-远程仓库设置"><a href="#3-远程仓库设置" class="headerlink" title="3. 远程仓库设置"></a>3. 远程仓库设置</h3><p>克隆远程仓库到本地<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;remote-repo-url&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-远程仓库管理"><a href="#3-远程仓库管理" class="headerlink" title="3. 远程仓库管理"></a>3. 远程仓库管理</h3><p>克隆远程仓库到本地<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;remote-repo-url&gt;</span><br></pre></td></tr></table></figure></p>
 <p>查看当前配置有哪些远程仓库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote </span><br><span class="line">git remote -v</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p><code>git remote</code> 列出每个远程仓库的简短名字。在克隆完某个项目后，至少可以看到一个名为 origin 的远程仓库<br><code>git remote -v</code> 显示对应的远程仓库地址。<code>-v</code> 为 <code>-verbose</code> 的简写。</p>
@@ -482,13 +482,15 @@
 <p>对远程仓库的重命名，也会使对应的分支名称发生变化。原来的 origin／master 分支现在成为了 sam／master。</p>
 </blockquote>
 <p>本地移除对应的远程仓库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote rm sam</span><br></pre></td></tr></table></figure></p>
-<h3 id="4-分支设置"><a href="#4-分支设置" class="headerlink" title="4. 分支设置"></a>4. 分支设置</h3><p>查看本地分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-分支管理"><a href="#4-分支管理" class="headerlink" title="4. 分支管理"></a>4. 分支管理</h3><p>查看本地分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure></p>
 <p>查看各个分支最后一个提交对象的信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -v</span><br></pre></td></tr></table></figure></p>
 <p>查看远程分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -r</span><br></pre></td></tr></table></figure></p>
 <p>查看所有分支，包括本地和远程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -a</span><br></pre></td></tr></table></figure></p>
 <p>创建分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch mytest1</span><br></pre></td></tr></table></figure></p>
 <p>切换分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout mytest1</span><br></pre></td></tr></table></figure></p>
 <p>创建并切换到该分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b mytest2</span><br></pre></td></tr></table></figure></p>
+<p>重命名分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -m existBranch newName</span><br></pre></td></tr></table></figure></p>
+<p>重命名当前分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -m newName</span><br></pre></td></tr></table></figure></p>
 <p>删除空分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d mytest1</span><br></pre></td></tr></table></figure></p>
 <p>删除有内容的分支，上方的命令会被拒绝，需要使用<code>-D</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -D mytest1</span><br></pre></td></tr></table></figure></p>
 <p>删除远程分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git push origin --delete mytest1 //git v1.70 以上</span><br><span class="line">// or</span><br><span class="line">git push origin :mytest1 //git v1.5.0以上 推送一个空的分支到远程分支。</span><br></pre></td></tr></table></figure></p>
@@ -767,7 +769,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-初始化"><span class="nav-text">1. 初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-用户名邮箱配置"><span class="nav-text">2. 用户名邮箱配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-远程仓库设置"><span class="nav-text">3. 远程仓库设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-分支设置"><span class="nav-text">4. 分支设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-获取远程分支代码"><span class="nav-text">5. 获取远程分支代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-上传代码到远程仓库"><span class="nav-text">6. 上传代码到远程仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-打tag"><span class="nav-text">7. 打tag</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-查看提交历史日志"><span class="nav-text">8. 查看提交历史日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-删除本地untrack-file"><span class="nav-text">9. 删除本地untrack file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-修改已经提交的信息"><span class="nav-text">10. 修改已经提交的信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-取消对某个工作区文件的修改"><span class="nav-text">11. 取消对某个工作区文件的修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-review-changes-查看文件的修改之处"><span class="nav-text">12. review changes 查看文件的修改之处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-其他命令"><span class="nav-text">13. 其他命令</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-初始化"><span class="nav-text">1. 初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-用户名邮箱配置"><span class="nav-text">2. 用户名邮箱配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-远程仓库管理"><span class="nav-text">3. 远程仓库管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-分支管理"><span class="nav-text">4. 分支管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-获取远程分支代码"><span class="nav-text">5. 获取远程分支代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-上传代码到远程仓库"><span class="nav-text">6. 上传代码到远程仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-打tag"><span class="nav-text">7. 打tag</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-查看提交历史日志"><span class="nav-text">8. 查看提交历史日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-删除本地untrack-file"><span class="nav-text">9. 删除本地untrack file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-修改已经提交的信息"><span class="nav-text">10. 修改已经提交的信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-取消对某个工作区文件的修改"><span class="nav-text">11. 取消对某个工作区文件的修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-review-changes-查看文件的修改之处"><span class="nav-text">12. review changes 查看文件的修改之处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-其他命令"><span class="nav-text">13. 其他命令</span></a></li></ol></div>
             
 
           </div>
@@ -787,7 +789,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-flag"></i>
   </span>
