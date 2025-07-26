@@ -105,7 +105,7 @@
 <meta property="og:image" content="http://champyin.com/images/agent-ui1.png">
 <meta property="og:image" content="http://champyin.com/images/agent-ui2.png">
 <meta property="og:image" content="http://champyin.com/images/disk-storage.png">
-<meta property="og:updated_time" content="2025-07-26T03:45:36.498Z">
+<meta property="og:updated_time" content="2025-07-26T03:59:35.250Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="开发一个本地化的 RAG 智能体">
 <meta name="twitter:description" content="2025 年，被称为“Agentic AI 元年”。 2025 年才过去一半，Agentic AI 已经从研究走向工程化，从单体走向多 Agent 协作，从云端走向本地系统级落地。同时，“数字劳动力”也悄然被 AI 智能体引入现实。 AI 智能体（AI Agent）让 AI 能够像人类一样完成任务、像团队一样协同工作、像助理一样主动服务。它正在重新定义各行各业的工作和协作方式，重塑世界的运转方">
@@ -475,7 +475,7 @@
 <p>2025 年，被称为“Agentic AI 元年”。</p>
 <p>2025 年才过去一半，Agentic AI 已经从研究走向工程化，从单体走向多 Agent 协作，从云端走向本地系统级落地。同时，“数字劳动力”也悄然被 AI 智能体引入现实。</p>
 <p>AI 智能体（AI Agent）让 AI 能够像人类一样完成任务、像团队一样协同工作、像助理一样主动服务。它正在重新定义各行各业的工作和协作方式，重塑世界的运转方式。我认为，在未来一种全新的协作范式 “人类定义目标，智能体执行路径”，将会成为默认常态。</p>
-<p>AI 智能体为什么有这么大的影响力？它的运行机制是什么？也许大家很轻易就能获取“答案”。在 AI 时代，最不愁的就是“获取答案”。但是，就像不能同时戴两块手表一样，面对生成式“答案”的众说纷纭，哪一个才是对的？或者说更接近对的？如何在 AI 面前保持清醒而准确的判断力，这将是未来的一大课题（Emm… 扯远了，回归正题）。</p>
+<p>AI 智能体为什么有这么大的影响力？它的本质是什么？也许大家很轻易就能获取“答案”。在 AI 时代，最不愁的就是“获取答案”。但是，就像不能同时戴两块手表一样，面对生成式“答案”的众说纷纭，哪一个才是对的？或者说更接近对的？如何在 AI 面前保持清醒而准确的判断力，这将是未来的一大课题（Emm… 扯远了，回归正题）。</p>
 <p>我打算通过开发一个智能体，来对 AI 智能体背后的逻辑和运行机制探索一二。</p>
 <p>Let’s do it！</p>
 </blockquote>
@@ -891,9 +891,9 @@
 <ul>
 <li>安装 Python</li>
 </ul>
-<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv install x.x.x <span class="comment"># Python 版本，例如 3.13、3.11</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv install x.x.x <span class="comment"># Python 版本</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>推荐大家安装 3.11 版本，不推荐太高的版本，坑多，别问我怎么知道的，都是泪😭。</p>
+<p>推推荐大家安装 3.11 版本，生态比较完备。不建议装太高的版本，我本地版本太高遇到一些坑，后面不得不降级到 3.11。</p>
 </blockquote>
 <ul>
 <li>配置 pyenv 环境变量（仅首次）<br>将以下代码加入 ~/.zshrc 或 ~/.bash_profile：</li>
@@ -904,7 +904,7 @@
 <ul>
 <li>设置当前项目用的 Python 版本</li>
 </ul>
-<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> 项目目录</span><br><span class="line">pyenv <span class="built_in">local</span> x.x.x <span class="comment"># Python 版本，例如 3.13、3.11</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> 项目目录</span><br><span class="line">pyenv <span class="built_in">local</span> x.x.x <span class="comment"># Python 版本</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>创建虚拟环境（可选，推荐）</li>
 </ul>
